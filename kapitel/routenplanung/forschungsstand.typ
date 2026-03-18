@@ -7,7 +7,7 @@ Um Lösungen in einem großen Lösungsraum zu finden werden spezielle Suchalgori
 
 === Exakte Methoden
 
-Exakte Methoden bezeichnen im Kontext von Optimierungsproblemen Ansätze, welche für jede Problemkonfiguration immer das globale Optimum des 
+Exakte Methoden bezeichnen im Kontext von Optimierungsproblemen Ansätze, welche für jede Problemkonfiguration immer das globale Optimum der Lösungen finden. 
 
   - liefern immer die optimale lösung eines optimierungsproblems @martiExactHeuristicMethods2022 S.27, @tahamiLiteratureReviewCombining2022
   - z.B. integer programming, dynamische programmierung, branch-and-bound, backtracking oder schlichtes brute forcing
