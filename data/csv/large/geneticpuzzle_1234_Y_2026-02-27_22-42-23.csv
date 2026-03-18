@@ -1,0 +1,22 @@
+Config(simulationDelay=10, popSize=1000, elitismPercentage=0.15, tournamentSize=3, tournamentAmount=36, maxGenerations=2000, maxStagnation=100, crossoverSwapAmount=2, crossoverChance=0.73, mutationChance=0.45), Dimensions(width=2150, height=1100, doorX=800, doorHeight=750, doorWidth=500)
+0,216,263
+1,160,437
+2,160,599
+3,66,695
+4,30,812
+5,30,942
+6,6,1050
+7,6,1153
+8,6,1258
+9,6,1361
+10,6,1463
+11,6,1562
+12,6,1690
+13,6,1814
+14,6,1944
+15,6,2083
+16,6,2211
+17,6,2319
+18,6,2426
+19,6,2523
+20,6,2639

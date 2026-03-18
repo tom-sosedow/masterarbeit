@@ -1,0 +1,3 @@
+Dimensions(width=800, height=550, doorX=250, doorHeight=350, doorWidth=250)
+#perms:958464, #sols:7826
+time:11969, cost:1
