@@ -6,7 +6,7 @@ In diesem Kapitel wird die Forschungsfrage I untersucht. Hierzu wird zunächst d
 
 == Problemdefinition <sec:ue-place-problem>
 // Umlenkelemente Einführung
-Um die Gitterstruktur des Garns in einem kontinuierlichen Zug ohne Unterbrechung herzustellen, sind Umkehrpunkte erforderlich. Nach #cite(<mechtcherineNeueCarbonfaserbewehrungFur2019>, form: "prose") existieren hierfür zwei grundsätzliche Ansätze: Zum einen kann das Garn spannungsfrei auf einer Oberfläche abgelegt werden, ähnlich dem Verfahren bei 3D-Druckern. Zum anderen kann die Ablage unter Spannung erfolgen, indem das Garn über unbewegliche Umlenkelemente (@UE) geführt wird.
+Um die Gitterstruktur des Garns in einem kontinuierlichen Zug ohne Unterbrechung herzustellen, sind Umkehrpunkte erforderlich. Nach #citep(<mechtcherineNeueCarbonfaserbewehrungFur2019>) existieren hierfür zwei grundsätzliche Ansätze: Zum einen kann das Garn spannungsfrei auf einer Oberfläche abgelegt werden, ähnlich dem Verfahren bei 3D-Druckern. Zum anderen kann die Ablage unter Spannung erfolgen, indem das Garn über unbewegliche Umlenkelemente (@UE) geführt wird.
 
 Beim @CBT wurde der zweite Ansatz gewählt. Zu diesem Zweck wurden zylinderförmige Körper aus Polytetrafluorethylen (PTFE, umgangssprachlich auch Teflon) gefertigt. Diese verfügen über eine magnetische Basis, wodurch sie von einem Roboterarm auf einer ferromagnetischen Platte frei in zwei Dimensionen positioniert werden können.
 
@@ -177,7 +177,7 @@ Werden Sonderstellen in den oberen Ecken des Türausschnitts vermieden, existier
 == Stand der Forschung
 Sowohl in der Forschung als auch in industriellen Anwendungen existiert nur wenig veröffentlichte Literatur zur Platzierung von Umlenkelementen.
 
-#cite(<merschAutomation3DRobotic2025>, form: "prose") untersuchten die automatisierte Garnablage für dreidimensionale Skelette, einschließlich der Planung der Bewegungsbahnen eines Roboterarms. Die räumlichen Positionen der Pins wurden dabei jedoch als gegeben und strukturell konsistent vorausgesetzt und nicht eigenständig berechnet. Darüber hinaus wurden keine Anforderungen an die Gleichmäßigkeit der resultierenden Struktur, beispielsweise in Form eines Gitters, gestellt.
+#citep(<merschAutomation3DRobotic2025>) untersuchten die automatisierte Garnablage für dreidimensionale Skelette, einschließlich der Planung der Bewegungsbahnen eines Roboterarms. Die räumlichen Positionen der Pins wurden dabei jedoch als gegeben und strukturell konsistent vorausgesetzt und nicht eigenständig berechnet. Darüber hinaus wurden keine Anforderungen an die Gleichmäßigkeit der resultierenden Struktur, beispielsweise in Form eines Gitters, gestellt.
 
 Im kreativen Bereich existieren hingegen Arbeiten, bei denen Künstler mithilfe von Algorithmen Bilder durch das Verlegen von Garn erzeugen (engl. String Art). Häufig dient dabei eine einfache geometrische Form, etwa ein Kreis oder Rechteck, als Rahmen @birsakStringArtComputational2018. Auf diesem Rahmen sind in regelmäßigen Abständen Pins angebracht, um welche das Garn entsprechend der gewünschten Detailtreue geführt wird.
 

@@ -14,6 +14,9 @@ Um eine gleichmäßige Gitterstruktur mit dem Carbongarn zu erzeugen werden die 
 #include "/kapitel/routenplanung/problemdefinition.typ"
 #include "/kapitel/routenplanung/forschungsstand.typ"
 #include "/kapitel/routenplanung/bewertung.typ"
+#include "/kapitel/routenplanung/punktbasiert.typ"
+#include "/kapitel/routenplanung/teilrouten.typ"
+
 
 
      

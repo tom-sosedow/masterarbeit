@@ -7,7 +7,9 @@
     ),
     GA: (
       short: "GA",
-      long: "Genetischer Algorithmus"
+      long: "Genetischer Algorithmus",
+      plural: "GA",
+      longplural: "genetische Algorithmen"
     ),
     CBT: (
       short: "CBT",
