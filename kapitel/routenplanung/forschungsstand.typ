@@ -28,39 +28,38 @@ Insgesamt weisen exakte Algorithmen insbesondere Schwierigkeiten im Umgang mit p
 
 === Heuristische Methoden
 
-Heuristiken sind Strategien, welche problemspezifische Informationen nutzen um vielversprechende Lösungskandidaten zu finden @fulber-garciaHeuristicsVsMetaHeuristics2022. Statt den Lösungsraum vollständig zu durchsuchen wird versucht sich schnell einem, gegebenenfalls lokalen, Optimum anzunähern und somit schnell eine Lösung zu produzieren, die unter Umständen schon gut genug ist #cite(<martiExactHeuristicMethods2022>, supplement: [S. 27]). Das wird erreicht, indem schlecht aussehende Lösungskandidaten frühzeitig weggeschnitten werden und somit nicht weiter in der Betrachtung vorkommen @harderExactAlgorithmHeuristic2023. Bekannte Heuristiken sind z.B. Greedy Ansätze oder die lokale Suche. Sie eignen sich oftmals bei großen Problemen mit vielen Einschränkungen, Rahmenbedingungen, Eingabeparametern oder komplexer Lösungsbewertung sowie nicht-linearen Problemen, bei denen exakte Methoden versagen @ahmedshabanMetaheuristicAlgorithmsEngineering2025.
+Heuristiken sind Strategien, die problemspezifische Informationen nutzen, um gezielt vielversprechende Lösungskandidaten zu identifizieren @fulber-garciaHeuristicsVsMetaHeuristics2022. Anstatt den gesamten Lösungsraum vollständig zu durchsuchen, verfolgen sie das Ziel, sich effizient einem, gegebenenfalls lokalen, Optimum anzunähern und somit in kurzer Zeit eine Lösung zu liefern, die unter Umständen bereits ausreichend gut ist #cite(<martiExactHeuristicMethods2022>, supplement: [S. 27]). Dies wird insbesondere dadurch erreicht, dass wenig aussichtsreiche Kandidaten frühzeitig verworfen und nicht weiter betrachtet werden @harderExactAlgorithmHeuristic2023. Zu den bekannten heuristischen Verfahren zählen beispielsweise Greedy-Ansätze sowie Verfahren der lokalen Suche. Sie erweisen sich insbesondere bei großen Problemstellungen mit zahlreichen Nebenbedingungen, Eingabeparametern oder komplexen Bewertungsfunktionen sowie bei nichtlinearen Problemen als geeignet, bei denen exakte Methoden an ihre Grenzen stoßen @ahmedshabanMetaheuristicAlgorithmsEngineering2025.
 
-Metaheuristiken sind höher geordnete Heuristiken welche eingesetzt werden, um untergeordnete Heuristiken für Optimierungsprobleme zu finden oder designen @blumMetaheuristicsCombinatorialOptimization2003. Sie sind generell poblemunspezifisch, da sie wenig Informationen über das zu lösende Problem besitzen. Somit können sie zur Lösung einer Vielzahl von Problemkategorien eingesetzt werden. Bekannte Metaheuristiken sind z.B. Ameisenkolonie-Algorithmen, Social-Spider Optimierungen oder evolutionäre Algorithmen @ahmedshabanMetaheuristicAlgorithmsEngineering2025.
+Metaheuristiken stellen eine übergeordnete Klasse von Heuristiken dar, die darauf abzielen, untergeordnete heuristische Verfahren für Optimierungsprobleme zu entwickeln oder zu steuern @blumMetaheuristicsCombinatorialOptimization2003. Im Gegensatz zu klassischen Heuristiken sind sie in der Regel problemunabhängig, da sie nur geringe spezifische Informationen über das zugrunde liegende Problem benötigen. Dadurch lassen sie sich auf eine Vielzahl unterschiedlicher Problemklassen anwenden. Zu den bekannten Metaheuristiken zählen unter anderem Ameisenkolonie-Algorithmen, Social-Spider-Optimierung sowie evolutionäre Algorithmen @ahmedshabanMetaheuristicAlgorithmsEngineering2025.
 
-Für den vorliegenden Anwendungsfall sind diese approximativen Ansätze ohne eine Garantie auf Optimalität zwar ungeeignet, bedingt durch die Größe des @TSP:pl mit bis zu 81 Knoten aber eventuell notwendig. Durch die anzusetzende Bewertungsfunktion können ggf. unzureichende Lösungen erkannt und die Berechnung im Zweifel neugestartet werden. Auch eine Warnung an den Auftraggeber könnte in diesem Fall eingesetzt werden.
+Für den vorliegenden Anwendungsfall sind diese approximativen Verfahren aufgrund der fehlenden Optimalitätsgarantie grundsätzlich ungeeignet. Angesichts der Größe des @TSP:pl mit bis zu 81 Knoten können sie jedoch unter Umständen erforderlich sein. Durch eine geeignete Bewertungsfunktion lassen sich potenziell unzureichende Lösungen identifizieren, sodass im Bedarfsfall eine erneute Berechnung initiiert werden kann. Alternativ könnte in solchen Fällen auch eine entsprechende Warnung an den Auftraggeber ausgegeben werden.
 
-Der bisher beste Lösungsansatz für das @TSP ist die Lin-Kernighan Heuristik, welche das Porblem mit einer Laufzeitkomplexität von $O(n^2)$ lösen kann @goyalSurveyTravellingSalesman @regoTravelingSalesmanProblem2011a. Die Implementierung davon ist allerdings sehr komplex, sodass sie sich nicht für den Einsatz im @CBT eignet @goyalSurveyTravellingSalesman. 
+Der derzeit leistungsfähigste Lösungsansatz für das @TSP ist die Lin-Kernighan-Heuristik, welche das Problem mit einer Laufzeitkomplexität von $O(n^2)$ lösen kann @goyalSurveyTravellingSalesman @regoTravelingSalesmanProblem2011a. Die praktische Implementierung dieses Verfahrens ist jedoch äußerst komplex, weshalb es sich nicht für den Einsatz im @CBT eignet @goyalSurveyTravellingSalesman.
 
-Eine oftmals eingesetzte Metaheuristik zum Lösen von @TSP:pl sind @GA:pl. @GA:pl sind inspiriert von biologischer Fortpflanzung und Evolution. Sie sind einfacher für Nicht-Informatiker zu verstehen und zu implementieren. Basierend auf lokaler Suche werden Konzepte aus der Evolutionsbiologie genutzt um iterativ eine Population von Lösungskandidaten zu manipulieren und sich somit schnell einem globalen Optimum anzunähern @tahamiLiteratureReviewCombining2022 @duanApplicationsHybridApproach2023a. Die Laufzeitkomplexität lässt sich nicht einfach bestimmen, da sie stark von der Wahl der Parameter und der Implementation abhängt @vyasExploringSolutionApproaches.
+Eine häufig eingesetzte Metaheuristik zur Lösung des @TSP:pl sind @GA:pl. Diese sind von biologischen Prozessen wie Fortpflanzung und Evolution inspiriert und zeichnen sich durch eine vergleichsweise einfache Verständlichkeit und Implementierbarkeit aus, insbesondere für Nicht-Informatiker. Aufbauend auf Konzepten der lokalen Suche werden Prinzipien der Evolutionsbiologie genutzt, um eine Population von Lösungskandidaten iterativ zu verändern und so eine Annäherung an ein globales Optimum zu erreichen @tahamiLiteratureReviewCombining2022 @duanApplicationsHybridApproach2023a. Die Laufzeitkomplexität ist dabei nicht eindeutig bestimmbar, da sie maßgeblich von der Wahl der Parameter sowie der konkreten Implementierung abhängt @vyasExploringSolutionApproaches.
 
-Nach #citep(<weickerEvolutionaereAlgorithmen2015>, supplement: [S. 39]) verlaufen @GA:pl in folgender Weise. Initial werden potenzielle Lösungen zufallsgeneriert. Diese bilden die anfängliche Population. Eine Kodierung der Lösungskandidaten wird vorgenommen, um sie in eine für die Verarbeitung nützliche Darstellungsform zu bringen, z. B. als Binärkodierung oder Permutationen. Anschließend wird jedes Individuum bewertet 
+Nach #citep(<weickerEvolutionaereAlgorithmen2015>, supplement: [S. 39]) verlaufen @GA:pl wie folgt: Zunächst erfolgt eine Kodierung der Lösungskandidaten, um diese in eine für die algorithmische Verarbeitung geeignete Darstellungsform zu überführen, beispielsweise in Form von Binärkodierungen oder Permutationen. Die weiteren Schritte basieren auf dieser Repräsentation. Zu Beginn werden $mu$ potenzielle Lösungen erzeugt, etwa durch zufällige Generierung, die die initiale Population bilden. Anschließend erfolgt die Bewertung jedes Individuums. Daraufhin wird iterativ eine Schleife durchlaufen, bis eine definierte Terminierungsbedingung erfüllt ist. Innerhalb dieser Schleife werden verschiedene biologisch inspirierte Operatoren angewendet: Zunächst werden aus der aktuellen Population, in der Regel basierend auf ihrer Fitness, geeignete Individuen als Eltern ausgewählt. Diese werden anschließend durch den Rekombinationsoperator paarweise kombiniert, um Nachkommen zu erzeugen. Die resultierenden Individuen werden daraufhin durch den Mutationsoperator modifiziert und erneut bewertet. Abschließend erfolgt eine Selektion aus der aktuellen Population sowie den neu erzeugten Nachkommen, bei der wiederum $mu$ Individuen für die nächste Generation bestimmt werden.
 
-  - ablauf nach @weickerEvolutionaereAlgorithmen2015 S. 39 (Algorithmus 2.6) 
-    - initial werden potentielle lösungen zufallsgeneriert
-      - bilden population
-      - kodierung durch nützliche darstellung, oft binäre repräsentationen oder permutationen
-    - population wird bewertet und durch einen selektionsprozess die besten kandidaten anhand der bewertung, durch bewertungsfunktion berechnet, ausgewählt
-    - diese pflanzen sich fort, was durch crossover und mutationsoperatoren simuliert wird
-      - crossover: zwei elternteile werden durch eine funktion miteinander rekombiniert und ergeben ein oder mehrere kindelemente
-      - mutation: nach dem crossover werden die entstandenen kindelemente modifiziert
-      - beide operatoren werden nur zu einer gewissen chance angewandt
-      - nach den operatoren kann eine reparatur der entstandenen genotypen nötig sein, falls die operatoren illegale kodierungen erzeugt haben
-    - aus den kindern entsteht dann die nächste generation.
-    - so wird die aktuelle generation stetig im mittel besser, aber es werden auch nicht-optimale lösungen weiter getragen um zu verhindern, dass in lokalen optima fest gehangen wird
-      - selektionsdruck
-    - operatoren haben zufallskomponenten, die, falls kein seed gegeben ist, den prozess nicht deterministisch machen, sodass nicht immer die optimale lösung gefunden werden kann #cite(<weickerEvolutionaereAlgorithmen2015>, supplement: [S.68])
-      - mit seed wird zwar immer dieselbe lösung gefunden, aber trotzdem nicht immer eine optimale
-  - hybride ansätze
-    - kombinieren klassiche exakte algorithmen mit heuristiken, um die optimalität zu gewährleisten und dabei den rechenaufwand zu minimieren
-      @duanApplicationsHybridApproach2023a, @tahamiLiteratureReviewCombining2022
-    - mit unterstützenden heuristiken kann der suchraum verkleinert werden, sodass (möglichst) nur vielversprechende lösungskandidaten betrachtet werden
-     @duanApplicationsHybridApproach2023a, @tahamiLiteratureReviewCombining2022
-    - bsp: greedy, depth-first-search, binäre suche, backtracking
-    - 2 arten der kombination @agarwalExactAlgorithmsCombinatorial2013:
-      - kollaborativ: tauschen informationen aus, aber sind nicht teil von einander. ausführung sequenziell oder parallel
-      - integriert: eine methode ist der hautpalgorithmus, die andere ein werkzeug welches während der ausführung für eine teilaufgabe ausgeführt/genutzt wird
+Die Hoffnung ist, dass die aktuelle Generation im Mittel immer besser wird und somit auch der beste Lösungskandidat nah ans globale Optimum herankommt. Die Operatoren dienen der Diversifizierung, sodass ein Festhängen in lokalen Optima vermieden wird. 
+
+Durch Zufallskomponenten in den Operatoren, wie beispielsweise Wahrscheinlichkeit der Mutation oder Rekombination, sind @GA:pl in der Regel nicht deterministisch. Wird der Seed des Zufallsgenerators jedoch bei jedem Durchlauf festgelegt, werden jedes Mal dieselben Lösungen produziert. Auf die Garantie der Optimalität hat dies keinen Einfluss #cite(<weickerEvolutionaereAlgorithmen2015>, supplement: [S.68]).
+
+#maybe[
+  - Selektionsdruck erklären? 
+  - Operatoren und deren Zweck näher erklären?
+  - Parameter für jeden Operator?
+]
+
+#maybe[
+- hybride ansätze
+  - kombinieren klassiche exakte algorithmen mit heuristiken, um die optimalität zu gewährleisten und dabei den rechenaufwand zu minimieren
+    @duanApplicationsHybridApproach2023a, @tahamiLiteratureReviewCombining2022
+  - mit unterstützenden heuristiken kann der suchraum verkleinert werden, sodass (möglichst) nur vielversprechende lösungskandidaten betrachtet werden
+    @duanApplicationsHybridApproach2023a, @tahamiLiteratureReviewCombining2022
+  - bsp: greedy, depth-first-search, binäre suche, backtracking
+  - 2 arten der kombination @agarwalExactAlgorithmsCombinatorial2013:
+    - kollaborativ: tauschen informationen aus, aber sind nicht teil von einander. ausführung sequenziell oder parallel
+    - integriert: eine methode ist der hauptalgorithmus, die andere ein werkzeug welches während der ausführung für eine teilaufgabe ausgeführt/genutzt wird
+]
+
+#todo[Abschließender Absatz für approx. Alg.]
