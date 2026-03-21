@@ -16,12 +16,29 @@
 
 #let maybe(body) = {
   box(
-    fill: rgb(255, 226, 122),
+    fill: rgb("#fef8b4"),
     inset: 8pt,
     radius: 6pt,
     baseline: 40%,
     [
-      #text(weight: "bold", fill: rgb(209, 152, 6), font: "JetBrains Mono")[💡 Idee:] #body
+      #text(weight: "bold", fill: rgb("#ff9008"), font: "JetBrains Mono")[💡 Idee:] #body
     ]
   )
+}
+
+#let question(body) = {
+  box(
+    fill: rgb("#bed5fe"),
+    inset: 8pt,
+    radius: 6pt,
+    baseline: 40%,
+    [
+      #text(weight: "bold", fill: rgb("#0635b5"), font: "JetBrains Mono")[🛈 Frage an Betreuer:]\
+       #body
+    ]
+  )
+}
+
+#let overarrow(content) = {
+  return $accent(content, arrow)$
 }

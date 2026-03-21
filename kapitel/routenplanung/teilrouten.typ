@@ -112,7 +112,7 @@
   - mit filter, welche stücke bei jedem schritt hinzugefügt werden dürfen, um ungültige permutationen herauszufiltern
     - bsp. LV nicht direkt nach RV, TV nur dazwischen, nicht neben TH, RH oder LH
   - ist also hybrider ansatz, nicht rein exakte methode
-- es wird immer die beste lösung gefunden #todo[ beweis?] @tahamiLiteratureReviewCombining2022
+- es wird immer die beste lösung gefunden @tahamiLiteratureReviewCombining2022
 - #maybe[ pseudocode?]
 
 - Ergebnisse siehe @tab:bruteforce-puzzle-res

@@ -13,7 +13,9 @@ $ V={(x_i, y_i, i) | i in {1,...,n}, x_i, y_i in NN_0^+} $
 sowie $ v_((x))=x_i "und" v_((y))=y_i "von" v_i in V $
 und die Wandbreite mit $0<= x_i <= w_b$ und Wandhöhe mit $0<= y_i <= w_h$ definiert. Der Graph ist vollständig, es ist also jeder Knoten mit jedem anderen Knoten durch eine Kante aus der Menge 
 $ E = { (v,w) | v, w in V} $
-verbunden. Die gesuchte Route wird durch $ R=(r_1, r_2,.., r_n), r_i in V, (r_(i), r_(i+1)) in E $ angegeben. Eine beispielhafte Route für eine kleine Wand ist in @fig:simple-route zu sehen. Es ist zu erkennen, dass manche @UE mehrmals angefahren werden müssen, wie zum Beispiel das @UE an Position $(4,3)$. Hier wird jeweils für die vertikalen und horizontalen Streben einmalig das @UE umfahren. Ebenfalls wird das in Pink markierte @UE an Position $(0,2)$ zweimalig angefahren; einmal für die horizontalen Streben und einmal für die letzte horizontale Strebe über dem Türausschnitt bevor die Route endet.
+verbunden. Die gesuchte Route $pi_R$ ist ein Element der Menge aller möglichen Routen $R$ definiert durch 
+$ R={(r_1, r_2,.., r_n) | r_i in V, (r_(i), r_(i+1)) in E} $ 
+Eine beispielhafte Route für eine kleine Wand ist in @fig:simple-route zu sehen. Es ist zu erkennen, dass manche @UE mehrmals angefahren werden müssen, wie zum Beispiel das @UE an Position $(4,3)$. Hier wird jeweils für die vertikalen und horizontalen Streben einmalig das @UE umfahren. Ebenfalls wird das in Pink markierte @UE an Position $(0,2)$ zweimalig angefahren; einmal für die horizontalen Streben und einmal für die letzte horizontale Strebe über dem Türausschnitt bevor die Route endet.
 
 #figure(
   image("/images/basic-route.png", width: 70%),
@@ -32,12 +34,12 @@ sowie das in @fig:simple-route Pink markierte @UE an der linken oder rechten Sei
 $ v_((y)) = t_(y,1) -1 and (v_((x)) = 0 or v_((x)) = "cols"-1), v in V $
 für ein Ende der Route und die letzte horizontale Strebe. 
 
-Ein ungünstiger Zusammenhang kann zwischen der Breite und Höhe des Türausschnitts entstehen. Wird das Padding ignoriert ($p=0$) und gilt sowohl $floor(t_b^* / r) mod 2 = 0$ als auch $floor(t_h^* / r) mod 2 = 1$, lässt sich eine Sonderstelle an der unteren linken Ecke des Türausschnitts nicht vermeiden. Dies gilt unabhängig davon, ob die Platzierung der @UE von der linken oder rechten Seite der Tür ausgeht, da sich dadurch auch die Positionen der @UE an der Oberseite der Tür und damit an der Oberseite der Wand verschieben.
+// Tür 2 Fälle
+Werden Sonderstellen in den oberen Ecken des Türausschnitts vermieden, existieren in der Regel lediglich zwei valide Möglichkeiten zur Anordnung der @UE an der Tür. Diese ergeben sich entweder durch eine Verschiebung aller @UE in eine Richtung oder durch eine Spiegelung einer gültigen Lösung entlang der y-Achse.
 
-Der Sachverhalt ist in @fig:sonderstelle-left-door-corner dargestellt. Würde die Routenplanung üblicherweise die Teilroute $(a,b,c,d)$ enthalten, könnte der Roboterarm nicht zwischen den @UE $b$ und $x$ hindurchfahren. 
-//Eine Anpassung der Teilroute durch Hinzufügen des @UE $x$ zwischen $b "und" c$ ist nötig, sodass die Teilroute schlussendlich . 
-Eine gesonderte Betrachtung ist bei der Routen- und Pfadplanung demnach unabdingbar.
+#todo[Sonderstellen untere Ecken der Tür, welche Bedingungen, Bild]
 
+Ein für die Routenplanung einer gleichmäßigen Gitterstruktur ungünstiger Zusammenhang besteht zwischen der Breite und Höhe des Türausschnitts. Gilt sowohl $floor(t_b^* / r) mod 2 = 0$ als auch $floor(t_h^* / r) mod 2 = 1$ (mit Padding $p=0$), lässt sich eine Sonderstelle an der unteren linken Ecke des Türausschnitts bei der Platzierung der @UE nicht vermeiden. Ein Start der Platzierung auf der rehcten statt der linken Seite des Türausschnitts spiegelt in diesem Fall das Problem auf die linke Seite der Tür. Der Sachverhalt ist in @fig:sonderstelle-left-door-corner dargestellt. Würde die Routenplanung üblicherweise die Teilroute $(a,b,c,d)$ enthalten, könnte der Roboterarm nicht zwischen den @UE $b$ und $x$ hindurch fahren. Eine gesonderte Betrachtung ist dieser Fälle ist demnach unabdingbar.
 
 #figure(
   stack(
@@ -123,11 +125,6 @@ Eine gesonderte Betrachtung ist bei der Routen- und Pfadplanung demnach unabding
       
     }),
   ),
-  caption: [Unvermeidbare Sonderstelle am Türausschnitt]
+  caption: [Unvermeidbare Sonderstelle am Türausschnitt, jeweils gespiegelt na der y-Achse bei gleichbleibenden Dimensionen]
 )<fig:sonderstelle-left-door-corner>
 
-Die Berechnungsdauer spielt im vorliegenden Anwendungsfall eher eine untergeordnete Rolle. Zwar ist eine möglichst kurze Rechenzeit wünschenswert, jedoch kann sie ohne Probleme mehrere Minuten bis in Extremfällen maximal eine Stunde dauern. Da das Temperieren des Harz getränkten Garns in etwa diese Zeit in Anspruch nimmt und ggf. auch mehrere gleiche Gitter abgelegt werden kann währenddessen eine anschließend benötigte Konfiguration berechnet werden.
-
-Zum Zeitpunkt der Verfassung dieser Arbeit können maximal 81 Umlenkelemente platziert werden und später weitere @UE hinzukommen, sodass es sich bei dem @TSP um ein vergleichsweise großes @TSP handelt. 
-
-Lösungsansätze sollten in der Implementierung und im zugrunde liegendem Konzept einfach anpassbar und verständlich sein. Da im @CBT größtenteils Menschen ohne Hintergrund in der Informatik arbeiten und zu Zwecken der Forschung und Entwicklung auch selbstständig kleinere Anpassungen vornehmen können müssen, sollte ein möglichst simpler Ansatz gewählt werden. 

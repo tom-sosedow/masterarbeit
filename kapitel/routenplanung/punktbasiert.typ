@@ -59,7 +59,7 @@
       - an schlüsselstellen werden mehrstufige tauschoperationen in der route benötigt, um zum globalen optimum zu kommen
 
 #figure(
-  image("/images/genetic_y_result.png"),
+  image("/images/genetic_y_result.png", width: 80%),
   caption: [Resultat GA für Wand $w_4$ unter Seed $s_2$],
 )<fig:res-genetic-y-img>
     

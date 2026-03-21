@@ -68,41 +68,29 @@ Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Die tatsächl
 // Math. Modell
 Der Radius der @UE wird mit $r$ bezeichnet, der Durchmesser ergibt sich zu $d = 2r$. Da die @UE stets um genau $d$ voneinander versetzt angeordnet werden, ergeben sich diskrete mögliche Positionen auf einem regelmäßigen Raster.
 
-Dadurch kann das Problem als Matrix $A$ modelliert werden, deren Anzahl an Spalten und Zeilen durch $"cols" = floor(w_b / d)$ und $"rows" = floor(w_h / d)$ gegeben ist.
-//In den Zellen der Matrix ist die Anzahl der an dieser Stelle abzulegenden @UE durch $a_(i j)$ beziffert. Um eine Position mehrmals anfahren zu können und dennoch einen Hammiltonweg unter den @UE finden zu können, werden an bestimmten Stellen mehrere @UE modelliert, auch wenn in der Praxis an dieser Stelle nur ein @UE platziert wird. 
+Die Position der @UE in diesem Raster kann modelliert werden durch eine Menge A von zweidimensionalen Koordinaten mit 
+$ A = {(x,y) | 0 <= x < "cols", 0 <= y < "rows", x,y in NN^+_0} $
+wobei durch $"cols" = floor(w_b / d)$ und $"rows" = floor(w_h / d)$ eine Rasterisierung der Echtwelt-Koordinaten vollzogen wird. Eine Einheit im Modell beträgt also $d$ Millimeter in der echten Welt.
+
 Der Türausschnitt wird durch ein Koordinatentupel der oberen linken Ecke $t_1 = (t_(x,1), t_(y,1))$ sowie der unteren rechten Ecke $t_2 = (t_(x,2), t_(y,2))$ beschrieben. Für die am Türausschnitt platzierten @UE gilt damit:
 
-$ forall u = (x,y) in R: t_(x,1) <= x <= t_(x,2) and y = t_(y,1) $
+$ t_(x,1) <= x <= t_(x,2) and y = t_(y,1) $
 
 Der Koordinatenursprung befindet sich in dieser Arbeit in der oberen linken Ecke. Die $x$-Achse verläuft nach rechts, die $y$-Achse nach unten in positiver Richtung. Entsprechend liegt die obere Wandkante bei $y=0$, die untere bei $y="rows"-1$, die linke Seite bei $x=0$ und die rechte bei $x="cols"-1$.
 
 // Restriktionen und Sachverhalte der Rollen
-Auf gegenüberliegenden Seiten der Struktur sind zwei @UE stets um $d$ Millimeter entlang der jeweiligen Seite versetzt angeordnet und alternieren zwischen beiden Seiten. Für vertikale Seiten mit den x-Koordinaten $x_1$ und $x_2$ sowie der Menge der @UE $R$ ergibt sich im Modell:
+Auf gegenüberliegenden Seiten der Struktur sind zwei @UE stets um $d$ Millimeter entlang der jeweiligen Seite versetzt angeordnet und alternieren zwischen beiden Seiten. Für zwei vertikale Seiten an den x-Koordinaten $(x_1, x_2) in {(0, t_(x,2)), (t_(x,1), "cols"-1)}$ ergibt sich im Modell:
 
-$ (exists y: (x_1,y) in R and 2<=y<="rows"-2) arrow \ (x_2, y+1) in R and (x_2, y-1) in R $
+$ (exists y: (x_1,y) in A and 2<=y<="rows"-2) arrow \ (x_2, y+1) in A and (x_2, y-1) in A $
 
-Analog gilt für horizontale Seiten mit den Koordinaten $y_1$ und $y_2$:
+Analog gilt für zwei horizontale Seiten mit den y-Koordinaten $(y_1, y_2) in {(0, "rows"-1), (0, t_(y,1))}$:
 
-$ (exists x: (x,y_1) in R and 2<=x<="cols"-2) arrow \ (x+1, y_2) in R and (x-1, y_2) in R $
-
+$ (exists x: (x,y_1) in A and 2<=x<="cols"-2) arrow \ (x+1, y_2) in A and (x-1, y_2) in A $
+#todo[Bereich, wo zwischen den Seiten gewechselt wird in Hauptrichtung, also wo die Tür in dieser Richtung endet, ist nicht gut dargestellt]
 In @fig:ue-placement-model (a) ist dieser Sachverhalt exemplarisch für zwei gegenüberliegende vertikale Seiten dargestellt.
 
 Durch die Anforderungen kann es in den Ecken der Wand dazu kommen, dass zwei @UE diagonal direkt nebeneinander platziert werden müssen (Sonderstellen), wie in @fig:ue-placement-model (b) dargestellt. Das Werkzeug des Roboters zum Ablegen des Garns passt durch die Lücke nicht dazwischen durch, was besondere Achtung bei der Pfadplanung erfordert. Bei dem Türausschnitt kann in den oberen beiden Ecken selbiges passieren, wobei es hier aber dazu führen würde, dass ein unregelmäßiger Abstand im Carbongitter entstehen würde. Aus diesem Grund ist es bei der Platzierung der @UE wichtig diesen Fall zu vermeiden.
 
-// Anzahl der Fälle
-Wird einer der Eingabeparameter um mindestens $d$ vergrößert, kann entlang der entsprechenden Hauptachse eine weitere @UE auf der gegenüberliegenden Seite platziert werden.
-
-Erhöht sich beispielsweise die Wandbreite auf $"cols"' = "cols" + 1$ und befindet sich das aktuell letzte @UE in der oberen rechten Ecke ($a = ("cols"-2,0)$), kann anschließend ein weiteres @UE in der unteren linken Ecke ($a' = ("cols"'-2, "rows"-1)$) platziert werden.
-
-Dadurch können sich die Positionen der diagonal benachbarten @UE ändern, was wiederum erhebliche Auswirkungen auf die anschließende Routenplanung hat. Wird die Breite anschließend erneut erhöht, befinden sich die Sonderstellen jedoch wieder an denselben Positionen wie vor den beiden Vergrößerungen. In diesem Fall kann dieselbe Route verwendet werden, allerdings mit zwei zusätzlichen @UE. 
-Dieser Sachverhalt gilt analog für alle fünf Eingabeparameter der Wand. Daraus ergeben sich insgesamt höchstens $N <= 2^5 = 32$ verschiedene mögliche Kombinationen von Sonderstellen.
-
-#maybe[Induktionsbeweis, dass Fall $w_b approx w_b + d$ ?]
-
-// Tür 2 Fälle
-Werden Sonderstellen in den oberen Ecken des Türausschnitts vermieden, existieren in der Regel lediglich zwei valide Möglichkeiten zur Anordnung der @UE an der Tür. Diese ergeben sich entweder durch eine Verschiebung aller @UE in eine Richtung oder durch eine Spiegelung einer gültigen Lösung entlang der y-Achse.
-
-#todo[Sonderstellen untere Ecken der Tür, welche Bedingungen, Bild]
 #let r = 0.4
 #figure(
   grid(
@@ -172,6 +160,16 @@ Werden Sonderstellen in den oberen Ecken des Türausschnitts vermieden, existier
   caption: [Veranschaulichung des Modells. Bezeichnungen in Rot stellen Werte in Millimetern dar. (a) Abstand zwischen den UE, (b) Sonderstelle in unterer rechter Ecke der Wand mit Padding $p=r$ ],
 ) <fig:ue-placement-model>
 
+// Anzahl der Fälle
+Wird einer der Eingabeparameter um mindestens $d$ vergrößert, kann entlang der entsprechenden Hauptachse eine weitere @UE auf der gegenüberliegenden Seite platziert werden.
+
+Erhöht sich beispielsweise die Wandbreite auf $"cols"' = "cols" + 1$ und befindet sich das aktuell letzte @UE in der oberen rechten Ecke ($a = ("cols"-2,0)$), kann anschließend ein weiteres @UE in der unteren linken Ecke ($a' = ("cols"'-2, "rows"-1)$) platziert werden.
+
+Dadurch können sich die Positionen der diagonal benachbarten @UE ändern, was wiederum erhebliche Auswirkungen auf die anschließende Routenplanung hat. Wird die Breite anschließend erneut erhöht, befinden sich die Sonderstellen jedoch wieder an denselben Positionen wie vor den beiden Vergrößerungen. In diesem Fall kann dieselbe Route verwendet werden, allerdings mit zwei zusätzlichen @UE. 
+Dieser Sachverhalt gilt analog für alle fünf Eingabeparameter der Wand. Daraus ergeben sich insgesamt höchstens $N <= 2^5 = 32$ verschiedene mögliche Kombinationen von Wanddimensionen bzw. Platzierungen von Sonderstellen.
+
+#maybe[Induktionsbeweis, dass Fall $w_b approx w_b + d$ ?]
+
 #todo[Anforderungen an den implementierten Alg.]
 
 == Stand der Forschung
@@ -185,6 +183,8 @@ Proprietäre Lösungen von Firmen wie Laarco Studio #footnote[Website: https://l
 , Letzter Zugriff: 15.03.2026] platzieren die Pins oder Nägel mithilfe eines Roboterarms auf einer freien Fläche und berechnen anschließend den Pfad des Garns so, dass vorgegebene Bilder möglichst präzise durch den resultierenden Faden dargestellt werden. Dabei wird in dunklen Bildbereichen mehr Garn verlegt, während helle Bereiche mit weniger Fäden dargestellt werden.
 
 Die Pins werden bereits im Vorfeld so positioniert, dass sie für die Struktur des Bildes günstig liegen, beispielsweise entlang der Konturen eines Gesichts oder mit geringerer Dichte in großen einfarbigen Flächen. Auch hier steht jedoch nicht die Erzeugung einer gleichmäßigen Struktur im Fokus. Erkenntnisse aus der entsprechenden Forschung wurden zudem nicht veröffentlicht.
+
+\
 
 Da keine relevanten Arbeiten zum hier betrachteten Problem identifiziert werden konnten und darüber hinaus spezifische Anforderungen und Restriktionen bestehen, ist die Entwicklung eines eigenen Lösungsansatzes erforderlich.
 
