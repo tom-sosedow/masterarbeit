@@ -2,21 +2,21 @@
 #import "@preview/cetz:0.4.2"
 
 = Platzierung der Umlenkelemente <sec:ue-platzierung>
-In diesem Kapitel wird die Forschungsfrage I untersucht. Hierzu wird zunächst das zugrunde liegende Problem definiert, abgegrenzt und mathematisch modelliert. Anschließend wird der aktuelle Stand der Forschung zu diesem Problem dargestellt. Darauf aufbauend wird eine Lösungsmethode entwickelt und erläutert. Abschließend erfolgt eine Bewertung des vorgestellten Ansatzes unter Berücksichtigung praxisrelevanter Anforderungen und Restriktionen sowie eine Darstellung der erzielten Ergebnisse.
+In diesem Kapitel wird die Forschungsfrage I bezüglich der Platzierung der @UE:pl:long  untersucht. Hierzu wird zunächst das zugrunde liegende Problem definiert, abgegrenzt und mathematisch modelliert. Anschließend wird der aktuelle Stand der Forschung zu diesem Problem dargestellt. Darauf aufbauend wird eine Lösungsmethode entwickelt und erläutert. Abschließend erfolgt eine Bewertung des vorgestellten Ansatzes unter Berücksichtigung praxisrelevanter Anforderungen und Restriktionen sowie eine Darstellung der erzielten Ergebnisse.
 
 == Problemdefinition <sec:ue-place-problem>
 // Umlenkelemente Einführung
 Um die Gitterstruktur des Garns in einem kontinuierlichen Zug ohne Unterbrechung herzustellen, sind Umkehrpunkte erforderlich. Nach #citep(<mechtcherineNeueCarbonfaserbewehrungFur2019>) existieren hierfür zwei grundsätzliche Ansätze: Zum einen kann das Garn spannungsfrei auf einer Oberfläche abgelegt werden, ähnlich dem Verfahren bei 3D-Druckern. Zum anderen kann die Ablage unter Spannung erfolgen, indem das Garn über unbewegliche Umlenkelemente (@UE) geführt wird.
 
-Beim @CBT wurde der zweite Ansatz gewählt. Zu diesem Zweck wurden zylinderförmige Körper aus Polytetrafluorethylen (PTFE, umgangssprachlich auch Teflon) gefertigt. Diese verfügen über eine magnetische Basis, wodurch sie von einem Roboterarm auf einer ferromagnetischen Platte frei in zwei Dimensionen positioniert werden können.
+Beim @CBT wurde der zweite Ansatz gewählt, da das in Harz getränkte Garn nach der Temperierung im Ofen sonst an der Ablageoberfläche haften würde. Aus diesem Grund werden zylinderförmige Körper aus Polytetrafluorethylen (PTFE, umgangssprachlich auch Teflon) eingesetzt, von denen die Garnstruktur später leichter zu lösen ist. Diese verfügen über eine magnetische Basis, wodurch sie von einem Roboterarm auf einer ferromagnetischen Platte frei in zwei Dimensionen positioniert werden können.
 
 // Eingabewerte
 Zu Beginn der Herstellung eines Carbongitters werden fünf Eingabeparameter benötigt: die Breite und Höhe der Wand ($w_b^*$ und $w_h^*$), die Breite und Höhe des Türausschnitts ($t_b^*$ und $t_h^*$) sowie der Abstand der linken Seite des Türausschnitts zur linken Wandkante ($t_x^*$). 
 
 // Schalungselemente
-Diese Maße können jedoch nicht unmittelbar als Grenzen für das Carbongitter verwendet werden. Nach der Erstellung des Gitters wird es in eine vorbereitete Schalung platziert. Diese besteht aus stählernen Schalungselementen die ebenfalls magnetisch auf einer Metallplatte befestigt werden. Die Schalungselemente verhindern beim Betonguss das Austreten des flüssigen Betons und dienen somit als Begrenzung der Wand. Zu diesen Elementen muss ein Abstand $p$, im Folgenden Padding genannt, eingehalten werden, damit das Carbongitter von Außen nicht sichtbar und geschützt im Beton liegt.
+Diese Maße können jedoch nicht unmittelbar als Grenzen für das Carbongitter verwendet werden. Nach der Erstellung des Gitters wird es in eine vorbereitete Schalung platziert. Diese besteht aus stählernen Schalungselementen, die ebenfalls magnetisch auf einer Metallplatte befestigt werden. Die Schalungselemente verhindern beim Betonguss das Austreten des flüssigen Betons und dienen somit als Begrenzung der Wand. Zu diesen Elementen muss ein Abstand $p$, im Folgenden Padding genannt, eingehalten werden, damit das Carbongitter geschützt und von Außen nicht sichtbar im Beton liegt.
 
-Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Die tatsächlich verfügbare Wandhöhe und -breite ergeben sich somit zu $w_h = w_h^* - 2p$ und $w_b = w_b^* - 2p$. Der Türausschnitt wird durch das doppelte Padding breiter, um Links und Rechts den Abstand zur Schalung zu wahren, also $t_b = t_b^* + 2p$. Der Türausschnitt wird aufgrund des notwendigen Abstands zur Schalung links und rechts um das doppelte Padding verbreitert, sodass $t_b = t_b^* + 2p$ gilt. Durch die reduzierte Wandbreite sowie das linke Padding an der Tür muss außerdem der Abstand zur linken Wandkante angepasst werden. Daher ergibt sich $t_x = t_x^* - 2p$. Die Höhe des Türausschnitts bleibt unverändert. Die Zusammenhänge sind in @fig:input-dimensions dargestellt. In Rot sind die Eingabeparameter und in Blau die tatsächlich zur Verfügung stehende Fläche nach Einbeziehung des Paddings markiert.
+Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Die tatsächlich verfügbare Wandhöhe und -breite ergibt sich somit zu $w_h = w_h^* - 2p$ und $w_b = w_b^* - 2p$. Der Türausschnitt wird aufgrund des notwendigen Abstands zur Schalung links und rechts um das doppelte Padding verbreitert, sodass $t_b = t_b^* + 2p$ gilt. Durch die reduzierte Wandbreite sowie das linke Padding an der Tür muss außerdem der Abstand zur linken Wandkante angepasst werden. Daher ergibt sich $t_x = t_x^* - 2p$. Die Höhe des Türausschnitts bleibt unverändert. Die Zusammenhänge sind in @fig:input-dimensions dargestellt. In Rot sind die Eingabeparameter und in Blau die tatsächlich zur Verfügung stehende Fläche nach Einbeziehung des Paddings markiert.
 
 #figure(
   cetz.canvas({
@@ -70,7 +70,7 @@ Der Radius der @UE wird mit $r$ bezeichnet, der Durchmesser ergibt sich zu $d = 
 
 Die Position der @UE in diesem Raster kann modelliert werden durch eine Menge A von zweidimensionalen Koordinaten mit 
 $ A = {(x,y) | 0 <= x < "cols", 0 <= y < "rows", x,y in NN^+_0} $
-wobei durch $"cols" = floor(w_b / d)$ und $"rows" = floor(w_h / d)$ eine Rasterisierung der Echtwelt-Koordinaten vollzogen wird. Eine Einheit im Modell beträgt also $d$ Millimeter in der echten Welt.
+wobei durch $"cols" = floor(w_b / d)$ und $"rows" = floor(w_h / d)$ eine Rasterung der Echtwelt-Koordinaten vollzogen wird. Eine Einheit im Modell beträgt also $d$ Millimeter in der echten Welt.
 
 Der Türausschnitt wird durch ein Koordinatentupel der oberen linken Ecke $t_1 = (t_(x,1), t_(y,1))$ sowie der unteren rechten Ecke $t_2 = (t_(x,2), t_(y,2))$ beschrieben. Für die am Türausschnitt platzierten @UE gilt damit:
 
@@ -89,7 +89,7 @@ $ (exists x: (x,y_1) in A and 2<=x<="cols"-2) arrow \ (x+1, y_2) in A and (x-1, 
 #todo[Bereich, wo zwischen den Seiten gewechselt wird in Hauptrichtung, also wo die Tür in dieser Richtung endet, ist nicht gut dargestellt]
 In @fig:ue-placement-model (a) ist dieser Sachverhalt exemplarisch für zwei gegenüberliegende vertikale Seiten dargestellt.
 
-Durch die Anforderungen kann es in den Ecken der Wand dazu kommen, dass zwei @UE diagonal direkt nebeneinander platziert werden müssen (Sonderstellen), wie in @fig:ue-placement-model (b) dargestellt. Das Werkzeug des Roboters zum Ablegen des Garns passt durch die Lücke nicht dazwischen durch, was besondere Achtung bei der Pfadplanung erfordert. Bei dem Türausschnitt kann in den oberen beiden Ecken selbiges passieren, wobei es hier aber dazu führen würde, dass ein unregelmäßiger Abstand im Carbongitter entstehen würde. Aus diesem Grund ist es bei der Platzierung der @UE wichtig diesen Fall zu vermeiden.
+Durch die Anforderungen kann es in den Ecken der Wand dazu kommen, dass zwei @UE diagonal direkt nebeneinander platziert werden müssen (Sonderstellen), wie in @fig:ue-placement-model (b) dargestellt. Das Werkzeug des Roboters zum Ablegen des Garns passt nicht in die Lücke dazwischen, was besondere Achtung bei der Pfadplanung erfordert. Bei dem Türausschnitt kann in den oberen beiden Ecken selbiges passieren, wobei es hier dazu führen würde, dass ein unregelmäßiger Abstand im Carbongitter entstehen müsste. Aus diesem Grund ist es bei der Platzierung der @UE wichtig diesen Fall zu vermeiden.
 
 #let r = 0.4
 #figure(
@@ -175,7 +175,7 @@ Dieser Sachverhalt gilt analog für alle fünf Eingabeparameter der Wand. Daraus
 == Stand der Forschung
 Sowohl in der Forschung als auch in industriellen Anwendungen existiert nur wenig veröffentlichte Literatur zur Platzierung von Umlenkelementen.
 
-#citep(<merschAutomation3DRobotic2025>) untersuchten die automatisierte Garnablage für dreidimensionale Skelette, einschließlich der Planung der Bewegungsbahnen eines Roboterarms. Die räumlichen Positionen der Pins wurden dabei jedoch als gegeben und strukturell konsistent vorausgesetzt und nicht eigenständig berechnet. Darüber hinaus wurden keine Anforderungen an die Gleichmäßigkeit der resultierenden Struktur, beispielsweise in Form eines Gitters, gestellt.
+#citep(<merschAutomation3DRobotic2025>) untersuchten die automatisierte Garnablage für dreidimensionale Skelette, einschließlich der Planung der Bewegungsbahnen eines Roboterarms. Die räumlichen Positionen der Pins werden dabei jedoch als gegeben und strukturell konsistent vorausgesetzt und nicht eigenständig berechnet. Darüber hinaus werden keine Anforderungen an die Gleichmäßigkeit der resultierenden Struktur, beispielsweise in Form eines Gitters, gestellt.
 
 Im kreativen Bereich existieren hingegen Arbeiten, bei denen Künstler mithilfe von Algorithmen Bilder durch das Verlegen von Garn erzeugen (engl. String Art). Häufig dient dabei eine einfache geometrische Form, etwa ein Kreis oder Rechteck, als Rahmen @birsakStringArtComputational2018. Auf diesem Rahmen sind in regelmäßigen Abständen Pins angebracht, um welche das Garn entsprechend der gewünschten Detailtreue geführt wird.
 
@@ -193,6 +193,8 @@ Da keine relevanten Arbeiten zum hier betrachteten Problem identifiziert werden 
 Aufgrund der begrenzten Möglichkeiten zur Platzierung der @UE am Türausschnitt, ohne die spätere Routenplanung stark einzuschränken, werden diese Positionen zuerst bestimmt. Standardmäßig wird dabei ein @UE in der unteren linken Ecke der Tür platziert, woraus sich die Positionen der übrigen @UE ableiten lassen.
 
 Aus den Positionen der @UE entlang der Seiten des Türausschnitts ergeben sich anschließend die Positionen der @UE an der linken und rechten Wandseite. Dabei wird jeweils an denjenigen Stellen ein @UE an der Wand platziert, an denen entlang des Türausschnitts eine Lücke besteht.
+
+#todo[Erklärungen ausbauen, wie sich die Position von UE aus den Positionen andere UE ergibt]
 
 Die @UE an der Oberkante des Türausschnitts bestimmen wiederum die Positionen der @UE an der Oberseite der Wand und damit indirekt auch an der Unterseite. Hierzu wird die Position des am weitesten links liegenden @UE an der Oberseite des Türausschnitts $(x,y)$ mit $t_x$ verglichen (in @fig:fully-placed-ue-wall blau dargestellt):
 $ omega = cases(
@@ -247,5 +249,3 @@ Wie in @sec:ue-place-problem dargestellt, existieren konzeptionell lediglich 32 
 )<fig:fully-placed-ue-wall>
 
 Die durchschnittliche Rechenzeit beträgt 0,08 Millisekunden, während die maximal gemessene Rechenzeit bei 24 Millisekunden über alle 32 Testläufe lag. Die Tests wurden auf einem Intel(R) Core(TM) i5-8350U Prozessor mit 24 GB Arbeitsspeicher durchgeführt.
-
-Der vorgestellte Ansatz erfüllt damit die Anforderungen an die Rechenzeit und kann ohne weitere Einschränkungen in der Produktion eingesetzt werden.
