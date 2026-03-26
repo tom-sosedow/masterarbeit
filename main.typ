@@ -19,14 +19,10 @@
 #show table.cell: set text(size: 10pt)
 #set text(size: 12pt, font: font)
 
-#include "data/smallplots.typ"
-#include "data/largeplots.typ"
-
 #include "kapitel/einleitung.typ"
 #include "kapitel/ue-platzierung.typ"
 #include "kapitel/routenplanung/index.typ"
 #include "kapitel/pfadfindung.typ"
 #include "kapitel/auswertung.typ"
 
-#pagebreak()
 #bibliography("refs.bib", style: "american-psychological-association")

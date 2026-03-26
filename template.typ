@@ -107,8 +107,9 @@
     paper: "a4",
   )
   set par(justify: true, leading: 1.5em, spacing: 1.5em)
-  show math.equation.where(block: true): set text(size: 14pt)
   set math.equation(numbering: "(1)")
+  show math.equation.where(block: true): set text(size: 14pt)
+  show math.equation.where(block: false): box
   show outline.entry: set block(above: 1.3em)
 
   show figure: it => {

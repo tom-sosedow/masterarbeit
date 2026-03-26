@@ -55,5 +55,7 @@
     ..geneticpuzzleX,
     ..geneticpuzzleY
   ),
-  caption: [Ergebnisse Puzzle GA für Wandkonfigurationen $w_3$ und $w_4$ mit Seed $s_1$ (min. Kosten: 15/6 und 6/6)],
+  caption: [Ergebnisse Puzzle GA für Wandkonfigurationen $w_3$ und $w_4$ mit Seed $s_1$ (min. Kosten: 15/1 und 1/1)],
 )
+
+
