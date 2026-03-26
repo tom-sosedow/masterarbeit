@@ -69,23 +69,23 @@ Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Die tatsächl
 Der Radius der @UE wird mit $r$ bezeichnet, der Durchmesser ergibt sich zu $d = 2r$. Da die @UE stets um genau $d$ voneinander versetzt angeordnet werden, ergeben sich diskrete mögliche Positionen auf einem regelmäßigen Raster.
 
 Die Position der @UE in diesem Raster kann modelliert werden durch eine Menge A von zweidimensionalen Koordinaten mit 
-$ A = {(x,y) | 0 <= x < "cols", 0 <= y < "rows", x,y in NN^+_0} $
-wobei durch $"cols" = floor(w_b / d)$ und $"rows" = floor(w_h / d)$ eine Rasterung der Echtwelt-Koordinaten vollzogen wird. Eine Einheit im Modell beträgt also $d$ Millimeter in der echten Welt.
+$ A = {(x,y) | 0 <= x < x_("max"), 0 <= y < y_("max"), x,y in NN^+_0} $
+wobei durch $x_("max") = floor(w_b / d)$ und $y_("max") = floor(w_h / d)$ eine Rasterung der Echtwelt-Koordinaten vollzogen wird. Eine Einheit im Modell beträgt also $d$ Millimeter in der echten Welt.
 
 Der Türausschnitt wird durch ein Koordinatentupel der oberen linken Ecke $t_1 = (t_(x,1), t_(y,1))$ sowie der unteren rechten Ecke $t_2 = (t_(x,2), t_(y,2))$ beschrieben. Für die am Türausschnitt platzierten @UE gilt damit:
 
 $ t_(x,1) <= x <= t_(x,2) and y = t_(y,1) $
 
-Der Koordinatenursprung befindet sich in dieser Arbeit in der oberen linken Ecke. Die $x$-Achse verläuft nach rechts, die $y$-Achse nach unten in positiver Richtung. Entsprechend liegt die obere Wandkante bei $y=0$, die untere bei $y="rows"-1$, die linke Seite bei $x=0$ und die rechte bei $x="cols"-1$.
+Der Koordinatenursprung befindet sich in dieser Arbeit in der oberen linken Ecke. Die $x$-Achse verläuft nach rechts, die $y$-Achse nach unten in positiver Richtung. Entsprechend liegt die obere Wandkante bei $y=0$, die untere bei $y=y_("max")-1$, die linke Seite bei $x=0$ und die rechte bei $x=x_("max")-1$.
 
 // Restriktionen und Sachverhalte der Rollen
-Auf gegenüberliegenden Seiten der Struktur sind zwei @UE stets um $d$ Millimeter entlang der jeweiligen Seite versetzt angeordnet und alternieren zwischen beiden Seiten. Für zwei vertikale Seiten an den x-Koordinaten $(x_1, x_2) in {(0, t_(x,2)), (t_(x,1), "cols"-1)}$ ergibt sich im Modell:
+Auf gegenüberliegenden Seiten der Struktur sind zwei @UE stets um $d$ Millimeter entlang der jeweiligen Seite versetzt angeordnet und alternieren zwischen beiden Seiten. Für zwei vertikale Seiten an den x-Koordinaten $(x_1, x_2) in {(0, t_(x,2)), (t_(x,1), x_("max")-1)}$ ergibt sich im Modell:
 
-$ (exists y: (x_1,y) in A and 2<=y<="rows"-2) arrow \ (x_2, y+1) in A and (x_2, y-1) in A $
+$ (exists y: (x_1,y) in A and 2<=y<=y_("max")-2) arrow \ (x_2, y+1) in A and (x_2, y-1) in A $
 
-Analog gilt für zwei horizontale Seiten mit den y-Koordinaten $(y_1, y_2) in {(0, "rows"-1), (0, t_(y,1))}$:
+Analog gilt für zwei horizontale Seiten mit den y-Koordinaten $(y_1, y_2) in {(0, y_("max")-1), (0, t_(y,1))}$:
 
-$ (exists x: (x,y_1) in A and 2<=x<="cols"-2) arrow \ (x+1, y_2) in A and (x-1, y_2) in A $
+$ (exists x: (x,y_1) in A and 2<=x<=x_("max")-2) arrow \ (x+1, y_2) in A and (x-1, y_2) in A $
 #todo[Bereich, wo zwischen den Seiten gewechselt wird in Hauptrichtung, also wo die Tür in dieser Richtung endet, ist nicht gut dargestellt]
 In @fig:ue-placement-model (a) ist dieser Sachverhalt exemplarisch für zwei gegenüberliegende vertikale Seiten dargestellt.
 
@@ -140,9 +140,9 @@ Durch die Anforderungen kann es in den Ecken der Wand dazu kommen, dass zwei @UE
         circle((0*r, 0*r), radius: (r,r))
         circle((-4*r, 0*r), radius: (r,r))
 
-        content((-10*r, 0*r), [$y="rows"-1$])
+        content((-10*r, 0*r), [$y=y_("max")-1$])
         line((-6*r, 0*r), (4*r, 0*r), stroke: (dash: "dashed", paint: darkgray))
-        content((2*r, 9*r), [$x="cols"-1$])
+        content((2*r, 9*r), [$x=x_("max")-1$])
         line((2*r, 8*r), (2*r, -2*r), stroke: (dash: "dashed", paint: darkgray))
 
         line((-6*r, -2*r), (4*r, -2*r))
@@ -163,7 +163,7 @@ Durch die Anforderungen kann es in den Ecken der Wand dazu kommen, dass zwei @UE
 // Anzahl der Fälle
 Wird einer der Eingabeparameter um mindestens $d$ vergrößert, kann entlang der entsprechenden Hauptachse eine weitere @UE auf der gegenüberliegenden Seite platziert werden.
 
-Erhöht sich beispielsweise die Wandbreite auf $"cols"' = "cols" + 1$ und befindet sich das aktuell letzte @UE in der oberen rechten Ecke ($a = ("cols"-2,0)$), kann anschließend ein weiteres @UE in der unteren linken Ecke ($a' = ("cols"'-2, "rows"-1)$) platziert werden.
+Erhöht sich beispielsweise die Wandbreite auf $x_("max")' = x_("max") + 1$ und befindet sich das aktuell letzte @UE in der oberen rechten Ecke ($a = (x_("max")-2,0)$), kann anschließend ein weiteres @UE in der unteren linken Ecke ($a' = (x_("max")'-2, y_("max")-1)$) platziert werden.
 
 Dadurch können sich die Positionen der diagonal benachbarten @UE ändern, was wiederum erhebliche Auswirkungen auf die anschließende Routenplanung hat. Wird die Breite anschließend erneut erhöht, befinden sich die Sonderstellen jedoch wieder an denselben Positionen wie vor den beiden Vergrößerungen. In diesem Fall kann dieselbe Route verwendet werden, allerdings mit zwei zusätzlichen @UE. 
 Dieser Sachverhalt gilt analog für alle fünf Eingabeparameter der Wand. Daraus ergeben sich insgesamt höchstens $N <= 2^5 = 32$ verschiedene mögliche Kombinationen von Wanddimensionen bzw. Platzierungen von Sonderstellen.
@@ -204,7 +204,7 @@ $ omega = cases(
   0 ", sonst"
 ) $
 Dabei beschreibt $omega$ den horizontalen Versatz der @UE an der Oberkante der Wand. Die Positionen der @UE ergeben sich damit zu:
-$ { (x + omega, 0) | 1 <= x < "cols"-1} $
+$ { (x + omega, 0) | 1 <= x < x_("max")-1} $
 
 #maybe[Vielleicht simplen Pseudocode einfügen, der den Ansatz ohne Müll zeigt?]
 

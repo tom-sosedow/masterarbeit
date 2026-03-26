@@ -31,7 +31,7 @@ $ { v mid(|) cases(
   ),  v in V
 } $
 sowie das in @fig:simple-route Pink markierte @UE an der linken oder rechten Seite der Wand direkt über dem Türausschnitt spezifiziert durch 
-$ v_((y)) = t_(y,1) -1 and (v_((x)) = 0 or v_((x)) = "cols"-1), v in V $
+$ v_((y)) = t_(y,1) -1 and (v_((x)) = 0 or v_((x)) = x_("max")-1), v in V $
 für ein Ende der Route und die letzte horizontale Strebe. 
 
 // Tür 2 Fälle
