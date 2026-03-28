@@ -8,6 +8,7 @@ In diesem Kapitel wird die Forschungsfrage I bezüglich der Platzierung der @UE:
 // Umlenkelemente Einführung
 Um die Gitterstruktur des Garns in einem kontinuierlichen Zug ohne Unterbrechung herzustellen, sind Umkehrpunkte erforderlich. Nach #citep(<mechtcherineNeueCarbonfaserbewehrungFur2019>) existieren hierfür zwei grundsätzliche Ansätze: Zum einen kann das Garn spannungsfrei auf einer Oberfläche abgelegt werden, ähnlich dem Verfahren bei 3D-Druckern. Zum anderen kann die Ablage unter Spannung erfolgen, indem das Garn über unbewegliche Umlenkelemente (@UE) geführt wird.
 
+// Haftung und Aufbau einer Rolle
 Beim @CBT wurde der zweite Ansatz gewählt, da das in Harz getränkte Garn nach der Temperierung im Ofen sonst an der Ablageoberfläche haften würde. Aus diesem Grund werden zylinderförmige Körper aus Polytetrafluorethylen (PTFE, umgangssprachlich auch Teflon) eingesetzt, von denen die Garnstruktur später leichter zu lösen ist. Diese verfügen über eine magnetische Basis, wodurch sie von einem Roboterarm auf einer ferromagnetischen Platte frei in zwei Dimensionen positioniert werden können.
 
 // Eingabewerte
@@ -16,6 +17,7 @@ Zu Beginn der Herstellung eines Carbongitters werden fünf Eingabeparameter ben�
 // Schalungselemente
 Diese Maße können jedoch nicht unmittelbar als Grenzen für das Carbongitter verwendet werden. Nach der Erstellung des Gitters wird es in eine vorbereitete Schalung platziert. Diese besteht aus stählernen Schalungselementen, die ebenfalls magnetisch auf einer Metallplatte befestigt werden. Die Schalungselemente verhindern beim Betonguss das Austreten des flüssigen Betons und dienen somit als Begrenzung der Wand. Zu diesen Elementen muss ein Abstand $p$, im Folgenden Padding genannt, eingehalten werden, damit das Carbongitter geschützt und von Außen nicht sichtbar im Beton liegt.
 
+// Verschiebung der Grenzen durch Abstand zur Schalung, Padding
 Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Die tatsächlich verfügbare Wandhöhe und -breite ergibt sich somit zu $w_h = w_h^* - 2p$ und $w_b = w_b^* - 2p$. Der Türausschnitt wird aufgrund des notwendigen Abstands zur Schalung links und rechts um das doppelte Padding verbreitert, sodass $t_b = t_b^* + 2p$ gilt. Durch die reduzierte Wandbreite sowie das linke Padding an der Tür muss außerdem der Abstand zur linken Wandkante angepasst werden. Daher ergibt sich $t_x = t_x^* - 2p$. Die Höhe des Türausschnitts bleibt unverändert. Die Zusammenhänge sind in @fig:input-dimensions dargestellt. In Rot sind die Eingabeparameter und in Blau die tatsächlich zur Verfügung stehende Fläche nach Einbeziehung des Paddings markiert.
 
 #figure(
@@ -78,7 +80,7 @@ $ t_(x,1) <= x <= t_(x,2) and y = t_(y,1) $
 
 Der Koordinatenursprung befindet sich in dieser Arbeit in der oberen linken Ecke. Die $x$-Achse verläuft nach rechts, die $y$-Achse nach unten in positiver Richtung. Entsprechend liegt die obere Wandkante bei $y=0$, die untere bei $y=y_("max")-1$, die linke Seite bei $x=0$ und die rechte bei $x=x_("max")-1$.
 
-// Restriktionen und Sachverhalte der Rollen
+// Restriktionen und Zickzackmster der Rollen
 Auf gegenüberliegenden Seiten der Struktur sind zwei @UE stets um $d$ Millimeter entlang der jeweiligen Seite versetzt angeordnet und alternieren zwischen beiden Seiten. Für zwei vertikale Seiten an den x-Koordinaten $(x_1, x_2) in {(0, t_(x,2)), (t_(x,1), x_("max")-1)}$ ergibt sich im Modell:
 
 $ (exists y: (x_1,y) in A and 2<=y<=y_("max")-2) arrow \ (x_2, y+1) in A and (x_2, y-1) in A $
@@ -89,6 +91,7 @@ $ (exists x: (x,y_1) in A and 2<=x<=x_("max")-2) arrow \ (x+1, y_2) in A and (x-
 #todo[Bereich, wo zwischen den Seiten gewechselt wird in Hauptrichtung, also wo die Tür in dieser Richtung endet, ist nicht gut dargestellt]
 In @fig:ue-placement-model (a) ist dieser Sachverhalt exemplarisch für zwei gegenüberliegende vertikale Seiten dargestellt.
 
+// Sonderstellen
 Durch die Anforderungen kann es in den Ecken der Wand dazu kommen, dass zwei @UE diagonal direkt nebeneinander platziert werden müssen (Sonderstellen), wie in @fig:ue-placement-model (b) dargestellt. Das Werkzeug des Roboters zum Ablegen des Garns passt nicht in die Lücke dazwischen, was besondere Achtung bei der Pfadplanung erfordert. Bei dem Türausschnitt kann in den oberen beiden Ecken selbiges passieren, wobei es hier dazu führen würde, dass ein unregelmäßiger Abstand im Carbongitter entstehen müsste. Aus diesem Grund ist es bei der Platzierung der @UE wichtig diesen Fall zu vermeiden.
 
 #let r = 0.4
@@ -175,8 +178,10 @@ Dieser Sachverhalt gilt analog für alle fünf Eingabeparameter der Wand. Daraus
 == Stand der Forschung
 Sowohl in der Forschung als auch in industriellen Anwendungen existiert nur wenig veröffentlichte Literatur zur Platzierung von Umlenkelementen.
 
+// TU Dresden
 #citep(<merschAutomation3DRobotic2025>) untersuchten die automatisierte Garnablage für dreidimensionale Skelette, einschließlich der Planung der Bewegungsbahnen eines Roboterarms. Die räumlichen Positionen der Pins werden dabei jedoch als gegeben und strukturell konsistent vorausgesetzt und nicht eigenständig berechnet. Darüber hinaus werden keine Anforderungen an die Gleichmäßigkeit der resultierenden Struktur, beispielsweise in Form eines Gitters, gestellt.
 
+// String Art
 Im kreativen Bereich existieren hingegen Arbeiten, bei denen Künstler mithilfe von Algorithmen Bilder durch das Verlegen von Garn erzeugen (engl. String Art). Häufig dient dabei eine einfache geometrische Form, etwa ein Kreis oder Rechteck, als Rahmen @birsakStringArtComputational2018. Auf diesem Rahmen sind in regelmäßigen Abständen Pins angebracht, um welche das Garn entsprechend der gewünschten Detailtreue geführt wird.
 
 Proprietäre Lösungen von Firmen wie Laarco Studio #footnote[Website: https://laarco.com/
@@ -186,16 +191,20 @@ Die Pins werden bereits im Vorfeld so positioniert, dass sie für die Struktur d
 
 \
 
+// Schlussfolgerung eigene Lösung
 Da keine relevanten Arbeiten zum hier betrachteten Problem identifiziert werden konnten und darüber hinaus spezifische Anforderungen und Restriktionen bestehen, ist die Entwicklung eines eigenen Lösungsansatzes erforderlich.
 
 == Lösungsmethode <sec:ue-placement-implementation>
 
+// Tür zuerst
 Aufgrund der begrenzten Möglichkeiten zur Platzierung der @UE am Türausschnitt, ohne die spätere Routenplanung stark einzuschränken, werden diese Positionen zuerst bestimmt. Standardmäßig wird dabei ein @UE in der unteren linken Ecke der Tür platziert, woraus sich die Positionen der übrigen @UE ableiten lassen.
 
+// vertikale Rollen links und rechts
 Aus den Positionen der @UE entlang der Seiten des Türausschnitts ergeben sich anschließend die Positionen der @UE an der linken und rechten Wandseite. Dabei wird jeweils an denjenigen Stellen ein @UE an der Wand platziert, an denen entlang des Türausschnitts eine Lücke besteht.
 
 #todo[Erklärungen ausbauen, wie sich die Position von UE aus den Positionen andere UE ergibt]
 
+// horizontale Rollen oben und unten, top offset
 Die @UE an der Oberkante des Türausschnitts bestimmen wiederum die Positionen der @UE an der Oberseite der Wand und damit indirekt auch an der Unterseite. Hierzu wird die Position des am weitesten links liegenden @UE an der Oberseite des Türausschnitts $(x,y)$ mit $t_x$ verglichen (in @fig:fully-placed-ue-wall blau dargestellt):
 $ omega = cases(
   0 ", falls" 2 divides.not t_(x,1) and t_(x,1) <= x <= t_(x,1)+1 and 2 divides.not (t_(x,2)-t_(x,1)),
@@ -208,6 +217,7 @@ $ { (x + omega, 0) | 1 <= x < x_("max")-1} $
 
 #maybe[Vielleicht simplen Pseudocode einfügen, der den Ansatz ohne Müll zeigt?]
 
+// Optionale Rollen in den Ecken
 In den äußersten Ecken der Wand sowie des Türausschnitts kann es außerdem vorkommen, dass die beiden nächstgelegenen @UE jeweils einen Abstand von mindestens $2d$ zur Ecke besitzen. In diesem Fall besteht die Möglichkeit, ein zusätzliches @UE zu platzieren, welches optional in der Routenplanung verwendet werden kann, um größere Freiheitsgrade bei der Gestaltung der Umlenkungen zu erhalten. In @fig:fully-placed-ue-wall sind diese zusätzlichen @UE grün dargestellt.
 
 Da Streben, die an diesen @UE enden, aus struktureller Sicht nicht erforderlich sind, müssen diese Elemente nicht zwingend in der Routenplanung berücksichtigt werden. Wird auf ihre Nutzung verzichtet, entfällt auch ihre Platzierung durch den Roboterarm, wodurch Zeit und Energie eingespart werden können.

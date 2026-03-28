@@ -8,10 +8,13 @@
 == Punktbasierte Planung <sec:route-pointbased>
 In klassischen @TSP:pl wird eine Permutation aller zu besuchenden Orte gesucht. Durch die Modellierung als Graphenproblem entsteht also die Frage, in welcher Reihenfolge die Knoten des Graphen entlang seiner Kanten besucht werden sollen. Da im vorliegenden Problem die @UE:pl die Knoten des Graphen repräsentieren, müssen Ansätze für eine punktbasierte Routenplanung von @UE zu @UE untersucht und evaluiert werden. 
 
+// Lösungsraum ath. Modell
 Der Lösungsraum ist dabei durch 
 $ Omega = {(v_1, v_2, ..., v_n) mid(|) cases(delim: #none, v_i in V and n = |V| and, forall i\,j in {1,..,n}: i!=j => v_i != v_j)} $
 definiert. Er beinhaltet $|Omega| = n!$ verschiedene Lösungen.
+
 === Exakte Methoden
+// Brute Force eher unpraktikabel
 Durch den schnell wachsenden Lösungsraum mit zunehmendem $n$ wird eine vollständige Aufzählung schnell unpraktikabel. Schon bei einem kleinen $n=15$ gibt es über $15! = 1,3 * 10^(12)$ Permutationen in $Omega$. Somit kommen bei den vorliegenden Problemgrößen Ansätze wie einfaches Brute-Forcing nicht in Frage.
 
 // - branch and bound bewertet unvollständige lösungen um bereits frühzeitig schlechte zweige abzuschneiden
@@ -19,8 +22,10 @@ Durch den schnell wachsenden Lösungsraum mit zunehmendem $n$ wird eine vollstä
 //   - dennoch: kann trotzdem schon routen wegschneiden, die bereits zu beginn in die flasche richtung gehen -> lower bound
 // - trotz branch and bound konnte für gängige wandgrößen keine lösung in akzeptabler zeit berechnet werden 
 
+// Backtracking
 Backtracking kann ein effizienterer Ansatz als Brute-Force sein, da invalide Teillösungen bereits frühzeitig aus der Betrachtung entfernt werden. Durch die Vollständigkeit des Graphen gibt es zwar keine invaliden Teillösungen im konventionellen Sinn, allerdings können durch bestimmte gewählte Kanten die Kosten bereits so hoch sein, dass absehbar ist, dass diese Teilroute keinen akzeptablen Lösungskandidat darstellen kann. Das kann beispielsweise beim Wählen von Kanten durch den Türausschnitt geschehen. Ein Schwellwert der Kosten kann also eingeführt werden, der als Invalidierungskriterium beim Backtracking dient. 
 
+// Parameter Backtracking für Pruning
 Für die Testläufe mit Backtracking wird der Schwellwert auf $50$ festgelegt, um so viele schlechte Lösungen wie möglich verwerfen zu können, ohne bei schwierigen Wandkonfigurationen eine optimale Lösung zu verwerfen. Teilrouten werden durch rekursive Traversierung eines impliziten Suchbaums generiert und anschließend bewertet. Übersteigen die Kosten den Schwellwert, werden die Kindelemente unter diesem Knoten und damit dieser Teil des Suchbaumes nicht weiter betrachtet. 
 
 // Mit der Menge aller Routen $R$ sei $R^*$ die Menge aller Teilrouten mit Elementen $r^* = (v_1,...,v_k) in R^*$. Backtracking ist dann eine rekursive Funktion definiert durch
@@ -31,6 +36,7 @@ Für die Testläufe mit Backtracking wird der Schwellwert auf $50$ festgelegt, u
 // ) 
 // $
 
+// Ergebnisse Backtracking
 Die Ergebnisse der Testläufe sind in @fig:res-backtrack-ab dargestellt. Bereits für die kleinen Wände $w_1$ und $w_2$ sind die Laufzeiten vergleichsweise hoch und stark schwankend zwischen Wandkonfigurationen ähnlicher Größe. Für $w_1$ wird dabei nach durchschnittlich 27 Sekunden und bei $w_2$ nach 93 Sekunden das Optimum gefunden. Da es sich um eine exakte Methode handelt, steht das finale Ergebnis allerdings erst nach durchschnittlich 163 Sekunden für $w_1$ bzw. 199 Sekunden für $w_2$ fest, nachdem alle notwendigen Knoten betrachtet wurden und der Algorithmus terminiert. Für die großen Wandkonfigurationen $w_3$ und $w_4$ konnte auch nach einer Stunde Laufzeit kein finales Ergebnis berechnet werden, sodass die aufgezeichneten Daten nicht in die Auswertung einfließen können.
 
 #backtrackABFigure<fig:res-backtrack-ab>

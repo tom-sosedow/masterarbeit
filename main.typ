@@ -16,9 +16,6 @@
   use-default-math-env: true,
 )
 
-#show table.cell: set text(size: 10pt)
-#set text(size: 12pt, font: font)
-
 #include "kapitel/einleitung.typ"
 #include "kapitel/ue-platzierung.typ"
 #include "kapitel/routenplanung/index.typ"

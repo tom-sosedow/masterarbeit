@@ -13,8 +13,8 @@ $ V={(x_i, y_i, i) | i in {1,...,n}, x_i, y_i in NN_0^+} $
 sowie $ v_((x))=x_i "und" v_((y))=y_i "von" v_i in V $
 und die Wandbreite mit $0<= x_i <= w_b$ und Wandhöhe mit $0<= y_i <= w_h$ definiert. Der Graph ist vollständig, es ist also jeder Knoten mit jedem anderen Knoten durch eine Kante aus der Menge 
 $ E = { (v,w) | v, w in V} $
-verbunden. Die gesuchte Route $pi_R$ ist ein Element der Menge aller möglichen Routen $R$, definiert durch 
-$ R={(r_1, r_2,.., r_n) | r_i in V, (r_(i), r_(i+1)) in E} $ 
+verbunden. Die gesuchte Route $pi$ ist Element der Menge aller möglichen Routen $R$, definiert durch 
+$ R={(pi(1), pi(2),.., pi(n)) | & pi(i) in V, forall i, j in {1,...,n}: \ & i != j => pi(i) != pi(j)} $ 
 Eine beispielhafte Route für eine kleine Wand ist in @fig:simple-route zu sehen. Es ist zu erkennen, dass manche @UE mehrmals angefahren werden müssen, wie zum Beispiel das @UE an Position $(4,3)$. Hier wird jeweils für die vertikalen und horizontalen Streben einmalig das @UE umfahren. Ebenfalls wird das in Pink markierte @UE an Position $(0,2)$ zweimalig angefahren; einmal für die horizontalen Streben und einmal für die letzte horizontale Strebe über dem Türausschnitt, bevor die Route endet.
 
 #figure(
@@ -37,6 +37,7 @@ für ein Ende der Route und die letzte horizontale Strebe.
 // Tür 2 Fälle
 Werden Sonderstellen in den oberen Ecken des Türausschnitts vermieden, existieren in der Regel lediglich zwei valide Möglichkeiten zur Anordnung der @UE an der Tür. Diese ergeben sich entweder durch eine Verschiebung aller @UE in eine Richtung oder durch eine Spiegelung einer gültigen Lösung entlang der y-Achse.
 
+// Sonderstelle an Tür
 Ein für die Routenplanung einer gleichmäßigen Gitterstruktur ungünstiger Zusammenhang besteht zwischen der Breite und Höhe des Türausschnitts. Gilt sowohl $floor(t_b^* / r) mod 2 = 0$ als auch $floor(t_h^* / r) mod 2 = 1$ (mit Padding $p=0$), lässt sich eine Sonderstelle an der unteren linken Ecke des Türausschnitts bei der Platzierung der @UE nicht vermeiden. Ein Start der Platzierung auf der rechten statt der linken Seite des Türausschnitts spiegelt in diesem Fall das Problem auf die linke Seite der Tür. Der Sachverhalt ist in @fig:sonderstelle-left-door-corner dargestellt. Würde die Routenplanung üblicherweise die Teilroute $(a,b,c,d)$ enthalten, könnte der Roboterarm nicht zwischen den @UE $b$ und $x$ hindurchfahren. Eine gesonderte Betrachtung dieser Fälle ist demnach unabdingbar.
 
 #figure(
