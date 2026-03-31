@@ -124,6 +124,6 @@ Ein für die Routenplanung einer gleichmäßigen Gitterstruktur ungünstiger Zus
       
     }),
   ),
-  caption: [Unvermeidbare Sonderstelle am Türausschnitt, jeweils gespiegelt na der y-Achse bei gleichbleibenden Dimensionen]
+  caption: [Unvermeidbare Sonderstelle am Türausschnitt, jeweils gespiegelt an der y-Achse bei gleichbleibenden Dimensionen]
 )<fig:sonderstelle-left-door-corner>
 

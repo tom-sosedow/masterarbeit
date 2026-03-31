@@ -1,21 +1,38 @@
 #import "/util.typ": *
 
 = Pfadfindung für Roboterarm <sec:path-finding>
+#todo[Einleitender Abschnitt zu dem Kapitel]
+
+Nachdem die Reihenfolge der anzufahrenden @UE:pl:long festgelegt wurde, ist im nächsten Schritt der konkrete Bewegungspfad des Roboterarms zu bestimmen. Ziel ist es dabei, das aus dem am Roboter montierten Werkzeug austretende Carbongarn so zu führen, dass es zuverlässig an den @UE:pl haftet und zugleich die gewünschte gleichmäßige Gitterstruktur entsteht.
 
 == Problemdefinition
-- nach route muss berechnet werden, wie der roboter fahren muss, um die gewünschte struktur zu erzeugen
-- dazu gehören u.A.: kollisionen vermeiden, garnhaftung an den rollen sicherstellen
+
+Im Rahmen der Planung der Bewegungsabläufe des Roboterarms sind mehrere Aspekte zu berücksichtigen. Neben der Festlegung der Umlaufrichtung um die jeweiligen @UE:pl spielt insbesondere die Kollisionserkennung und -vermeidung eine zentrale Rolle, sowohl mit @UE:pl als auch mit bereits verlegten Garnstreben. Darüber hinaus müssen Anforderungen wie die Aufrechterhaltung einer ausreichenden Garnspannung und die Sicherstellung der Haftung gegenüber vertikalem Abrutschen von den @UE einbezogen werden. Ferner ist auch die Überführung der geplanten Trajektorien in mit dem Roboter kompatible Bewegungsmuster erforderlich.
 
 // Werkzeug
-- werkzeug ist eine außermittig angebrachte, aufrecht stehende rolle über die das getränkte garn abgewickelt wird
-  - auch wenn sich die rolle um den werkzeugmittelpunkt drehen kann, ist für den roboterarm die werkzeugposition starr
-  - #todo[ Bild einfügen]
-- abstände zu @UE müssen eingehalten werden, damit werkzeug sich drehen kann und nicht in kontakt mit @UE kommt
+Zum Verlegen des Garns wird ein Werkzeug eingesetzt, das aus einer außermittig angebrachten, aufrecht stehenden Rolle besteht, über die das Garn in die Austrittsdüse geführt wird. Der Aufbau ist in @fig:werkzeug-garnablage abgebildet. Aufgrund der Rotierbarkeit des Werkzeugs kann es sich im Ganzen um den Mittelpunkt herum drehen, sobald seitliche Kräfte auf die Austrittsdüse einwirken. Dies ist beispielsweise der Fall, wenn um ein @UE gefahren wird. Durch die kontinuierliche Richtungsänderung der Kreisbewegung wird das Garn zum letzten Auflagepunkt am @UE gezogen, die Düse besitzt dabei allerdings noch dieselbe Orientierung. Die Rotation entsteht also automatisch, ohne Hilfe eines Motors. Für den Roboter ist diese Rotation irrelevant und kann nicht erkannt werden, da der Mittelpunkt des Werkzeugs statisch konfiguriert wird und keine Sensoren die aktuelle Rotation des Werkzeuges aufnehmen.
+Durch die Breite und Rotation des Werkzeugs muss beim Umfahren der @UE ein Mindestabstand eingehalten werden, damit sich das Werkzeug frei drehen kann.
 
-- für haftung und gleichmäßigkeit des gitters essentiell: in welcher umlaufrichtung um rollen fahren
--   uhrzeigersinn (R') oder entgegen (R)
-- falsche berechnung kann zu fehlerhaftem muster, kollisionen oder auslassungen führen
-  - #todo[ Bild einfügen: falsche umlenkung um rolle, gute umlenkung um rolle, ähnlich zu #cite(<merschAutomation3DRobotic2025>, form: "prose", supplement: [S.7])]
+#figure(
+  image("/images/roboter-werkzeug.jpg", width: 60%),
+  caption: [Werkzeug des Roboterarms zum Verlegen des Carbongarns]
+)<fig:werkzeug-garnablage>
+
+// Umlaufrichtung
+Für die Gleichmäßigkeit des Gittermusters ist entscheidend, in welcher Richtung die @UE:pl umfahren werden. Dabei wird, von oben auf den Ablagetisch gesehen, zwischen dem Uhrzeigersinn $R'$ und entgegen des Uhrzeigersinns $R$ unterschieden. Bei einer falsch gewählten Richtung entstehen keine achsenparallelen Streben, welche für die Lastverteilung und strukturelle Integrität unerlässlich sind. Der Zusammenhang ist in @fig:pfad-zu-muster dargestellt. Dargestellt ist eine Teilroute um die zwei @UE:pl:long $P$ und $Q$, für die je @UE drei Wegpunkte zum Abfahren durch den Roboter definiert wurden. Folgt der Roboterarm dem Pfad $(a,b,c,d,e,f)$, wie im linken Bild blau dargestellt, entstehen achsenparallele, horizontale Streben des Carbongarns (rot dargestellt). 
+Wird hingegen bei unveränderter Reihenfolge der anzufahrenden @UE die Umlaufrichtung invertiert, so ergibt sich effektiv eine Umkehr der lokalen Wegpunktreihenfolge. Die resultierende Sequenz lautet in diesem Fall $(c,b,a,f,e,d)$. Wie im rechten Teil der Abbildung zu erkennen ist, verlaufen die erzeugten Streben dadurch nicht mehr parallel, sondern weisen teilweise Kreuzungen auf.
+Analog dazu kann eine fehlerhafte Festlegung der zugehörigen Wegpunkte sowie ihrer Reihenfolge dazu führen, dass einzelne @UE:pl ausgelassen werden, Lücken in der Gitterstruktur entstehen oder Kollisionen mit benachbarten @UE auftreten @merschAutomation3DRobotic2025.
+
+#figure(
+  stack(
+    dir: ltr,
+    spacing: 10%,
+    image("/images/pfad-zu-muster-richtig.png", width: 45%),
+    image("/images/pfad-zu-muster-falsch.png", width: 45%),
+  ),
+ caption: [Pfad des Roboters (Blau) und daraus resultierende Garnstruktur (Rot) um zwei Umlenkelemente mit korrekter Umlaufrichtung (links) und vertauschter Umlaufrichtung (rechts)]
+)<fig:pfad-zu-muster>
+
 
 == Stand der Forschung
 - in string art @birsakStringArtComputational2018 gehen keine bestimmungen der pfade des roboters hervor

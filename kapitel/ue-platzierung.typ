@@ -175,7 +175,7 @@ Dieser Sachverhalt gilt analog für alle fünf Eingabeparameter der Wand. Daraus
 
 #todo[Anforderungen an den implementierten Alg.]
 
-== Stand der Forschung
+== Stand der Forschung <sec:ue-place-forschungsstand>
 Sowohl in der Forschung als auch in industriellen Anwendungen existiert nur wenig veröffentlichte Literatur zur Platzierung von Umlenkelementen.
 
 // TU Dresden
