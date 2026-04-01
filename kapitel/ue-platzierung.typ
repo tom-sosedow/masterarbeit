@@ -184,10 +184,11 @@ Sowohl in der Forschung als auch in industriellen Anwendungen existiert nur weni
 // String Art
 Im kreativen Bereich existieren hingegen Arbeiten, bei denen Künstler mithilfe von Algorithmen Bilder durch das Verlegen von Garn erzeugen (engl. String Art). Häufig dient dabei eine einfache geometrische Form, etwa ein Kreis oder Rechteck, als Rahmen @birsakStringArtComputational2018. Auf diesem Rahmen sind in regelmäßigen Abständen Pins angebracht, um welche das Garn entsprechend der gewünschten Detailtreue geführt wird.
 
-Proprietäre Lösungen von Firmen wie Laarco Studio #footnote[Website: https://laarco.com/
-, Letzter Zugriff: 15.03.2026] platzieren die Pins oder Nägel mithilfe eines Roboterarms auf einer freien Fläche und berechnen anschließend den Pfad des Garns so, dass vorgegebene Bilder möglichst präzise durch den resultierenden Faden dargestellt werden. Dabei wird in dunklen Bildbereichen mehr Garn verlegt, während helle Bereiche mit weniger Fäden dargestellt werden.
+Ein anderer Ansatz wird von #citep(<morris-hillBuildingStringArt2023>) oder Firmen wie Laarco Studio #footnote[Website: https://laarco.com/, Letzter Zugriff: 15.03.2026] verfolgt. Sie platzieren die Pins oder Nägel mithilfe eines Roboterarms auf einer freien Fläche und berechnen anschließend den Pfad des Garns so, dass vorgegebene Bilder möglichst präzise durch den resultierenden Faden dargestellt werden. Dabei wird in dunklen Bildbereichen mehr Garn verlegt, während helle Bereiche mit weniger Fäden dargestellt werden.
 
-Die Pins werden bereits im Vorfeld so positioniert, dass sie für die Struktur des Bildes günstig liegen, beispielsweise entlang der Konturen eines Gesichts oder mit geringerer Dichte in großen einfarbigen Flächen. Auch hier steht jedoch nicht die Erzeugung einer gleichmäßigen Struktur im Fokus. Erkenntnisse aus der entsprechenden Forschung wurden zudem nicht veröffentlicht.
+Während #citep(<morris-hillBuildingStringArt2023>) die Pins in einem gleichmäßigen Raster oder in zufällig gewählten Positionen aufstellt, werden bei Laarco Studios die Pins bereits im Vorfeld so positioniert, dass sie für die Struktur des Bildes günstig liegen, beispielsweise entlang der Konturen eines Gesichts oder mit geringerer Dichte in großen einfarbigen Flächen. Auch hier steht jedoch nicht die Erzeugung einer gleichmäßigen Struktur im Fokus. Erkenntnisse aus der entsprechenden Forschung wurden zudem nicht veröffentlicht.
+
+#todo[Bild einfügen: String Art mit Rahmen aus Nägeln und mit Nägeln innerhalb der Zeichenfläche]
 
 \
 

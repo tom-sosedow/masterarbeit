@@ -1,6 +1,6 @@
 #import "/util.typ": *
 
-= Pfadfindung für Roboterarm <sec:path-finding>
+= Pfadplanung für Roboterarm <sec:path-finding>
 #todo[Einleitender Abschnitt zu dem Kapitel]
 
 Nachdem die Reihenfolge der anzufahrenden @UE:pl:long festgelegt wurde, ist im nächsten Schritt der konkrete Bewegungspfad des Roboterarms zu bestimmen. Ziel ist es dabei, das aus dem am Roboter montierten Werkzeug austretende Carbongarn so zu führen, dass es zuverlässig an den @UE:pl haftet und zugleich die gewünschte gleichmäßige Gitterstruktur entsteht.
@@ -26,21 +26,26 @@ Analog dazu kann eine fehlerhafte Festlegung der zugehörigen Wegpunkte sowie ih
 #figure(
   stack(
     dir: ltr,
-    spacing: 10%,
-    image("/images/pfad-zu-muster-richtig.png", width: 45%),
-    image("/images/pfad-zu-muster-falsch.png", width: 45%),
+    spacing: 5%,
+    image("/images/pfad-zu-muster-richtig.png", width: 50%),
+    //line(start: (0%,2%), end: (0%, 13%)),
+    image("/images/pfad-zu-muster-falsch.png", width: 50%),
   ),
  caption: [Pfad des Roboters (Blau) und daraus resultierende Garnstruktur (Rot) um zwei Umlenkelemente mit korrekter Umlaufrichtung (links) und vertauschter Umlaufrichtung (rechts)]
 )<fig:pfad-zu-muster>
 
 
 == Stand der Forschung
-- in string art @birsakStringArtComputational2018 gehen keine bestimmungen der pfade des roboters hervor
-  - keine hindernisse, da die form konvex ist
-  - umlaufrichtung ist bei diesen schmalen nägeln praktisch irrelevant, da in beiden richtungen ein fast identisches bild erzeugt werden würde
-- die bestimmung der umlaufrichtung um die pins für 3d skelette nach @merschAutomation3DRobotic2025 können die gewonnenen erkenntnisse für das vorliegende problem teilweise appliziert werden
-  - ergebnisse der anwendung werden in @sec:path-direction näher betrachtet
-- die anforderung an gleichmäßige und flächenfüllende gitter erfordert allerdings weitere betrachtungen #todo[ ähnliche literatur für fehlendes?]
+
+Auch für das Problem der Pfadplanung lassen sich relevante Erkenntnisse aus dem Bereich der String Art ableiten. In den Arbeiten von #citep(<birsakStringArtComputational2018>) und #citep(<happelQuotemeImg2string2026>), die sich mit klassischer String Art innerhalb eines mit Nägeln bestückten Rahmens befassen, wird jedoch keine explizite Festlegung der Umlaufrichtung um die Nägel vorgenommen. Dies ist vermutlich darauf zurückzuführen, dass aufgrund der geringen Größe der Nägel beziehungsweise Pins der Unterschied zwischen verschiedenen Umlaufrichtungen vernachlässigbar ist. In der Praxis kann daher eine vollständige Umrundung in konstanter Richtung erfolgen, ohne das resultierende Bild wesentlich zu beeinflussen. Zudem sind die Rahmen im Allgemeinen konvex, sodass es keine Hindernisse innerhalb der Zeichenfläche gibt.
+
+Einen stärkeren Bezug zum vorliegenden Problem weist hingegen String Art auf, bei der die Nägel innerhalb der Zeichenfläche platziert werden. In einem Blogbeitrag beschreibt #citep(<morris-hillBuildingStringArt2023>) einen Ansatz, bei dem nach einer initialen Punkt-zu-Punkt-Planung ein konkreter Werkzeugpfad berechnet wird. Hierzu wird um die Nägel ein Sicherheitskreis beschrieben, dessen Radius größer ist als der der Nägel. Schneidet eine geplante Strecke einen solchen Sicherheitsbereich, wird die Laufbahn entsprechend angepasst, sodass das Werkzeug zwischen Ein- und Austrittspunkt entlang der Kreisbahn um den Nagel geführt wird. Dieser Ansatz zur Kollisionsvermeidung kann als konzeptionelle Grundlage für die im Folgenden entwickelte Vorgehensweise dienen.
+
+Für die Bestimmung der Umlaufrichtung um die @UE:pl:long können die Ergebnisse von #citep(<merschAutomation3DRobotic2025>) herangezogen werden. Obwohl hier primär dreidimensionale Skelette betrachtet werden, besteht auch in diesem Kontext die Anforderung, eine zuverlässige Haftung des aus unterschiedlichen Richtungen zugeführten Garns an den Pins sicherzustellen. Der zugrunde liegende Lösungsansatz hierfür lässt sich teilweise auf das vorliegende Problem applizieren und wird in @sec:path-direction näher betrachtet.
+
+Die spezifische Anforderung, gleichmäßig verteilte und zugleich flächenfüllende Streben zu erzeugen, ist in der bestehenden Literatur bislang nur unzureichend untersucht. Zudem lassen sich vorhandene Ansätze aufgrund teilweise in Konflikt stehender Anforderungen nicht auf das vorliegende Problem übertragen. Vor diesem Hintergrund sind weitere Betrachtungen diesbezüglich nötig.
+
+#todo[ ähnliche literatur für fehlendes?]
   
 == Bestimmung der Umlaufrichtung <sec:path-direction>
 // Umlaufrichtung: Bestimmung durch Vektor 
@@ -87,6 +92,9 @@ Analog dazu kann eine fehlerhafte Festlegung der zugehörigen Wegpunkte sowie ih
 
 
 == Kollisionen
+
+#todo[@morris-hillBuildingStringArt2023 Ansatz für Kollisionsvermeidung mit Kreisbahnen als Inspiration für meinen Ansatz nennen]
+
 // Problemdefinition
 - bei manchen verbindungen zwischen 2 @UE kann es zu kollisionen mit anderen @UE kommen, da sie zwischen start und zielpunkt eines berechneten teils des pfades liegen
 - durch entstehendes zickzack-muster würde der roboter bei den streben nahe der Tür mit deren @UE kollidieren
