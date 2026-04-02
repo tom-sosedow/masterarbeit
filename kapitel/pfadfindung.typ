@@ -100,12 +100,16 @@ lässt sich die Umlaufrichtung ableiten. Ist das Kreuzprodukt positiv, liegt $C$
   caption: [Vektorbasierte Bestimmung der Umlaufrichtung um einen Knoten $B$ basierend auf seinem Vorgänger und Nachfolger]
 )<fig:vektorbasierte-umlaufrichtung>
 
-Dieser Ansatz berechnet die Umlaufrichtung um $B$ herum unabhängig von der Lage der einzelnen Knoten und der Umlaufrichtung des vorherigen Knotens zuverlässig.
+Dieser Ansatz ermöglicht grundsätzlich eine robuste Bestimmung der Umlaufrichtung um $B$, unabhängig von der konkreten Lage der Knoten sowie der Umlaufrichtung am vorhergehenden Knoten.
 
 
 // Besondere Umlenkungen
 
-Beide gezeigten Ansätze versagen bei der Bestimmung der Umlaufrichtung bei Knoten, in denen sich die Hauptrichtung ändert. Die ist in @fig:vektorbasierte-umlaufrichtung-probleme exemplarisch dargestellt.
+Allerdings zeigen beide vorgestellten Verfahren Schwächen bei Knoten, an denen sich die Hauptrichtung der Route ändert. Dieser Sachverhalt ist exemplarisch in @fig:vektorbasierte-umlaufrichtung-probleme dargestellt. Die geplante Route ist dort in Weiß eingezeichnet. Da der Nachfolgeknoten von $B$ links der Verbindung zwischen dem Vorgänger von $B$ und $B$ selbst liegt, wird gemäß dem beschriebenen Kriterium eine Bewegung entgegen dem Uhrzeigersinn bestimmt.
+
+In diesem konkreten Fall führt diese Entscheidung jedoch zu einem unerwünschten Ergebnis. Es entsteht eine diagonal verlaufende vertikale Strebe, die in der Abbildung rot hervorgehoben ist. Zudem verläuft ein Abschnitt der folgenden horizontalen Strebe nicht achsenparallel zur x-Achse, da dieser zunächst unterhalb von $B$ geführt wird.
+
+Eine korrekte Lösung würde hingegen eine Umlaufbewegung im Uhrzeigersinn erfordern. Dadurch ließe sich sicherstellen, dass die abschließende vertikale Strebe achsenparallel zur y-Achse verläuft und zugleich der Beginn der ersten horizontalen Strebe achsenparallel zur x-Achse ausgerichtet ist. Da nicht bei allen Umlenkungen zur Änderung der Hauptrichtung ein solch fehlerhaftes Ergebnis entsteht, muss eine Regel zur Erkennung dieser Sonderfälle gefunden werden.
 
 #figure(
   cetz.canvas({
@@ -120,27 +124,28 @@ Beide gezeigten Ansätze versagen bei der Bestimmung der Umlaufrichtung bei Knot
 
     // bottom
     circle((2,0))
-    circle((4,20))
+    content((3,2), [$B$])
+    circle((4,18))
     circle((6,0))
     circle((10,0), stroke: (dash: "dashed"))
 
     //right vert
-    circle((20,2))
-    circle((20,6))
-    circle((20,10), stroke: (dash: "dashed"))
+    circle((18,2))
+    circle((18,6))
+    circle((18,10), stroke: (dash: "dashed"))
 
     // route
-    line((6,0), (4,20), mark:(end:">"))
-    line((4,20),(2,0), mark:(end:">"))
-    line((2,0),(20,2), mark:(end:">"))
+    line((6,0), (4,18), mark:(end:">"))
+    line((4,18),(2,0), mark:(end:">"))
+    line((2,0),(18,2), mark:(end:">"))
 
     arc((-0.5,0), start: 160deg, delta:150deg, radius: 2, mark: (end: ">"), stroke: (paint: red))
-    content((-2,-2), text(fill:red)[$R'$])
+    content((-2,-2), text(fill:red)[$R$])
 
     // falscher pfad
-    line((3,20), (0.8,0.3), stroke:(paint: red))
+    line((3,18), (0.8,0.3), stroke:(paint: red))
     arc((0.8,0.3), start: 160deg, delta:150deg, radius: 1.3, stroke: (paint: red))
-    line((5.5,1),(20,1), stroke: (paint: red))
+    line((5.5,1),(18,1), stroke: (paint: red))
     line((2.9,-1.1),(5.5,1), stroke: (paint: red))
 
 
@@ -148,28 +153,18 @@ Beide gezeigten Ansätze versagen bei der Bestimmung der Umlaufrichtung bei Knot
   caption: [Fehlerhafte Bestimmung der Umlaufrichtung bei Änderung der Umlaufrichtung]
 )<fig:vektorbasierte-umlaufrichtung-probleme>
 
-- beide ansätze versagen beim wechsel zwischen den in @sec:route-puzzle-based definierten bereichen
-- müssen gesondert betrachtet werden
-  - herzumlenkungen: pausieren des wechsels und volle umkreisungen machen
-    - #todo[ bild einfügen]
-  - problem: bei manchen fällen nicht trivial entscheidbar, wann es ein sonderfall ist und wann nicht
-- #todo[ lösung?]
+== Pfadgenerierung
 
 // Pfad um die UE herum
-- zur bestimmung des tatsächlichen pfades mithilfe der route und der umlaufrichtung:
-  - modellierung durch liste von anzufahrenden punkten, an denen keine @UE liegen
-- jede @UE hat jeweils einen ein- und ausgangspunkt
-  - mittelpunkt dazwischen erzeugt dann den bogen
-  - bestimmt durch position und den vorherigen und nachfolgenden knoten aus der route
-  - bsp.: rolle $i$ an rechter seite der wand mit vorgänger $i-1$ und nachfolger $i+1$, wobei $y_i = y_(i-1) + 1$
-    - mittelpunkt bei $(x_i+1, y_i)$, eingang bei $y_(i-1)$, ausgang bei $y_(i+1)$
-- dadurch entsteht punkttripel
-  - laufrichtung um rolle gibt an, ob reihenfolge des tripels invertiert wird oder nicht
-  - zu beachten: position des mittelpunktes kann auch umlaufrichtung flippen
-    - bsp: oben nach unten, mittelpkt rechts: im uhrzeigersinn, mittelpkt links: entgegen uhrzeigersinn
-- punkttripel wird an bestehenden pfad angehängt
+Sobald die Umlaufrichtung festgelegt ist, erfolgt im nächsten Schritt die Bestimmung der tatsächlich anzufahrenden Koordinaten. Dabei zeigt sich, dass die Streben im Wesentlichen daraus entstehen, dass der Roboter von einer Umlenkung in Hauptrichtung zur nächsten verfährt. Jede dieser Umlenkungen kann als eigenständiger Subpfad interpretiert werden, der jeweils einen Eintritts- und einen Austrittspunkt sowie eine beliebige Anzahl dazwischenliegender Punkte umfasst, die zur Erzeugung der Kreisbewegung erforderlich sind. In @fig:pfad-zu-muster entsprechen für das @UE $P$ die Punkte $a$ und $c$ dem Ein- beziehungsweise Austrittspunkt, während $b$ einen Zwischenpunkt zur Beschreibung der Halbkreisbewegung darstellt.
 
+Die konkrete Lage dieser Punkte hängt zum einen von der Position des jeweiligen @UE ab, zum anderen von den Positionen der Vorgänger- und Nachfolgeknoten in der Route. So befinden sich die Ein- und Austrittspunkte jeweils zwischen zwei benachbarten @UE, während der Zwischenpunkt immer außerhalb der Wandgrenzen liegt. Für den Bereich der oberen Türecken ergeben sich dabei zusätzliche Besonderheiten, da hier sowohl horizontale als auch vertikale Hauptrichtungen berücksichtigt werden müssen. Dies liegt darin begründet, dass diese Knoten zweimalig angefahren werden und somit zwei unterschiedliche Halbkreisbewegungen erforderlich sind.
 
+Die Reihenfolge, in der der Roboter die einzelnen Punkte anfährt, ergibt sich aus der zugrunde liegenden Route sowie der daraus abgeleiteten Hauptrichtung in der Teilroute. Durch die Verkettung aller Subpfade, die aus den einzelnen Umlenkungen hervorgehen, entsteht schließlich der vollständige Bewegungspfad, der zur Erzeugung der Gitterstruktur abgefahren werden muss.
+
+#todo[Beispielbild einfügen]
+
+#question[Soll ich erklären, wie ich aus der Punktliste die tatsächlichen Bewegungsschritte des Roboters generiere (LMOVE, C1MOVE, C2MOVE,...)? Oder ist das anwendungsspezifisches implementationsdetail, welches nicht in die Arbeit sollte (weil ja nicht jeder einen kawasaki robi nutzt)?]
 
 == Kollisionen
 
