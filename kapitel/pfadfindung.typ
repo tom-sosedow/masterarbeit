@@ -1,4 +1,5 @@
 #import "/util.typ": *
+#import "@preview/cetz:0.4.2"
 
 = Pfadplanung für Roboterarm <sec:path-finding>
 #todo[Einleitender Abschnitt zu dem Kapitel]
@@ -49,25 +50,104 @@ Die spezifische Anforderung, gleichmäßig verteilte und zugleich flächenfülle
   
 == Bestimmung der Umlaufrichtung <sec:path-direction>
 // Umlaufrichtung: Bestimmung durch Vektor 
-- für die bestimmung der umlaufrichtung wird unterschieden in gewöhnliche umlenkungen, wie sie bei den meisten @UE vollzogen wird, und den besonderen umlenkungen wie sie z.B. beim wechsel zwischen horizontalen und vertikalen streben vorgenommen wird, zumeist an den ecken der wand oder tür
-  - math. Definition für Herzumlenkung, besserer Name?
-- gewöhnliche umlenkungen: 2 ansätze zur bestimmung der umlaufrichtung, erste ist vektorbasiert nach @merschAutomation3DRobotic2025
-- math. Definition
-  - seien ein knotentripel $A, B "und" C$ aus der route
-  - zur bestimmung der umlaufrichtung um B wird das Kreuzprodukt aus dem Vektor von A nach B und dem #todo[(C-A?)] gebildet
-  - #todo[ math. Definition kreuzprodukt]
-  - das vorzeichen verrät die seite von C relativ zur geraden $overline("AB")$
-  - ist C rechts von $overline("AB")$ benötigt es eine umdrehung im uhrzeigersinn, links davon entgegen des uhrzeigersinns
-  - unabhängig von winkel im raum von $overline("AB")$
 
-// Umlaufrichtung: Bestimmung durch Umdrehen 
-- andererseits bestimmung durch knotenfärbung
-- bei jeder normalen umlenkung ändert sich die umlaufrichtung
-- modellierung als 2-Färbung des durch den pfad aufgespannten Graphen, 1 Farbe für eine Umlaufrichtung
-- ist stabil während normaler umlenkungen, aber korrekte initiale umlaufrichtung ist notwendig, da sonst das gesamte muster bis zu einer sonderumlenkung fehlerhaft wird
-  -  2-färbung nur in den teilgraphen zwischen den sonderumlenkungen 
+Für die Bestimmung der Umlaufrichtung muss in Umlenkungen in Hauptrichtung und zur Änderung der Hauptrichtung unterschieden werden. Bei den meisten @UE wird in Hauptrichtung umgelenkt. In den Ecken der Wand wird eine Änderung der Hauptrichtung vollzogen, sodass die Umlenkungen an diesen Stellen gesondert betrachtet werden müssen. Zu Bestimmung der Umlaufrichtung der Umlenkungen in Hauptrichtung werden zwei Ansätze untersucht. 
+
+Einerseits ist zu beobachten, dass die Umlaufrichtung bei jeder Umlenkung invertiert wird, solang die Hauptrichtung beibehalten wird. Für die in @sec:route-puzzle-based beschriebenen Subgraphen wird also eine 2-Färbung des Graphen gesucht, wobei jede Farbe eine Umlaufrichtung darstellt. Da die Teilroute einen linearen Subgraph aufspannt, gibt es lediglich zwei Möglichkeiten einer 2-Färbung des Graphen, welche von der Färbung des initialen Knotens abhängen. Es müssen also für den Start jeder Teilroute Regeln gefunden werden, welche Färbung der erste Knoten besitzen muss. Eine falsche Zuweisung würde zu vertauschten Umlenkungen in der gesamten Teilroute erzeugen. 
+
+
+#todo[Schaubild zur verdeutlichung. Korrekter subgraph -> inkorrekter subgraph]
+
+Eine weitere Methode zur Bestimmung der Umlaufrichtung basiert auf einem vektoriellen Ansatz nach #citep(<merschAutomation3DRobotic2025>). Zur Bestimmung der Umlaufrichtung an einem @UE:long $B$ mit Position $overarrow(b)$ werden dessen Vorgänger $A$ mit Position $overarrow(a)$ sowie sein Nachfolger $C$ mit Position $overarrow(c)$ in der Route betrachtet.
+
+Aus dem Vorzeichen des Kreuzprodukts
+$p = (overarrow(b) - overarrow(a)) times (overarrow(c) - overarrow(a))$
+lässt sich die Umlaufrichtung ableiten. Ist das Kreuzprodukt positiv, liegt $C$ links des Vektors von $A$ nach $B$; bei einem negativen Wert entsprechend rechts davon. Befindet sich $C$ rechts des Vektors $overarrow(b) - overarrow(a)$, ist eine Bewegung im Uhrzeigersinn um $B$ erforderlich, während bei einer Lage auf der linken Seite eine Umlaufbewegung entgegen dem Uhrzeigersinn gewählt wird. Der Sachverhalt ist in @fig:vektorbasierte-umlaufrichtung für $R'$ (links) und $R$ (rechts) dargestellt.
+
+#figure(
+  cetz.canvas({
+    import cetz.draw: *
+
+    scale(0.5)
+    circle((0,0))
+    content((2,0), [A])
+    circle((5,8))
+    content((3,8), [B])
+    line((0,0),(5,8), mark: (end: ">"))
+    arc((4.5,9.5), start: 120deg, delta: -150deg, radius: 1.5, mark: (start: ">"), stroke: (paint: blue))
+    content(((7.5,9.5)), text(fill: blue)[$R$])
+
+    circle((-4, 4))
+    line((5,8), (-4,4), mark: (end: ">"), stroke:(dash: "dashed", paint: gray))
+    content((-4,2), [C])
+
+    scale(x: -1, y: 1)
+    translate(x: 14)
+
+    circle((6,0))
+    content((4,0), [A])
+    circle((3,8))
+    content((1,8), [B])
+    line((6,0),(3,8), mark: (end: ">"))
+    arc((2.5,9.5), start: 120deg, delta: -150deg, radius: 1.5, mark: (start: ">"), stroke: (paint: red))
+
+    circle((-4, 4))
+    line((3,8), (-4,4), mark: (end: ">"), stroke:(dash: "dashed", paint: gray))
+    content((-4,2), [C])
+    content(((5.5,9.5)), text(fill: red)[$R'$])
+
+  }),
+  caption: [Vektorbasierte Bestimmung der Umlaufrichtung um einen Knoten $B$ basierend auf seinem Vorgänger und Nachfolger]
+)<fig:vektorbasierte-umlaufrichtung>
+
+Dieser Ansatz berechnet die Umlaufrichtung um $B$ herum unabhängig von der Lage der einzelnen Knoten und der Umlaufrichtung des vorherigen Knotens zuverlässig.
+
 
 // Besondere Umlenkungen
+
+Beide gezeigten Ansätze versagen bei der Bestimmung der Umlaufrichtung bei Knoten, in denen sich die Hauptrichtung ändert. Die ist in @fig:vektorbasierte-umlaufrichtung-probleme exemplarisch dargestellt.
+
+#figure(
+  cetz.canvas({
+    import cetz.draw: *
+
+    scale(0.3)
+
+    // left vert
+    circle((0,4))
+    circle((0,8))
+    circle((0,12), stroke: (dash: "dashed"))
+
+    // bottom
+    circle((2,0))
+    circle((4,20))
+    circle((6,0))
+    circle((10,0), stroke: (dash: "dashed"))
+
+    //right vert
+    circle((20,2))
+    circle((20,6))
+    circle((20,10), stroke: (dash: "dashed"))
+
+    // route
+    line((6,0), (4,20), mark:(end:">"))
+    line((4,20),(2,0), mark:(end:">"))
+    line((2,0),(20,2), mark:(end:">"))
+
+    arc((-0.5,0), start: 160deg, delta:150deg, radius: 2, mark: (end: ">"), stroke: (paint: red))
+    content((-2,-2), text(fill:red)[$R'$])
+
+    // falscher pfad
+    line((3,20), (0.8,0.3), stroke:(paint: red))
+    arc((0.8,0.3), start: 160deg, delta:150deg, radius: 1.3, stroke: (paint: red))
+    line((5.5,1),(20,1), stroke: (paint: red))
+    line((2.9,-1.1),(5.5,1), stroke: (paint: red))
+
+
+  }),
+  caption: [Fehlerhafte Bestimmung der Umlaufrichtung bei Änderung der Umlaufrichtung]
+)<fig:vektorbasierte-umlaufrichtung-probleme>
+
 - beide ansätze versagen beim wechsel zwischen den in @sec:route-puzzle-based definierten bereichen
 - müssen gesondert betrachtet werden
   - herzumlenkungen: pausieren des wechsels und volle umkreisungen machen

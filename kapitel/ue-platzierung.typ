@@ -81,6 +81,9 @@ $ t_(x,1) <= x <= t_(x,2) and y = t_(y,1) $
 Der Koordinatenursprung befindet sich in dieser Arbeit in der oberen linken Ecke. Die $x$-Achse verläuft nach rechts, die $y$-Achse nach unten in positiver Richtung. Entsprechend liegt die obere Wandkante bei $y=0$, die untere bei $y=y_("max")-1$, die linke Seite bei $x=0$ und die rechte bei $x=x_("max")-1$.
 
 // Restriktionen und Zickzackmster der Rollen
+
+#todo[Hauptrichtung und Nebenrichtung einführen]
+
 Auf gegenüberliegenden Seiten der Struktur sind zwei @UE stets um $d$ Millimeter entlang der jeweiligen Seite versetzt angeordnet und alternieren zwischen beiden Seiten. Für zwei vertikale Seiten an den x-Koordinaten $(x_1, x_2) in {(0, t_(x,2)), (t_(x,1), x_("max")-1)}$ ergibt sich im Modell:
 
 $ (exists y: (x_1,y) in A and 2<=y<=y_("max")-2) arrow \ (x_2, y+1) in A and (x_2, y-1) in A $
