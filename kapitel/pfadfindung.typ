@@ -107,10 +107,6 @@ Dieser Ansatz ermöglicht grundsätzlich eine robuste Bestimmung der Umlaufricht
 
 Allerdings zeigen beide vorgestellten Verfahren Schwächen bei Knoten, an denen sich die Hauptrichtung der Route ändert. Dieser Sachverhalt ist exemplarisch in @fig:vektorbasierte-umlaufrichtung-probleme dargestellt. Die geplante Route ist dort in Weiß eingezeichnet. Da der Nachfolgeknoten von $B$ links der Verbindung zwischen dem Vorgänger von $B$ und $B$ selbst liegt, wird gemäß dem beschriebenen Kriterium eine Bewegung entgegen dem Uhrzeigersinn bestimmt.
 
-In diesem konkreten Fall führt diese Entscheidung jedoch zu einem unerwünschten Ergebnis. Es entsteht eine diagonal verlaufende vertikale Strebe, die in der Abbildung rot hervorgehoben ist. Zudem verläuft ein Abschnitt der folgenden horizontalen Strebe nicht achsenparallel zur x-Achse, da dieser zunächst unterhalb von $B$ geführt wird.
-
-Eine korrekte Lösung würde hingegen eine Umlaufbewegung im Uhrzeigersinn erfordern. Dadurch ließe sich sicherstellen, dass die abschließende vertikale Strebe achsenparallel zur y-Achse verläuft und zugleich der Beginn der ersten horizontalen Strebe achsenparallel zur x-Achse ausgerichtet ist. Da nicht bei allen Umlenkungen zur Änderung der Hauptrichtung ein solch fehlerhaftes Ergebnis entsteht, muss eine Regel zur Erkennung dieser Sonderfälle gefunden werden.
-
 #figure(
   cetz.canvas({
     import cetz.draw: *
@@ -150,8 +146,12 @@ Eine korrekte Lösung würde hingegen eine Umlaufbewegung im Uhrzeigersinn erfor
 
 
   }),
-  caption: [Fehlerhafte Bestimmung der Umlaufrichtung bei Änderung der Umlaufrichtung]
+  caption: [Fehlerhafte Bestimmung der Umlaufrichtung bei Änderung der Hauptrichtung]
 )<fig:vektorbasierte-umlaufrichtung-probleme>
+
+In diesem konkreten Fall führt diese Entscheidung jedoch zu einem unerwünschten Ergebnis. Es entsteht eine diagonal verlaufende vertikale Strebe, die in der Abbildung rot hervorgehoben ist. Zudem verläuft ein Abschnitt der folgenden horizontalen Strebe nicht achsenparallel zur x-Achse, da dieser zunächst unterhalb von $B$ geführt wird.
+
+Eine korrekte Lösung würde hingegen eine Umlaufbewegung im Uhrzeigersinn erfordern. Dadurch ließe sich sicherstellen, dass die abschließende vertikale Strebe achsenparallel zur y-Achse verläuft und zugleich der Beginn der ersten horizontalen Strebe achsenparallel zur x-Achse ausgerichtet ist. Da nicht bei allen Umlenkungen zur Änderung der Hauptrichtung ein solch fehlerhaftes Ergebnis entsteht, muss eine Regel zur Erkennung dieser Sonderfälle gefunden werden.
 
 == Pfadgenerierung
 
