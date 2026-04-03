@@ -55,9 +55,6 @@ Für die Bestimmung der Umlaufrichtung muss in Umlenkungen in Hauptrichtung und 
 
 Einerseits ist zu beobachten, dass die Umlaufrichtung bei jeder Umlenkung invertiert wird, solang die Hauptrichtung beibehalten wird. Für die in @sec:route-puzzle-based beschriebenen Subgraphen wird also eine 2-Färbung des Graphen gesucht, wobei jede Farbe eine Umlaufrichtung darstellt. Da die Teilroute einen linearen Subgraph aufspannt, gibt es lediglich zwei Möglichkeiten einer 2-Färbung des Graphen, welche von der Färbung des initialen Knotens abhängen. Es müssen also für den Start jeder Teilroute Regeln gefunden werden, welche Färbung der erste Knoten besitzen muss. Eine falsche Zuweisung würde zu vertauschten Umlenkungen in der gesamten Teilroute erzeugen. 
 
-
-#todo[Schaubild zur verdeutlichung. Korrekter subgraph -> inkorrekter subgraph]
-
 Eine weitere Methode zur Bestimmung der Umlaufrichtung basiert auf einem vektoriellen Ansatz nach #citep(<merschAutomation3DRobotic2025>). Zur Bestimmung der Umlaufrichtung an einem @UE:long $B$ mit Position $overarrow(b)$ werden dessen Vorgänger $A$ mit Position $overarrow(a)$ sowie sein Nachfolger $C$ mit Position $overarrow(c)$ in der Route betrachtet.
 
 Aus dem Vorzeichen des Kreuzprodukts
@@ -158,11 +155,115 @@ Eine korrekte Lösung würde hingegen eine Umlaufbewegung im Uhrzeigersinn erfor
 // Pfad um die UE herum
 Sobald die Umlaufrichtung festgelegt ist, erfolgt im nächsten Schritt die Bestimmung der tatsächlich anzufahrenden Koordinaten. Dabei zeigt sich, dass die Streben im Wesentlichen daraus entstehen, dass der Roboter von einer Umlenkung in Hauptrichtung zur nächsten verfährt. Jede dieser Umlenkungen kann als eigenständiger Subpfad interpretiert werden, der jeweils einen Eintritts- und einen Austrittspunkt sowie eine beliebige Anzahl dazwischenliegender Punkte umfasst, die zur Erzeugung der Kreisbewegung erforderlich sind. In @fig:pfad-zu-muster entsprechen für das @UE $P$ die Punkte $a$ und $c$ dem Ein- beziehungsweise Austrittspunkt, während $b$ einen Zwischenpunkt zur Beschreibung der Halbkreisbewegung darstellt.
 
-Die konkrete Lage dieser Punkte hängt zum einen von der Position des jeweiligen @UE ab, zum anderen von den Positionen der Vorgänger- und Nachfolgeknoten in der Route. So befinden sich die Ein- und Austrittspunkte jeweils zwischen zwei benachbarten @UE, während der Zwischenpunkt immer außerhalb der Wandgrenzen liegt. Für den Bereich der oberen Türecken ergeben sich dabei zusätzliche Besonderheiten, da hier sowohl horizontale als auch vertikale Hauptrichtungen berücksichtigt werden müssen. Dies liegt darin begründet, dass diese Knoten zweimalig angefahren werden und somit zwei unterschiedliche Halbkreisbewegungen erforderlich sind.
+Die konkrete Lage dieser Punkte hängt zum einen von der Position des jeweiligen @UE ab, zum anderen von den Positionen der Vorgänger- und Nachfolgeknoten in der Route. So befinden sich die Ein- und Austrittspunkte jeweils zwischen zwei benachbarten @UE, während der Zwischenpunkt immer außerhalb der Wandgrenzen liegt. Dies ist in @fig:wegpunkte-mit-türecke (a) dargestellt.
 
-Die Reihenfolge, in der der Roboter die einzelnen Punkte anfährt, ergibt sich aus der zugrunde liegenden Route sowie der daraus abgeleiteten Hauptrichtung in der Teilroute. Durch die Verkettung aller Subpfade, die aus den einzelnen Umlenkungen hervorgehen, entsteht schließlich der vollständige Bewegungspfad, der zur Erzeugung der Gitterstruktur abgefahren werden muss.
+Für den Bereich der oberen Türecken ergeben sich dabei zusätzliche Besonderheiten, da hier sowohl horizontale als auch vertikale Hauptrichtungen berücksichtigt werden müssen. In @fig:wegpunkte-mit-türecke (b) ist dies mit den Farben Blau und Grün dargestellt. Die doppelte Betrachtung liegt darin begründet, dass diese Knoten zweimalig angefahren werden und somit zwei unterschiedliche Halbkreisbewegungen erforderlich sind.
+
+Die Reihenfolge, in der der Roboter die einzelnen Punkte anfährt, ergibt sich aus der zugrunde liegenden Route sowie der daraus abgeleiteten Hauptrichtung in der jeweiligen Teilroute. Durch die Verkettung aller Subpfade, die aus den einzelnen Umlenkungen hervorgehen, entsteht schließlich der vollständige Bewegungspfad, der zur Erzeugung der Gitterstruktur abgefahren werden muss, wie in @fig:wegpunkte-mit-türecke (a) veranschaulicht.
 
 #todo[Beispielbild einfügen]
+
+#figure(
+  grid(
+    columns:(auto, 15%, auto),
+    rows:(auto, auto),
+    cetz.canvas({
+      import cetz.draw: *
+
+      scale(0.5)
+      // links
+      circle((0,0))
+      circle((0,4))
+      
+      let points1 = ((0,1.7),(-2, 0),(0,-1.7))
+      line(points1.at(0),points1.at(1))
+      line(points1.at(1),points1.at(2))
+      for p in points1 {
+        circle(p, radius: 0.2)
+      }
+
+      let points2 = ((0,4+1.7),(-2, 4),(0,4-1.7))
+      line(points2.at(0),points2.at(1))
+      line(points2.at(1),points2.at(2))
+      for p in points2 {
+        circle(p, radius: 0.2)
+      }
+
+      // rechts
+      circle((8,2))
+      circle((8,6))
+
+      let points3 = ((8,2+1.7),(8+2, 2),(8,2-1.7))
+      line(points3.at(0),points3.at(1))
+      line(points3.at(1),points3.at(2))
+      for p in points3 {
+        circle(p, radius: 0.2)
+      }
+
+      let points4 = ((8,6+1.7),(8+2, 6),(8,6-1.7))
+      line(points4.at(0),points4.at(1))
+      line(points4.at(1),points4.at(2))
+      for p in points4 {
+        circle(p, radius: 0.2)
+      }
+
+      line(points1.first(), points3.last(), stroke: (dash: "dashed", paint: gray))
+      line(points3.first(), points2.last(), stroke: (dash: "dashed", paint: gray))
+      line(points2.first(), points4.last(), stroke: (dash: "dashed", paint: gray))
+    }),
+    [],
+    cetz.canvas({
+      import cetz.draw: *
+
+      scale(0.4)
+    
+      // Türrollen
+      circle((0,0))
+      circle((-4,0), stroke: (dash: "dashed"))
+      circle((0,-4), stroke: (dash: "dashed"))
+
+      let points1 = ((0,1.7),(-2, 0),(0,-1.7))
+      line(points1.at(0),points1.at(1), stroke: (paint: blue))
+      line(points1.at(1),points1.at(2), stroke: (paint: blue))
+      for p in points1 {
+        circle(p, radius: 0.2, stroke: (paint: blue))
+      }
+
+      let points2 = ((-2.5, 0),(0,-2.2),(2.2,0))
+      line(points2.at(0),points2.at(1), stroke: (paint: green))
+      line(points2.at(1),points2.at(2), stroke: (paint: green))
+      for p in points2 {
+        circle(p, radius: 0.2, stroke: (paint: green))
+      }
+
+      // Wandrollen (oben)
+      circle((-2,8))
+      circle((2,8))
+      circle((0,8), radius: 0.2, stroke: (paint: green))
+      line(points2.first(), (0,8), stroke: (dash: "dashed", paint: green.transparentize(50%)))
+      line(points2.last(), (0,8), stroke: (dash: "dashed", paint: green.transparentize(50%)))
+
+      //Wandrollen (rechst)
+      circle((8,2))
+      circle((8,-2))
+      circle((8,0), radius: 0.2, stroke: (paint: blue))
+      line(points1.first(), (8,0), stroke: (dash: "dashed", paint: blue.transparentize(50%)))
+      line(points1.last(), (8,0), stroke: (dash: "dashed", paint: blue.transparentize(50%)))
+
+      // Wandrahmen
+      line((-2,-2),(-6,-2), stroke: (paint:gray))
+      line((-2,-2),(-2,-6), stroke: (paint:gray))
+
+      translate(x: 12, y: 12)
+      line((-2,-2),(-18,-2), stroke: (paint:gray))
+      line((-2,-2),(-2,-18), stroke: (paint:gray))
+    }),
+    [(a)],
+    [],
+    [(b)],
+  ),
+  caption: [Positionen der Wegpunkte an den Umlenkelementen. Sowohl für Umlenkungen in Hauptrichtung (a) sowie an der oberen rechten Türecke (b).]
+)<fig:wegpunkte-mit-türecke>
 
 #question[Soll ich erklären, wie ich aus der Punktliste die tatsächlichen Bewegungsschritte des Roboters generiere (LMOVE, C1MOVE, C2MOVE,...)? Oder ist das anwendungsspezifisches implementationsdetail, welches nicht in die Arbeit sollte (weil ja nicht jeder einen kawasaki robi nutzt)?]
 
@@ -170,19 +271,79 @@ Die Reihenfolge, in der der Roboter die einzelnen Punkte anfährt, ergibt sich a
 
 #todo[@morris-hillBuildingStringArt2023 Ansatz für Kollisionsvermeidung mit Kreisbahnen als Inspiration für meinen Ansatz nennen]
 
-// Problemdefinition
-- bei manchen verbindungen zwischen 2 @UE kann es zu kollisionen mit anderen @UE kommen, da sie zwischen start und zielpunkt eines berechneten teils des pfades liegen
-- durch entstehendes zickzack-muster würde der roboter bei den streben nahe der Tür mit deren @UE kollidieren
-  - das geschieht daher, dass #todo[ math.beschreibung für streben nahe der tür] MAYBE bild?
-  - aber auch an den rändern der wand kann es passieren
-- auch mit bereits verlegtem garn kann das ablagewerkzeug kollidieren, im garn festhängen und dann das gitter zerreißen 
+An bestimmten Stellen kann es bei der Bewegung zwischen zwei Umlenkungen zu Kollisionen mit anderen @UE kommen, häufig insbesondere mit solchen im Bereich der Türöffnung. Ursache hierfür ist, dass der Verbindungsweg zwischen zwei Umlenkungen nicht strikt achsenparallel verläuft, sondern eine leichte diagonale Komponente aufweist. Zusätzlich ist die Steigung dabei entgegengesetzt zur jeweiligen Hauptrichtung ausgerichtet, wie in @fig:wegpunkte-mit-türecke (a) dargestellt. Befände sich in diesem Szenario zwischen den beiden untersten @UE ein Türausschnitt, könnte es bei der Ausführung der untersten horizontalen Strebe zu einer Kollision mit den oberen @UE der Tür kommen. Ähnliche Problematiken treten auch an den Rändern der Wand auf, insbesondere wenn für eine Umlenkung lediglich die zuvor beschriebenen drei Wegpunkte verwendet werden, wie bereits in @fig:vektorbasierte-umlaufrichtung-probleme angedeutet wurde.
 
-// Volle umlenkungen
-- für eine einfache und generalisierbare methode kann das knotentripel um zwei punkte erweitert werden
-  - diese punkte haben gleiche x- und y-Koordinaten und ersetzen den ein- und ausgangspunkt, sodass eine ganze umkreisung des knotens gefahren wird
-  - durch die spannung des garns wird es dennoch ordnungsgemäß verlegt
-  - diese neuen punkte werden in hauptlaufrichtung in höhe des äußeren knotens gelegt, beispiel in folgendem bild
-  - #todo[ bild einfügen]
+// Volle Umlenkungen
+Ein Großteil dieser Kollisionen lässt sich durch die Verwendung vollständiger Umlenkungen vermeiden. Hierbei werden für kritische @UE, also jene an denen sich die Hauptrichtung ändert, insgesamt vier Wegpunkte definiert, wie exemplarisch in @fig:volle-umlenkungen dargestellt. Wird dabei jeweils der dem Start- beziehungsweise Zielpunkt nächstgelegene Wegpunkt als Ein- und Austrittspunkt gewählt, verlaufen die ein- und ausgehenden Pfade achsenparallel. Aufgrund der Spannung des Garns bleibt die resultierende Gitterstruktur dabei unverändert.
+
+
+#figure(
+  cetz.canvas({
+    import cetz.draw: *
+
+    scale(0.3)
+
+    // left vert
+    circle((0,4))
+    circle((0,8))
+    circle((0,12), stroke: (dash: "dashed"))
+
+    // bottom
+    circle((2,0))
+    circle((4,18))
+    circle((6,0))
+    circle((10,0), stroke: (dash: "dashed"))
+
+    //right vert
+    circle((18,2))
+    circle((18,6))
+    circle((18,10), stroke: (dash: "dashed"))
+
+    // richtiger pfad
+    line((3,18), (3.3,0), stroke:(paint: blue))
+    arc((3.3,0), start: 0deg, delta:-270deg, radius: 1.3, stroke: (paint: blue))
+    line((2,1.3),(18,1), stroke: (paint: blue))
+    content((7,14), text(fill:blue)[Garn])
+
+    // Robi pfad
+    set-style(mark: (end: "straight"))
+    content((-4,16), text(fill: green)[Roboterpfad])
+    let pointsTop = ((6,18), (4,20), (2,18))
+    for point in pointsTop {
+      circle(point, radius: 0.2, stroke: (paint: green))
+    }
+    line((4.2,0), pointsTop.at(0), stroke: (dash: "dashed", paint: green.transparentize(50%)))
+    line(pointsTop.at(0), pointsTop.at(1), stroke: (paint: green))
+    line(pointsTop.at(1), pointsTop.at(2), stroke: (paint: green))
+
+    let pointsBot = ((2,2), (0,0), (2,-2), (4,0))
+    for point in pointsBot {
+      circle(point, radius: 0.2, stroke: (paint: green))
+    }
+    line(pointsTop.last(), pointsBot.first(), stroke: (paint: green))
+    line(pointsBot.first(),(16, 2), stroke: (paint: green))
+    line((16, 2),(0,2.4), stroke: (dash: "dashed", paint: green.transparentize(50%)))
+    line((0,2.4),(-2,4), stroke: (dash: "dashed", paint: green.transparentize(50%)))
+    line((-2,4),(0, 6), stroke: (dash: "dashed", paint: green.transparentize(50%)))
+
+    line(pointsBot.at(0), pointsBot.at(1), stroke: (paint: green))
+    line(pointsBot.at(1), pointsBot.at(2), stroke: (paint: green))
+    line(pointsBot.at(2), pointsBot.at(3), stroke: (paint: green))
+    line(pointsBot.at(3), pointsBot.at(0), stroke: (paint: green))
+
+    translate(x: 16, y: 2)
+    for point in pointsBot {
+      circle(point, radius: 0.2, stroke: (paint: green))
+    }
+    line(pointsBot.at(0), pointsBot.at(1), stroke: (paint: green))
+    line(pointsBot.at(1), pointsBot.at(2), stroke: (paint: green))
+    line(pointsBot.at(2), pointsBot.at(3), stroke: (paint: green))
+    line(pointsBot.at(3), pointsBot.at(0), stroke: (paint: green))
+    
+
+  }),
+  caption: [Vollständige Umlenkung zur Vermeidung einer Kollision mit Roboterpfad (Grün) und resultierender Garnstruktur (lau)]
+)<fig:volle-umlenkungen>
 
 // Weitere Kollisionen erkennen und beheben
 - #todo[ math. Beschreibung, wann kollision]
