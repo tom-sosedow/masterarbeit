@@ -19,9 +19,11 @@ Durch die Breite und Rotation des Werkzeugs muss beim Umfahren der @UE ein Minde
   caption: [Werkzeug des Roboterarms zum Verlegen des Carbongarns]
 )<fig:werkzeug-garnablage>
 
+Da das Garn in etwa mittig aus der Austrittsdüse herauskommt und somit der untere Teil der Düse niedriger als das austretende Garn ist, kann eine bereits verlegte Strebe beim Überqueren durch die Düse beschädigt werden. Hier kann es zum Spleißen oder Verziehen des Garns kommen. Im schlimmsten Fall kann das Garn auch reißen. Es muss also eine Möglichkeit gefunden werden, Kollisionen mit bereits verlegten Garnstreben sichergestellt zu vermeiden. Auch Kollisionen mit @UE müssen vermieden werden, da u.a. durch den Türausschnitt @UE:pl zwischen der direkten Verbindung zweier Umlenkpunkte liegen können.
+
 // Umlaufrichtung
 Für die Gleichmäßigkeit des Gittermusters ist entscheidend, in welcher Richtung die @UE:pl umfahren werden. Dabei wird, von oben auf den Ablagetisch gesehen, zwischen dem Uhrzeigersinn $R'$ und entgegen des Uhrzeigersinns $R$ unterschieden. Bei einer falsch gewählten Richtung entstehen keine achsenparallelen Streben, welche für die Lastverteilung und strukturelle Integrität unerlässlich sind. Der Zusammenhang ist in @fig:pfad-zu-muster dargestellt. Dargestellt ist eine Teilroute um die zwei @UE:pl:long $P$ und $Q$, für die je @UE drei Wegpunkte zum Abfahren durch den Roboter definiert wurden. Folgt der Roboterarm dem Pfad $(a,b,c,d,e,f)$, wie im linken Bild blau dargestellt, entstehen achsenparallele, horizontale Streben des Carbongarns (rot dargestellt). 
-Wird hingegen bei unveränderter Reihenfolge der anzufahrenden @UE die Umlaufrichtung invertiert, so ergibt sich effektiv eine Umkehr der lokalen Wegpunktreihenfolge. Die resultierende Sequenz lautet in diesem Fall $(c,b,a,f,e,d)$. Wie im rechten Teil der Abbildung zu erkennen ist, verlaufen die erzeugten Streben dadurch nicht mehr parallel, sondern weisen teilweise Kreuzungen auf.
+Wird hingegen bei unveränderter Reihenfolge der anzufahrenden @UE die Umlaufrichtung invertiert, so ergibt sich effektiv eine Umkehr der lokalen Wegpunktreihenfolge. Die resultierende Sequenz lautet in diesem Fall $(c,b,a,f,e,d)$. Wie im rechten Teil der Abbildung zu erkennen ist, verlaufen die erzeugten Streben dadurch nicht mehr parallel, sondern weisen teilweise Kreuzungen in Hauptrichtung auf.
 Analog dazu kann eine fehlerhafte Festlegung der zugehörigen Wegpunkte sowie ihrer Reihenfolge dazu führen, dass einzelne @UE:pl ausgelassen werden, Lücken in der Gitterstruktur entstehen oder Kollisionen mit benachbarten @UE auftreten @merschAutomation3DRobotic2025.
 
 #figure(
@@ -303,16 +305,15 @@ Ein Großteil dieser Kollisionen lässt sich durch die Verwendung vollständiger
     line((3,18), (3.3,0), stroke:(paint: blue))
     arc((3.3,0), start: 0deg, delta:-270deg, radius: 1.3, stroke: (paint: blue))
     line((2,1.3),(18,1), stroke: (paint: blue))
-    content((7,14), text(fill:blue)[Garn])
+    content((18,16), text(fill:blue)[Garn])
 
     // Robi pfad
     set-style(mark: (end: "straight"))
-    content((-4,16), text(fill: green)[Roboterpfad])
+    content((16,18), text(fill: green)[Roboterpfad])
     let pointsTop = ((6,18), (4,20), (2,18))
     for point in pointsTop {
       circle(point, radius: 0.2, stroke: (paint: green))
     }
-    line((4.2,0), pointsTop.at(0), stroke: (dash: "dashed", paint: green.transparentize(50%)))
     line(pointsTop.at(0), pointsTop.at(1), stroke: (paint: green))
     line(pointsTop.at(1), pointsTop.at(2), stroke: (paint: green))
 
@@ -322,14 +323,15 @@ Ein Großteil dieser Kollisionen lässt sich durch die Verwendung vollständiger
     }
     line(pointsTop.last(), pointsBot.first(), stroke: (paint: green))
     line(pointsBot.first(),(16, 2), stroke: (paint: green))
-    line((16, 2),(0,2.4), stroke: (dash: "dashed", paint: green.transparentize(50%)))
-    line((0,2.4),(-2,4), stroke: (dash: "dashed", paint: green.transparentize(50%)))
-    line((-2,4),(0, 6), stroke: (dash: "dashed", paint: green.transparentize(50%)))
+    //line((4.2,0), pointsTop.at(0), stroke: (dash: "dashed", paint: green.transparentize(50%)))
+    //line((16, 2),(0,2.4), stroke: (dash: "dashed", paint: green.transparentize(50%)))
+    //line((0,2.4),(-2,4), stroke: (dash: "dashed", paint: green.transparentize(50%)))
+    //line((-2,4),(0, 6), stroke: (dash: "dashed", paint: green.transparentize(50%)))
 
-    line(pointsBot.at(0), pointsBot.at(1), stroke: (paint: green))
-    line(pointsBot.at(1), pointsBot.at(2), stroke: (paint: green))
-    line(pointsBot.at(2), pointsBot.at(3), stroke: (paint: green))
-    line(pointsBot.at(3), pointsBot.at(0), stroke: (paint: green))
+    line(pointsBot.at(1), pointsBot.at(0), stroke: (paint: green))
+    line(pointsBot.at(2), pointsBot.at(1), stroke: (paint: green))
+    line(pointsBot.at(3), pointsBot.at(2), stroke: (paint: green))
+    line(pointsBot.at(0), pointsBot.at(3), stroke: (paint: green))
 
     translate(x: 16, y: 2)
     for point in pointsBot {
@@ -342,18 +344,63 @@ Ein Großteil dieser Kollisionen lässt sich durch die Verwendung vollständiger
     
 
   }),
-  caption: [Vollständige Umlenkung zur Vermeidung einer Kollision mit Roboterpfad (Grün) und resultierender Garnstruktur (lau)]
+  caption: [Vollständige Umlenkung zur Vermeidung einer Kollision mit Roboterpfad (Grün) und resultierender Garnstruktur (blau)]
 )<fig:volle-umlenkungen>
 
 // Weitere Kollisionen erkennen und beheben
-- #todo[ math. Beschreibung, wann kollision]
+#maybe[
 - gefundene kollisionen beheben, indem ein neuer punkt in richtung des verbindungsvektors und passender distanz in den pfad eingereiht
 - iterativ kollisionen erkennen, dann beheben und erneut überprüfen, ob neue kollisionen dazu gekommen sind
-
+]
 
 // Kollisionen mit bereits gelegtem Garn
-- zur kollisionsvermeidung mit bereits verlegtem garn
-  - erster und letzter punkt werden dupliziert und z komponente so angepasst, dass der roboter auf der höheren ebene zum ersten punkt fährt, dann senkrecht nach unten, die umlenkung über den mittelpunkt und dann wieder auf die obere ebene fährt, um zur nächsten @UE zu gelangen
-  - mit z-Achse in positiver richtung vom Boden: \
-    $(p_1,p_2,p_3)|-> (p'_1,p_1,p_2,p_3,p'_3) "mit" p'_1_((z)) = p'_3_((z)) > p_1_((z)) = p_2_((z)) = p_3_((z))$
-- MAYBE pseudo code einfügen?
+Darüber hinaus ist sicherzustellen, dass Kollisionen der Austrittsdüse mit bereits verlegtem Garn vermieden werden. Eine effektive Strategie zur Kollisionsvermeidung besteht darin, das Werkzeug temporär anzuheben, sobald eine bestehende Strebe gekreuzt wird. Dabei ist jedoch zu beachten, dass die Anhebung weder zu groß noch zu steil erfolgen darf, da andernfalls die Gefahr besteht, dass das Garn vom vorherigen @UE abrutscht. Dies würde auch an den Kreuzungspunkten dazu führen, dass keine Verbindung zwischen sich kreuzenden Streben entsteht und somit die Belastbarkeit des Gitters nach dem Temperieren eingeschränkt ist.
+
+Da zur Erkennung solcher Kreuzungen kein physikalisches Modell des unter Spannung stehenden Garns verwendet wird, dient der bereits abgefahrene Pfad als Näherung. Hierzu wird der Pfad schrittweise analysiert und für jeden Abschnitt überprüft, ob und an welchen Positionen er frühere Segmente schneidet. Die identifizierten Schnittpunkte werden entlang der jeweiligen Strebe geordnet.
+
+Am ersten Kreuzungspunkt wird, wie beschrieben, ein zusätzlicher Wegpunkt eingefügt, der sich etwa zwei Zentimeter oberhalb der regulären Arbeitsebene befindet. Die Anhebung erfolgt dabei erst unmittelbar am Schnittpunkt, um die Steigung möglichst gering zu halten und somit die auf das @UE wirkenden vertikalen Kräfte zu minimieren. Ein weiterer zusätzlicher Wegpunkt wird an der letzten Kreuzung eingefügt. Auf diese Weise wird verhindert, dass es beim Übergang zum ersten Wegpunkt der folgenden Umlenkung, der wieder auf der ursprünglichen Ebene liegt, zu einer Kollision mit der zuletzt gekreuzten Strebe kommt.
+
+Der resultierende Pfad, ergänzt um diese beiden zusätzlichen Wegpunkte, ist exemplarisch in @fig:seitenansicht-vertikaler-pfad dargestellt.
+
+
+#figure(
+  cetz.canvas({
+    import cetz.draw: *
+
+    scale(0.9)
+    rect((0,0), (1,2))
+    content((0.5,2.3),[UE])
+    rect((15,0), (16,2))
+    content((15.5,2.3),[UE])
+
+
+    for offset in (2,4,6,8) {
+      circle((offset+3,0.5), radius: 0.2, stroke:(paint: green))
+      circle((offset+3,0.5), radius: 0.02, stroke:(paint: green))
+    }
+    content((7,-0.5), text(fill:green)[Verlegtes Garn])
+
+    // rechte seite
+    line((14.8,0.4),(16.2,0.4), stroke:(paint: blue))
+    line((16.2,0.4),(16,0.5), stroke:(paint: blue))
+    line((15,0.5),(16,0.5), stroke:(paint: blue, dash:"dashed"))
+    // erster zwischenpunkt
+    line((15,0.5),(11,1.2), stroke:(paint: blue))
+    circle((11,1.2), radius: 0.1, stroke: (paint: blue))
+    //zweiter zwischenpunkt
+    line((5,1.2),(11,1.2), stroke:(paint: blue))
+    circle((5,1.2), radius: 0.1, stroke: (paint: blue))
+
+    content((7.5,3), [Neue Wegpunkte])
+    line((7.5,2.6), (10.5,1.6), mark: (end: ">"))
+    line((7.5,2.6), (5.5,1.6), mark: (end: ">"))
+
+    // linke seite
+    line((1.2,0.4),(-0.2,0.4), stroke:(paint: blue))
+    line((1.2,0.4),(5,1.2), stroke:(paint: blue))
+    line((0,0.5),(-0.2,0.4), stroke:(paint: blue))
+    line((0,0.5),(1,0.5), stroke:(paint: blue, dash:"dashed"))
+
+  }),
+  caption: [Seitenansicht für vertikale Bewegungen des Roboterarms.]
+)<fig:seitenansicht-vertikaler-pfad>
