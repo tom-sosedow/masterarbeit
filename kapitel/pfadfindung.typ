@@ -67,6 +67,7 @@ lässt sich die Umlaufrichtung ableiten. Ist das Kreuzprodukt positiv, liegt $C$
   cetz.canvas({
     import cetz.draw: *
 
+    set-style(radius:0.8)
     scale(0.5)
     circle((0,0))
     content((2,0), [A])
@@ -162,8 +163,6 @@ Die konkrete Lage dieser Punkte hängt zum einen von der Position des jeweiligen
 Für den Bereich der oberen Türecken ergeben sich dabei zusätzliche Besonderheiten, da hier sowohl horizontale als auch vertikale Hauptrichtungen berücksichtigt werden müssen. In @fig:wegpunkte-mit-türecke (b) ist dies mit den Farben Blau und Grün dargestellt. Die doppelte Betrachtung liegt darin begründet, dass diese Knoten zweimalig angefahren werden und somit zwei unterschiedliche Halbkreisbewegungen erforderlich sind.
 
 Die Reihenfolge, in der der Roboter die einzelnen Punkte anfährt, ergibt sich aus der zugrunde liegenden Route sowie der daraus abgeleiteten Hauptrichtung in der jeweiligen Teilroute. Durch die Verkettung aller Subpfade, die aus den einzelnen Umlenkungen hervorgehen, entsteht schließlich der vollständige Bewegungspfad, der zur Erzeugung der Gitterstruktur abgefahren werden muss, wie in @fig:wegpunkte-mit-türecke (a) veranschaulicht.
-
-#todo[Beispielbild einfügen]
 
 #figure(
   grid(
@@ -271,8 +270,6 @@ Die Reihenfolge, in der der Roboter die einzelnen Punkte anfährt, ergibt sich a
 
 == Kollisionen
 
-#todo[@morris-hillBuildingStringArt2023 Ansatz für Kollisionsvermeidung mit Kreisbahnen als Inspiration für meinen Ansatz nennen]
-
 An bestimmten Stellen kann es bei der Bewegung zwischen zwei Umlenkungen zu Kollisionen mit anderen @UE kommen, häufig insbesondere mit solchen im Bereich der Türöffnung. Ursache hierfür ist, dass der Verbindungsweg zwischen zwei Umlenkungen nicht strikt achsenparallel verläuft, sondern eine leichte diagonale Komponente aufweist. Zusätzlich ist die Steigung dabei entgegengesetzt zur jeweiligen Hauptrichtung ausgerichtet, wie in @fig:wegpunkte-mit-türecke (a) dargestellt. Befände sich in diesem Szenario zwischen den beiden untersten @UE ein Türausschnitt, könnte es bei der Ausführung der untersten horizontalen Strebe zu einer Kollision mit den oberen @UE der Tür kommen. Ähnliche Problematiken treten auch an den Rändern der Wand auf, insbesondere wenn für eine Umlenkung lediglich die zuvor beschriebenen drei Wegpunkte verwendet werden, wie bereits in @fig:vektorbasierte-umlaufrichtung-probleme angedeutet wurde.
 
 // Volle Umlenkungen
@@ -349,6 +346,9 @@ Ein Großteil dieser Kollisionen lässt sich durch die Verwendung vollständiger
 
 // Weitere Kollisionen erkennen und beheben
 #maybe[
+  
+@morris-hillBuildingStringArt2023 Ansatz für Kollisionsvermeidung mit Kreisbahnen als Inspiration:
+
 - gefundene kollisionen beheben, indem ein neuer punkt in richtung des verbindungsvektors und passender distanz in den pfad eingereiht
 - iterativ kollisionen erkennen, dann beheben und erneut überprüfen, ob neue kollisionen dazu gekommen sind
 ]
