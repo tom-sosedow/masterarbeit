@@ -222,23 +222,50 @@ Aufgrund der begrenzten Möglichkeiten zur Platzierung der @UE am Türausschnitt
 // vertikale Rollen links und rechts
 Aus den Positionen der @UE entlang der Seiten des Türausschnitts ergeben sich anschließend die Positionen der @UE an der linken und rechten Wandseite. Dabei wird jeweils an denjenigen Stellen ein @UE an der Wand platziert, an denen entlang des Türausschnitts eine Lücke besteht.
 
-#todo[Erklärungen ausbauen, wie sich die Position von UE aus den Positionen andere UE ergibt]
+#maybe[Erklärungen ausbauen, wie sich die Position von UE aus den Positionen andere UE ergibt]
+
+Durch die Lage des obersten @UE an der linken und rechten Seite des Türausschnitts lassen sich die Positionen der @UE:pl an der Oberseite des Türausschnitts bestimmen. So wird, falls das oberste @UE bei $(t_(x,1), t_(y,1)+1)$ liegt, kein @UE auf den anliegenden Nachbarfeldern ${(x,t_(y,1)) | t_(x,1) <= x <= t_(x,1) +1}$ platziert. In @fig:oberkante-türausschnitt sind diese unzulässigen Positionen rot und das ausschlaggebende Seitenelement blau markiert. Liegt das oberste @UE bei $(t_(x,2), t_(y,1)+1)$ so können keine @UE an den Stellen ${(x,t_(y,1)) | t_(x,2)-1 <= x <= t_(x,2)}$ abgelegt werden. So wird verhindert, dass in den oberen Türecken @UE diagonal nebeneinander liegen.
+
+#figure(
+  cetz.canvas({
+    import cetz.draw: *
+
+    scale(0.3)
+    
+    for p in (3, 7) {
+      circle((p,2), stroke: (paint: green))
+    }
+    for p in (0, 4, 8) {
+      circle((p - 3,8), stroke: (paint: gray))
+    }
+    circle((9,8), stroke: (paint: gray, dash: "dashed"))
+    circle((-1,0), stroke: (paint: blue))
+    circle((-1,-4))
+    circle((-1,2), stroke: (paint: red))
+    circle((1,2), stroke: (paint: red))
+    line((0,1), (12,1))
+    line((0,1), (0,-4))
+    line((-6,9),(12,9))
+  }),
+  caption: [Valide Positionen (Grün) und unzulässige Positionen (Rot) von UE an der Oberkante der Tür basierend auf dem obersten Seitenelement (Blau)]
+)<fig:oberkante-türausschnitt>
+
 
 // horizontale Rollen oben und unten, top offset
-Die @UE an der Oberkante des Türausschnitts bestimmen wiederum die Positionen der @UE an der Oberseite der Wand und damit indirekt auch an der Unterseite. Hierzu wird die Position des am weitesten links liegenden @UE an der Oberseite des Türausschnitts $(x,y)$ mit $t_x$ verglichen (in @fig:fully-placed-ue-wall blau dargestellt):
+Die grün markierten @UE an der Oberkante des Türausschnitts bestimmen wiederum die Positionen der @UE an der Oberseite der Wand und damit indirekt auch an der Unterseite. Hierzu wird die Position des am weitesten links liegenden @UE an der Oberseite des Türausschnitts $(x,y)$ mit $t_x$ verglichen (in @fig:fully-placed-ue-wall blau dargestellt):
 $ omega = cases(
   0 ", falls" 2 divides.not t_(x,1) and t_(x,1) <= x <= t_(x,1)+1 and 2 divides.not (t_(x,2)-t_(x,1)),
   1 ", falls" 2 divides.not t_(x,1),
   1 ", falls" 2 divides (t_(x,2)-t_(x,1)) and t_(x,1) <= x <= t_(x,1)+1,
   0 ", sonst"
 ) $
-Dabei beschreibt $omega$ den horizontalen Versatz der @UE an der Oberkante der Wand. Die Positionen der @UE ergeben sich damit zu:
-$ { (x + omega, 0) | 1 <= x < x_("max")-1} $
+Dabei beschreibt $omega$ den horizontalen Versatz der @UE an der Oberkante der Wand. Die Positionen der @UE dort ergeben sich damit zu:
+$ { (x + omega, 0) | 1 <= x < x_("max")-1, 2 | (x+1)} $
 
 #maybe[Vielleicht simplen Pseudocode einfügen, der den Ansatz ohne Müll zeigt?]
 
 // Optionale Rollen in den Ecken
-In den äußersten Ecken der Wand sowie des Türausschnitts kann es außerdem vorkommen, dass die beiden nächstgelegenen @UE jeweils einen Abstand von mindestens $2d$ zur Ecke besitzen. In diesem Fall besteht die Möglichkeit, ein zusätzliches @UE zu platzieren, welches optional in der Routenplanung verwendet werden kann, um größere Freiheitsgrade bei der Gestaltung der Umlenkungen zu erhalten. In @fig:fully-placed-ue-wall sind diese zusätzlichen @UE grün dargestellt.
+In den äußersten Ecken der Wand sowie den unteren Ecken des Türausschnitts kann es außerdem vorkommen, dass die beiden nächstgelegenen @UE jeweils einen Abstand von mindestens $2d$ zur Ecke besitzen. In diesem Fall besteht die Möglichkeit, ein zusätzliches @UE zu platzieren, welches optional in der Routenplanung verwendet werden kann, um größere Freiheitsgrade bei der Gestaltung der Umlenkungen zu erhalten. In @fig:fully-placed-ue-wall sind diese zusätzlichen @UE grün dargestellt.
 
 Da Streben, die an diesen @UE enden, aus struktureller Sicht nicht erforderlich sind, müssen diese Elemente nicht zwingend in der Routenplanung berücksichtigt werden. Wird auf ihre Nutzung verzichtet, entfällt auch ihre Platzierung durch den Roboterarm, wodurch Zeit und Energie eingespart werden können.
 
