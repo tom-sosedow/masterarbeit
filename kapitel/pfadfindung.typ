@@ -404,3 +404,6 @@ Der resultierende Pfad, ergänzt um diese beiden zusätzlichen Wegpunkte, ist ex
   }),
   caption: [Seitenansicht für vertikale Bewegungen des Roboterarms.]
 )<fig:seitenansicht-vertikaler-pfad>
+
+== Ergebnisse
+#todo[Ganzer Abschnitt]
