@@ -30,29 +30,29 @@ Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Die tatsächl
 
     scale(0.5)
     
-
+    let mark = (end:"|", start:"|")
     content((7.5,2.5), text(fill: red, size: 14pt)[$w_b^*$])
-    line((-1,1.5),(16,1.5), stroke:(paint: red))
+    line((-1,1.5),(16,1.5), stroke:(paint: red), mark: mark)
     line((-1,1),(16,1))
     
     content((17.5,-5), text(fill: red, size: 14pt)[$w_h^*$])
-    line((16.5,1),(16.5,-11), stroke:(paint: red))
+    line((16.5,1),(16.5,-11), stroke:(paint: red), mark: mark)
     
     line((16,1),(16,-11))
     line((16,-11),(9,-11))
 
     content((7.5,-9), text(fill: red, size: 14pt)[$t_h^*$])
-    line((8.5,-11),(8.5, -4), stroke:(paint: red))
+    line((8.5,-11),(8.5, -4), stroke:(paint: red), mark: mark)
     line((9,-11),(9, -4))
 
     content((7,-5.5), text(fill: red, size: 14pt)[$t_b^*$])
-    line((9, -4.5), (5,-4.5), stroke:(paint: red))
+    line((9, -4.5), (5,-4.5), stroke:(paint: red), mark: mark)
     line((9, -4), (5,-4))
     
     line((5,-11),(5, -4))
     
     content((2,-12.5), text(fill: red, size: 14pt)[$t_x^*$])
-    line((5, -11.5),(-1,-11.5), stroke:(paint: red))
+    line((5, -11.5),(-1,-11.5), stroke:(paint: red), mark: mark)
     line((5, -11),(-1,-11))
     line((-1,-11),(-1,1)) 
 
@@ -67,7 +67,7 @@ Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Die tatsächl
     line((4.5, -10.5),(-0.5,-10.5), stroke: (paint: smallercolor))
     line((-0.5,-10.5),(-0.5,0.5), stroke: (paint: smallercolor))
 
-    line((-1,-3),(-0.5,-3), mark: (end: "|", start: "|"), stroke: (paint: green))
+    line((-1,-3),(-0.5,-3), mark: mark, stroke: (paint: green))
     content((0,-3), text(fill:green)[$p$])
 
   }),

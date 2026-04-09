@@ -1,6 +1,6 @@
 #import "/util.typ": *
 
-= Auswertung
+= Auswertung <sec:auswertung>
 
 
 // RQ1 
@@ -37,3 +37,7 @@
 // RQ 3
 *Pfadberechnung*
 - anpassbar und verständliche vorgehensweise gut für wartung und längeren support
+
+= Zusammenfassung
+Und Fazit
+= Ausblick
