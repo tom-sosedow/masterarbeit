@@ -5,7 +5,7 @@
 
 // RQ1 
 *Platzierung der Umlenkelemente*
-- die in @sec:ue-platzierung vorgestellte iterative platzierung der UE ist 
+- die in @sec:ue-place vorgestellte iterative platzierung der UE ist 
   - ausreichend schnell, 
   - bringt sicher optimale lösungen und 
   - ist einfach zu implementieren und verstehen, was geringen wartungsaufwand un einfache erweiterungen und anpassungen verspricht

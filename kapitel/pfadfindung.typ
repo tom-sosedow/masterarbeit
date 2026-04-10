@@ -2,7 +2,6 @@
 #import "@preview/cetz:0.4.2"
 
 = Pfadplanung für Roboterarm <sec:path-finding>
-#todo[Einleitender Abschnitt zu dem Kapitel]
 
 Nachdem die Reihenfolge der anzufahrenden @UE:pl:long festgelegt wurde, ist im nächsten Schritt der konkrete Bewegungspfad des Roboterarms zu bestimmen. Ziel ist es dabei, das aus dem am Roboter montierten Werkzeug austretende Carbongarn so zu führen, dass es zuverlässig an den @UE:pl haftet und zugleich die gewünschte gleichmäßige Gitterstruktur entsteht.
 
@@ -27,12 +26,16 @@ Wird hingegen bei unveränderter Reihenfolge der anzufahrenden @UE die Umlaufric
 Analog dazu kann eine fehlerhafte Festlegung der zugehörigen Wegpunkte sowie ihrer Reihenfolge dazu führen, dass einzelne @UE:pl ausgelassen werden, Lücken in der Gitterstruktur entstehen oder Kollisionen mit benachbarten @UE auftreten @merschAutomation3DRobotic2025.
 
 #figure(
-  stack(
-    dir: ltr,
-    spacing: 5%,
-    image("/images/pfad-zu-muster-richtig.png", width: 50%),
+  grid(
+    columns: (auto, auto),
+    rows: (auto, auto),
+    row-gutter: 4%,
+    column-gutter: 4%,
+    image("/images/pfad-zu-muster-richtig.png", width: 100%),
     //line(start: (0%,2%), end: (0%, 13%)),
-    image("/images/pfad-zu-muster-falsch.png", width: 50%),
+    image("/images/pfad-zu-muster-falsch.png", width: 100%),
+    [(a)],
+    [(b)],
   ),
  caption: [Pfad des Roboters (Blau) und daraus resultierende Garnstruktur (Rot) um zwei Umlenkelemente mit korrekter Umlaufrichtung (links) und vertauschter Umlaufrichtung (rechts)]
 )<fig:pfad-zu-muster>
@@ -46,7 +49,7 @@ Einen stärkeren Bezug zum vorliegenden Problem weist hingegen String Art auf, b
 
 Für die Bestimmung der Umlaufrichtung um die @UE:pl:long können die Ergebnisse von #citep(<merschAutomation3DRobotic2025>) herangezogen werden. Obwohl hier primär dreidimensionale Skelette betrachtet werden, besteht auch in diesem Kontext die Anforderung, eine zuverlässige Haftung des aus unterschiedlichen Richtungen zugeführten Garns an den Pins sicherzustellen. Der zugrunde liegende Lösungsansatz hierfür lässt sich teilweise auf das vorliegende Problem applizieren und wird in @sec:path-direction näher betrachtet.
 
-Die spezifische Anforderung, gleichmäßig verteilte und zugleich flächenfüllende Streben zu erzeugen, ist in der bestehenden Literatur bislang nur unzureichend untersucht. Zudem lassen sich vorhandene Ansätze aufgrund teilweise in Konflikt stehender Anforderungen nicht auf das vorliegende Problem übertragen. Vor diesem Hintergrund sind weitere Betrachtungen diesbezüglich nötig.
+Die spezifische Anforderung, gleichmäßig verteilte und zugleich flächenfüllende Streben zu erzeugen, ist in der bestehenden Literatur bislang nur unzureichend untersucht. Zudem lassen sich vorhandene Ansätze aufgrund von teilweise in Konflikt stehenden Anforderungen nicht auf das vorliegende Problem übertragen. Vor diesem Hintergrund sind weitere Betrachtungen diesbezüglich nötig.
 
 #todo[ ähnliche literatur für fehlendes?]
   
@@ -273,7 +276,7 @@ Die Reihenfolge, in der der Roboter die einzelnen Punkte anfährt, ergibt sich a
 An bestimmten Stellen kann es bei der Bewegung zwischen zwei Umlenkungen zu Kollisionen mit anderen @UE kommen, häufig insbesondere mit solchen im Bereich der Türöffnung. Ursache hierfür ist, dass der Verbindungsweg zwischen zwei Umlenkungen nicht strikt achsenparallel verläuft, sondern eine leichte diagonale Komponente aufweist. Zusätzlich ist die Steigung dabei entgegengesetzt zur jeweiligen Hauptrichtung ausgerichtet, wie in @fig:wegpunkte-mit-türecke (a) dargestellt. Befände sich in diesem Szenario zwischen den beiden untersten @UE ein Türausschnitt, könnte es bei der Ausführung der untersten horizontalen Strebe zu einer Kollision mit den oberen @UE der Tür kommen. Ähnliche Problematiken treten auch an den Rändern der Wand auf, insbesondere wenn für eine Umlenkung lediglich die zuvor beschriebenen drei Wegpunkte verwendet werden, wie bereits in @fig:vektorbasierte-umlaufrichtung-probleme angedeutet wurde.
 
 // Volle Umlenkungen
-Ein Großteil dieser Kollisionen lässt sich durch die Verwendung vollständiger Umlenkungen vermeiden. Hierbei werden für kritische @UE, also jene an denen sich die Hauptrichtung ändert, insgesamt vier Wegpunkte definiert, wie exemplarisch in @fig:volle-umlenkungen dargestellt. Wird dabei jeweils der dem Start- beziehungsweise Zielpunkt nächstgelegene Wegpunkt als Ein- und Austrittspunkt gewählt, verlaufen die ein- und ausgehenden Pfade achsenparallel. Aufgrund der Spannung des Garns bleibt die resultierende Gitterstruktur dabei unverändert.
+Ein Großteil dieser Kollisionen lässt sich durch die Verwendung vollständiger Umlenkungen vermeiden. Hierbei werden für kritische @UE, also jene an denen sich beispielsweise die Hauptrichtung ändert oder die nahe an der Tür liegen, insgesamt vier Wegpunkte definiert, wie exemplarisch in @fig:volle-umlenkungen dargestellt. Wird dabei jeweils der dem Start- beziehungsweise Zielpunkt nächstgelegene Wegpunkt als Ein- und Austrittspunkt gewählt, verlaufen die ein- und ausgehenden Pfade achsenparallel. Aufgrund der Spannung des Garns bleibt die resultierende Gitterstruktur dabei unverändert.
 
 
 #figure(
@@ -289,25 +292,24 @@ Ein Großteil dieser Kollisionen lässt sich durch die Verwendung vollständiger
 
     // bottom
     circle((2,0))
-    circle((4,18))
+    circle((0,16))
+    circle((4,16))
     circle((6,0))
+    circle((8,16))
+
     circle((10,0), stroke: (dash: "dashed"))
 
-    //right vert
-    circle((18,2))
-    circle((18,6))
-    circle((18,10), stroke: (dash: "dashed"))
-
     // richtiger pfad
-    line((3,18), (3.3,0), stroke:(paint: blue))
-    arc((3.3,0), start: 0deg, delta:-270deg, radius: 1.3, stroke: (paint: blue))
-    line((2,1.3),(18,1), stroke: (paint: blue))
-    content((18,16), text(fill:blue)[Garn])
+    arc((-1.3,16), start: 180deg, delta:-180deg, radius: 1.3, stroke: (paint: blue))
+    arc((0.9,0), start: 180deg, delta:180deg, radius: 1.1, stroke: (paint: blue))
+    line((1.3,16), (0.9,0), stroke:(paint: blue))
+    line((3.1,0),(2.8,16), stroke: (paint: blue))
+    content((16,16), text(fill:blue)[Garn])
 
     // Robi pfad
     set-style(mark: (end: "straight"))
-    content((16,18), text(fill: green)[Roboterpfad])
-    let pointsTop = ((6,18), (4,20), (2,18))
+    content((16,14), text(fill: green)[Roboterpfad])
+    let pointsTop = ((-2,16),(0,18),(1.8,16))
     for point in pointsTop {
       circle(point, radius: 0.2, stroke: (paint: green))
     }
@@ -318,30 +320,21 @@ Ein Großteil dieser Kollisionen lässt sich durch die Verwendung vollständiger
     for point in pointsBot {
       circle(point, radius: 0.2, stroke: (paint: green))
     }
-    line(pointsTop.last(), pointsBot.first(), stroke: (paint: green))
-    line(pointsBot.first(),(16, 2), stroke: (paint: green))
-    //line((4.2,0), pointsTop.at(0), stroke: (dash: "dashed", paint: green.transparentize(50%)))
-    //line((16, 2),(0,2.4), stroke: (dash: "dashed", paint: green.transparentize(50%)))
-    //line((0,2.4),(-2,4), stroke: (dash: "dashed", paint: green.transparentize(50%)))
-    //line((-2,4),(0, 6), stroke: (dash: "dashed", paint: green.transparentize(50%)))
-
-    line(pointsBot.at(1), pointsBot.at(0), stroke: (paint: green))
-    line(pointsBot.at(2), pointsBot.at(1), stroke: (paint: green))
-    line(pointsBot.at(3), pointsBot.at(2), stroke: (paint: green))
-    line(pointsBot.at(0), pointsBot.at(3), stroke: (paint: green))
-
-    translate(x: 16, y: 2)
-    for point in pointsBot {
-      circle(point, radius: 0.2, stroke: (paint: green))
-    }
+    line(pointsTop.last(), pointsBot.first(), stroke: (paint: green), mark:(end: "straight", start:"straight"))
+    line(pointsTop.last(), pointsBot.at(1), stroke: (paint: red.transparentize(50%), dash: "dashed"))
     line(pointsBot.at(0), pointsBot.at(1), stroke: (paint: green))
     line(pointsBot.at(1), pointsBot.at(2), stroke: (paint: green))
     line(pointsBot.at(2), pointsBot.at(3), stroke: (paint: green))
-    line(pointsBot.at(3), pointsBot.at(0), stroke: (paint: green))
-    
+    line(pointsBot.at(3), pointsBot.at(0), stroke: (paint: green))   
 
+    translate(x: 4)
+    line(pointsTop.at(0), pointsTop.at(1), stroke: (paint: green))
+    line(pointsTop.at(1), pointsTop.at(2), stroke: (paint: green))
+    for point in pointsTop {
+      circle(point, radius: 0.2, stroke: (paint: green))
+    }
   }),
-  caption: [Vollständige Umlenkung zur Vermeidung einer Kollision mit Roboterpfad (Grün) und resultierender Garnstruktur (blau)]
+  caption: [Vollständige Umlenkung zur Vermeidung einer Kollision mit einem Umlenkelement. In Grün dargestellt der Roboterpfad und in Blau die resultierende Garnstruktur]
 )<fig:volle-umlenkungen>
 
 // Weitere Kollisionen erkennen und beheben
@@ -406,4 +399,23 @@ Der resultierende Pfad, ergänzt um diese beiden zusätzlichen Wegpunkte, ist ex
 )<fig:seitenansicht-vertikaler-pfad>
 
 == Ergebnisse
-#todo[Ganzer Abschnitt]
+
+Um das gezeigte Vorgehen zu analysieren, werden ähnlich zu @sec:ue-place-result wieder alle 32 möglichen Wandkonfigurationen überprüft. Die durchschnittliche Rechenzeit beträgt 1,57 Millisekunden, während die maximal gemessene Rechenzeit bei 10,32 Millisekunden über alle 32 Testläufe lag. Die Tests wurden ebenfalls auf einem Intel(R) Core(TM) i5-8350U Prozessor mit 24 GB Arbeitsspeicher durchgeführt. In @fig:beispielpfad ist der berechnete Pfad für die Wandkonfiguration $w_4$ aus @sec:routenplanung dargestellt. Die berechnete Route startet hier bei @UE 61 und endet bei @UE 27.
+
+#figure(
+  image("/images/pfadbeispiel.png"),
+  caption: [Pfad des Roboters in Wandkonfiguration $w_4$ aus @sec:routenplanung. Route beginnt bei UE 61 und endet bei UE 27]
+)<fig:beispielpfad>
+
+Die Pfade werden größtenteils zuverlässig bestimmt. Bei Nutzung der Invertierung, wie in @sec:path-direction dargestellt, kommt es bei manchen Routen zu fehlerhaften Teilabschnitten, wodurch sie ähnlich zu dem in @fig:pfad-zu-muster (b) gezeigten Pfad verlaufen. Grund hierfür ist immer eine falsche Berechnung der Umlaufrichtung bei einem Wechsel der Hauptrichtung. 
+
+Wird der vektorbasierte Ansatz genutzt, sind die Teilbereiche immer vollständig korrekt. Wie bereits beschrieben kommt es allerdings auch bei diesem Ansatz regelmäßig zu Problemen beim Wechsel der Hauptrichtung. Ein Beispiel hierfür ist auch in @fig:beispielpfad zu sehen. Bei dem Teilabschnitt der Route von @UE 20 über @UE 62 zu @UE 60 liegt Letzteres rechts von der Kante $20 -> 62$. Dadurch wird die Umlaufrichtung, gemäß der definierten Regel, entsprechend des Uhrzeigersinns festgelegt. In diesem Fall wäre allerdings eine Drehung entgegen des Uhrzeigersinns nötig, da die resultierende Strebe zwischen @UE 62 und @UE 60 sonst leicht diagonal anstatt zur x-Achse achsenparallel verläuft. 
+
+Weiterhin lässt sich feststellen, dass die Wegpunkte für die Umlenkungen um mehrfach angefahrene @UE:pl:long korrekt gesetzt werden. So wird das @UE 34 an der oberen rechten Türecke zunächst auf halber Route für eine vertikale Strebe genutzt. Kurz vor Ende der Route wird das @UE dann erneut für eine horizontale Strebe umfahren, bevor der Pfad beim @UE 27 endet.  
+
+Die Kollisionsvermeidung durch vollständige Umlenkungen funktioniert auch erwartungsgemäß. In @fig:beispielpfad ist unter anderem am Beispiel des @UE 20 eine solche Umlenkung zu sehen. Durch sie wird eine Kollision mit dem @UE 22 verhindert, in die der Roboterarm fahren würde, wenn er zur Umlenkung um @UE 62 fährt.
+
+Die Zwischenpunkte, die zur Vermeidung von Kollisionen mit bereits verlegtem Garn eingefügt werden, sind in der Abbildung mit roten Kreisen gekennzeichnet. Alle Punkte werden korrekter weise an der jeweils ersten und letzten Schnittstelle eines Schrittes platziert, sodass ein Zerreißen des Garns verhindert wird.
+
+#todo[Letzten abschnitt Ausbauen]
+

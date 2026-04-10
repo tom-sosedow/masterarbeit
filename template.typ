@@ -204,7 +204,6 @@
     datum: datum,
     thesis: abschluss,
   )
-  pagebreak()
   outline()
   outline(
     title: [Abbildungsverzeichnis],

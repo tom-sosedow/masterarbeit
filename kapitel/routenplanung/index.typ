@@ -8,8 +8,8 @@
 // #import algorithmic: style-algorithm, algorithm-figure
 // #show: style-algorithm
 
-= Berechnung der Route
-Zur Erzeugung einer gleichmäßigen Gitterstruktur mit dem Carbongarn werden die in @sec:ue-platzierung positionierten @UE durch einen Roboterarm sequenziell umfahren, um das Garn unter Spannung abzulegen. Bevor der hierfür erforderliche Bewegungsablauf berechnet werden kann, ist zunächst zu klären, in welcher Reihenfolge die einzelnen @UE angefahren werden sollen.
+= Berechnung der Route <sec:routenplanung>
+Zur Erzeugung einer gleichmäßigen Gitterstruktur mit dem Carbongarn werden die in @sec:ue-place positionierten @UE durch einen Roboterarm sequenziell umfahren, um das Garn unter Spannung abzulegen. Bevor der hierfür erforderliche Bewegungsablauf berechnet werden kann, ist zunächst zu klären, in welcher Reihenfolge die einzelnen @UE angefahren werden sollen.
 
 Zur Bestimmung dieser Reihenfolge und zur Beantwortung der Forschungsfrage II werden in diesem Kapitel, nach einer einführenden Problembeschreibung sowie einer Analyse des aktuellen Stands der Forschung, zwei Ansätze zur Routenplanung untersucht. Dabei werden sowohl exakte als auch heuristische Suchalgorithmen betrachtet und im Hinblick auf ihre Eignung für das vorliegende Problem evaluiert.
 

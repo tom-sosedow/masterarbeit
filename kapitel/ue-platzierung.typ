@@ -1,7 +1,7 @@
 #import "/util.typ": *
 #import "@preview/cetz:0.4.2"
 
-= Platzierung der Umlenkelemente <sec:ue-platzierung>
+= Platzierung der Umlenkelemente <sec:ue-place>
 In diesem Kapitel wird die Forschungsfrage I bezüglich der Platzierung der @UE:pl:long  untersucht. Hierzu wird zunächst das zugrunde liegende Problem definiert, abgegrenzt und mathematisch modelliert. Anschließend wird der aktuelle Stand der Forschung zu diesem Problem dargestellt. Darauf aufbauend wird eine Lösungsmethode entwickelt und erläutert. Abschließend erfolgt eine Darstellung der erzielten Ergebnisse.
 
 == Problemdefinition <sec:ue-place-problem>
@@ -9,9 +9,12 @@ In diesem Kapitel wird die Forschungsfrage I bezüglich der Platzierung der @UE:
 Um die Gitterstruktur des Garns in einem kontinuierlichen Zug ohne Unterbrechung herzustellen, sind Umkehrpunkte erforderlich. Nach #citep(<mechtcherineNeueCarbonfaserbewehrungFur2019>) existieren hierfür zwei grundsätzliche Ansätze: Zum einen kann das Garn spannungsfrei auf einer Oberfläche abgelegt werden, ähnlich dem Verfahren bei 3D-Druckern. Zum anderen kann die Ablage unter Spannung erfolgen, indem das Garn über unbewegliche Umlenkelemente (@UE) geführt wird.
 
 // Haftung und Aufbau einer Rolle
-Beim @CBT wurde der zweite Ansatz gewählt, da das in Harz getränkte Garn nach der Temperierung im Ofen sonst an der Ablageoberfläche haften würde. Aus diesem Grund werden zylinderförmige Körper aus Polytetrafluorethylen (PTFE, umgangssprachlich auch Teflon) eingesetzt, von denen die Garnstruktur später leichter zu lösen ist. Diese verfügen über eine magnetische Basis, wodurch sie von einem Roboterarm auf einer ferromagnetischen Platte frei in zwei Dimensionen positioniert werden können. 
+Beim @CBT wurde der zweite Ansatz gewählt, da das in Harz getränkte Garn nach der Temperierung im Ofen sonst an der Ablageoberfläche haften würde. Aus diesem Grund werden zylinderförmige Körper aus Polytetrafluorethylen (PTFE, umgangssprachlich auch Teflon) eingesetzt, von denen die Garnstruktur später leichter zu lösen ist. Diese verfügen über eine magnetische Basis, wodurch sie von einem Roboterarm auf einer ferromagnetischen Platte frei in zwei Dimensionen positioniert werden können. Ein typisches @UE ist in @fig:umlenkelement abgebildet. Sie haben üblicherweise einen Durchmesser von fünf Zentimetern und eine Höhe von zehn Zentimetern, zzgl. sieben Millimeter für die Basis.
 
-#todo[Bild einer Umlenkrolle einfügen]
+#figure(
+  image("/images/umlenkrolle.jpg", width: 30%),
+  caption: [Typisches Umlenkelement mit magnetischer Basis und Körper aus PTFE],
+)<fig:umlenkelement>
 
 Die Positionen der @UE:pl sollen vollständig automatisiert und unter Berücksichtigung der folgenden Anforderungen durch einen in diesem Kapitel zu erforschenden Algorithmus berechnet werden.
 
@@ -96,10 +99,10 @@ Analog gilt für zwei horizontale Seiten mit den y-Koordinaten $(y_1, y_2) in {(
 
 $ (exists x: (x,y_1) in A and 2<=x<=x_("max")-2) arrow \ (x+1, y_2) in A and (x-1, y_2) in A $
 #todo[Bereich, wo zwischen den Seiten gewechselt wird in Hauptrichtung, also wo die Tür in dieser Richtung endet, ist nicht gut dargestellt]
-In @fig:ue-placement-model (a) ist der Sachverhalt aus @eq:rollen-platzierung-vertikale-seiten exemplarisch für zwei gegenüberliegende vertikale Seiten dargestellt.
+In @fig:ue-place-model (a) ist der Sachverhalt aus @eq:rollen-platzierung-vertikale-seiten exemplarisch für zwei gegenüberliegende vertikale Seiten dargestellt.
 
 // Sonderstellen
-Durch die Anforderungen kann es in den Ecken der Wand dazu kommen, dass zwei @UE diagonal direkt nebeneinander platziert werden müssen (Sonderstellen), wie in @fig:ue-placement-model (b) dargestellt. Das Werkzeug des Roboters zum Ablegen des Garns passt nicht in die Lücke dazwischen, was besondere Achtung bei der Pfadplanung erfordert. Bei dem Türausschnitt kann in den oberen beiden Ecken selbiges passieren, wobei es hier dazu führen würde, dass ein unregelmäßiger Abstand im Carbongitter entstehen müsste. Aus diesem Grund ist es bei der Platzierung der @UE wichtig diesen Fall zu vermeiden.
+Durch die Anforderungen kann es in den Ecken der Wand dazu kommen, dass zwei @UE diagonal direkt nebeneinander platziert werden müssen (Sonderstellen), wie in @fig:ue-place-model (b) dargestellt. Das Werkzeug des Roboters zum Ablegen des Garns passt nicht in die Lücke dazwischen, was besondere Achtung bei der Pfadplanung erfordert. Bei dem Türausschnitt kann in den oberen beiden Ecken selbiges passieren, wobei es hier dazu führen würde, dass ein unregelmäßiger Abstand im Carbongitter entstehen müsste. Aus diesem Grund ist es bei der Platzierung der @UE wichtig diesen Fall zu vermeiden.
 
 #let r = 0.4
 #figure(
@@ -164,7 +167,7 @@ Durch die Anforderungen kann es in den Ecken der Wand dazu kommen, dass zwei @UE
     ]
   ),
   caption: [Veranschaulichung des Modells. Bezeichnungen in Rot stellen Werte in Millimetern dar. (a) Abstand zwischen den UE, (b) Sonderstelle in unterer rechter Ecke der Wand mit Padding $p=r$ ],
-) <fig:ue-placement-model>
+) <fig:ue-place-model>
 
 // Anzahl der Fälle
 Wird einer der Eingabeparameter um mindestens $d$ vergrößert, kann entlang der entsprechenden Hauptachse ein weiteres @UE auf der gegenüberliegenden Seite platziert werden.
@@ -214,7 +217,7 @@ Während #citep(<morris-hillBuildingStringArt2023>) die Pins in einem gleichmä�
 // Schlussfolgerung eigene Lösung
 Da keine relevanten Arbeiten zum hier betrachteten Problem identifiziert werden konnten und darüber hinaus spezifische Anforderungen und Restriktionen bestehen, ist die Entwicklung eines eigenen Lösungsansatzes erforderlich.
 
-== Lösungsmethode <sec:ue-placement-implementation>
+== Lösungsmethode <sec:ue-place-implementation>
 
 // Tür zuerst
 Aufgrund der begrenzten Möglichkeiten zur Platzierung der @UE am Türausschnitt, ohne die spätere Routenplanung stark einzuschränken, werden diese Positionen zuerst bestimmt. Standardmäßig wird dabei ein @UE in der unteren linken Ecke der Tür platziert, woraus sich die Positionen der übrigen @UE ableiten lassen.
@@ -270,7 +273,7 @@ In den äußersten Ecken der Wand sowie den unteren Ecken des Türausschnitts ka
 Da Streben, die an diesen @UE enden, aus struktureller Sicht nicht erforderlich sind, müssen diese Elemente nicht zwingend in der Routenplanung berücksichtigt werden. Wird auf ihre Nutzung verzichtet, entfällt auch ihre Platzierung durch den Roboterarm, wodurch Zeit und Energie eingespart werden können.
 
 
-== Ergebnisse
+== Ergebnisse <sec:ue-place-result>
 
 Wie in @sec:ue-place-problem dargestellt, existieren konzeptionell lediglich 32 zu betrachtende Kombinationen von Wanddimensionen. Der vorgestellte Ansatz wurde für sämtliche dieser Kombinationen empirisch getestet und anschließend evaluiert. In allen Fällen konnten vollständig valide Platzierungen berechnet werden. Eine Beispielkonfiguration einer Wand mit den berechneten Positionen der @UE ist in @fig:fully-placed-ue-wall dargestellt. In dem gezeigten Beispiel ist kein Versatz der oberen @UE erforderlich.
 
@@ -306,6 +309,6 @@ Wie in @sec:ue-place-problem dargestellt, existieren konzeptionell lediglich 32 
   caption: [Kleine Wandkonfiguration mit korrekt platzierten Umlenkelementen. In Rot dargestellt eine Sonderstelle, in Grün optionale UE und in Blau das UE, welches den oberen Versatz bestimmt.]
 )<fig:fully-placed-ue-wall>
 
-Die Anzahl der @UE ist in den meisten Fällen minimal. Durch die in @sec:ue-placement-implementation beschriebenen optionalen @UE in den Ecken der Wand werden womöglich @UE platziert, welche für die spätere Routenplanung irrelevant sind. Ihre Anzahl begrenzt sich in diesen Fällen auf maximal zwei eventuell überflüssige @UE, welche nach der Routenplanung aus dem Ablageprogramm entfernt werden können.
+Die Anzahl der @UE ist in den meisten Fällen minimal. Durch die in @sec:ue-place-implementation beschriebenen optionalen @UE in den Ecken der Wand werden womöglich @UE platziert, welche für die spätere Routenplanung irrelevant sind. Ihre Anzahl begrenzt sich in diesen Fällen auf maximal zwei eventuell überflüssige @UE, welche nach der Routenplanung aus dem Ablageprogramm entfernt werden können.
 
 Die durchschnittliche Rechenzeit beträgt 0,08 Millisekunden, während die maximal gemessene Rechenzeit bei 24 Millisekunden über alle 32 Testläufe lag. Die Tests wurden auf einem Intel(R) Core(TM) i5-8350U Prozessor mit 24 GB Arbeitsspeicher durchgeführt.

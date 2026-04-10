@@ -52,8 +52,7 @@ Um ein Durchlaufen der Teilrouten in umgekehrter Richtung, also entgegen der Hau
 
 Der dadurch entstehende Lösungsraum $Omega$ ist mit einer Kardinalität von $|Omega| = product_(i = 1)^(6) 2i = 46'080$ Permutationen um Größenordnungen kleiner als jener bei einer punktbasierten Planung sowie unabhängig von der Größe der Wand und der daraus resultierenden Anzahl an @UE. Zusätzlich können viele Permutationen aus der Menge entfernt werden, weil sie Reihenfolgen von Teilbereichen enthalten, welche ohnehin keine valide Abfolge darstellen. Das ist beispielsweise der Fall, falls auf ein $R V$ direkt ein $L V$ folgt, da sie sich keine Ecke der Wand teilen und somit ohne Umweg über $T V$ keine valide Route entstehen kann. 
 
-#todo[Optionale Rolle als eigener teilbereich in der ecke der wand?]
-// - verringerung der anzahl der permutationen im Lösungsraum auf $product_(i = 1)^(6) 2i = 46'080$ ohne Optimierungen
+#todo[Optionale Rolle als eigene teilroute in der ecke der wand?]
 //   - durch ausschluss von manchen kanten (zb lv zu rv) auf knapp $18'000$ permutationen reduzierbar
 // - bei manchen wänden kann in den ecken noch eine optionale rolle hinzugefügt werden, um mehr möglichkeiten für schwierige umlenkungen zu bieten
 //   - modellierung als separates puzzleteil mit nur einer rolle
@@ -63,6 +62,8 @@ Der dadurch entstehende Lösungsraum $Omega$ ist mit einer Kardinalität von $|O
 // - bewertung der entstandenen route trotzdem kantenbasiert
 
 Der Graph, in dem schlussendlich nach einer Lösung gesucht wird, ist in @fig:puzzle-graph zu sehen. In dieser Darstellung sind aus Gründen der Übersicht die Rückrichtungen $p^R$ der jeweiligen Teilbereiche nicht dargestellt. Eine zulässige Lösung ist, wie bei der punktbasierten Routenplanung, ein Hamiltonpfad in diesem Graphen.
+
+#question[Der Graph passt nicht. Vereinfacht ist er nicht korrekt und korrekt ist er zu groß, nichtssagend und passt auch nicht mehr zum Problem (kein Hamiltonpfad). Kann der raus? Ich finde diese Darstellung unpassend und unnütz.]
 
 #figure(
   raw-render(
@@ -78,7 +79,7 @@ Der Graph, in dem schlussendlich nach einer Lösung gesucht wird, ist in @fig:pu
     }
     ```
   ),
-  caption: [Puzzle Graph],
+  caption: [Teilrouten Graph],
 )<fig:puzzle-graph>
 
 Für die Bewertung gefundener Lösungen muss die bestehende Bewertungsfunktion nicht angepasst werden. Aus einer Permutation $pi: NN -> P_V$ lässt sich eine Route durch Verkettung der einzelnen Permutationen berechnen. Somit ist eine Funktion $T: P_V^6 -> R$ definiert, sodass
@@ -153,7 +154,7 @@ Zur effizienten Erzeugung aller validen Permutationen wird eine rekursive Funkti
 
 #question[Soll die auswertung der tabelle (deutung, warum manche zahlen so sind) lieber in die auswertung?]
 
-Die Ergebnisse der Testläufe sind in @tab:bruteforce-puzzle-res zusammengefasst. Insgesamt werden 129'024 verschiedene Permutationen gebildet. In der Spalte "Anz. Lösungen" ist jeweils die Anzahl der Lösungen mit Kosten unter 400 zu sehen. Die Spalte „Anz. Lösungen“ gibt jeweils die Anzahl der Lösungen mit Kosten unterhalb der Schranke von 400 an. Es zeigt sich, dass größere Wandkonfigurationen signifikant weniger potenzielle Lösungen aufweisen. Dies kann dadurch erklärt werden, größere Abweichungen zwischen Ist- und Soll-Positionen der @UE:pl:long durch die distanzbasierte Kostenfunktion stärker bestraft werden und somit vergleichbare Fehler zu höheren Kosten führen.
+Die Ergebnisse der Testläufe sind in @tab:bruteforce-puzzle-res zusammengefasst. Insgesamt werden 129'024 verschiedene Permutationen gebildet. In der Spalte "Anz. Lösungen" ist jeweils die Anzahl der Lösungen mit Kosten unter 400 zu sehen. Die Spalte „Anz. Lösungen“ gibt jeweils die Anzahl der Lösungen mit Kosten unterhalb der Schranke von 400 an. Es zeigt sich, dass größere Wandkonfigurationen signifikant weniger potenzielle Lösungen aufweisen. Dies kann dadurch erklärt werden, dass größere Abweichungen zwischen Ist- und Soll-Positionen der @UE:pl:long durch die distanzbasierte Kostenfunktion stärker bestraft werden und somit vergleichbare Fehler zu höheren Kosten führen.
 
 
 #figure(
@@ -171,7 +172,7 @@ Die Ergebnisse der Testläufe sind in @tab:bruteforce-puzzle-res zusammengefasst
   caption: [Ergebnisse optimiertes Brute Force]
 ) <tab:bruteforce-puzzle-res>
 
-Außerdem ist zu sehen, dass die Laufzeiten für die größeren Wandkonfigurationen trotz des kleineren Lösungsraumes größer sind. Ein Faktor spielt hierbei die Bewertungsfunktion, die trotz der Kodierung als Permutation fester Länge auf der resultierenden Route arbeitet. Da durch die größeren Wände auch mehr Kanten bewertet werden müssen, steigt die Laufzeit des Gesamtprozesses folglich.
+Außerdem ist zu sehen, dass die Laufzeiten scheinbar proportional mit der Größe der Wandkonfiguration ansteigen, obwohl der Lösungsraum kleiner ist. Ein Faktor ist hierbei die Bewertungsfunktion, die trotz der Kodierung als Permutation fester Länge auf der resultierenden Route arbeitet. Da durch die größeren Wände auch mehr Kanten bewertet werden müssen, steigt die Laufzeit des Gesamtprozesses folglich.
 
 Dennoch wird selbst für die großen Wandkonfigurationen innerhalb weniger Sekunden das globale Optimum gefunden. Anders als bei der punktbasierten Planung ist das implementationsbedingt auch der Zeitpunkt, an dem die Suche terminiert und das finale Ergebnis somit feststeht.trotz
 

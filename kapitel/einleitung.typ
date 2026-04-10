@@ -35,8 +35,6 @@ Um im CBT und letztendlich in folgenden industriellen Produktionsstätten die au
 
 Zu diesem Zweck wird das Problem in drei aufeinander aufbauende Teilprobleme aufgeteilt, die jeweils mit einem Abschnitt in der Prozesskette adressieren. Zunächst müssen die Positionen der @UE:pl:long bestimmt werden. Aufgrund der variablen Position und Abmessungen der Tür können sie frei auf der Ablagefläche platziert werden. Anschließend erfolgt eine Routenplanung zur Bestimmung der Reihenfolge, in der die @UE:pl angefahren und somit mit Garn umwickelt werden sollen. Abschließend wird aus der Route ein Pfad abgeleitet, der die physischen Wegpunkte für die Bewegung des Roboterarms beschreibt. 
 
-#todo[Bild eines Geleges mit Türausschnitt einfügen, wenn es getestet wurde]
-
 Als Forschungsziel dieser Arbeit gilt die Beantwortung der folgenden drei Forschungsfragen, welche den drei Teilproblemen zugehörig sind. 
 
 #[
