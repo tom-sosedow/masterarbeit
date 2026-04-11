@@ -1,21 +1,40 @@
 #import "/util.typ": *
 
 = Auswertung <sec:auswertung>
+#todo[Einleitender Abschnitt]
 
+
+
+// Aufbau
+// - Bewerten der Resultate anhand der Kriterien
+//   - Was funktioniert gut
+//   - Was fehlt oder funktioniert nicht so gut?
+//   - Limitationen, zukunftspotential, weitere Forschungsmöglichkeiten
+// - Beantworten der RQ, welche Methode sich gut eignet oder ob sie die ziele erfüllt
+
+// Kriterien
+// - strukturelle anforderungen: erzeugt es eine gute struktur? gibt es fehler?
+// - anwendbarkeit: pass es gut in den prozess? wie verständlich/wartbar/erweiterbar ist es?
+// - geschwindigkeit: wie schnell ist es?
+// - weitere betrachtungen: gibt es dinge zu beachten, caviats? alternativen? 
 
 // RQ1 
 *Platzierung der Umlenkelemente*
-- die in @sec:ue-place vorgestellte iterative platzierung der UE ist 
-  - ausreichend schnell, 
-  - bringt sicher optimale lösungen und 
-  - ist einfach zu implementieren und verstehen, was geringen wartungsaufwand un einfache erweiterungen und anpassungen verspricht
-  - unabhängig vom genauen radius der @UE, kleine und große modelle möglich
-- es mangelt an anpassbarkeit im bezug auf die form des türausschnittes und der wand selbst
-  - sollte es formen wie parallelogramme, trapeze oder rundungen geben versagt der algorithmus mit der angegebenen modellierung
-  - weitere betrachtungen für das wiederholte nutzen von @UE für vertikale und horizontale streben wären nötig
-- modellierung als raster eventuell nicht zukunftssicher, falls @UE oder andere hindernisse in bereichen zwischen den diskreten positionen abgelegt werden müssen, beispielsweise wenn eine @UE oder ein anderes einzuarbeitendes objekt nicht 2r breit und hoch ist
-  - kann aber im nachgang außerhalb der betrachtung durch das raster eingepflegt/platziert werden
-  
+
+Die dynamische Berechnung der Positionen der @UE:pl:long auf Basis der fünf Eingabeparameter wurde in @sec:ue-place untersucht. Das vorgestellte schrittweise Platzierungsverfahren liefert zuverlässig valide Ergebnisse, da es ohne Zufallskomponenten auskommt. Allerdings ist nicht in jedem Fall gewährleistet, dass die resultierenden Anordnungen optimal sind. Insbesondere kann die feste Platzierung des ersten Umlenkelements an der linken unteren Ecke der Tür dazu führen, dass Sonderstellen an ungünstigen Positionen auftreten. Ansätze, welche die für die Sonderumlenkungen nötigen @UE:pl priorisiert platzieren, könnten hier potenziell zu günstigeren Voraussetzungen für die anschließende Routenplanung führen.
+#todo[mehr drauf eingehen, wenn abschnitt in Routenplanung fertig ist] 
+
+Die Implementation ist durch die fixierte Vorgehensweise allerdings sehr unkompliziert. Dies führt zu einem geringen Wartungsaufwand sowie zu einer hohen Anpassbarkeit, die auch ohne vertiefte informatische Kenntnisse gewährleistet ist.
+
+Einschränkungen ergeben sich jedoch aus der zugrunde liegenden Modellierung. Durch die Paarung der @UE:pl entlang einer Türseite mit denen einer Wandseite bei der Positionierung vertikaler @UE:pl ist das Verfahren nicht ohne Weiteres auf nicht-rechteckige Formen übertragbar. Bei schrägen Seiten, wie etwa bei Parallelogrammen oder Kreisbögen, müssten die @UE:pl entlang der Schräge sowohl für vertikale als auch für horizontale Streben genutzt werden, wofür in der aktuellen Modellierung keine geeignete Zuordnung vorgesehen ist. Erweiterungen zur Unterstützung rechteckiger Fensterausschnitte oder mehrerer Ausschnitte sollten jedoch problemlos möglich sein.
+
+Auch die Integration zusätzlicher Bauteile, wie beispielsweise Stromdosen oder Kabelkanäle, ist mit der aktuellen Modellierung als Raster nur eingeschränkt möglich. Insbesondere dann, wenn Objekte außerhalb der diskreten Rasterpositionen platziert werden müssen oder größere Abmessungen als ein @UE aufweisen, stößt der Ansatz an seine Grenzen. Eine mögliche Erweiterung könnte darin bestehen, zunächst die @UE:pl zu positionieren und anschließend weitere Elemente in einem stetigen Koordinatensystem zu ergänzen.
+
+Hinsichtlich der Laufzeit erfüllt das Verfahren die Anforderungen der Prozesskette des @CBT in hohem Maße. Selbst für große Wandkonfigurationen erfolgt die Berechnung der Positionen innerhalb weniger Millisekunden, sodass ein Einsatz in industriellen Produktionsketten problemlos möglich ist.
+
+Da die in den folgenden Kapiteln behandelten Verfahren auf den hier bestimmten Positionen der @UE:pl aufbauten und gezeigt werden konnte, dass sich auf dieser Grundlage gleichmäßige Carbongitter erzeugen lassen, stellt das iterative Platzierungsverfahren insgesamt eine geeignete Antwort auf die Forschungsfrage (I) dar.
+
+
 // RQ 2
 *Routenplanung*
 - Um die Reihenfolge der anzufahrenden UE zu bestimmen wurden 2 modelle für die route betrachtet: eine punktbasierte (@sec:route-pointbased) und eine auf vordefinierten teilrouten (@sec:route-puzzle-based) basierte
@@ -37,6 +56,10 @@
 // RQ 3
 *Pfadberechnung*
 - anpassbar und verständliche vorgehensweise gut für wartung und längeren support
+
+*Gesamtsystem*
+Verbindung von Allem
+
 
 = Zusammenfassung
 Und Fazit
