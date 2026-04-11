@@ -13,7 +13,7 @@ $ V={(x_i, y_i, i) | i in {1,...,n}, x_i, y_i in NN_0^+} $
 sowie $ v_((x))=x_i "und" v_((y))=y_i "von" v_i in V $
 und die Wandbreite mit $0<= x_i <= w_b$ und Wandhöhe mit $0<= y_i <= w_h$ definiert. Der Graph ist vollständig, es ist also jeder Knoten mit jedem anderen Knoten durch eine Kante aus der Menge 
 $ E = { (v,w) | v, w in V} $
-verbunden. Die gesuchte Route $pi$ ist Element der Menge aller möglichen Routen $R$, definiert durch 
+verbunden. Die gesuchte Route $pi$ ist eine Permutation der Menge aller möglichen Routen $R$, definiert durch 
 $ R={(pi(1), pi(2),.., pi(n)) | & pi(i) in V, forall i, j in {1,...,n}: \ & i != j => pi(i) != pi(j)} $ 
 
 // Route Aussehen/Struktur

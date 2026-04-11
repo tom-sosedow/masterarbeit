@@ -400,22 +400,22 @@ Der resultierende Pfad, ergänzt um diese beiden zusätzlichen Wegpunkte, ist ex
 
 == Ergebnisse
 
-Um das gezeigte Vorgehen zu analysieren, werden ähnlich zu @sec:ue-place-result wieder alle 32 möglichen Wandkonfigurationen überprüft. Die durchschnittliche Rechenzeit beträgt 1,57 Millisekunden, während die maximal gemessene Rechenzeit bei 10,32 Millisekunden über alle 32 Testläufe lag. Die Tests wurden ebenfalls auf einem Intel(R) Core(TM) i5-8350U Prozessor mit 24 GB Arbeitsspeicher durchgeführt. In @fig:beispielpfad ist der berechnete Pfad für die Wandkonfiguration $w_4$ aus @sec:routenplanung dargestellt. Die berechnete Route startet hier bei @UE 61 und endet bei @UE 27.
+Zur Analyse des gezeigten Vorgehens werden, analog zu @sec:ue-place-result, erneut alle 32 möglichen Wandkonfigurationen überprüft. Die Tests werden ebenfalls auf einem Intel(R) Core(TM) i5-8350U Prozessor mit 24 GB Arbeitsspeicher durchgeführt. Die durchschnittliche Rechenzeit beträgt 1,57 Millisekunden, während die maximal gemessene Rechenzeit bei 10,32 Millisekunden über alle 32 Testläufe liegt. In @fig:beispielpfad ist der berechnete Pfad für die Wandkonfiguration $w_4$ aus @sec:routenplanung exemplarisch dargestellt. Die berechnete Route beginnt hier bei @UE 61 und endet bei @UE 27.
 
 #figure(
   image("/images/pfadbeispiel.png"),
   caption: [Pfad des Roboters in Wandkonfiguration $w_4$ aus @sec:routenplanung. Route beginnt bei UE 61 und endet bei UE 27]
 )<fig:beispielpfad>
 
-Die Pfade werden größtenteils zuverlässig bestimmt. Bei Nutzung der Invertierung, wie in @sec:path-direction dargestellt, kommt es bei manchen Routen zu fehlerhaften Teilabschnitten, wodurch sie ähnlich zu dem in @fig:pfad-zu-muster (b) gezeigten Pfad verlaufen. Grund hierfür ist immer eine falsche Berechnung der Umlaufrichtung bei einem Wechsel der Hauptrichtung. 
+Die Pfade werden insgesamt überwiegend zuverlässig bestimmt. Bei Nutzung der Invertierungsstrategie, wie in @sec:path-direction dargestellt, kommt es bei manchen Routen zu fehlerhaften Teilabschnitten, wodurch sie ähnlich zu dem in @fig:pfad-zu-muster (b) gezeigten Pfad verlaufen. Grund hierfür ist immer eine falsche Berechnung der Umlaufrichtung bei einem Wechsel der Hauptrichtung. 
 
-Wird der vektorbasierte Ansatz genutzt, sind die Teilbereiche immer vollständig korrekt. Wie bereits beschrieben kommt es allerdings auch bei diesem Ansatz regelmäßig zu Problemen beim Wechsel der Hauptrichtung. Ein Beispiel hierfür ist auch in @fig:beispielpfad zu sehen. Bei dem Teilabschnitt der Route von @UE 20 über @UE 62 zu @UE 60 liegt Letzteres rechts von der Kante $20 -> 62$. Dadurch wird die Umlaufrichtung, gemäß der definierten Regel, entsprechend des Uhrzeigersinns festgelegt. In diesem Fall wäre allerdings eine Drehung entgegen des Uhrzeigersinns nötig, da die resultierende Strebe zwischen @UE 62 und @UE 60 sonst leicht diagonal anstatt zur x-Achse achsenparallel verläuft. 
+Wird hingegen der vektorbasierte Ansatz genutzt, sind die Teilbereiche immer vollständig korrekt. Wie bereits beschrieben kommt es allerdings auch bei diesem Ansatz regelmäßig zu Problemen beim Wechsel der Hauptrichtung. Ein Beispiel hierfür ist auch in @fig:beispielpfad zu sehen. Bei dem Teilabschnitt der Route von @UE 20 über @UE 62 zu @UE 60 liegt Letzteres rechts der Kante $20 -> 62$. Gemäß der definierten Regel wird daraus eine Umlaufrichtung im Uhrzeigersinn abgeleitet. In diesem Fall wäre jedoch eine Bewegung entgegen dem Uhrzeigersinn erforderlich, da die resultierende Strebe zwischen @UE 62 und @UE 60 andernfalls nicht achsenparallel zur x-Achse, sondern leicht diagonal verläuft.
 
 Weiterhin lässt sich feststellen, dass die Wegpunkte für die Umlenkungen um mehrfach angefahrene @UE:pl:long korrekt gesetzt werden. So wird das @UE 34 an der oberen rechten Türecke zunächst auf halber Route für eine vertikale Strebe genutzt. Kurz vor Ende der Route wird das @UE dann erneut für eine horizontale Strebe umfahren, bevor der Pfad beim @UE 27 endet.  
 
-Die Kollisionsvermeidung durch vollständige Umlenkungen funktioniert auch erwartungsgemäß. In @fig:beispielpfad ist unter anderem am Beispiel des @UE 20 eine solche Umlenkung zu sehen. Durch sie wird eine Kollision mit dem @UE 22 verhindert, in die der Roboterarm fahren würde, wenn er zur Umlenkung um @UE 62 fährt.
+Auch die Kollisionsvermeidung durch den Einsatz vollständiger Umlenkungen funktioniert erwartungsgemäß. In @fig:beispielpfad ist dies unter anderem am @UE 20 zu erkennen, wo durch eine entsprechende Umlenkung eine Kollision mit @UE 22 vermieden wird, die andernfalls bei der Bewegung Richtung @UE 62 auftreten würde.
 
-Die Zwischenpunkte, die zur Vermeidung von Kollisionen mit bereits verlegtem Garn eingefügt werden, sind in der Abbildung mit roten Kreisen gekennzeichnet. Alle Punkte werden korrekter weise an der jeweils ersten und letzten Schnittstelle eines Schrittes platziert, sodass ein Zerreißen des Garns verhindert wird.
+Die zusätzlich eingefügten Zwischenpunkte zur Vermeidung von Kollisionen mit bereits verlegtem Garn sind in der Abbildung durch rote Kreise hervorgehoben. Diese werden korrekt jeweils am ersten und letzten Schnittpunkt eines Pfadsegments platziert, wodurch ein Abriss oder Beschädigung des Garns vermieden wird.
 
 #todo[Letzten abschnitt Ausbauen]
 

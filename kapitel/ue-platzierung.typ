@@ -217,7 +217,7 @@ Während #citep(<morris-hillBuildingStringArt2023>) die Pins in einem gleichmä�
 // Schlussfolgerung eigene Lösung
 Da keine relevanten Arbeiten zum hier betrachteten Problem identifiziert werden konnten und darüber hinaus spezifische Anforderungen und Restriktionen bestehen, ist die Entwicklung eines eigenen Lösungsansatzes erforderlich.
 
-== Lösungsmethode <sec:ue-place-implementation>
+== Iterative Lösungsmethode <sec:ue-place-implementation>
 
 // Tür zuerst
 Aufgrund der begrenzten Möglichkeiten zur Platzierung der @UE am Türausschnitt, ohne die spätere Routenplanung stark einzuschränken, werden diese Positionen zuerst bestimmt. Standardmäßig wird dabei ein @UE in der unteren linken Ecke der Tür platziert, woraus sich die Positionen der übrigen @UE ableiten lassen.
@@ -225,6 +225,14 @@ Aufgrund der begrenzten Möglichkeiten zur Platzierung der @UE am Türausschnitt
 // vertikale Rollen links und rechts
 Aus den Positionen der @UE entlang der Seiten des Türausschnitts ergeben sich anschließend die Positionen der @UE an der linken und rechten Wandseite. Dabei wird jeweils an denjenigen Stellen ein @UE an der Wand platziert, an denen entlang des Türausschnitts eine Lücke besteht.
 
+// #figure(
+//   stack(
+//     dir: ltr,
+//     image("/images/image.png", width: 50%),
+//     image("/images/image-1.png", width: 50%)
+//   ),
+//   caption: []
+// )
 #maybe[Erklärungen ausbauen, wie sich die Position von UE aus den Positionen andere UE ergibt]
 
 Durch die Lage des obersten @UE an der linken und rechten Seite des Türausschnitts lassen sich die Positionen der @UE:pl an der Oberseite des Türausschnitts bestimmen. So wird, falls das oberste @UE bei $(t_(x,1), t_(y,1)+1)$ liegt, kein @UE auf den anliegenden Nachbarfeldern ${(x,t_(y,1)) | t_(x,1) <= x <= t_(x,1) +1}$ platziert. In @fig:oberkante-türausschnitt sind diese unzulässigen Positionen rot und das ausschlaggebende Seitenelement blau markiert. Liegt das oberste @UE bei $(t_(x,2), t_(y,1)+1)$ so können keine @UE an den Stellen ${(x,t_(y,1)) | t_(x,2)-1 <= x <= t_(x,2)}$ abgelegt werden. So wird verhindert, dass in den oberen Türecken @UE diagonal nebeneinander liegen.
@@ -275,7 +283,7 @@ Da Streben, die an diesen @UE enden, aus struktureller Sicht nicht erforderlich 
 
 == Ergebnisse <sec:ue-place-result>
 
-Wie in @sec:ue-place-problem dargestellt, existieren konzeptionell lediglich 32 zu betrachtende Kombinationen von Wanddimensionen. Der vorgestellte Ansatz wurde für sämtliche dieser Kombinationen empirisch getestet und anschließend evaluiert. In allen Fällen konnten vollständig valide Platzierungen berechnet werden. Eine Beispielkonfiguration einer Wand mit den berechneten Positionen der @UE ist in @fig:fully-placed-ue-wall dargestellt. In dem gezeigten Beispiel ist kein Versatz der oberen @UE erforderlich.
+Wie in @sec:ue-place-problem dargestellt, existieren konzeptionell lediglich 32 zu betrachtende Kombinationen von Wanddimensionen. Der vorgestellte Ansatz wurde für sämtliche dieser Kombinationen empirisch getestet und anschließend evaluiert. In allen Fällen konnten vollständig valide Platzierungen berechnet werden. Eine Beispielkonfiguration einer Wand mit den berechneten Positionen der @UE ist in @fig:fully-placed-ue-wall dargestellt. Der Versatz $omega$ des obersten linken @UE ist in Blau dargestellt und beträgt in diesem Beispiel $1$. 
 
 #figure(
   cetz.canvas({
@@ -283,7 +291,7 @@ Wie in @sec:ue-place-problem dargestellt, existieren konzeptionell lediglich 32 
 
     scale(0.5)
     
-    let rolls = ((1,0), (3,0), (5,0), (7,0), (9,0), (11,0), (13,0), (15,1), (0,2), (4,3), (6,3), (8,3), (15,3), (0,4), (10,4), (4,5), (15,5), (0,6), (10,6), (4,7), (15,7), (0,8), (10,8), (4,9), (15,9), (0,10), (2,10), (12,10), (14,10))
+    let rolls = ((1,0), (3,0), (5,0), (7,0), (9,0), (11,0), (13,0), (15,1), (-1,2), (4,3), (6,3), (8,3), (15,3), (-1,4), (10,4), (4,5), (15,5), (-1,6), (10,6), (4,7), (15,7), (-1,8), (10,8), (4,9), (15,9), (0,10), (2,10), (12,10), (14,10))
 
     for point in rolls.map((p) => (p.at(0), -1*p.at(1))) {
       circle(point, radius: (0.5,0.5))
@@ -293,20 +301,23 @@ Wie in @sec:ue-place-problem dargestellt, existieren konzeptionell lediglich 32 
     circle((14, -10), radius: (0.5,0.5), fill: red)
     
     circle((4, -3), radius: (0.5,0.5), fill: blue)
-    circle((0,-10), radius: (0.5,0.5), fill: green)
+    circle((-1,0), radius: (0.5,0.5), fill: green)
     circle((10,-10), radius: (0.5,0.5), fill: green)
 
-    line((-1,1),(16,1))
+    line((0,0),(1,0), mark: (end: ">>"), stroke: (paint: blue))
+    content((0.2,-0.5), text(fill:blue)[$omega$])
+
+    line((-2,1),(16,1))
     line((16,1),(16,-11))
     line((16,-11),(9,-11))
     line((9,-11),(9, -4))
     line((9, -4), (5,-4))
     line((5,-11),(5, -4))
-    line((5, -11),(-1,-11))
-    line((-1,-11),(-1,1))
+    line((5, -11),(-2,-11))
+    line((-2,-11),(-2,1))
 
   }),
-  caption: [Kleine Wandkonfiguration mit korrekt platzierten Umlenkelementen. In Rot dargestellt eine Sonderstelle, in Grün optionale UE und in Blau das UE, welches den oberen Versatz bestimmt.]
+  caption: [Kleine Wandkonfiguration mit korrekt platzierten Umlenkelementen. In Rot dargestellt eine Sonderstelle, in Grün optionale UE und in Blau das UE, welches den oberen Versatz $omega$ bestimmt.]
 )<fig:fully-placed-ue-wall>
 
 Die Anzahl der @UE ist in den meisten Fällen minimal. Durch die in @sec:ue-place-implementation beschriebenen optionalen @UE in den Ecken der Wand werden womöglich @UE platziert, welche für die spätere Routenplanung irrelevant sind. Ihre Anzahl begrenzt sich in diesen Fällen auf maximal zwei eventuell überflüssige @UE, welche nach der Routenplanung aus dem Ablageprogramm entfernt werden können.
