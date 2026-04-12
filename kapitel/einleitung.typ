@@ -1,5 +1,5 @@
 #import "/util.typ": *
-
+#import "/forschungsfragen.typ": forschungsfragen
 = Einleitung
 
 == Motivation
@@ -11,7 +11,7 @@ Textile Bewehrungen sind Alternativen, welche die Rolle der Stahlstreben aus tra
 
 Analog zu klassischen Stahlbewehrungen soll auch das Carbongarn innerhalb des Betons eine Gitterstruktur bilden, um Zugkräfte sowohl in horizontaler als auch in vertikaler Richtung aufzunehmen. Die automatisierte Herstellung solcher Carbonstrukturen ist eine wesentliche Voraussetzung für die industrielle Skalierung und breite Anwendung von Carbonbeton, wobei gleichzeitig hohe Anforderungen an Qualität und Wirtschaftlichkeit bedient werden.
 
-Vor diesem Hintergrund wurde im Jahr 2022 das Carbonbetontechnikum Leipzig (CBT) als Modellfabrik für Forschung und Entwicklung in Betrieb genommen. Ziel ist es, die gesamte Prozesskette, also von der Herstellung der Carbonbewehrung bis zur Aushärtung des Betons, im Hinblick auf eine industrielle Umsetzung zu untersuchen. Eines der Ziele der dortigen Forschungsgruppe ist die industrielle Umsetzung nachhaltiger und ressourcenschonender Bauweise. iDazu gehört insbesondere das Carbongelege mit minimaler Materialverschwendung vollautomatisiert herzustellen.
+Vor diesem Hintergrund wurde im Jahr 2022 das @CBT als Modellfabrik für Forschung und Entwicklung in Betrieb genommen. Ziel ist es, die gesamte Prozesskette, also von der Herstellung der Carbonbewehrung bis zur Aushärtung des Betons, im Hinblick auf eine industrielle Umsetzung zu untersuchen. Eines der Ziele der dortigen Forschungsgruppe ist die industrielle Umsetzung nachhaltiger und ressourcenschonender Bauweise. iDazu gehört insbesondere das Carbongelege mit minimaler Materialverschwendung vollautomatisiert herzustellen.
 
 Im aktuellen Verfahren erfolgt die Ablage des Carbongarns durch einen Roboterarm, welcher das Carbongarn auf einem speziell konzipierten Rahmen verlegt. Dabei wird es um an den Rändern positionierte zylindrische @UE:pl geführt. Durch eine speziell gewählte Folge von Bewegungen entsteht somit in einem Zug die gewünschte Bewehrungsmatte. Ein Beispiel für ein solches Carbongitter ist in @fig:carbongitter dargestellt.
 
@@ -31,7 +31,7 @@ Im aktuellen Verfahren erfolgt die Ablage des Carbongarns durch einen Roboterarm
 Für einfache Wände ist die Berechnung der erforderlichen Bewegungsabläufe vergleichsweise unkompliziert und entsprechende automatisierte Lösungen sind bereits seit mehreren Jahren im Einsatz. Deutlich komplexer gestaltet sich hingegen die Planung für Wände mit Aussparungen, wie beispielsweise Türen oder Fenster. Die Entwicklung robuster automatisierter Verfahren für solche Wände ist jedoch eine zentrale Voraussetzung, um den Einsatz von Carbonbeton im Wohnungsbau industriell zu skalieren.
 
 == Ziele
-Um im CBT und letztendlich in folgenden industriellen Produktionsstätten die automatisierte Produktion von Carbonbetonwänden für den Wohnungsbau zu ermöglichen, müssen Methoden zur Pfadbestimmung für den Roboterarm unter den gegebenen Rahmenbedingungen und prozessspezifischen Anforderungen erforscht werden.
+Um im @CBT und letztendlich in folgenden industriellen Produktionsstätten die automatisierte Produktion von Carbonbetonwänden für den Wohnungsbau zu ermöglichen, müssen Methoden zur Pfadbestimmung für den Roboterarm unter den gegebenen Rahmenbedingungen und prozessspezifischen Anforderungen erforscht werden.
 
 Zu diesem Zweck wird das Problem in drei aufeinander aufbauende Teilprobleme aufgeteilt, die jeweils mit einem Abschnitt in der Prozesskette adressieren. Zunächst müssen die Positionen der @UE:pl:long bestimmt werden. Aufgrund der variablen Position und Abmessungen der Tür können sie frei auf der Ablagefläche platziert werden. Anschließend erfolgt eine Routenplanung zur Bestimmung der Reihenfolge, in der die @UE:pl angefahren und somit mit Garn umwickelt werden sollen. Abschließend wird aus der Route ein Pfad abgeleitet, der die physischen Wegpunkte für die Bewegung des Roboterarms beschreibt. 
 
@@ -39,9 +39,9 @@ Als Forschungsziel dieser Arbeit gilt die Beantwortung der folgenden drei Forsch
 
 #[
   #set enum(numbering: "(I)")
-  + Wie können die Positionen der @UE:pl:long an den Rändern der Wand algorithmisch bestimmt werden, damit schlussendlich eine gleichmäßige Bewehrungsmatte entstehen kann und die Eingabemaße eingehalten werden?
-  + Wie lässt sich die Reihenfolge der anzufahrenden @UE:pl:long effizient berechnen, sodass die Rahmenbedingungen eingehalten werden und minimal Material verschwendet wird?
-  + Unter Berücksichtigung der vorher berechneten Route, wie lassen sich Wegpunkte zum Umfahren der @UE:pl:long bestimmen, sodass der resultierende Pfad kollisionsfrei ist und die gewünschte Gitterstruktur erzeugt?
+  + #forschungsfragen.at(0)
+  + #forschungsfragen.at(1)
+  + #forschungsfragen.at(2)
 ]
 
 Bei der Beantwortung der Fragen soll es ausschließlich um Wände mit einem einzigen einzuplanenden Türausschnitt gehen. Ein geeignetes Forschungsergebnis besteht in der Integration der drei für die jeweiligen Teilprobleme entwickelten Lösungsansätze zu einem Gesamtsystem, das eine vollautomatisierte Herstellung von Carbonbewehrungen unter Berücksichtigung struktureller sowie umgebungsbedingter Anforderungen ermöglicht. Neben der grundsätzlichen Anwendbarkeit und Effizienz der entwickelten Methoden ist insbesondere deren Einbettung in den Kontext von Forschung und Entwicklung zu prüfen. In diesem Umfeld sind häufige und weitreichende Änderungen zu erwarten, weshalb die Ansätze so gestaltet sein sollten, dass sie durch ein interdisziplinäres Forschungsteam mit vertretbarem Aufwand bei Bedarf angepasst werden können.

@@ -187,6 +187,8 @@ Darüber hinaus wird eine Anordnung gefordert, die eine später folgende Routenp
 == Stand der Forschung <sec:ue-place-forschungsstand>
 Sowohl in der Forschung als auch in industriellen Anwendungen existiert nur wenig veröffentlichte Literatur zur Platzierung von Umlenkelementen.
 
+#todo[Forschungsstand CBT]
+
 // TU Dresden
 #citep(<merschAutomation3DRobotic2025>) untersuchten die automatisierte Garnablage für dreidimensionale Skelette, einschließlich der Planung der Bewegungsbahnen eines Roboterarms. Die räumlichen Positionen der Pins werden dabei jedoch als gegeben und strukturell konsistent vorausgesetzt und nicht eigenständig berechnet. Darüber hinaus werden keine Anforderungen an die Gleichmäßigkeit der resultierenden Struktur, beispielsweise in Form eines Gitters, gestellt.
 

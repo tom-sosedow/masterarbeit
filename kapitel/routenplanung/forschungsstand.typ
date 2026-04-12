@@ -5,6 +5,8 @@
 == Stand der Forschung <sec:routen-forschungsstand>
 Zur Lösung von Problemen in großen Lösungsräumen kommen spezialisierte Suchalgorithmen zum Einsatz. Insbesondere bei kombinatorischen Optimierungsproblemen, wie beispielsweise der Routenplanung, lassen sich diese Verfahren grob in zwei Kategorien einteilen. Einerseits existieren exakte Methoden, die stets die optimale Lösung eines Problems bestimmen. Andererseits stehen heuristische beziehungsweise approximative Ansätze zur Verfügung, die sich einem Optimum lediglich annähern #cite(<martiExactHeuristicMethods2022>, supplement: [S. 27]). Beide Ansätze wurden aufgrund ihrer vielfältigen Einsatzmöglichkeiten in Wissenschaft, Forschung und Wirtschaft intensiv untersucht.
 
+#todo[Forschungsstand CBT einfügen. Iteratives Vorgehen, hardcoding]
+
 === Exakte Methoden
 
 // Allgemein
