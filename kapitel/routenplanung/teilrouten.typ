@@ -86,47 +86,68 @@ Für die Bewertung gefundener Lösungen muss die bestehende Bewertungsfunktion n
 $ T((pi(1),...,pi(6))) = pi(1) circle.small ... circle.small pi(6) $
 gilt.
 
-// #figure(
-//   raw-render(
-//     ```dot
-//     digraph {
-//       rankdir=TB
-//       subgraph cluster_LV {
-//         rankdir=LR
-//         LV -> {LHR TV}
-//         LVR -> {LHR TH}      
-//       }
-//       subgraph cluster_LH {
-//         rankdir=LR
-//         LH -> {LV LVR}
-//         LHR -> {THR TV}   
-//       }
-//       subgraph cluster_TV {
-//         rankdir=LR
-//         TV -> {RV RH}
-//         TVR -> {LH LVR}
-//       }
-//       subgraph cluster_RV {
-//         rankdir=LR
-//         RV -> {TH RHR}
-//         RVR -> {TVR RHR}
-//       }
-//       subgraph cluster_RH {
-//         rankdir=LR
-//         RH -> {RVR RV}
-//         RHR -> {TVR THR}
-//       }
-//       subgraph cluster_TH {
-//         rankdir=LR
-//         TH -> {LH RH}
-//         THR -> {LV RVR}
-//       }
-//       //EXTRA -- {LH TH RH LV TV RV}
-//     }
-//     ```
-//   ),
-//   caption: [Puzzle Graph],
-// )<fig:puzzle-graph2>
+#figure(
+  raw-render(
+    ```dot
+    digraph {
+      rankdir=LR
+      ranksep=1.5;
+      nodesep=0.7;
+      
+      subgraph cluster_LV {
+        rankdir=LR
+        color=red
+        LV[style=filled, fillcolor=red];
+        LVR[style=filled, fillcolor=red];
+      }
+      subgraph cluster_LH {
+        rankdir=LR
+        color=pink
+        LH[style=filled, fillcolor=pink];
+        LHR[style=filled, fillcolor=pink];
+      }
+      subgraph cluster_TV {
+        rankdir=LR
+        color=blue
+        TV[style=filled, fillcolor=blue];
+        TVR[style=filled, fillcolor=blue];
+      }
+      subgraph cluster_RV {
+        rankdir=LR
+        color=gold
+        RV[style=filled, fillcolor=gold];
+        RVR[style=filled, fillcolor=gold];
+      }
+      subgraph cluster_RH {
+        rankdir=LR
+        color=cyan
+        RH[style=filled, fillcolor=cyan];
+        RHR[style=filled, fillcolor=cyan];
+      }
+      subgraph cluster_TH {
+        rankdir=LR
+        color=orange
+        TH[style=filled, fillcolor=orange];
+        THR[style=filled, fillcolor=orange];
+      }
+      LV -> {LHR TV}
+      LVR -> {LHR TH}   
+      LH -> {LV LVR}
+      LHR -> {THR TV}   
+      TV -> {RV RH}
+      TVR -> {LH LVR}
+      RV -> {TH RHR}
+      RVR -> {TVR RHR}
+      RH -> {RVR RV}
+      RHR -> {TVR THR}
+      TH -> {LH RH}
+      THR -> {LV RVR}
+      //EXTRA -- {LH TH RH LV TV RV}
+    }
+    ```
+  ),
+  caption: [Puzzle Graph],
+)<fig:puzzle-graph2>
 
 === Heuristische Methoden <sec:route-puzzle-based-heuristics>
 
