@@ -83,20 +83,33 @@ Aufbau
 
 
 // 1. Ziele
-Zur Beantwortung der Forschungsfrage (II) "_#forschungsfragen.at(1)_" wurden exakte und heuristische Suchalgorithmen auf einem punktbasierten sowie einem auf Teilabschnitten basierendem Modell betrachtet. Die Beantwortung dieser Frage ist entscheidend für das Ziel der automatisierten Herstellung von Carbonbewehrung, da hierbei die generelle Struktur und statische Integrität des resultierenden Carbongitters bestimmt wird.
+Zur Beantwortung der Forschungsfrage (II) "_#forschungsfragen.at(1)_" wurden exakte und heuristische Suchalgorithmen auf einem punktbasierten sowie einem auf Teilabschnitten basierendem Modell betrachtet. Dazu wurden Kriterien für die Bewertung der Methoden und der gefundenen Lösungen definiert, um somit das Laufzeitverhalten und die Qualität der erzeugten Lösungen jedes Ansatzes quantifizieren zu können. Die Beantwortung dieser Frage ist entscheidend für das Ziel der automatisierten Herstellung von Carbonbewehrung, da hierbei die generelle Struktur und statische Integrität des resultierenden Carbongitters bestimmt wird.
 
 // 2. Bewertung
-Eine punktbasierte Routenplanung, bei der die Navigation zwischen Umlenkelementen betrachtet wird, scheint für das vorliegende Problem ungeeignet zu sein. Durch die potentiell hohen Anzahl der @UE:pl:long und damit zu besuchenden Knotenpunkten ist der Suchraum sehr groß, wobei es nur sehr wenige ausreichend gute Lösungen gibt. Auch die Bestimmung der ausgehenden Kanten eines Knotens, bei welcher eigentlich nur eine valide Möglichkeit besteht, trägt zur Ineffizienz dieser Modellierung bei. Insbesondere exakte Methoden scheitern an der vergleichsweise hohen Problemgröße. Heuristische Methoden können sich zwar einer potentiellen Lösung stark annähern, allerdings führen die Unsicherheit der Qualität der Route kombiniert mit verletzten strukturellen Anforderungen zu einem unvertretbaren Risiko für die industrielle Produktion von Carbonbeton für Trägerelemente; zumal die Laufzeit zur Generierung dieser minderwertigen Routen dennoch vergleichsweise lang ist.
+Für die Modellierung als Graph, in dem die @UE:pl:long die Knoten darstellen, eignet sich die kantenbasierte Bewertung von Lösungen gut, da somit jede Kante als eigenständige Entscheidung in einem Kontext einzeln bewertet werden kann. Somit kann die Route schrittweise aufgebaut werden, was besonders für exakte Methoden von Vorteil ist. 
+
+Die Modularisierung der Bewertungsfunktion ermöglicht eine einfache Betrachtung der einzelnen gewünschten Aspekte einer Route, wobei die Module die jeweiligen Anforderungen an eine korrekt gewählte Kante darstellen. Durch die fehlende Gesamtsicht auf das Gitter fehlt hierbei allerdings der Bezug zur Gitterstruktur, wodurch eine bestimmte Vorstellung einer "guten" Route implizit in den Algorithmus integriert wird. Das führt dazu, dass der Lösungsraum verkleinert wird und somit Routen, welche ebenfalls eine gleichmäßige Gitterstruktur erzeugen würden, systematisch benachteiligt werden. 
+
+Zusätzlich erschwert das Fehlen einer oberen Schranke der Kosten die Bewertung. Aufgrund der Abhängigkeit der Kosten zur Größe der Wand und der Anzahl an Umlenkelementen, ist die Bestimmung einer maximal "schlechten" Route so schwer wie die einer besten Route. So ist, rein an den Gesamtkosten gemessen, schwer abzuschätzen inwieweit eine Route "besser" als eine andere ist.
+
+Besser wäre hier eventuell eine gesamtheitlich strukturelle Bewertung einer Route basierend auf dem Aussehen des resultierenden Gittermusters. Allerdings stellt hier die Bewertung der Gleichmäßigkeit, Lückenfreiheit und der Effizienz hinsichtlich mehrfach verlegter Streben eine größere Herausforderung dar. In weiterführenden Arbeiten könnten hier visuelle bzw. graphische Ansätze, wie beispielsweise die Hough-Transformation, zur Bewertung der Routen eingesetzt werden. Auch eine Normierungen der Kosten auf ein fest definiertes Intervall könnte sich für die Betrachtungen als hilfreich erweisen. 
+
+Eine punktbasierte Routenplanung, bei der die Navigation zwischen Umlenkelementen betrachtet wird, scheint für das vorliegende Problem ungeeignet zu sein. Durch die potentiell hohen Anzahl der @UE:pl:long und damit zu besuchenden Knotenpunkten ist der Suchraum sehr groß, wobei es nur sehr wenige ausreichend gute Lösungen gibt. Auch die Bestimmung der ausgehenden Kanten eines Knotens, bei welcher eigentlich nur eine valide Möglichkeit besteht, trägt zur Ineffizienz dieser Modellierung bei. Insbesondere exakte Methoden scheitern an der vergleichsweise hohen Problemgröße. Heuristische Methoden können sich zwar einer potentiellen Lösung schnell annähern, allerdings führen die Unsicherheit der Qualität der Route kombiniert mit verletzten strukturellen Anforderungen zu einem unvertretbaren Risiko für die industrielle Produktion tragender Elemente aus Carbonbeton; zumal die Laufzeit zur Generierung dieser minderwertigen Routen dennoch vergleichsweise lang ist.
 
 Ein vielversprechenderer Ansatz ist demnach die Nutzung der in @sec:route-puzzle-based vorgestellten konzeptuellen Teilrouten. Durch die Modellierung durch fest definierte Teilabschnitte, welche zum Schluss der Routenplanung zu einer vollständigen Route verkettet werden, kann der Suchraum signifikant verkleinert werden und eine Suche darin um Größenordnungen effizienter sein.
 
-Der kleinere Suchraum und die resultierende Steigerungen der Effizienz ermöglichen somit wieder den Einsatz exakter Methoden. 
+// Der kleinere Suchraum und die resultierende Steigerungen der Effizienz ermöglichen somit wieder den Einsatz exakter Methoden. 
+
+- modellierung erweiterbar auf beliebige anzahl von ausschnitten, indem trennende @UE zum aufsplitten komplizierter bereiche genutzt werden
+- für nicht-rechteckige formen eventuell ungeeignet, wenn dynamisch zwischen vertikalen und horizontalen streben gewechselt wird and diagonal verlaufenden seiten, definition von teilrouten in diesem fall muss genauer betrachtet werden
 
 
 // 3. Literaturvergleich
 
 // 4. Verbesserungspotential
-
+- GA parameter feinjustieren
+- mehr puzzleteile für fenster
+- auch ermöglichen wände ohne türausschnitt
 
 // 5. Fazit
 
