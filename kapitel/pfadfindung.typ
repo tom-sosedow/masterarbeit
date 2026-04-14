@@ -272,6 +272,7 @@ Die Reihenfolge, in der der Roboter die einzelnen Punkte anfährt, ergibt sich a
 )<fig:wegpunkte-mit-türecke>
 
 #question[Soll ich erklären, wie ich aus der Punktliste die tatsächlichen Bewegungsschritte des Roboters generiere (LMOVE, C1MOVE, C2MOVE,...)? Oder ist das anwendungsspezifisches implementationsdetail, welches nicht in die Arbeit sollte (weil ja nicht jeder einen kawasaki robi nutzt)?]
+-> Kurz Erwähnen, aber nicht tief erklären
 
 == Kollisionen
 

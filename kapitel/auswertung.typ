@@ -5,6 +5,7 @@
 
 // RQ1 
 *Platzierung der Umlenkelemente*
+
 // 1. Ziele
 Zur Beantwortung der Forschungsfrage (I) "_#forschungsfragen.at(0)_" wurde eine iterative Platzierung der @UE:pl:long entwickelt, welche die Positionen regelbasiert bestimmt. Die Beantwortung dieser Frage ist grundlegend für das Ziel der automatisierten Herstellung von Carbonbewehrung, da alle nachfolgenden Schritte von dem Ergebnis abhängen.
 
@@ -66,21 +67,6 @@ Aufbau
 
 // RQ 2
 *Routenplanung*
-/*- Um die Reihenfolge der anzufahrenden UE zu bestimmen wurden 2 modelle für die route betrachtet: eine punktbasierte (@sec:route-pointbased) und eine auf vordefinierten teilrouten (@sec:route-puzzle-based) basierte
-- die in @sec:route-pointbased vorgestellten algorithmen sind für den vorliegenden anwendungsfall des TSP leider unzureichend, da exakte methoden zu lange zur berechnung einer lösung benötigen und heruistische methoden nicht mit sicherheit das optimum liefern können
-- die in @sec:route-puzzle-based vorgestellte exakte methode hat eine vollkommen ausreichend gute laufzeit, ist einfach zu verstehen und zu erweitern und liefert garantiert immer eine optimale lösung mit den gegebenen positionen der UE, weshalb sich dieser ansatz gut für das lösen des problems eignet
-  - der genetische algorithmus findet hier sehr schnell oftmals das optimum, in einigen fällen, u.A. auch durch den gewählten Seed für die Zufallskomponenten, wird allerdings nur ein lokales Optimum gefunden
-    - für wand $w_3$ gibt es nur wenige gute lösungen mit kosten unter 400, wei in @sec:route-puzzle-based-exact zu sehen ist
-    - das sind fälle bei denen der lösungsraum sehr klein ist, was dazu führt dass zb @GA dann schwierigkeiten hat genau diese zu finden, wie man auch in den ergebnissen aus @sec:route-puzzle-based-heuristics sehen kann
-  - da es sich im vorliegenden problem nur um 6 (bzw. 7) puzzleteile handelt, ist der lösungsraum überschaubar, sodass es sich beim unterschied zw. beiden suchalgorithmen nur um einige wenige sekunden handelt
-    - sollten später weitere teile implementiert werden, zb für die unterseite eines fensters, könnten heuristische methoden attraktivere lösungen sein um die laufzeit in einem akzeptablen rahmen zu halten
-  - der ansatz sieht die platzierung der UE als fest an
-    - es kann sein, dass es in dieser platzierung nur eine minderwertige lösung gibt, aber in einer anderen anordnung eine signifikant bessere route existiert
-    - das wird vom ansatz nicht beachtet
-- auch hier versagt der ansatz bei nicht-rechteckigen formen für wand und tür
-  - die bewertungsfunktion würde zb türbögen falsch bewerten
-  - puzzleteile wären komplexer zu definieren, da schrägen in einem hindernis dazu führen könnten, dass es puzzleteile mit vertikalen und horizontalen streben geben kann*/
-
 
 // 1. Ziele
 Zur Beantwortung der Forschungsfrage (II) "_#forschungsfragen.at(1)_" wurden exakte und heuristische Suchalgorithmen auf einem punktbasierten sowie einem auf Teilabschnitten basierendem Modell betrachtet. Dazu wurden Kriterien für die Bewertung der Methoden und der gefundenen Lösungen definiert, um somit das Laufzeitverhalten und die Qualität der erzeugten Lösungen jedes Ansatzes quantifizieren zu können. Die Beantwortung dieser Frage ist entscheidend für das Ziel der automatisierten Herstellung von Carbonbewehrung, da hierbei die generelle Struktur und statische Integrität des resultierenden Carbongitters bestimmt wird.
@@ -94,15 +80,24 @@ Zusätzlich erschwert das Fehlen einer oberen Schranke der Kosten die Bewertung.
 
 Besser wäre hier eventuell eine gesamtheitlich strukturelle Bewertung einer Route basierend auf dem Aussehen des resultierenden Gittermusters. Allerdings stellt hier die Bewertung der Gleichmäßigkeit, Lückenfreiheit und der Effizienz hinsichtlich mehrfach verlegter Streben eine größere Herausforderung dar. In weiterführenden Arbeiten könnten hier visuelle bzw. graphische Ansätze, wie beispielsweise die Hough-Transformation, zur Bewertung der Routen eingesetzt werden. Auch eine Normierungen der Kosten auf ein fest definiertes Intervall könnte sich für die Betrachtungen als hilfreich erweisen. 
 
+// Punktbasierte Planung
 Eine punktbasierte Routenplanung, bei der die Navigation zwischen Umlenkelementen betrachtet wird, scheint für das vorliegende Problem ungeeignet zu sein. Durch die potentiell hohen Anzahl der @UE:pl:long und damit zu besuchenden Knotenpunkten ist der Suchraum sehr groß, wobei es nur sehr wenige ausreichend gute Lösungen gibt. Auch die Bestimmung der ausgehenden Kanten eines Knotens, bei welcher eigentlich nur eine valide Möglichkeit besteht, trägt zur Ineffizienz dieser Modellierung bei. Insbesondere exakte Methoden scheitern an der vergleichsweise hohen Problemgröße. Heuristische Methoden können sich zwar einer potentiellen Lösung schnell annähern, allerdings führen die Unsicherheit der Qualität der Route kombiniert mit verletzten strukturellen Anforderungen zu einem unvertretbaren Risiko für die industrielle Produktion tragender Elemente aus Carbonbeton; zumal die Laufzeit zur Generierung dieser minderwertigen Routen dennoch vergleichsweise lang ist.
 
-Ein vielversprechenderer Ansatz ist demnach die Nutzung der in @sec:route-puzzle-based vorgestellten konzeptuellen Teilrouten. Durch die Modellierung durch fest definierte Teilabschnitte, welche zum Schluss der Routenplanung zu einer vollständigen Route verkettet werden, kann der Suchraum signifikant verkleinert werden und eine Suche darin um Größenordnungen effizienter sein.
+#todo[auswertung, warum meine GA routenplanung schlechter ist, als die in der literatur für TSP]
 
-// Der kleinere Suchraum und die resultierende Steigerungen der Effizienz ermöglichen somit wieder den Einsatz exakter Methoden. 
+// Teilrouten Modellierung
+Ein vielversprechenderer Ansatz ist demnach die Nutzung der in @sec:route-puzzle-based vorgestellten konzeptuellen Teilrouten. Durch die Modellierung durch fest definierte Teilabschnitte, welche zum Schluss der Routenplanung zu einer vollständigen Route verkettet werden, kann der Suchraum signifikant verkleinert werden und eine Suche darin um Größenordnungen effizienter sein.
 
 - modellierung erweiterbar auf beliebige anzahl von ausschnitten, indem trennende @UE zum aufsplitten komplizierter bereiche genutzt werden
 - für nicht-rechteckige formen eventuell ungeeignet, wenn dynamisch zwischen vertikalen und horizontalen streben gewechselt wird and diagonal verlaufenden seiten, definition von teilrouten in diesem fall muss genauer betrachtet werden
 
+- einsatz exakter methoden durch den kleineren suchraum wieder möglich
+- schon einfache ansätze wie brute force erzielen sehr gute ergebnisse, während sie garantieren können, eine optimale lösung zu finden
+- mit der laufzeit ist es vollkommen ausreichend für den anwendungsfall
+- die schnellere laufzeit des genetischen algorithmus wird daher für diesen anwendungsfall nicht benötigt
+- wie gezeigt kann auch hier nicht garantiert werden, dass immer das optimum gefunden wird
+- sollten in zukunft mehr puzzleteile dazu kommen, beispielsweise durch ein fenster, bei dem auch die unterseite modelliert werden muss oder mehrere ausschnitte, könnten exakte methoden wieder recht lange dauern und sich der einsatz heuristischer methoden wieder mehr lohnen
+- dabei könnte auch durch feintuning der operatoren die wahrscheinlichkeit verringert werden, dass in lokalen optima verblieben wird und sicherheitsmechanismen implementiert werden, die invalide lösungen abfangen
 
 // 3. Literaturvergleich
 

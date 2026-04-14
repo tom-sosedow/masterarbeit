@@ -16,7 +16,7 @@ Sobald Hindernisse auftreten, wird die Fläche in mehrere Teilbereiche unterglie
 
 Überträgt man dieses Prinzip auf den vorliegenden Anwendungsfall, ergeben sich einige Analogien und Vereinfachungen. So ist für vertikale und horizontale Streben ein Scannen in beiden Richtungen erforderlich, um eine geeignete Zellteilung zu finden. Ebenfalls ist die Tür immer immer rechteckig mit den Seiten parallel zu den Seiten der Wand. Somit reicht in horizontaler Scanrichtung, also für vertikale Streben, die Aufspaltung in die drei Teilbereiche links und rechts sowie innerhalb der Tür. In vertikaler Richtung sind ebenfalls drei Teilbereiche nötig, um den Bereich oberhalb der Tür sowie die beiden Bereiche links und rechts neben der Tür abzubilden. In @fig:route-cells sind die resultierenden Teilrouten in den Bereichen an einem Beispiel dargestellt. 
 
-#todo[Bilder ohne Hintergrund neu erstellen]
+#maybe[Bilder mit besseren farben und größerer Schrift neu erstellen?]
 #figure(
   stack(
     dir: ltr,
@@ -86,6 +86,8 @@ Für die Bewertung gefundener Lösungen muss die bestehende Bewertungsfunktion n
 $ T((pi(1),...,pi(6))) = pi(1) circle.small ... circle.small pi(6) $
 gilt.
 
+#question[Soll das folgende Bild in den Anhang? Weil es so groß ist?]
+
 #figure(
   raw-render(
     ```dot
@@ -102,15 +104,15 @@ gilt.
       }
       subgraph cluster_LH {
         rankdir=LR
-        color=pink
-        LH[style=filled, fillcolor=pink];
-        LHR[style=filled, fillcolor=pink];
+        color=lawngreen
+        LH[style=filled, fillcolor=lawngreen];
+        LHR[style=filled, fillcolor=lawngreen];
       }
       subgraph cluster_TV {
         rankdir=LR
-        color=blue
-        TV[style=filled, fillcolor=blue];
-        TVR[style=filled, fillcolor=blue];
+        color=violet
+        TV[style=filled, fillcolor=violet];
+        TVR[style=filled, fillcolor=violet];
       }
       subgraph cluster_RV {
         rankdir=LR
@@ -126,9 +128,9 @@ gilt.
       }
       subgraph cluster_TH {
         rankdir=LR
-        color=orange
-        TH[style=filled, fillcolor=orange];
-        THR[style=filled, fillcolor=orange];
+        color=royalblue
+        TH[style=filled, fillcolor=royalblue];
+        THR[style=filled, fillcolor=royalblue];
       }
       LV -> {LHR TV}
       LVR -> {LHR TH}   
