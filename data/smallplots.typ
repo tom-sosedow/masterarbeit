@@ -26,6 +26,27 @@
   caption: [Ergebnisse Backtracking für Wandkonfigurationen $w_1$ und $w_2$ (min. Kosten jeweils 1)],
 )
 
+#let geneticBGen = (
+  "csv/small/genetic_1234_B_2026-02-25_17-30-50.csv",
+  "csv/small/genetic_1234_B_2026-02-25_17-31-44.csv",
+  "csv/small/genetic_1234_B_2026-02-25_17-33-39.csv",
+  "csv/small/genetic_1234_B_2026-02-25_17-34-37.csv"
+).map((fileName) => lq.load-txt(read(fileName), skip-rows: 1)).enumerate(start: 1).map(((i, data)) => lq.plot(data.at(0), data.at(1), mark: none, color: rgb("#0000FF"), label: if i==1 [$w_2$]))
+
+#let geneticBGenFigure = figure(
+  lq.diagram(
+    legend: (dx: 50%),
+    xlabel: [Generation],
+    ylabel: [Kosten],
+    xaxis: (format-ticks: (ticks, ..) => ticks.map(str)),
+    yaxis: (format-ticks: (ticks, ..) => ticks.map(str)),
+    xlim: (0,500),
+    width: 70%,
+    ..geneticBGen,
+  ),
+  caption: [Ergebnisse GA für Wandkonfiguration $w_2$ (min. Kosten 21 nach 411 Generationen)],
+)
+
 #let geneticB1234 = (
   "csv/small/genetic_1234_B_2026-02-25_17-30-50.csv",
   "csv/small/genetic_1234_B_2026-02-25_17-31-44.csv",

@@ -84,11 +84,6 @@ Für nicht-deterministische Methoden, welche einen Zufallsgenerator benötigen, 
 // Hardware
 Alle Tests werden auf einem Intel(R) Core(TM) i5-8350U Prozessor und 24 GB Arbeitsspeicher durchgeführt. Während der Testläufe laufen keine anderen Nutzeranwendungen, die die Leistungsfähigkeit des Computers signifikant beeinträchtigen. Die Algorithmen werden in einer Kotlin 2.2.20 Anwendung implementiert und getestet.
 
-#question[
-  - sind diese details zur software und hardware wichtig?
-  - Zeitform: Algorithmen werden getestet? Algorithmen wurden getestet? Algorithmen sind getestet mithilfe.. ? ... ? 
-]
-
 // Berechnungsdauer eher unwichtig
 Die Berechnungsdauer spielt im vorliegenden Anwendungsfall eher eine untergeordnete Rolle. Zwar ist eine möglichst kurze Rechenzeit wünschenswert, jedoch kann sie ohne Probleme mehrere Minuten bis in Extremfällen maximal eine Stunde dauern. Da das Temperieren des Harz getränkten Garns in etwa diese Zeit in Anspruch nimmt und ggf. auch mehrere gleiche Gitter abgelegt werden, kann währenddessen eine anschließend benötigte Konfiguration berechnet werden.
 Zum Zeitpunkt der Verfassung dieser Arbeit können maximal 81 Umlenkelemente platziert werden und später weitere @UE hinzukommen, sodass es sich um ein vergleichsweise großes @TSP handelt. 

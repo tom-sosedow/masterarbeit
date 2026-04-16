@@ -1,5 +1,7 @@
 #import "/util.typ": *
 #import "/forschungsfragen.typ": forschungsfragen
+#import "@preview/cetz:0.4.2"
+
 = Auswertung <sec:auswertung>
 #todo[Einleitender Abschnitt]
 
@@ -88,18 +90,54 @@ Eine punktbasierte Routenplanung, bei der die Navigation zwischen Umlenkelemente
 // Teilrouten Modellierung
 Ein vielversprechenderer Ansatz ist demnach die Nutzung der in @sec:route-puzzle-based vorgestellten konzeptuellen Teilrouten. Durch die Modellierung durch fest definierte Teilabschnitte, welche zum Schluss der Routenplanung zu einer vollständigen Route verkettet werden, kann der Suchraum signifikant verkleinert werden und eine Suche darin um Größenordnungen effizienter sein.
 
-- modellierung erweiterbar auf beliebige anzahl von ausschnitten, indem trennende @UE zum aufsplitten komplizierter bereiche genutzt werden
-- für nicht-rechteckige formen eventuell ungeeignet, wenn dynamisch zwischen vertikalen und horizontalen streben gewechselt wird and diagonal verlaufenden seiten, definition von teilrouten in diesem fall muss genauer betrachtet werden
+Mithilfe dieser Modellierung können beliebig viele Ausschnitte in der Wand dargestellt werden, indem die Anzahl und Position der Teilabschnitte angepasst wird.
+Allerdings ist diese Art der Modellierung für nicht-rechteckige Formen eventuell ungeeignet, da es somit mehr @UE:pl:long gibt, welche mehrfach für vertikale und horizontale Streben genutzt werden und an jedem @UE prinzipiell die Möglichkeit besteht die Hauptrichtung zu ändern. Die Definition der Teilrouten sowie die konzeptuelle Abgrenzung zu hauptrichtungsändernden Umlenkungen an den Ecken der Wand muss dann genauer betrachtet werden.
 
-- einsatz exakter methoden durch den kleineren suchraum wieder möglich
-- schon einfache ansätze wie brute force erzielen sehr gute ergebnisse, während sie garantieren können, eine optimale lösung zu finden
-- mit der laufzeit ist es vollkommen ausreichend für den anwendungsfall
-- die schnellere laufzeit des genetischen algorithmus wird daher für diesen anwendungsfall nicht benötigt
-- wie gezeigt kann auch hier nicht garantiert werden, dass immer das optimum gefunden wird
-- sollten in zukunft mehr puzzleteile dazu kommen, beispielsweise durch ein fenster, bei dem auch die unterseite modelliert werden muss oder mehrere ausschnitte, könnten exakte methoden wieder recht lange dauern und sich der einsatz heuristischer methoden wieder mehr lohnen
-- dabei könnte auch durch feintuning der operatoren die wahrscheinlichkeit verringert werden, dass in lokalen optima verblieben wird und sicherheitsmechanismen implementiert werden, die invalide lösungen abfangen
+// #figure(
+//   cetz.canvas({
+//     import cetz.draw: *
+//     scale(0.5)
+//     set-style(radius:0.5)
+//     let offset = 0.9
+//     for y in range(0,7, step: 2) {
+//       circle((0,y))
+//       line((0,y+offset),(0-offset,y))
+//       line((0,y - offset),(0-offset,y))
+//     }
+//     for x in range(9,17, step: 2) {
+//       circle((x,10))
+//       line((x - offset,10),(x,10+offset))
+//       line((x,10 + offset),(x+offset, 10))
+//     }
+//     circle((8,1))
+//     circle((10,3))
+//     circle((12,5))
+//     circle((14,5))
+//     circle((16,5))
+//     // Außenlinien
+//     line((-1,-1),(-1,11))
+//     line((-1,11),(18,11))
+//     line((8,-1),(13,4))
+//     line((13,4),(18,4))
+//   }),
+//   caption: [Foo]
+// )
 
-// 3. Literaturvergleich
+Aufgrund des kleineren Suchraums wird der Einsatz exakter Suchalgorithmen wieder praktikabel, da diese unter den reduzierten Problemgrößen eine ausreichende Performanz aufweisen. Bereits simple Methoden wie Brute-Forcing erzielen sehr gute Ergebnisse, während sie dennoch garantieren, eine optimale Lösung zu finden. Für den Anwendungsfall im @CBT liegt die Laufzeit von einigen wenigen Sekunden für die größeren Wandkonfigurationen noch völlig im akzeptablen Rahmen. 
+
+Auch wenn die schnellere Laufzeit des genetischen Algorithmus hier nicht benötigt wird, kann dessen Anwendung in Zukunft eventuell vorteilhaft sein. Sollte zukünftig die Problemgröße steigen, etwa durch Hinzufügen neuer Teilrouten aufgrund der Präsenz mehrerer Wandausschnitte, könnte das hier verwendete Brute-Forcing auf Limitationen bezüglich der Laufzeit stoßen und sich der Einsatz heuristischer Methoden wieder mehr lohnen. 
+
+Eine Feinabstimmung der verwendeten Operatoren kann zudem eventuell die Wahrscheinlichkeit verringern, zu welcher der Algorithmus in einem lokalen Optimum terminiert bzw. die Qualität der Ergebnisse erhöht werden. So könnte der Order Crossover durch einen problemspezifisch optimierten Operator ersetzt werden, um die Qualität der Ergebnisse zu verbessern. Auch könnte statt der Tournierselektion ein rangbasierter Rekombinationsoperator nach #citep(<razaliGeneticAlgorithmPerformance2011>) genutzt werden, welcher im Allgemeinen bessere Ergebnisse erzielen kann. Eine Verbesserung der Laufzeit ist dadurch allerdings nicht zu erwarten, da durch die Sortierung der Population die Rechenzeit für eine Iteration um etwa das Fünffache ansteigt @razaliGeneticAlgorithmPerformance2011. 
+
+
+Zur Optimierung der Ergebnisse könnte auch der Einsatz von Sicherheitsmechanismen dazu beitragen, dass suboptimale oder invalide Wandkonfigurationen gar nicht erst ausgegeben werden, sondern einen Neustart der Suche mit neuem Seed verursachen. Wie in @sec:route-puzzle-based-heuristics gezeigt, führt eine Neuwahl des Seeds dazu, dass die Qualität der gefundenen Lösungen signifikant ansteigen kann.
+
+// 3. Literaturvergleich: Wie gut ist die MODELLIERUNG + ANSATZ für das PROBLEM
+
+Nach den Ergebnissen von #citep(<rexhepiAnalysis2013>) ist zu vermuten, dass die Populationsgröße einen signifikant größeren Einfluss auf die Qualität der Ergebnisse, hat als die Wahl der Wahrscheinlichkeiten zur Mutation und Rekombination. Dabei scheinen kleinere Populationen generell bessere Lösungen zu produzieren, wobei sich die hier verwendete Populationsgröße von 1000 an diesen Werten orientiert und somit vergleichsweise gute Ergebnisse zu erwarten sind.
+
+Wie in @fig:res-genetic-b-generation dargestellt sinken die Kosten innerhalb weniger Hundert Generationen auf das lokale Optimum von 21 im Fall von $w_2$. Im Vergleich zu den Ergebnissen von #citep(<rexhepiAnalysis2013>) fallen die Kosten sehr schnell. Ein Grund kann sich aus der Arbeit von #citep(<razaliGeneticAlgorithmPerformance2011>) ergeben, bei dem ein ähnlicher Fall unter Nutzung der Tournierselektion auftritt. Die Nutzung der rangbasierten Selektion erzeugt dabei einen flacheren Verlauf und begünstigt somit gegebenenfalls die Ausweitung der Suche durch die Mutations- und Rekombinationsoperatoren, wodurch schlussendlich bessere Ergebnisse erzielt werden können. 
+
 
 // 4. Verbesserungspotential
 - GA parameter feinjustieren

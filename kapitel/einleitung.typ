@@ -1,6 +1,7 @@
 #import "/util.typ": *
 #import "/forschungsfragen.typ": forschungsfragen
 = Einleitung
+#todo[Problemstellung nach den Forschungsfragen konkretisieren, aber in der Einleitung]
 
 == Motivation
 Beton zählt zu den wichtigsten und am weitesten verbreiteten Baustoffen im modernen Wohnungsbau. Schätzungen zufolge werden weltweit jährlich etwa 15 bis 20 Milliarden Kubikmeter Beton verbaut @kaufmannUmweltfreundlicheBetonbauten2021. Dabei dominiert Stahlbeton, bei dem die hohe Zugfestigkeit von Stahl mit der Druckfestigkeit von Beton kombiniert wird @tietzeEcologicalEconomicAdvantages2022. Für die Herstellung von Beton werden jährlich rund 4,2 Milliarden Tonnen Zement als Bindemittel benötigt. Dies führt dazu, dass die Zementproduktion etwa 5 bis 8 % der globalen Treibhausgasemissionen verursacht und damit stärker ins Gewicht fällt als jeder andere Werkstoff @tietzeZurWirtschaftlichenWertschoepfungskette2025.

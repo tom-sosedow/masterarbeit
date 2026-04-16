@@ -92,10 +92,10 @@ gilt.
   raw-render(
     ```dot
     digraph {
-      rankdir=LR
-      ranksep=1.5;
-      nodesep=0.7;
-      
+      rankdir=LR;
+      ranksep=1.7;
+      nodesep=0.1;
+
       subgraph cluster_LV {
         rankdir=LR
         color=red
@@ -114,6 +114,12 @@ gilt.
         TV[style=filled, fillcolor=violet];
         TVR[style=filled, fillcolor=violet];
       }
+      subgraph cluster_TH {
+        rankdir=LR
+        color=royalblue
+        TH[style=filled, fillcolor=royalblue];
+        THR[style=filled, fillcolor=royalblue];
+      }
       subgraph cluster_RV {
         rankdir=LR
         color=gold
@@ -126,12 +132,7 @@ gilt.
         RH[style=filled, fillcolor=cyan];
         RHR[style=filled, fillcolor=cyan];
       }
-      subgraph cluster_TH {
-        rankdir=LR
-        color=royalblue
-        TH[style=filled, fillcolor=royalblue];
-        THR[style=filled, fillcolor=royalblue];
-      }
+      
       LV -> {LHR TV}
       LVR -> {LHR TH}   
       LH -> {LV LVR}

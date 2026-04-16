@@ -27,9 +27,7 @@ Durch weiterführende Optimierungen lassen sich beispielsweise mittels Backtrack
     - #todo[ weitere erklärungen] und bild einfügen?
     - das kann viel rechenzeit sparen und anderweitig praktisch nicht lösbare probleme doch lösbar machen
       - worst case dennoch $O(n!)$, falls keine zweige für pruning gefunden und dadurch dennoch alle lösungen betrachtet werden
- 
-  //- aber: für einige probleme gibt es, obwohl sie NP schwer sind, sehr gute exakte methoden die selbst bei großen probleminstanzen schnell eine optimale lösung finden @tahamiLiteratureReviewCombining2022
-]
+ ]
 
 // Fazit exakte Alg.
 Insgesamt weisen exakte Algorithmen insbesondere Schwierigkeiten im Umgang mit problemspezifischen Einschränkungen sowie einen hohen Rechenaufwand auf @harderExactAlgorithmHeuristic2023. Sie sind daher für zeitkritische Anwendungen, bei denen Ergebnisse kurzfristig oder in (nahezu) Echtzeit benötigt werden, oftmals ungeeignet. Aufgrund ihrer Garantie auf Optimalität finden sie jedoch insbesondere in solchen Szenarien Anwendung, in denen die Qualität der Lösung wichtiger ist als die benötigte Rechenzeit.
@@ -54,6 +52,7 @@ Der derzeit leistungsfähigste Lösungsansatz für das @TSP ist die Lin-Kernigha
 // Intro genetische Algorithmen
 Eine häufig eingesetzte Metaheuristik zur Lösung des @TSP:pl sind @GA:pl. Diese sind von biologischen Prozessen wie Fortpflanzung und Evolution inspiriert und zeichnen sich durch eine vergleichsweise einfache Verständlichkeit und Implementierbarkeit aus, insbesondere für Nicht-Informatiker. Aufbauend auf Konzepten der lokalen Suche werden Prinzipien der Evolutionsbiologie genutzt, um eine Population von Lösungskandidaten iterativ zu verändern und so eine Annäherung an ein globales Optimum zu erreichen @tahamiLiteratureReviewCombining2022 @duanApplicationsHybridApproach2023a. Die Laufzeitkomplexität ist dabei nicht eindeutig bestimmbar, da sie maßgeblich von der Wahl der Parameter sowie der konkreten Implementierung abhängt @vyasExploringSolutionApproaches.
 
+#todo[Arbeiten finden, die GA für TSP nutzen, Ergebnisse und Laufzeiten derer angeben]
 #todo[Fact Check: Wann kommt die Turnierselektion? Wichtig für Abschnitt "Punktbasiert > heuristische Methoden"]
 #maybe[Begriffe wie Genotyp, Phänotyp ergänzen]
 

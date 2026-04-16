@@ -45,9 +45,11 @@ Die Ergebnisse der Testläufe sind in @fig:res-backtrack-ab dargestellt. Bereits
 === Heuristische Methoden
 Als Vertreter für heuristische Methoden wird hier ein genetischer Algorithmus untersucht, da die Implementierung recht simpel ist und der Ansatz häufig zur Bearbeitung von @TSP:pl genutzt wird. 
 
-Der Algorithmus ist vollständig nach #citep(<weickerEvolutionaereAlgorithmen2015>) implementiert. Die initiale Population wird durch Zufall generiert. Für den Mutationsoperator wird ein einfacher Tausch von zwei zufällig gewählten @UE vorgenommen. Für die Selektion wird eine Turnierselektion nach #todo[QUELLE] eingesetzt. Es wird dabei $n$ Mal eine Lösung mit $k$ zufällig gewählten anderen Lösungen verglichen, also ein Turnier "veranstaltet", und die beste als Elternteil zur Bildung der nächsten Generation gewählt. Als Rekombinationsoperator wird der _Order Crossover Operator_ nach #citep(<larranagaGeneticAlgorithmsTravelling1999>) genutzt, welcher speziell für die Arbeit mit Permutationen bestimmt ist. Dieser basiert auf der Annahme, dass die Reihenfolge der Knoten von größerem Interesse als deren Position in der Permutation ist. Die Nachkommen werden dabei erzeugt, indem zunächst eine Teilsequenz eines Elternteils übernommen wird und die verbleibenden Knoten in der Reihenfolge ergänzt werden, in der sie im anderen Elternteil auftreten.
+Der Algorithmus ist vollständig nach #citep(<weickerEvolutionaereAlgorithmen2015>) implementiert. Die initiale Population wird durch Zufall generiert. Für den Mutationsoperator wird ein einfacher Tausch von zwei zufällig gewählten @UE vorgenommen. Für die Selektion wird eine Turnierselektion nach #citep(<razaliGeneticAlgorithmPerformance2011>) eingesetzt. Es wird dabei $n$ Mal eine Lösung mit $k$ zufällig gewählten anderen Lösungen verglichen, also ein Turnier "veranstaltet", und die beste als Elternteil zur Bildung der nächsten Generation gewählt. Als Rekombinationsoperator wird der _Order Crossover Operator_ nach #citep(<larranagaGeneticAlgorithmsTravelling1999>) genutzt, welcher speziell für die Arbeit mit Permutationen bestimmt ist. Dieser basiert auf der Annahme, dass die Reihenfolge der Knoten von größerem Interesse als deren Position in der Permutation ist. Die Nachkommen werden dabei erzeugt, indem zunächst eine Teilsequenz eines Elternteils übernommen wird und die verbleibenden Knoten in der Reihenfolge ergänzt werden, in der sie im anderen Elternteil auftreten.
 
 #todo[Bild zur Erklärung des Operators? Vielleicht einfach nur ein Beispiel?]
+
+#todo[Werte für Wahrscheinlichkeiten und Popsize nennen]
 
 Für die Testläufe mit dem genetischen Algorithmus werden die Parameter wie Mutations- und Rekombinationswahrscheinlichkeit, Populationsgröße und Turniergröße fixiert. Um einen zeitlichen Rahmen für die Berechnung und Aufzeichnung der Ergebnisse zu setzen, werden maximal 12000 Generationen durchlaufen.
 
@@ -56,6 +58,11 @@ Die Ergebnisse der Testläufe für Wandkonfiguration $w_2$ sind in @fig:res-gene
 #combinedBYFigure<fig:res-genetic>
 
 Für eine große Wandkonfiguration sind die Ergebnisse am Beispiel von $w_3$ rechts in @fig:res-genetic zu sehen. Hier sind die Unterschiede zwischen beiden Seeds noch deutlicher zu erkennen. Während mit Seed $s_1$ die beste Lösung mit Kosten von 390 nach ca. 245 Sekunden gefunden wird, dauert es mit Seed $s_2$ 176 Sekunden, um eine Lösung mit Kosten 266 zu finden. Auch hier ist zu beobachten, dass der Algorithmus Schwierigkeiten damit hat, aus lokalen Optima auszubrechen. 
+
+In @fig:res-genetic-b-generation ist erneut für Wandkonfiguration $w_2$ der Verlauf der Kosten abgebildet, aber im Bezug auf die derzeitige Generation. Die Kosten sinken innerhalb weniger Hundert Generationen auf das lokale Optimum von 21 und verbleiben dort für die restlichen 1600 Generationen.
+
+#geneticBGenFigure<fig:res-genetic-b-generation>
+
 
 In @fig:res-genetic-y-img ist die Problematik der lokalen Optima am Beispiel der Wandkonfiguration $w_4$ mit Seed $s_2$ gut zu erkennen. Die generelle Struktur sieht vielversprechend aus und große Teile der endgültigen Gitterstruktur bestehen bereits. Allerdings gibt es zahlreiche Lücken, welche teilweise durch falsche Wahl der nachfolgenden Kanten entstehen. So ist z. B. die rechte Seite der Wand bis auf einen Tausch von zwei Teilrouten korrekt gelöst. Es ist also festzuhalten, dass an den übrigen Schlüsselstellen gezielte Tauschoperationen der Knoten oder ganzen Teilrouten nötig wären, um zu einem optimalen Ergebnis zu gelangen. Durch die probabilistische Natur der Operatoren ist dies allerdings sehr unwahrscheinlich.
 
