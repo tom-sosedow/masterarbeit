@@ -71,73 +71,48 @@ Aufbau
 *Routenplanung*
 
 // 1. Ziele
-Zur Beantwortung der Forschungsfrage (II) "_#forschungsfragen.at(1)_" wurden exakte und heuristische Suchalgorithmen auf einem punktbasierten sowie einem auf Teilabschnitten basierendem Modell betrachtet. Dazu wurden Kriterien für die Bewertung der Methoden und der gefundenen Lösungen definiert, um somit das Laufzeitverhalten und die Qualität der erzeugten Lösungen jedes Ansatzes quantifizieren zu können. Die Beantwortung dieser Frage ist entscheidend für das Ziel der automatisierten Herstellung von Carbonbewehrung, da hierbei die generelle Struktur und statische Integrität des resultierenden Carbongitters bestimmt wird.
+Zur Beantwortung der Forschungsfrage (II) "_#forschungsfragen.at(1)_" wurden exakte und heuristische Suchalgorithmen auf einer punktbasierten Darstellung sowie einer auf Teilrouten basierenden Abstraktion betrachtet. Zur systematischen Bewertung der Ansätze wurden geeignete Kriterien definiert, die sowohl das Laufzeitverhalten als auch die Qualität der erzeugten Lösungen quantifizierbar machen. Die Beantwortung dieser Frage ist entscheidend für das Ziel der automatisierten Herstellung von Carbonbewehrung, da hierdurch die grundlegende Struktur sowie die statische Integrität des resultierenden Carbongitters bestimmt werden.
 
 // 2. Bewertung
-Für die Modellierung als Graph, in dem die @UE:pl:long die Knoten darstellen, eignet sich die kantenbasierte Bewertung von Lösungen gut, da somit jede Kante als eigenständige Entscheidung in einem Kontext einzeln bewertet werden kann. Somit kann die Route schrittweise aufgebaut werden, was besonders für exakte Methoden von Vorteil ist. 
+// Bewertungsfunktionen
+Für die Modellierung als Graph, in dem die @UE:pl:long die Knoten darstellen, eignet sich die kantenbasierte Bewertung von Lösungen gut. Auf diese Weise kann jede Kante als eigenständige Entscheidung im jeweiligen Kontext bewertet werden, wodurch sich die Route schrittweise konstruieren lässt. Somit kann die Route schrittweise aufgebaut werden. Insbesondere exakte Verfahren profitieren von dieser Eigenschaft.
 
-Die Modularisierung der Bewertungsfunktion ermöglicht eine einfache Betrachtung der einzelnen gewünschten Aspekte einer Route, wobei die Module die jeweiligen Anforderungen an eine korrekt gewählte Kante darstellen. Durch die fehlende Gesamtsicht auf das Gitter fehlt hierbei allerdings der Bezug zur Gitterstruktur, wodurch eine bestimmte Vorstellung einer "guten" Route implizit in den Algorithmus integriert wird. Das führt dazu, dass der Lösungsraum verkleinert wird und somit Routen, welche ebenfalls eine gleichmäßige Gitterstruktur erzeugen würden, systematisch benachteiligt werden. 
+Die modulare Gestaltung der Bewertungsfunktion ermöglicht zudem eine differenzierte Betrachtung einzelner Anforderungen, wobei die Module die jeweiligen Anforderungen an eine korrekt gewählte Kante darstellen. Durch die fehlende Gesamtsicht auf das Gitter fehlt hierbei allerdings der Bezug zur Gitterstruktur, wodurch eine bestimmte Vorstellung einer "guten" Route implizit in den Algorithmus integriert wird. Das führt dazu, dass der Lösungsraum verkleinert wird und somit Routen, welche ebenfalls eine gleichmäßige Gitterstruktur erzeugen würden, systematisch benachteiligt werden. 
 
-Zusätzlich erschwert das Fehlen einer oberen Schranke der Kosten die Bewertung. Aufgrund der Abhängigkeit der Kosten zur Größe der Wand und der Anzahl an Umlenkelementen, ist die Bestimmung einer maximal "schlechten" Route so schwer wie die einer besten Route. So ist, rein an den Gesamtkosten gemessen, schwer abzuschätzen inwieweit eine Route "besser" als eine andere ist.
+Ein weiteres Problem ergibt sich aus der fehlenden oberen Schranke der Kostenfunktion. Aufgrund der Abhängigkeit der Kosten zur Größe der Wand und der Anzahl an Umlenkelementen, ist die Bestimmung einer maximal schlechten Route ebenso schwierig wie die Bestimmung einer optimalen. Dies erschwert die Vergleichbarkeit von Lösungen auf Basis der Gesamtkosten erheblich.
 
-Besser wäre hier eventuell eine gesamtheitlich strukturelle Bewertung einer Route basierend auf dem Aussehen des resultierenden Gittermusters. Allerdings stellt hier die Bewertung der Gleichmäßigkeit, Lückenfreiheit und der Effizienz hinsichtlich mehrfach verlegter Streben eine größere Herausforderung dar. In weiterführenden Arbeiten könnten hier visuelle bzw. graphische Ansätze, wie beispielsweise die Hough-Transformation, zur Bewertung der Routen eingesetzt werden. Auch eine Normierungen der Kosten auf ein fest definiertes Intervall könnte sich für die Betrachtungen als hilfreich erweisen. 
+Eine mögliche Verbesserung bestünde in einer ganzheitlichen, strukturbasierten Bewertung, die sich am Aussehen des resultierenden Gittermusters orientiert. Allerdings stellt hier die Bewertung der Gleichmäßigkeit, Lückenfreiheit und der Effizienz hinsichtlich mehrfach verlegter Streben eine größere Herausforderung dar. In weiterführenden Arbeiten könnten hier bildverarbeitende bzw. graphische Ansätze, wie beispielsweise die Hough-Transformation, zur Bewertung der Routen eingesetzt werden. Ebenso erscheint eine Normierung der Kosten auf ein festes Intervall sinnvoll, um die Vergleichbarkeit zu erhöhen.
 
 // Punktbasierte Planung
-Eine punktbasierte Routenplanung, bei der die Navigation zwischen Umlenkelementen betrachtet wird, scheint für das vorliegende Problem ungeeignet zu sein. Durch die potentiell hohen Anzahl der @UE:pl:long und damit zu besuchenden Knotenpunkten ist der Suchraum sehr groß, wobei es nur sehr wenige ausreichend gute Lösungen gibt. Auch die Bestimmung der ausgehenden Kanten eines Knotens, bei welcher eigentlich nur eine valide Möglichkeit besteht, trägt zur Ineffizienz dieser Modellierung bei. Insbesondere exakte Methoden scheitern an der vergleichsweise hohen Problemgröße. Heuristische Methoden können sich zwar einer potentiellen Lösung schnell annähern, allerdings führen die Unsicherheit der Qualität der Route kombiniert mit verletzten strukturellen Anforderungen zu einem unvertretbaren Risiko für die industrielle Produktion tragender Elemente aus Carbonbeton; zumal die Laufzeit zur Generierung dieser minderwertigen Routen dennoch vergleichsweise lang ist.
+Eine punktbasierte Routenplanung, bei der die Navigation zwischen einzelnen Umlenkelementen betrachtet wird, erweist sich für das vorliegende Problem als ungeeignet. Aufgrund der großen Anzahl potenziell anzufahrender @UE:pl:long entsteht ein sehr großer Suchraum, dem nur wenige qualitativ hochwertige Lösungen gegenüberstehen. Auch die Bestimmung der ausgehenden Kanten eines Knotens, bei welcher eigentlich nur eine valide Möglichkeit besteht, trägt zur Ineffizienz dieser Modellierung bei. Insbesondere exakte Methoden scheitern an der vergleichsweise hohen Problemgröße. Heuristische Methoden können sich zwar einer potentiellen Lösung schnell annähern, allerdings führen die Unsicherheit der Qualität der Route kombiniert mit verletzten strukturellen Anforderungen zu einem unvertretbaren Risiko für die industrielle Produktion tragender Elemente aus Carbonbeton, insbesondere da die Berechnungszeiten dennoch vergleichsweise hoch bleiben.
 
-#todo[auswertung, warum meine GA routenplanung schlechter ist, als die in der literatur für TSP]
+// GA kein Vergleich mit Literatur möglich
+Da der implementierte genetische Algorithmus zur Routenplanung keine Distanzfunktion im klassischen Sinne zur Bewertung der Individuen nutzt, ist ein Vergleich mit etablierten Benchmark-Problemen des @TSP:pl und deren bekannten Optimal-Lösungen nicht möglich. Ebenso lassen sich bewährte Optimierungsstrategien aus der Literatur nur eingeschränkt übertragen, sodass potenzielle Verbesserungen weitgehend auf Vermutungen beruhen.
+
+// GA Optimierung Operatoren
+Dennoch bestehen verschiedene Ansatzpunkte zur Optimierung des genetischen Algorithmus. So könnte eine Feinabstimmung der verwendeten Operatoren die Wahrscheinlichkeit reduzieren, in lokalen Optima zu stagnieren, und gleichzeitig die Lösungsqualität verbessern. Beispielsweise ließe sich der Order Crossover durch einen problemspezifisch optimierten Operator ersetzen, um die Qualität der Ergebnisse eventuell zu verbessern.
+Auch könnte statt der Tournierselektion ein rangbasierter Rekombinationsoperator nach #citep(<razaliGeneticAlgorithmPerformance2011>) genutzt werden, welcher im Allgemeinen bessere Ergebnisse erzielen kann. Eine Verbesserung der Laufzeit ist dadurch allerdings nicht zu erwarten, da durch die Sortierung der Population die Rechenzeit für eine Iteration um etwa das Fünffache ansteigt @razaliGeneticAlgorithmPerformance2011. 
+
+// GA Abfall in lokale Optima
+Die in @fig:res-genetic-b-generation dargestellten Ergebnisse zeigen, dass die Kosten im Verlauf des genetischen Algorithmus bereits nach wenigen hundert Generationen stark abfallen und beispielsweise im Fall von $w_2$ ein lokales Optimum mit Kosten von 21 erreicht wird. Im Vergleich zu den Ergebnissen von #citep(<rexhepiAnalysis2013>) fallen die Kosten sehr schnell, was nach der Arbeit von #citep(<razaliGeneticAlgorithmPerformance2011>) unter anderem auf die Nutzung der Tournierselektion zurückgeführt werden kann. Rangbasierte Selektionsverfahren erzeugen hingegen einen eher flacheren Verlauf und begünstigen somit gegebenenfalls die Ausweitung der Suche durch die Mutations- und Rekombinationsoperatoren, wodurch schlussendlich bessere Ergebnisse erzielt werden können. 
+
+// GA Populationsgröße
+Eine weitere Feinabstimmung ist, neben der Wahl der Operatoren, die Anpassung der Populationsgröße. Ergebnisse aus #citep(<rexhepiAnalysis2013>) legen nahe, dass diese einen größeren Einfluss auf die Lösungsqualität hat als die konkreten Wahrscheinlichkeiten für Mutation und Rekombination. Dabei scheinen kleinere Populationen generell bessere Lösungen zu produzieren, wobei sich die hier verwendete Populationsgröße von 1000 an diesen Werten orientiert und somit vergleichsweise gute Ergebnisse erwarten lässt.
+
+// Heuristiken: Sicherheitsmechanismen 
+Zur weiteren Verbesserung der Ergebnisqualität des @GA könnte auch der Einsatz von Sicherheitsmechanismen dazu beitragen, dass suboptimale oder invalide Wandkonfigurationen gar nicht erst ausgegeben werden, sondern die Suche mit einem neuen Zufalls-Seed neugestartet wird. Wie in @sec:route-puzzle-based-heuristics gezeigt, kann eine Variation des Seeds einen signifikanten Einfluss auf die Qualität der gefundenen Lösungen haben.
 
 // Teilrouten Modellierung
-Ein vielversprechenderer Ansatz ist demnach die Nutzung der in @sec:route-puzzle-based vorgestellten konzeptuellen Teilrouten. Durch die Modellierung durch fest definierte Teilabschnitte, welche zum Schluss der Routenplanung zu einer vollständigen Route verkettet werden, kann der Suchraum signifikant verkleinert werden und eine Suche darin um Größenordnungen effizienter sein.
+Ein wesentlich vielversprechenderer Ansatz ergibt sich aus der Modellierung mittels Teilrouten, wie in @sec:route-puzzle-based vorgestellt. Da die Komplexität des @TSP:pl maßgeblich von der Anzahl der Knoten abhängt, führt die Aggregation der Knoten zu fest definierten Teilabschnitten zu einer erheblichen Reduktion des Suchraums. Die anschließende Verkettung dieser Teilrouten zu einer vollständigen Route ermöglicht eine deutlich effizientere Suche und verbessert die Skalierbarkeit des Ansatzes.
 
 Mithilfe dieser Modellierung können beliebig viele Ausschnitte in der Wand dargestellt werden, indem die Anzahl und Position der Teilabschnitte angepasst wird.
-Allerdings ist diese Art der Modellierung für nicht-rechteckige Formen eventuell ungeeignet, da es somit mehr @UE:pl:long gibt, welche mehrfach für vertikale und horizontale Streben genutzt werden und an jedem @UE prinzipiell die Möglichkeit besteht die Hauptrichtung zu ändern. Die Definition der Teilrouten sowie die konzeptuelle Abgrenzung zu hauptrichtungsändernden Umlenkungen an den Ecken der Wand muss dann genauer betrachtet werden.
+Allerdings ist diese Art der Modellierung für nicht-rechteckige Formen eventuell ungeeignet, da es somit mehr @UE:pl:long gibt, welche mehrfach für vertikale und horizontale Streben genutzt werden und an jedem @UE prinzipiell die Möglichkeit besteht die Hauptrichtung zu ändern. Insbesondere die Definition der Teilrouten sowie die konzeptuelle Abgrenzung zu hauptrichtungsändernden Umlenkungen an den Ecken der Wand muss dann genauer betrachtet werden.
 
-// #figure(
-//   cetz.canvas({
-//     import cetz.draw: *
-//     scale(0.5)
-//     set-style(radius:0.5)
-//     let offset = 0.9
-//     for y in range(0,7, step: 2) {
-//       circle((0,y))
-//       line((0,y+offset),(0-offset,y))
-//       line((0,y - offset),(0-offset,y))
-//     }
-//     for x in range(9,17, step: 2) {
-//       circle((x,10))
-//       line((x - offset,10),(x,10+offset))
-//       line((x,10 + offset),(x+offset, 10))
-//     }
-//     circle((8,1))
-//     circle((10,3))
-//     circle((12,5))
-//     circle((14,5))
-//     circle((16,5))
-//     // Außenlinien
-//     line((-1,-1),(-1,11))
-//     line((-1,11),(18,11))
-//     line((8,-1),(13,4))
-//     line((13,4),(18,4))
-//   }),
-//   caption: [Foo]
-// )
+// exakte Methoden
+Aufgrund des kleineren Suchraums wird der Einsatz exakter Suchalgorithmen wieder praktikabel, da diese unter den reduzierten Problemgrößen eine ausreichende Performanz aufweisen. Bereits simple Methoden wie Brute-Forcing liefern in diesem Kontext sehr gute Ergebnisse und garantieren zugleich die Optimalität der Lösung. Für den Einsatz im @CBT liegt die Laufzeit von einigen wenigen Sekunden für die größeren Wandkonfigurationen noch völlig im akzeptablen Rahmen. 
 
-Aufgrund des kleineren Suchraums wird der Einsatz exakter Suchalgorithmen wieder praktikabel, da diese unter den reduzierten Problemgrößen eine ausreichende Performanz aufweisen. Bereits simple Methoden wie Brute-Forcing erzielen sehr gute Ergebnisse, während sie dennoch garantieren, eine optimale Lösung zu finden. Für den Anwendungsfall im @CBT liegt die Laufzeit von einigen wenigen Sekunden für die größeren Wandkonfigurationen noch völlig im akzeptablen Rahmen. 
-
-Auch wenn die schnellere Laufzeit des genetischen Algorithmus hier nicht benötigt wird, kann dessen Anwendung in Zukunft eventuell vorteilhaft sein. Sollte zukünftig die Problemgröße steigen, etwa durch Hinzufügen neuer Teilrouten aufgrund der Präsenz mehrerer Wandausschnitte, könnte das hier verwendete Brute-Forcing auf Limitationen bezüglich der Laufzeit stoßen und sich der Einsatz heuristischer Methoden wieder mehr lohnen. 
-
-Eine Feinabstimmung der verwendeten Operatoren kann zudem eventuell die Wahrscheinlichkeit verringern, zu welcher der Algorithmus in einem lokalen Optimum terminiert bzw. die Qualität der Ergebnisse erhöht werden. So könnte der Order Crossover durch einen problemspezifisch optimierten Operator ersetzt werden, um die Qualität der Ergebnisse zu verbessern. Auch könnte statt der Tournierselektion ein rangbasierter Rekombinationsoperator nach #citep(<razaliGeneticAlgorithmPerformance2011>) genutzt werden, welcher im Allgemeinen bessere Ergebnisse erzielen kann. Eine Verbesserung der Laufzeit ist dadurch allerdings nicht zu erwarten, da durch die Sortierung der Population die Rechenzeit für eine Iteration um etwa das Fünffache ansteigt @razaliGeneticAlgorithmPerformance2011. 
-
-
-Zur Optimierung der Ergebnisse könnte auch der Einsatz von Sicherheitsmechanismen dazu beitragen, dass suboptimale oder invalide Wandkonfigurationen gar nicht erst ausgegeben werden, sondern einen Neustart der Suche mit neuem Seed verursachen. Wie in @sec:route-puzzle-based-heuristics gezeigt, führt eine Neuwahl des Seeds dazu, dass die Qualität der gefundenen Lösungen signifikant ansteigen kann.
-
-// 3. Literaturvergleich: Wie gut ist die MODELLIERUNG + ANSATZ für das PROBLEM
-
-Nach den Ergebnissen von #citep(<rexhepiAnalysis2013>) ist zu vermuten, dass die Populationsgröße einen signifikant größeren Einfluss auf die Qualität der Ergebnisse, hat als die Wahl der Wahrscheinlichkeiten zur Mutation und Rekombination. Dabei scheinen kleinere Populationen generell bessere Lösungen zu produzieren, wobei sich die hier verwendete Populationsgröße von 1000 an diesen Werten orientiert und somit vergleichsweise gute Ergebnisse zu erwarten sind.
-
-Wie in @fig:res-genetic-b-generation dargestellt sinken die Kosten innerhalb weniger Hundert Generationen auf das lokale Optimum von 21 im Fall von $w_2$. Im Vergleich zu den Ergebnissen von #citep(<rexhepiAnalysis2013>) fallen die Kosten sehr schnell. Ein Grund kann sich aus der Arbeit von #citep(<razaliGeneticAlgorithmPerformance2011>) ergeben, bei dem ein ähnlicher Fall unter Nutzung der Tournierselektion auftritt. Die Nutzung der rangbasierten Selektion erzeugt dabei einen flacheren Verlauf und begünstigt somit gegebenenfalls die Ausweitung der Suche durch die Mutations- und Rekombinationsoperatoren, wodurch schlussendlich bessere Ergebnisse erzielt werden können. 
-
+// heuristische Methoden
+Auch wenn die Vorteile heuristischer Verfahren hinsichtlich der Laufzeit in diesem Szenario aktuell nicht ausschlaggebend sind,könnten sie bei zukünftigen Erweiterungen an Bedeutung gewinnen. Sollte zukünftig die Problemgröße steigen, etwa durch Hinzufügen neuer Teilrouten aufgrund der Präsenz mehrerer Wandausschnitte, könnte das hier verwendete Brute-Forcing auf Limitationen bezüglich der Laufzeit stoßen und sich der Einsatz heuristischer Methoden wieder mehr lohnen. 
 
 // 4. Verbesserungspotential
 - GA parameter feinjustieren

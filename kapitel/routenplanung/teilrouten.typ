@@ -86,12 +86,11 @@ Für die Bewertung gefundener Lösungen muss die bestehende Bewertungsfunktion n
 $ T((pi(1),...,pi(6))) = pi(1) circle.small ... circle.small pi(6) $
 gilt.
 
-#question[Soll das folgende Bild in den Anhang? Weil es so groß ist?]
-
 #figure(
   raw-render(
     ```dot
     digraph {
+      ratio="compress";
       rankdir=LR;
       ranksep=1.7;
       nodesep=0.1;
@@ -147,9 +146,10 @@ gilt.
       THR -> {LV RVR}
       //EXTRA -- {LH TH RH LV TV RV}
     }
-    ```
+    ```,
+    width: 340pt,
   ),
-  caption: [Puzzle Graph],
+  caption: [Teilrouten Graph],
 )<fig:puzzle-graph2>
 
 === Heuristische Methoden <sec:route-puzzle-based-heuristics>
