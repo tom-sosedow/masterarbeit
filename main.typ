@@ -20,6 +20,7 @@
 #include "kapitel/ue-platzierung.typ"
 #include "kapitel/routenplanung/index.typ"
 #include "kapitel/pfadfindung.typ"
-#include "kapitel/auswertung.typ"
+#include "kapitel/auswertung/index.typ"
+#include "kapitel/zsmfassung-ausblick.typ"
 
 #bibliography("refs.bib", style: "american-psychological-association")
