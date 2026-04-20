@@ -79,18 +79,10 @@ Aufgrund des kleineren Suchraums wird der Einsatz exakter Suchalgorithmen wieder
 Auch wenn die Vorteile heuristischer Verfahren hinsichtlich der Laufzeit in diesem Szenario aktuell nicht ausschlaggebend sind, könnten sie bei zukünftigen Erweiterungen an Bedeutung gewinnen. Sollte zukünftig die Problemgröße steigen, etwa durch Hinzufügen neuer Teilrouten aufgrund der Präsenz mehrerer Wandausschnitte, könnte das hier verwendete Brute-Forcing auf Limitationen bezüglich der Laufzeit stoßen und sich der Einsatz heuristischer Methoden wieder mehr lohnen. 
 
 // 4. Verbesserungspotential
-- ganzheitliche, strukturelle bewertung des Gittermusters 
-  - dafür: 
-    - kooperation von routen und pfadplanung, um resultierende garnstruktur nach ablegen zu bewerten
-    - oder: start und endpunkte in nebenrichtung mitteln, sodass kanten immer achsenparallel verlaufen und dann darauf die gleichmäßigkeit bewerten
-- brute force optimierungen
-  - kostengrenze einführen bei rekursionsschritt -> abbruch der rechnung, wenn überschritten
-  - übergang zu backtracking -> invalide permutationen frühzeitig ausschließen
-    - bisher nur für $P'_V$, aber nicht für $P_V$ 
-- heuristiken: feinabstimmung der operatoren und parameter und erneutes testen für teilroutenmodellierung
-- optionale UE
-  - modellierung nicht als eigener abschnitt, da es manchmal mehrere optionale ue gibt, die nicht verbunden werden dürfen wie ein normaler teilabschnitt
-  - position in permutation nicht überall möglich -> nur zwischen den teilrouten, zwischen denen es liegt -> backtracking könnte hier effizienter vorgehen
+Trotz der insgesamt als positiv zu bewertenden Ergebnisse weisen die vorgestellten Ansätze in bestimmten Aspekten Verbesserungspotential auf. Insbesondere erweist sich die Bewertungsfunktion durch den starken und voreingenommenen Eingriff in den Suchalgorithmus als suboptimal. Hier könnte eine ganzheitlich strukturelle Bewertung zu signifikant besseren Ergebnissen führen. Ebenso können Optimierungen für den Brute-Force Ansatz die Berechnung effizienter gestalten, indem beispielsweise Routen mit invaliden Abfolgen von Teilrouten nicht betrachtet werden. Auch der Übergang zum Backtracking könnte hier zu weiteren Leistungssteigerungen führen, ohne die Komplexität des Algorithmus unnötig zu erhöhen. Sollten zukünftig Heuristiken bzw. Metaheuristiken relevanter werden, weil eventuell die Problemgröße ansteigt, müsste hier eine Feinabstimmung der Operatoren und prozessparameter erfolgen.
+
+Die gewählte Modellierung der optionalen Umlenkelemente erweist sich als ungeeignet, da sie die problemspezifischen Gegebenheiten nicht ganz abbilden kann. So kann derzeit nur jeweils ein @UE:long dadurch in der Planung betrachtet werden, obwohl in einer Wandkonfiguration mehrere existieren können.
+
 
 // 5. Fazit
-- 
+Zusammenfassend konnte gezeigt werden, dass die Modellierung durch Teilrouten eine höchst effiziente Berechnung der Reihenfolge der anzufahrenden @UE:pl:long ermöglicht. Durch den Einsatz von Brute Force kann die Optimalität einer gefundenen Lösung bezüglich der definierten Bewertungsfunktion garantiert werden. Die entstehenden Gittermuster erfüllen alle Anforderungen und weisen wenig bis keine Materialverschwendung auf. Dieser Ansatz ist also ohne Weiteres in der automatisierten Produktion von Carbongittern anwendbar und benötigt keine manuellen Schritte außer der Befestigung der Enden des Garns. Er ist somit eine Antwort auf Forschungsfrage (II).
