@@ -167,7 +167,7 @@ Die konkrete Lage dieser Punkte hängt zum einen von der Position des jeweiligen
 
 Für den Bereich der oberen Türecken ergeben sich dabei zusätzliche Besonderheiten, da hier sowohl horizontale als auch vertikale Hauptrichtungen berücksichtigt werden müssen. In @fig:wegpunkte-mit-türecke (b) ist dies mit den Farben Blau und Grün dargestellt. Die doppelte Betrachtung liegt darin begründet, dass diese Knoten zweimalig angefahren werden und somit zwei unterschiedliche Halbkreisbewegungen erforderlich sind.
 
-Die Reihenfolge, in der der Roboter die einzelnen Punkte anfährt, ergibt sich aus der zugrunde liegenden Route sowie der daraus abgeleiteten Hauptrichtung in der jeweiligen Teilroute. Durch die Verkettung aller Subpfade, die aus den einzelnen Umlenkungen hervorgehen, entsteht schließlich der vollständige Bewegungspfad, der zur Erzeugung der Gitterstruktur abgefahren werden muss, wie in @fig:wegpunkte-mit-türecke (a) veranschaulicht.
+Die Reihenfolge, in der der Roboter die einzelnen Punkte anfährt, ergibt sich aus der zugrunde liegenden Route sowie der daraus abgeleiteten Hauptrichtung in der jeweiligen Teilroute. Durch die Verkettung aller Subpfade, die aus den einzelnen Umlenkungen hervorgehen, entsteht schließlich der vollständige Bewegungspfad $p$, der zur Erzeugung der Gitterstruktur abgefahren werden muss, wie in @fig:wegpunkte-mit-türecke (a) veranschaulicht.
 
 #figure(
   grid(
@@ -352,11 +352,19 @@ Ein Großteil dieser Kollisionen lässt sich durch die Verwendung vollständiger
 // Kollisionen mit bereits gelegtem Garn
 Darüber hinaus ist sicherzustellen, dass Kollisionen der Austrittsdüse mit bereits verlegtem Garn vermieden werden. Eine effektive Strategie zur Kollisionsvermeidung besteht darin, das Werkzeug temporär anzuheben, sobald eine bestehende Strebe gekreuzt wird. Dabei ist jedoch zu beachten, dass die Anhebung weder zu groß noch zu steil erfolgen darf, da andernfalls die Gefahr besteht, dass das Garn vom vorherigen @UE abrutscht. Dies würde auch an den Kreuzungspunkten dazu führen, dass keine Verbindung zwischen sich kreuzenden Streben entsteht und somit die Belastbarkeit des Gitters nach dem Temperieren eingeschränkt ist.
 
-Da zur Erkennung solcher Kreuzungen kein physikalisches Modell des unter Spannung stehenden Garns verwendet wird, dient der bereits abgefahrene Pfad als Näherung. Hierzu wird der Pfad schrittweise analysiert und für jeden Abschnitt überprüft, ob und an welchen Positionen er frühere Segmente schneidet. Die identifizierten Schnittpunkte werden entlang der jeweiligen Strebe geordnet.
+Da zur Erkennung solcher Kreuzungen kein physikalisches Modell des unter Spannung stehenden Garns verwendet wird, muss der geplante Pfad als Annäherung dienen. 
+Hierzu wird der Pfad, zunächst ohne Erkennung von Garnkollisionen, erstellt und dabei der Abstand der Wegpunkte zur Mitte der @UE von zwei Radien auf einen Radius geändert. Der resultierende Pfad wird als $p'$ bezeichnet. Wenngleich diese Berechnung keinen validen Pfad für den Roboterarm erzeugt, da die Abstände nicht eingehalten werden, führt es dazu, dass die Streben zwischen den Außenkanten der @UE:pl:long verlaufen und somit eine Annäherung der resultierenden Garnstruktur entsteht. Das Ergebnis ist in @fig:pfad-garnannaeherung zu sehen. Es ist zu beachten, dass dennoch einige Streben nicht so verlaufen, wie sie es später tun werden. Ein Beispiel hierfür ist die oberste horizontale Strebe, die durch die Sonderumlenkung um das @UE 21 entsteht. Hier kommt es zu einer Abweichung, da diese Strebe im Gegensatz zur Realität in der Annäherung nicht achsenparallel, sondern leicht diagonal, verläuft.
+
+#figure(
+  image("/images/pfadannaeherung.png", width: 110%),
+  caption: [Annäherung $p'$ an resultierende Garnstruktur am Beispiel von Wandkonfiguration $w_4$],
+)<fig:pfad-garnannaeherung>
+
+Der Pfad $p$ für den Roboter wird schrittweise analysiert und für jeden Abschnitt überprüft, ob und an welchen Positionen er frühere Segmente in $p'$ schneidet. Die identifizierten Schnittpunkte werden entlang der jeweiligen Strebe von $p$ geordnet.
 
 Am ersten Kreuzungspunkt wird, wie beschrieben, ein zusätzlicher Wegpunkt eingefügt, der sich etwa zwei Zentimeter oberhalb der regulären Arbeitsebene befindet. Die Anhebung erfolgt dabei erst unmittelbar am Schnittpunkt, um die Steigung möglichst gering zu halten und somit die auf das @UE wirkenden vertikalen Kräfte zu minimieren. Ein weiterer zusätzlicher Wegpunkt wird an der letzten Kreuzung eingefügt. Auf diese Weise wird verhindert, dass es beim Übergang zum ersten Wegpunkt der folgenden Umlenkung, der wieder auf der ursprünglichen Ebene liegt, zu einer Kollision mit der zuletzt gekreuzten Strebe kommt.
 
-Der resultierende Pfad, ergänzt um diese beiden zusätzlichen Wegpunkte, ist exemplarisch in @fig:seitenansicht-vertikaler-pfad dargestellt.
+Der resultierende Pfad, ergänzt um diese zusätzlichen Wegpunkte, ist exemplarisch in @fig:seitenansicht-vertikaler-pfad dargestellt.
 
 
 #figure(
@@ -406,11 +414,11 @@ Der resultierende Pfad, ergänzt um diese beiden zusätzlichen Wegpunkte, ist ex
 Zur Analyse des gezeigten Vorgehens werden, analog zu @sec:ue-place-result, erneut alle 32 möglichen Wandkonfigurationen überprüft. Die Tests werden ebenfalls auf einem Intel(R) Core(TM) i5-8350U Prozessor mit 24 GB Arbeitsspeicher durchgeführt. Die durchschnittliche Rechenzeit beträgt 1,57 Millisekunden, während die maximal gemessene Rechenzeit bei 10,32 Millisekunden über alle 32 Testläufe liegt. In @fig:beispielpfad ist der berechnete Pfad für die Wandkonfiguration $w_4$ aus @sec:routenplanung exemplarisch dargestellt. Die berechnete Route beginnt hier bei @UE 61 und endet bei @UE 27.
 
 #figure(
-  image("/images/pfadbeispiel.png"),
-  caption: [Pfad des Roboters in Wandkonfiguration $w_4$ aus @sec:routenplanung. Route beginnt bei UE 61 und endet bei UE 27]
+  image("/images/pfadbeispiel.png", width: 110%),
+  caption: [Pfad $p$ des Roboters in einer kleinen Wandkonfiguration $w_4$ aus @sec:routenplanung. Route beginnt bei UE 61 und endet bei UE 27. In Rot dargestellt sind die Punkte, die zur Kollisionsvermeidung auf einer höheren Ebene platziert werden sowie in halbtransparentem Rot die Approximation des Gittermusters zur Bestimmung dieser Punkte.]
 )<fig:beispielpfad>
 
-Die Pfade werden insgesamt überwiegend zuverlässig bestimmt. Bei Nutzung der Invertierungsstrategie, wie in @sec:path-direction dargestellt, kommt es bei manchen Routen zu fehlerhaften Teilabschnitten, wodurch sie ähnlich zu dem in @fig:pfad-zu-muster (b) gezeigten Pfad verlaufen. Grund hierfür ist immer eine falsche Berechnung der Umlaufrichtung bei einem Wechsel der Hauptrichtung. 
+Die Pfade werden insgesamt überwiegend zuverlässig bestimmt. Bei Nutzung der Invertierungsstrategie, wie in @sec:path-direction dargestellt, kommt es bei manchen Routen zu fehlerhaften Teilabschnitten, wodurch sie ähnlich zu dem in @fig:pfad-zu-muster (b) gezeigten Pfad verlaufen. Grund hierfür ist immer eine falsche Berechnung der Umlaufrichtung bei einem Wechsel der Hauptrichtung.
 
 Wird hingegen der vektorbasierte Ansatz genutzt, sind die Teilbereiche immer vollständig korrekt. Wie bereits beschrieben kommt es allerdings auch bei diesem Ansatz regelmäßig zu Problemen beim Wechsel der Hauptrichtung. Ein Beispiel hierfür ist auch in @fig:beispielpfad zu sehen. Bei dem Teilabschnitt der Route von @UE 20 über @UE 62 zu @UE 60 liegt Letzteres rechts der Kante $20 -> 62$. Gemäß der definierten Regel wird daraus eine Umlaufrichtung im Uhrzeigersinn abgeleitet. In diesem Fall wäre jedoch eine Bewegung entgegen dem Uhrzeigersinn erforderlich, da die resultierende Strebe zwischen @UE 62 und @UE 60 andernfalls nicht achsenparallel zur x-Achse, sondern leicht diagonal verläuft.
 
@@ -418,7 +426,7 @@ Weiterhin lässt sich feststellen, dass die Wegpunkte für die Umlenkungen um me
 
 Auch die Kollisionsvermeidung durch den Einsatz vollständiger Umlenkungen funktioniert erwartungsgemäß. In @fig:beispielpfad ist dies unter anderem am @UE 20 zu erkennen, wo durch eine entsprechende Umlenkung eine Kollision mit @UE 22 vermieden wird, die andernfalls bei der Bewegung Richtung @UE 62 auftreten würde.
 
-Die zusätzlich eingefügten Zwischenpunkte zur Vermeidung von Kollisionen mit bereits verlegtem Garn sind in der Abbildung durch rote Kreise hervorgehoben. Diese werden korrekt jeweils am ersten und letzten Schnittpunkt eines Pfadsegments platziert, wodurch ein Abriss oder Beschädigung des Garns vermieden wird.
+Die zusätzlich eingefügten Zwischenpunkte zur Vermeidung von Kollisionen mit bereits verlegtem Garn sind in der Abbildung durch rote Kreise hervorgehoben. Diese werden korrekt jeweils am ersten und letzten Schnittpunkt eines Pfadsegments aus $p$ mit Streben aus $p'$ platziert, wodurch ein Abriss oder Beschädigung des Garns vermieden wird.
 
 #todo[Letzten abschnitt Ausbauen]
 
