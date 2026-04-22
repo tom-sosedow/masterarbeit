@@ -2,7 +2,7 @@
 #import "theme.typ": htwk-theme
 #import "glossary.typ": my-glossary
 
-#let font = "TeX Gyre Termes"
+#let font = "Liberation Serif"
 
 #let titlepage(
   name: [Ihr Familienname],
@@ -112,7 +112,11 @@
   show math.equation.where(block: false): box
   show outline.entry: set block(above: 1.3em)
   show table.cell: set text(size: 10pt)
-  set text(size: 12pt, font: font)
+  set text(
+    size: 11pt,
+    lang: "de",
+    font: font
+  )
   show figure: it => {
     v(1.5em)
     it
@@ -126,11 +130,7 @@
       },
   )
   
-  set text(
-    size: 11pt,
-    lang: "de",
-    font: font
-  )
+  
   // Links
   show link: set text(fill: rgb(0, 0, 238))
   // Überschriften
@@ -149,7 +149,7 @@
   show heading: it => {    
     set block(below: 1.8em, above: 3em)
     
-    set text(font: "TeX Gyre Termes")
+    set text(font: font)
     let level = it.level
     if level == 1 {
       pagebreak()

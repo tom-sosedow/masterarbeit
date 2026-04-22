@@ -288,6 +288,8 @@ Da keine relevanten Arbeiten zum hier betrachteten Problem identifiziert werden 
 
 == Iterative Lösungsmethode <sec:ue-place-implementation>
 
+Die im folgenden Abschnitt vorgestellte Lösungsmethode ist stark an die derzeit verwendete Methode des @CBT zur Berechnung der Positionen der @UE:pl:long angelehnt. Es wird wieder iterativ vorgegangen, allerdings wird der Ablauf für die komplexeren Anforderungen erweitert und angepasst.
+
 // Tür zuerst
 Aufgrund der begrenzten Möglichkeiten zur Platzierung der @UE am Türausschnitt, ohne die spätere Routenplanung stark einzuschränken, werden diese Positionen zuerst bestimmt. Standardmäßig wird dabei ein @UE in der unteren linken Ecke der Tür platziert, woraus sich die Positionen der übrigen @UE ableiten lassen.
 

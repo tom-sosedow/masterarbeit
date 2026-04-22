@@ -56,8 +56,6 @@ Eine vollständige Totalordnung liegt jedoch nicht vor, da die Eigenschaft der A
 //- keine behandlung von türen oder wänden mit formen die nicht rechteckig sind, zb trapeze oder kreisbögen
 
 == Bewertung der Ansätze
-#todo[Bewertungkriterien vorstellen, alle tests mit derselben berwertungsfunktion ]
-
 Um einen passenden Ansatz bestimmen zu können, müssen Bewertungskriterien festgelegt werden. Anhand derer werden die betrachteten exakten und heuristischen Methoden bewertet und untereinander bezüglich ihrer Anwendbarkeit und Eignung zur Lösung der zuvor definierten Problemstellung systematisch verglichen. 
 
 // Wandkonfigurationen
