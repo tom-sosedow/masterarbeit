@@ -187,10 +187,77 @@ Darüber hinaus wird eine Anordnung gefordert, die eine später folgende Routenp
 == Stand der Forschung <sec:ue-place-forschungsstand>
 Sowohl in der Forschung als auch in industriellen Anwendungen existiert nur wenig veröffentlichte Literatur zur Platzierung von Umlenkelementen.
 
-#todo[Forschungsstand CBT]
+Im @CBT erfolgt die Bestimmung der Positionen der @UE derzeit iterativ und ist auf einfache Wandkonfigurationen ohne Ausschnitte oder Hindernisse beschränkt. Ausgehend von den eingegebenen Abmessungen der Wand werden zunächst die Randabstände (Padding) berücksichtigt, bevor in einer festen Abfolge eine Liste von Koordinaten der @UE:pl in Millimetern erzeugt wird. Zunächst werden die @UE:pl entlang der Ober- und Unterkante der Wand von links nach rechts alternierend platziert. Anschließend werden die @UE:pl nach der Sonderstelle an der linken sowie rechten Seite der Wand entweder von oben nach unten oder umgekehrt platziert, je nach dem wo das letzte @UE im vorherigen Schritt platziert wurde. Die Reihenfolge der Berechnung ist in @fig:rollenplatzierung-cbt dargestellt. Auf diese Weise ergibt sich genau eine relevante Sonderstelle, die sich entweder in der unteren rechten (a) oder oberen rechten (b) Ecke der Wand befindet. Eine automatisierte Erweiterung dieses Verfahrens für Wandkonfigurationen mit Hindernissen oder Aussparungen ist bislang nicht umgesetzt.
+
+#figure(
+  grid(
+    columns: (auto, auto),
+    rows: (auto, auto),
+    column-gutter: 10%,
+    row-gutter: 2%,
+    cetz.canvas({
+      import cetz.draw: *
+      
+      scale(0.3)
+
+      let width = 8
+      let height = 6
+      let names = ()
+      for (x,i) in range(width - 1).enumerate() {
+        let pos = (2+ x*2, if calc.even(x) {0} else {height*2})
+        circle(pos, name: "v" + str(i))
+        names.push("v" + str(i))
+        content(pos, [#(i+1)])
+      }
+      for (y,i) in range(height - 1).enumerate() {
+        let pos = (if calc.odd(y) {0} else {width*2}, 2 + y*2)
+        circle(pos, name: "h" + str(i))
+        names.push("h" + str(i))
+        content(pos, [#(i+width)])
+      }
+      circle((width*2-2, 0), stroke:(paint: red))
+      circle((width*2, 2), stroke:(paint: red))
+      rect-around(
+        ..names,
+        padding: 1
+      )
+    }),
+    cetz.canvas({
+      import cetz.draw: *
+      
+      scale(0.3)
+
+      let width = 9
+      let height = 6
+      let names = ()
+      for (x,i) in range(width - 1).enumerate() {
+        let pos = (2+ x*2, if calc.even(x) {0} else {height*2})
+        circle(pos, name: "v" + str(i))
+        names.push("v" + str(i))
+        content(pos, [#(i+1)])
+      }
+      for (y,i) in range(height - 1, 0, step: -1).enumerate() {
+        let pos = (if calc.odd(y) {0} else {width*2}, 2 + y*2)
+        circle(pos, name: "h" + str(i))
+        names.push("h" + str(i))
+        content(pos, [#(i+width - 1)])
+      }
+      circle((width*2-2, height*2), stroke:(paint: red))
+      circle((width*2, height*2 - 2), stroke:(paint: red))
+      rect-around(
+        ..names,
+        padding: 1
+      )
+    }),
+    [(a)],
+    [(b)]
+  ),
+  
+  caption: [Reihenfolge der Positionierung der UE im aktuellen Ansatz des CBT für einfache Wände ohne Tür- oder Fensterausschnitt. In Rot sind die UE der Sonderstelle markiert.]
+)<fig:rollenplatzierung-cbt>
 
 // TU Dresden
-#citep(<merschAutomation3DRobotic2025>) untersuchten die automatisierte Garnablage für dreidimensionale Skelette, einschließlich der Planung der Bewegungsbahnen eines Roboterarms. Die räumlichen Positionen der Pins werden dabei jedoch als gegeben und strukturell konsistent vorausgesetzt und nicht eigenständig berechnet. Darüber hinaus werden keine Anforderungen an die Gleichmäßigkeit der resultierenden Struktur, beispielsweise in Form eines Gitters, gestellt.
+#citep(<merschAutomation3DRobotic2025>) untersuchten hingegen die automatisierte Garnablage für dreidimensionale Skelette, einschließlich der Planung der Bewegungsbahnen eines Roboterarms. Die räumlichen Positionen der Pins werden dabei jedoch als gegeben und strukturell konsistent vorausgesetzt und nicht eigenständig berechnet. Darüber hinaus werden keine Anforderungen an die Gleichmäßigkeit der resultierenden Struktur, beispielsweise in Form eines Gitters, gestellt.
 
 // String Art
 Im kreativen Bereich existieren hingegen Arbeiten, bei denen Künstler mithilfe von Algorithmen Bilder durch das Verlegen von Garn erzeugen (engl. String Art). Häufig dient dabei eine einfache geometrische Form, etwa ein Kreis oder Rechteck, als Rahmen @birsakStringArtComputational2018. Auf diesem Rahmen sind in regelmäßigen Abständen Pins angebracht, um welche das Garn entsprechend der gewünschten Detailtreue geführt wird.

@@ -27,25 +27,129 @@ Analog dazu kann eine fehlerhafte Festlegung der zugehörigen Wegpunkte sowie ih
 
 #figure(
   grid(
-    columns: (auto, auto),
-    rows: (auto, auto),
-    row-gutter: 4%,
-    column-gutter: 4%,
-    image("/images/pfad-zu-muster-richtig.png", width: 100%),
-    //line(start: (0%,2%), end: (0%, 13%)),
-    image("/images/pfad-zu-muster-falsch.png", width: 100%),
+    columns:(auto, 15%, auto),
+    rows:(auto, auto),
+    cetz.canvas({
+      import cetz.draw: *
+
+      scale(0.6)
+      content((4,6), [Pfad: $(...,d,a,b,c,d,e,f,c,...)$])
+      // links
+      circle((0,0))
+      circle((0,4), stroke: (dash: "dashed", paint: gray))
+      content((0,0), [Q])
+      let points1 = ((0,2),(-2, 0),(0,-2))
+      
+
+      for (p,letter) in points1.zip(("d","e","f")) {
+        circle(p, radius: 0.2)
+        content((p.at(0) + 0, p.at(1) + 0.6), [#letter])
+      }
+
+      
+      // rechts
+      circle((8,2))
+      content((8,2), [P])
+      circle((8,-2), stroke: (dash: "dashed", paint: gray))
+
+      let points3 = ((8,2+2),(8+2, 2),(8,2-2))
+      
+      for (p, letter) in points3.zip(("a","b","c")) {
+        circle(p, radius: 0.2)
+        content((p.at(0) + 0, p.at(1) + 0.6), [#letter])
+      }
+
+      set-style(mark: (end: ">>"), stroke: (paint: blue))
+      line(points3.at(0),points3.at(1))
+      line(points3.at(1),points3.at(2))       
+      line(points1.at(0),points1.at(1))
+      line(points1.at(1),points1.at(2))
+      line(points3.last(), points1.first())
+      line(points1.first(), points3.first())
+      line(points1.last(), points3.last())
+
+      set-style(mark: none, stroke: (paint: red))
+      line((0,-1.1), (8,-1))
+      line((0,1.1), (8,0.9))
+      line((0,3), (8,3.1))
+      arc((0,-1.1), radius: 1.1, start: -90deg, delta: -180deg)
+      arc((8,1 - 0.1), radius: 1.1, start: -90deg, delta: 180deg)
+    }),
+    [],
+    cetz.canvas({
+      import cetz.draw: *
+
+      scale(0.6)
+      content((4,7), [Pfad: $(...,c,b,a,f,e,d,...)$])
+      // links
+      circle((0,0))
+      circle((0,4), stroke: (dash: "dashed", paint: gray))
+      content((0,0), [Q])
+      let points1 = ((0,2),(-2, 0),(0,-2)).rev()
+      
+
+      for (p,letter) in points1.zip(("d","e","f").rev()) {
+        circle(p, radius: 0.2)
+        content((p.at(0) + 0, p.at(1) + 0.6), [#letter])
+      }
+
+      // rechts
+      circle((8,2))
+      circle((8,-2), stroke: (dash: "dashed", paint: gray))
+      content((8,2), [P])
+
+      let points3 = ((8,2+2),(8+2, 2),(8,2-2)).rev()
+      
+      for (p, letter) in points3.zip(("a","b","c").rev()) {
+        circle(p, radius: 0.2)
+        content((p.at(0) + 0, p.at(1) + 0.6), [#letter])
+      }
+
+      set-style(mark: (end: ">>"), stroke: (paint: blue))
+      line(points3.at(0),points3.at(1))
+      line(points3.at(1),points3.at(2))       
+      line(points1.at(0),points1.at(1))
+      line(points1.at(1),points1.at(2))
+      line((0,6), points3.first())
+      line(points3.last(), points1.first())
+      line(points1.last(), (8,-4))
+
+      set-style(mark: none, stroke: (paint: red))
+      line((0.2,-1.1), (8-0.4,3))
+      line((0.2,1.1),(8-0.25,-3))
+      line((0.2,5.1),(8-0.2,0.9))
+      arc((0.3,-1.05), radius: 1.1, start: -75deg, delta: -210deg)
+      arc((8-0.2,1 - 0.09), radius: 1.1, start: -100deg, delta: 210deg)
+    }),
     [(a)],
+    [],
     [(b)],
   ),
- caption: [Pfad des Roboters (Blau) und daraus resultierende Garnstruktur (Rot) um zwei Umlenkelemente mit korrekter Umlaufrichtung (links) und vertauschter Umlaufrichtung (rechts)]
+  caption: [Pfad des Roboters (Blau) aus Route $(..., P, Q, ...)$ und daraus resultierende Garnstruktur (Rot) um zwei Umlenkelemente mit korrekter Umlaufrichtung (a) und vertauschter Umlaufrichtung (b)]
 )<fig:pfad-zu-muster>
 
 
 == Stand der Forschung
 
-#todo[Forschungsstand CBT einfügen.]
+Zur Bestimmung der Wegpunkte $a,b,c$ beziehungsweise $d,e,f$ aus @fig:pfad-zu-muster wird im aktuellen Ansatz des @CBT derzeit die Sonderumlenkung als Referenz für die Art der Umlenkung herangezogen. Da im bestehenden Verfahren zuerst alle vertikalen Streben verlegt werden, ergibt sich eine vergleichsweise einfache Bestimmung der Wegpunkte. Der erste und letzte Wegpunkt liegen jeweils auf der Höhe des entsprechenden Umlenkelements, sind jedoch um jeweils einen Durchmesser nach links beziehungsweise rechts versetzt. Der mittlere Wegpunkt ($b$ bzw. $e$) befindet sich hingegen auf dem gleichen x-Wert wie das Umlenkelement und ist alternierend um einen Durchmesser nach oben oder unten versetzt.
+Für ein @UE $Q=(x,y,i) in V$ an der Ober- bzw. Unterseite der Wand sowie dem Radius $r$ eines Umlenkelements ergeben sich damit die folgenden Wegpunkte
+$ 
+a = (x-2r,y,0) \
+c = (x+2r, y,0) \
+b = (x,y + 2r* rho,0) "mit" rho = cases(1 ", falls" 3r divides x, -1 ", sonst")
+$
 
-Auch für das Problem der Pfadplanung lassen sich relevante Erkenntnisse aus dem Bereich der String Art ableiten. In den Arbeiten von #citep(<birsakStringArtComputational2018>) und #citep(<happelQuotemeImg2string2026>), die sich mit klassischer String Art innerhalb eines mit Nägeln bestückten Rahmens befassen, wird jedoch keine explizite Festlegung der Umlaufrichtung um die Nägel vorgenommen. Dies ist vermutlich darauf zurückzuführen, dass aufgrund der geringen Größe der Nägel beziehungsweise Pins der Unterschied zwischen verschiedenen Umlaufrichtungen vernachlässigbar ist. In der Praxis kann daher eine vollständige Umrundung in konstanter Richtung erfolgen, ohne das resultierende Bild wesentlich zu beeinflussen. Zudem sind die Rahmen im Allgemeinen konvex, sodass es keine Hindernisse innerhalb der Zeichenfläche gibt.
+Nach der Durchführung der Sonderumlenkung wird dieses Verfahren analog angewendet, allerdings um 90° rotiert. Die Bestimmung des mittleren Wegpunktes richtet sich dann nach der Position der Sonderumlenkung. 
+
+Zur Vermeidung von Kollisionen mit bereits verlegtem Garn werden zusätzlich jeweils ein Wegpunkt vor und nach den drei Punkten $a,b,c$ eingefügt. Diese liegen entlang der Nebenrichtung zwischen dem Vorgänger- beziehungsweise Nachfolgeelement, sind jedoch um 20 Millimeter in z-Richtung angehoben. In diesem Fall ergibt sich der neue erste Wegpunkt des Umlenkelements $Q=(x,y,i)$ zu
+$ a' = (x-2r,y - 2r* rho, 20) "mit" rho = cases(1 ", falls" 3r divides x, -1 ", sonst") $
+sowie der neue letzte Wegpunkt zu 
+$ c' = (x+2r,y - 2r* rho, 20) "mit" rho = cases(1 ", falls" 3r divides x, -1 ", sonst") $
+sodass der Teilpfad um $Q$ herum schließlich die Abfolge $(a',a,b,c,c')$ beschreibt.
+
+Aufgrund der erhöhten Komplexität des vorliegenden Problems, insbesondere durch den Türausschnitt, können einige dieser Annahmen jedoch nicht übertragen werden. So ist beispielsweise nicht a priori festgelegt, ob zunächst horizontale oder vertikale Streben verlegt werden oder wohin die Hauptrichtung verläuft, was die Positionierung des mittleren Wegpunktes zusätzlich erschwert. Die isolierte Betrachtung der @UE:pl:long und Erzeugung des Pfades durch stützende Wegpunkte könnte allerdings für die Generierung eines validen Teilpfades genutzt werden. Zur Erweiterung dieses Ansatzes bietet es sich daher an, zusätzliche Perspektiven und Methoden aus verwandten Anwendungsgebieten heranzuziehen.
+
+Dafür können sich wieder relevante Erkenntnisse aus dem Bereich der String Art ableiten lassen. In den Arbeiten von #citep(<birsakStringArtComputational2018>) und #citep(<happelQuotemeImg2string2026>), die sich mit klassischer String Art innerhalb eines mit Nägeln bestückten Rahmens befassen, wird jedoch keine explizite Festlegung der Umlaufrichtung um die Nägel vorgenommen. Dies ist vermutlich darauf zurückzuführen, dass aufgrund der geringen Größe der Nägel beziehungsweise Pins der Unterschied zwischen verschiedenen Umlaufrichtungen vernachlässigbar ist. In der Praxis kann daher eine vollständige Umrundung in konstanter Richtung erfolgen, ohne das resultierende Bild wesentlich zu beeinflussen. Zudem sind die Rahmen im Allgemeinen konvex, sodass es keine Hindernisse innerhalb der Zeichenfläche gibt.
 
 Einen stärkeren Bezug zum vorliegenden Problem weist hingegen String Art auf, bei der die Nägel innerhalb der Zeichenfläche platziert werden. In einem Blogbeitrag beschreibt #citep(<morris-hillBuildingStringArt2023>) einen Ansatz, bei dem nach einer initialen Punkt-zu-Punkt-Planung ein konkreter Werkzeugpfad berechnet wird. Hierzu wird um die Nägel ein Sicherheitskreis beschrieben, dessen Radius größer ist als der der Nägel. Schneidet eine geplante Strecke einen solchen Sicherheitsbereich, wird die Laufbahn entsprechend angepasst, sodass das Werkzeug zwischen Ein- und Austrittspunkt entlang der Kreisbahn um den Nagel geführt wird. Dieser Ansatz zur Kollisionsvermeidung kann als konzeptionelle Grundlage für die im Folgenden entwickelte Vorgehensweise dienen.
 

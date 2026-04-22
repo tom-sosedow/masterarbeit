@@ -3,9 +3,13 @@
 #import "@preview/cetz:0.4.2"
 
 == Stand der Forschung <sec:routen-forschungsstand>
-Zur Lösung von Problemen in großen Lösungsräumen kommen spezialisierte Suchalgorithmen zum Einsatz. Insbesondere bei kombinatorischen Optimierungsproblemen, wie beispielsweise der Routenplanung, lassen sich diese Verfahren grob in zwei Kategorien einteilen. Einerseits existieren exakte Methoden, die stets die optimale Lösung eines Problems bestimmen. Andererseits stehen heuristische beziehungsweise approximative Ansätze zur Verfügung, die sich einem Optimum lediglich annähern #cite(<martiExactHeuristicMethods2022>, supplement: [S. 27]). Beide Ansätze wurden aufgrund ihrer vielfältigen Einsatzmöglichkeiten in Wissenschaft, Forschung und Wirtschaft intensiv untersucht.
 
-#todo[Forschungsstand CBT einfügen. Iteratives Vorgehen, hardcoding]
+Zur Bestimmung der Reihenfolge, in der die @UE angefahren werden, können unterschiedliche Verfahren herangezogen werden. Im aktuellen Ansatz des @CBT wird die Route für den Roboterarm direkt aus der Reihenfolge abgeleitet, in der die @UE in die Ergebnisliste eingefügt werden.
+
+Da zuerst die @UE:pl an der Ober- und Unterseite der Wand der Liste hinzugefügt werden, ergibt sich daraus unmittelbar eine gültige Reihenfolge für die Verlegung vertikaler Streben. Nach der Sonderumlenkung sind die @UE:pl ebenfalls in der korrekten Reihenfolge für die Verlegung horizontaler Streben, da sie ausgehend von der Position der Sonderumlenkung in der Liste aufgenommen werden. Auf diese Weise lässt sich nicht nur die vollständige Route bestimmen, sondern auch die jeweilige Hauptrichtung direkt aus der Reihenfolge der @UE ableiten.
+
+Anstatt bereits die @UE:pl in der vorgesehenen Reihenfolge zu positionieren und davon die Route abzuleiten, können auch spezialisierte Suchalgorithmen zum Einsatz kommen, welche die @UE als Knoten eines vollständigen Graphen ansehen und darin eine Route ohne jegliche Vorinformationen suchen. Insbesondere bei kombinatorischen Optimierungsproblemen, wie beispielsweise der hier vorliegenden Routenplanung, lassen sich diese Verfahren grob in zwei Kategorien einteilen. Einerseits existieren exakte Methoden, die stets die optimale Lösung eines Problems bestimmen. Andererseits stehen heuristische beziehungsweise approximative Ansätze zur Verfügung, die sich einem Optimum lediglich annähern #cite(<martiExactHeuristicMethods2022>, supplement: [S. 27]). Beide Ansätze wurden aufgrund ihrer vielfältigen Einsatzmöglichkeiten in Wissenschaft, Forschung und Wirtschaft intensiv untersucht.
+
 
 === Exakte Methoden
 
