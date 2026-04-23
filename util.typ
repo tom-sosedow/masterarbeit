@@ -2,42 +2,37 @@
   cite(..citation,form: "prose")
 }
 
-#let todo(body) = {
+#let __infobox(color: color, title, body) = {
   box(
-    fill: rgb(255, 220, 220),
+    fill: color.lighten(70%),
     inset: 8pt,
     radius: 6pt,
     baseline: 40%,
     [
-      #text(weight: "bold", fill: red, font: "JetBrains Mono")[🚧 TODO:] #body
+      #text(weight: "bold", fill: color, font: "JetBrains Mono")[#title]\
+      #body
     ]
   )
 }
 
-#let maybe(body) = {
+#let todo(body) = __infobox( color: red, [🚧 TODO:], body)
+
+#let maybe(body) = __infobox( color: rgb("#ff9008"), [💡 Idee:], body)
+
+#let question(body) = __infobox( color: rgb("#0635b5"), [🛈 Frage an Betreuer:], body)
+
+#let definition(title, body) = {
   box(
-    fill: rgb("#fef8b4"),
     inset: 8pt,
-    radius: 6pt,
+    stroke: (paint: black.lighten(30%)),
     baseline: 40%,
     [
-      #text(weight: "bold", fill: rgb("#ff9008"), font: "JetBrains Mono")[💡 Idee:] #body
+      #text(weight: "bold", font: "Liberation Sans")[Definition] _ #title _\
+      #body
     ]
   )
 }
 
-#let question(body) = {
-  box(
-    fill: rgb("#bed5fe"),
-    inset: 8pt,
-    radius: 6pt,
-    baseline: 40%,
-    [
-      #text(weight: "bold", fill: rgb("#0635b5"), font: "JetBrains Mono")[🛈 Frage an Betreuer:]\
-       #body
-    ]
-  )
-}
 
 #let overarrow(content) = {
   return $accent(content, arrow)$

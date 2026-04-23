@@ -1,7 +1,11 @@
 #import "/util.typ": *
 
-= Auswertung <sec:auswertung>
-#todo[Einleitender Abschnitt]
+= Diskussion <sec:diskussion>
+Nachdem die drei Teilprobleme in den Kapiteln 2 bis 4 detailliert untersucht, geeignete Lösungsansätze entwickelt und deren Leistungsfähigkeit anhand der aufgestellten Bewertungskriterien analysiert wurden, erfolgt im folgenden Kapitel eine qualitative Auswertung der gewonnenen Erkenntnisse. Dabei werden die jeweiligen Stärken und Schwächen der betrachteten Methoden gegenübergestellt.
+
+Auf dieser Grundlage wird für jedes Teilproblem abschließend geprüft, inwieweit sich die zugehörige Forschungsfrage durch einen der untersuchten Ansätze beantworten lässt, um daraus fundierte Handlungsempfehlungen abzuleiten.
+
+#question[Kommt die Beantwortung der Forschungsfragen hier in die Diskussion oder eher in die Zusammenfassung/ ins Fazit?]
 
 #include "01-ue-platzierung.typ"
 #include "02-routenplanung.typ"

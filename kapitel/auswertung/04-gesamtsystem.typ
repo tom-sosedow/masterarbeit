@@ -32,6 +32,8 @@ Aufbau
 // - geschwindigkeit: wie schnell ist es?
 // - weitere betrachtungen: gibt es dinge zu beachten, caviats? alternativen? 
 
-*Gesamtsystem*
+// *Gesamtsystem*
 
-Verbindung von Allem
+// Verbindung von Allem
+
+#maybe[Gesamtsystem, also Verbindung von allen 3 Teilproblemen noch bewerten?]

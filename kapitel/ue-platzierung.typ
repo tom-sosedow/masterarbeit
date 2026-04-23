@@ -91,14 +91,19 @@ $ t_(x,1) <= x <= t_(x,2) and t_(y,1) <= y < t_(y,2) $
 Der Koordinatenursprung befindet sich in dieser Arbeit in der oberen linken Ecke. Die $x$-Achse verläuft nach rechts, die $y$-Achse nach unten in positiver Richtung. Entsprechend liegt die obere Wandkante bei $y=0$, die untere bei $y=y_("max")-1$, die linke Seite bei $x=0$ und die rechte bei $x=x_("max")-1$.
 
 // Restriktionen und Zickzackmster der Rollen
-Auf gegenüberliegenden Seiten der Struktur sind zwei @UE stets um $d$ Millimeter entlang der jeweiligen Seite versetzt angeordnet und alternieren zwischen beiden Seiten. Für zwei vertikale Seiten an den x-Koordinaten $(x_1, x_2) in {(0, t_(x,2)), (t_(x,1), x_("max")-1)}$ ergibt sich im Modell:
+Auf gegenüberliegenden Seiten der Struktur sind zwei @UE stets mindestens um $d$ Millimeter entlang der jeweiligen Seite versetzt angeordnet und alternieren zwischen beiden Seiten. Für zwei vertikale Seiten an den x-Koordinaten ${x_1, x_2} in {{0, t_(x,2)}, {t_(x,1), x_("max")-1}, {0,x_"max"-1}}$ ergibt sich im Modell:
 
-$ (exists y: (x_1,y) in A and 2<=y<=y_("max")-2) arrow \ (x_2, y+1) in A and (x_2, y-1) in A $<eq:rollen-platzierung-vertikale-seiten>
+$ (exists y: (x_1,y) in A) arrow {(x_2, y), (x_1, y-1), (x_1, y+1)} inter A = emptyset $<eq:rollen-platzierung-vertikale-seiten>
 
-Analog gilt für zwei horizontale Seiten mit den y-Koordinaten $(y_1, y_2) in {(0, y_("max")-1), (0, t_(y,1))}$:
+Analog gilt für zwei horizontale Seiten mit den y-Koordinaten ${y_1, y_2} in {{0, y_("max")-1}, {0, t_(y,1)}}$:
 
-$ (exists x: (x,y_1) in A and 2<=x<=x_("max")-2) arrow \ (x+1, y_2) in A and (x-1, y_2) in A $
-#todo[Bereich, wo zwischen den Seiten gewechselt wird in Hauptrichtung, also wo die Tür in dieser Richtung endet, ist nicht gut dargestellt]
+$ (exists x: (x,y_1) in A) arrow {(x, y_2), (x-1, y_1), (x+1, y_1)} inter A = emptyset  $
+
+sowie in beiden Fällen das Ziel alle möglichen Lücken auszufüllen: 
+$ |A| -> max! $
+
+#todo[Anforderung, so viele UE wie möglich zu platzieren? Ein leeres A erfüllt all diese Bedingungen. Vielleicht lieber eine $forall (x,y) in A$ Regel?]
+
 In @fig:ue-place-model (a) ist der Sachverhalt aus @eq:rollen-platzierung-vertikale-seiten exemplarisch für zwei gegenüberliegende vertikale Seiten dargestellt.
 
 // Sonderstellen
