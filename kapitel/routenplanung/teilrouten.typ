@@ -16,7 +16,6 @@ Sobald Hindernisse auftreten, wird die Fläche in mehrere Teilbereiche unterglie
 
 Überträgt man dieses Prinzip auf den vorliegenden Anwendungsfall, ergeben sich einige Analogien und Vereinfachungen. So ist für vertikale und horizontale Streben ein Scannen in beiden Richtungen erforderlich, um eine geeignete Zellteilung zu finden. Ebenfalls ist die Tür immer immer rechteckig mit den Seiten parallel zu den Seiten der Wand. Somit reicht in horizontaler Scanrichtung, also für vertikale Streben, die Aufspaltung in die drei Teilbereiche links und rechts sowie innerhalb der Tür. In vertikaler Richtung sind ebenfalls drei Teilbereiche nötig, um den Bereich oberhalb der Tür sowie die beiden Bereiche links und rechts neben der Tür abzubilden. In @fig:route-cells sind die resultierenden Teilrouten in den Bereichen an einem Beispiel dargestellt. 
 
-#maybe[Bilder mit besseren farben und größerer Schrift neu erstellen?]
 #figure(
   stack(
     dir: ltr,
@@ -32,14 +31,14 @@ Für die @UE in den drei Bereichen $L V, R V  "und" T V$ für vertikale Streben 
 $
   forall v in V&: v in L V <=> 1 <= v_((x)) < t_(x,1) \
   forall v in V&: v in T V <=> t_(x,1) <= v_((x)) <= t_(x,2) \
-  forall v in V&: v in R V <=> t_(x,1) > v_((x)) >= x_("max")-1 \
+  forall v in V&: v in R V <=> t_(x,2) < v_((x)) < x_("max")-1 \
 $
 sowie für die Bereiche $L H, R H "und" T H$ für horizontale Streben
 
 $
   forall v in V&: v in L H <=> (t_(y,1) <= v_((y)) < y_("max")-1) and (0 <= v_((x)) <= t_(x,1)+1) \
-  forall v in V&: v in T H <=> t_(x,1) <= v_((y)) <= t_(x,2) \
-  forall v in V&: v in R H <=> (t_(y,1) <= v_((y)) < y_("max")-1) and (t_(x,1)-1 <= v_((x)) < y_("max")) \
+  forall v in V&: v in T H <=> 0 < v_((y)) < t_(y,1) \
+  forall v in V&: v in R H <=> (t_(y,1) <= v_((y)) < y_("max")-1) and (t_(x,1)-1 <= v_((x)) < x_("max")) \
 $
 
 Die Anordnung der @UE bildet sich aus den Bereichen durch Anordnung der @UE entlang der Hauptachse bzw. Scanrichtung. Somit gilt für $p_x in {L V, R V, T V}, p_x = (v_1, ..., v_k)$
@@ -159,7 +158,7 @@ Der Mutationsoperator führt auch hier eine einfache Vertauschung zweier Element
 Der eingesetzte Rekombinationsoperator entspricht dem in @sec:route-pointbased beschriebenen _Order Crossover_.
 #maybe[ vorteile nachteile?]
 
-Für die Testläufe werden weitgehend identische Parameter für den genetischen Algorithmus verwendet, wie auch schon in @sec:route-pointbased. Der einzige Unterschied liegt in der Anzahl an Segmenten für den Rekombinationsoperator, da mit sechs Elementen pro Permutation fünf Segmente eine übermäßig feine Untergliederung erzeugt werden würde.
+Für die Testläufe werden weitgehend identische Parameter für den genetischen Algorithmus verwendet, wie auch schon in @sec:route-pointbased. Der einzige Unterschied liegt in der Anzahl an Segmenten für den Rekombinationsoperator, da mit sechs Elementen pro Permutation fünf Segmente eine übermäßig feine Untergliederung erzeugen würden.
 
 Den Verlauf der Kosten der besten Lösung über die Laufzeit ist in @fig:res-puzzlega-xy für Wandkonfigurationen $w_3$ und $w_4$ zu sehen. Es wird der Seed $s_1$ genutzt. Es zeigt sich, dass der Algorithmus bereits nach wenigen Sekunden ein lokales Optimum findet, selbst für größere Wandkonfigurationen. Während für $w_4$ auch das globale Optimum mit Kosten von 1 gefunden wird, verbleibt die Suche für $w_3$ in einem lokalen Optimum mit Kosten von 15. Bei Verwendung des Seeds $s_2$ wird in vergleichbarer Zeit bei beiden Wandkonfigurationen das globale Optimum erreicht.
 
