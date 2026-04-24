@@ -1,15 +1,13 @@
 
-#set page(
-  numbering: none,
-)
+
 #show figure: it => {
   v(-1.5em)
   it
   v(0.5em)
 }
 
-#heading([Anhang], outlined: false, level: 1, numbering: none)
-#heading([Anhang I: Ergebnisse für alle Wandkonfigurationen], outlined: false, level: 2, numbering: none)
+#heading([Anhang], level: 1, numbering: none)
+#heading([Anhang I: Ergebnisse für alle Wandkonfigurationen], level: 2, numbering: none)
 
 #let dimens = range(0,6, step:5).map(dw => {
                 range(0,6, step:5).map(dh => {
