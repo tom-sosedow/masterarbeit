@@ -48,6 +48,8 @@ Eine Route mit Gesamtkosten von 0 stellt dabei eine optimale Lösung dar.
 // gesamtheitlich strukturelle Bewertung hier noch nicht sinnvoll
 Eine rein strukturelle Gesamtbetrachtung ohne Berücksichtigung einzelner Kanten und deren Reihenfolge liefert im Kontext der Routenplanung keinen zusätzlichen Mehrwert. Dies liegt darin begründet, dass die resultierende Struktur maßgeblich vom tatsächlich durchlaufenen Pfad um die @UE abhängt. Aus der Route allein lassen sich nicht alle für eine umfassende Bewertung notwendigen Informationen ableiten, weshalb die Bewertung konsequent kantenbasiert erfolgt.
 
+#maybe[Ausbauen und klarstellen, dass es darum geht, dass ohne info über das resultierende garn keine zuverlässigen infos über die struktur gewonnen werden können]
+
 // Vergleichbarkeit durch Kosten
 Auf Grundlage der berechneten Kosten können verschiedene Routen miteinander verglichen werden. Die Bewertungsfunktion induziert dabei eine totale Quasiordnung $O$ auf der Trägermenge $R$ aller möglichen Routen. Diese ist definiert als
 $ O subset.eq R times R, O = {(a,b) | a,b in R, c(a) <= c(b)} $

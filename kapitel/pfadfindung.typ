@@ -39,12 +39,14 @@ Analog dazu kann eine fehlerhafte Festlegung der zugehörigen Wegpunkte sowie ih
       circle((0,4), stroke: (dash: "dashed", paint: gray))
       content((0,0), [Q])
       let points1 = ((0,2),(-2, 0),(0,-2))
-      
 
       for (p,letter) in points1.zip(("d","e","f")) {
         circle(p, radius: 0.2)
         content((p.at(0) + 0, p.at(1) + 0.6), [#letter])
       }
+
+      arc((-1.5,1.5), delta: 180deg, start: 95deg, radius: 1.5, mark: (end: ">"), stroke: (paint: purple))
+      content((-3.5,1), text(fill: purple)[$R$])
 
       
       // rechts
@@ -104,6 +106,9 @@ Analog dazu kann eine fehlerhafte Festlegung der zugehörigen Wegpunkte sowie ih
         circle(p, radius: 0.2)
         content((p.at(0) + 0, p.at(1) + 0.6), [#letter])
       }
+
+      arc((-1.5,-1.5), delta: -180deg, start: -95deg, radius: 1.5, mark: (end: ">"), stroke: (paint: purple))
+      content((-3.5,1), text(fill: purple)[$R'$])
 
       set-style(mark: (end: ">>"), stroke: (paint: blue))
       line(points3.at(0),points3.at(1))
@@ -260,7 +265,7 @@ Allerdings zeigen beide vorgestellten Verfahren Schwächen bei Knoten, an denen 
 
 In diesem konkreten Fall führt diese Entscheidung jedoch zu einem unerwünschten Ergebnis. Es entsteht eine diagonal verlaufende vertikale Strebe, die in der Abbildung rot hervorgehoben ist. Zudem verläuft ein Abschnitt der folgenden horizontalen Strebe nicht achsenparallel zur x-Achse, da dieser zunächst unterhalb von $B$ geführt wird.
 
-Eine korrekte Lösung würde hingegen eine Umlaufbewegung im Uhrzeigersinn erfordern. Dadurch ließe sich sicherstellen, dass die abschließende vertikale Strebe achsenparallel zur y-Achse verläuft und zugleich der Beginn der ersten horizontalen Strebe achsenparallel zur x-Achse ausgerichtet ist. Da nicht bei allen Umlenkungen zur Änderung der Hauptrichtung ein solch fehlerhaftes Ergebnis entsteht, muss eine Regel zur Erkennung dieser Sonderfälle gefunden werden.
+Eine korrekte Lösung würde hingegen eine Umlaufbewegung im Uhrzeigersinn erfordern. Dadurch ließe sich sicherstellen, dass die abschließende vertikale Strebe achsenparallel zur y-Achse verläuft und zugleich der Beginn der ersten horizontalen Strebe achsenparallel zur x-Achse ausgerichtet ist. Dafür wird die berechnete Umlaufrichtung an allen @UE getauscht, an denen sich die Hauptrichtung ändert, also zu denen eine vertikale bzw. horizontale Strebe verläuft und dann eine horizontale bzw. vertikale Strebe ausgeht. 
 
 == Pfadgenerierung
 
@@ -375,8 +380,7 @@ Die Reihenfolge, in der der Roboter die einzelnen Punkte anfährt, ergibt sich a
   caption: [Positionen der Wegpunkte an den Umlenkelementen. Sowohl für Umlenkungen in Hauptrichtung (a) sowie an der oberen rechten Türecke (b).]
 )<fig:wegpunkte-mit-türecke>
 
-#question[Soll ich erklären, wie ich aus der Punktliste die tatsächlichen Bewegungsschritte des Roboters generiere (LMOVE, C1MOVE, C2MOVE,...)? Oder ist das anwendungsspezifisches implementationsdetail, welches nicht in die Arbeit sollte (weil ja nicht jeder einen kawasaki robi nutzt)?]
--> Kurz Erwähnen, aber nicht tief erklären
+#todo[Umlenkungstypen darstellen und erklären. Ggf. Zusammenhang mit Moves des Roboters erwähnen]
 
 == Kollisionen
 
@@ -457,7 +461,7 @@ Ein Großteil dieser Kollisionen lässt sich durch die Verwendung vollständiger
 Darüber hinaus ist sicherzustellen, dass Kollisionen der Austrittsdüse mit bereits verlegtem Garn vermieden werden. Eine effektive Strategie zur Kollisionsvermeidung besteht darin, das Werkzeug temporär anzuheben, sobald eine bestehende Strebe gekreuzt wird. Dabei ist jedoch zu beachten, dass die Anhebung weder zu groß noch zu steil erfolgen darf, da andernfalls die Gefahr besteht, dass das Garn vom vorherigen @UE abrutscht. Dies würde auch an den Kreuzungspunkten dazu führen, dass keine Verbindung zwischen sich kreuzenden Streben entsteht und somit die Belastbarkeit des Gitters nach dem Temperieren eingeschränkt ist.
 
 Da zur Erkennung solcher Kreuzungen kein physikalisches Modell des unter Spannung stehenden Garns verwendet wird, muss der geplante Pfad als Annäherung dienen. 
-Hierzu wird der Pfad, zunächst ohne Erkennung von Garnkollisionen, erstellt und dabei der Abstand der Wegpunkte zur Mitte der @UE von zwei Radien auf einen Radius geändert. Der resultierende Pfad wird als $p'$ bezeichnet. Wenngleich diese Berechnung keinen validen Pfad für den Roboterarm erzeugt, da die Abstände nicht eingehalten werden, führt es dazu, dass die Streben zwischen den Außenkanten der @UE:pl:long verlaufen und somit eine Annäherung der resultierenden Garnstruktur entsteht. Das Ergebnis ist in @fig:pfad-garnannaeherung zu sehen. Es ist zu beachten, dass dennoch einige Streben nicht so verlaufen, wie sie es später tun werden. Ein Beispiel hierfür ist die oberste horizontale Strebe, die durch die Sonderumlenkung um das @UE 21 entsteht. Hier kommt es zu einer Abweichung, da diese Strebe im Gegensatz zur Realität in der Annäherung nicht achsenparallel, sondern leicht diagonal, verläuft.
+Hierzu wird der Pfad, zunächst ohne Erkennung von Garnkollisionen, erstellt und dabei der Abstand der Wegpunkte zur Mitte der @UE von zwei Radien auf einen Radius geändert. Ebenfalls werden von Sonderumlenkungen und vollständigen Umlenkungen der erste und letzte Wegpunkt entfernt, sodass anliegende Streben eher der Realität entsprechen. Der resultierende Pfad wird als $p'$ bezeichnet. Wenngleich diese Berechnung keinen validen Pfad für den Roboterarm erzeugt, da die Abstände nicht eingehalten werden, führt es dazu, dass die Streben zwischen den Außenkanten der @UE:pl:long verlaufen und somit eine Annäherung der resultierenden Garnstruktur entsteht. Das Ergebnis ist in @fig:pfad-garnannaeherung zu sehen. Es ist zu beachten, dass dennoch einige Streben nicht so verlaufen, wie sie es später tun werden. Ein Beispiel hierfür ist die am weitesten rechts liegende vertikale Strebe, die durch die vollständige Umlenkung um das @UE 62 entsteht. Hier kommt es zu einer Abweichung, da durch das Entfernen des ersten und letzten Wegpunktes für die Umlenkung eine gewöhnliche Umlenkung mit drei Punkten entsteht. Da dort die Hauptrichtung wechselt, verläuft diese Strebe im Gegensatz zur Realität in der Annäherung somit nicht achsenparallel, sondern leicht diagonal.
 
 #figure(
   image("/images/pfadannaeherung.png", width: 110%),
@@ -522,15 +526,15 @@ Zur Analyse des gezeigten Vorgehens werden, analog zu @sec:ue-place-result, erne
   caption: [Pfad $p$ des Roboters in einer kleinen Wandkonfiguration $w_4$ aus @sec:routenplanung. Route beginnt bei UE 61 und endet bei UE 27. In Rot dargestellt sind die Punkte, die zur Kollisionsvermeidung auf einer höheren Ebene platziert werden sowie in halbtransparentem Rot die Approximation des Gittermusters zur Bestimmung dieser Punkte.]
 )<fig:beispielpfad>
 
-Die Pfade werden insgesamt überwiegend zuverlässig bestimmt. Bei Nutzung der Invertierungsstrategie, wie in @sec:path-direction dargestellt, kommt es bei manchen Routen zu fehlerhaften Teilabschnitten, wodurch sie ähnlich zu dem in @fig:pfad-zu-muster (b) gezeigten Pfad verlaufen. Grund hierfür ist immer eine falsche Berechnung der Umlaufrichtung bei einem Wechsel der Hauptrichtung.
+Die Pfade werden insgesamt überwiegend zuverlässig bestimmt. Bei Nutzung der Invertierungsstrategie, wie in @sec:path-direction dargestellt, kommt es bei manchen Routen zu fehlerhaften Teilabschnitten, wodurch sie ähnlich zu dem in @fig:pfad-zu-muster (b) gezeigten Pfad verlaufen. Grund hierfür ist immer eine falsche Berechnung der anfänglichen Umlaufrichtung bei einem Wechsel der Hauptrichtung.
 
-Wird hingegen der vektorbasierte Ansatz genutzt, sind die Teilbereiche immer vollständig korrekt. Wie bereits beschrieben kommt es allerdings auch bei diesem Ansatz regelmäßig zu Problemen beim Wechsel der Hauptrichtung. Ein Beispiel hierfür ist auch in @fig:beispielpfad zu sehen. Bei dem Teilabschnitt der Route von @UE 20 über @UE 62 zu @UE 60 liegt Letzteres rechts der Kante $20 -> 62$. Gemäß der definierten Regel wird daraus eine Umlaufrichtung im Uhrzeigersinn abgeleitet. In diesem Fall wäre jedoch eine Bewegung entgegen dem Uhrzeigersinn erforderlich, da die resultierende Strebe zwischen @UE 62 und @UE 60 andernfalls nicht achsenparallel zur x-Achse, sondern leicht diagonal verläuft.
+Wird hingegen der vektorbasierte Ansatz genutzt, sind die Teilbereiche immer vollständig korrekt. Insbesondere kann durch die Ausnahmeregelung zur Invertierung der Umlaufrichtung beim Wechsel der Hauptrichtung verhindert werden, dass an einigen Stellen die Umlaufrichtung inkorrekt bestimmt wird. So würde, ohne diese Regel, für das @UE 62 eine Umlenkung im Uhrzeigersinn basierend auf dem reinen vektoriellen Ansatz berechnet werden, was eine diagonal verlaufende horizontale Strebe zum @UE 60 zufolge hätte. Da sich das @UE 62 allerdings in einer Ecke der Wand befindet und zudem die Hauptrichtung ändert, wird hier die Umlaufrichtung korrekterweise getauscht.
 
 Weiterhin lässt sich feststellen, dass die Wegpunkte für die Umlenkungen um mehrfach angefahrene @UE:pl:long korrekt gesetzt werden. So wird das @UE 34 an der oberen rechten Türecke zunächst auf halber Route für eine vertikale Strebe genutzt. Kurz vor Ende der Route wird das @UE dann erneut für eine horizontale Strebe umfahren, bevor der Pfad beim @UE 27 endet.  
 
-Auch die Kollisionsvermeidung durch den Einsatz vollständiger Umlenkungen funktioniert erwartungsgemäß. In @fig:beispielpfad ist dies unter anderem am @UE 20 zu erkennen, wo durch eine entsprechende Umlenkung eine Kollision mit @UE 22 vermieden wird, die andernfalls bei der Bewegung Richtung @UE 62 auftreten würde.
+Auch die Kollisionsvermeidung durch den Einsatz vollständiger Umlenkungen funktioniert erwartungsgemäß. In @fig:beispielpfad ist dies unter anderem am @UE 20 und 62 zu erkennen, wo durch eine entsprechende Umlenkung eine Kollision mit @UE 22 vermieden wird, die andernfalls bei der Bewegung Richtung @UE 62 auftreten würde.
 
-Die zusätzlich eingefügten Zwischenpunkte zur Vermeidung von Kollisionen mit bereits verlegtem Garn sind in der Abbildung durch rote Kreise hervorgehoben. Diese werden korrekt jeweils am ersten und letzten Schnittpunkt eines Pfadsegments aus $p$ mit Streben aus $p'$ platziert, wodurch ein Abriss oder Beschädigung des Garns vermieden wird.
+Die zusätzlich eingefügten Zwischenpunkte zur Vermeidung von Kollisionen mit bereits verlegtem Garn sind in der Abbildung durch rote Kreise und die Annäherung der resultierenden Garnstruktur $p'$ in hellem Rot hervorgehoben. Die Wegpunkte werden korrekt jeweils am ersten und letzten Schnittpunkt eines Pfadsegments aus $p$ mit Streben aus $p'$ platziert, wodurch ein Abriss oder Beschädigung des Garns vermieden wird.
 
 #todo[Letzten abschnitt Ausbauen]
 

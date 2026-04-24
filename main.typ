@@ -23,4 +23,6 @@
 #include "kapitel/auswertung/index.typ"
 #include "kapitel/zsmfassung-ausblick.typ"
 
+#include "appendix.typ"
+
 #bibliography("refs.bib", style: "american-psychological-association")
