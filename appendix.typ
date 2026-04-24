@@ -29,14 +29,17 @@
   ]
 }
 
-#for i in range(0,31, step: 2) {
+Im Folgenden sind die Ergebnisse der besten Lösungsansätze der drei Teilprobleme für alle 32 Wandkonfigurationen dargestellt. Die Positionen der @UE:pl:long wurden mithilfe des in @sec:ue-place vorgestellten iterativen Ansatz berechnet. Darauf aufbauend erfolgte die Routenplanung durch einen Brute-Force Algorithmus auf Basis der Modellierung mittels Teilrouten aus @sec:route-puzzle-based-exact. Schließlich wurde die in @sec:path-finding vorgestellte Pfadplanung genutzt, um aus der Route einen validen Pfad in Form einer Liste von Wegpunkten zu generieren.
+
+Zu jedem der Ergebnisse sind unterhalb des Bildes die genauen Maße angegeben, die als parametrische Anforderungen an den Algorithmus übergeben wurden. 
+
+#for i in range(0,31) {
   figure(
     outlined: false,
     stack(
-      dir: ltr,
-      spacing: -4%,
-      stack(dir: ttb, image("images/appendix/all-walls/wall-" + str(34+i) + ".png", width: 68%),[Wand #{i+1}: #get_descrip(i)]),
-      stack(dir: ttb, image("images/appendix/all-walls/wall-" + str(34+i+1) + ".png", width: 68%),[Wand #{i+2}: #get_descrip(i+1)]),
+      dir: ttb, 
+      image("images/appendix/all-walls/wall-" + str(34+i) + ".png", width: 120%),
+      [Wand #{i+1}: #get_descrip(i)]
     ),
   )
 }
