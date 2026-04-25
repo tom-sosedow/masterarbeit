@@ -152,7 +152,9 @@
     set text(font: font)
     let level = it.level
     if level == 1 {
-      pagebreak()
+      if it.supplement != [Anhang] {
+        pagebreak()
+      }
       set text(size: 18pt)
       block([#it])
     } else if level == 2 {

@@ -359,7 +359,7 @@ Da Streben, die an diesen @UE enden, aus struktureller Sicht nicht erforderlich 
 
 == Ergebnisse <sec:ue-place-result>
 
-Wie in @sec:ue-place-problem dargestellt, existieren konzeptionell lediglich 32 zu betrachtende Kombinationen von Wanddimensionen. Der vorgestellte Ansatz wurde für sämtliche dieser Kombinationen empirisch getestet und anschließend evaluiert. In allen Fällen konnten vollständig valide Platzierungen berechnet werden. Eine Beispielkonfiguration einer Wand mit den berechneten Positionen der @UE ist in @fig:fully-placed-ue-wall dargestellt. Der Versatz $omega$ des obersten linken @UE ist in Blau dargestellt und beträgt in diesem Beispiel $1$. 
+Wie in @sec:ue-place-problem dargestellt, existieren konzeptionell lediglich 32 zu betrachtende Kombinationen von Wanddimensionen. Der vorgestellte Ansatz wurde für sämtliche dieser Kombinationen empirisch getestet und anschließend evaluiert. Die bewerteten Anordnungen sind in @appendix:wandkonfigurationen zu sehen. allen Fällen konnten vollständig valide Platzierungen berechnet werden. Eine Beispielkonfiguration einer Wand mit den berechneten Positionen der @UE ist in @fig:fully-placed-ue-wall dargestellt. Der Versatz $omega$ des obersten linken @UE ist in Blau dargestellt und beträgt in diesem Beispiel $1$. 
 
 #figure(
   cetz.canvas({

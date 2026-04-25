@@ -177,7 +177,9 @@ Zur effizienten Erzeugung aller validen Permutationen wird eine rekursive Funkti
 
 #question[Soll die auswertung der tabelle (deutung, warum manche zahlen so sind) lieber in die auswertung?]
 
-Die Ergebnisse der Testläufe sind in @tab:bruteforce-puzzle-res zusammengefasst. Insgesamt werden 129'024 verschiedene Permutationen gebildet. In der Spalte "Anz. Lösungen" ist jeweils die Anzahl der Lösungen mit Kosten unter 400 zu sehen. Die Spalte „Anz. Lösungen“ gibt jeweils die Anzahl der Lösungen mit Kosten unterhalb der Schranke von 400 an. Es zeigt sich, dass größere Wandkonfigurationen signifikant weniger potenzielle Lösungen aufweisen. Dies kann dadurch erklärt werden, dass größere Abweichungen zwischen Ist- und Soll-Positionen der @UE:pl:long durch die distanzbasierte Kostenfunktion stärker bestraft werden und somit vergleichbare Fehler zu höheren Kosten führen.
+Die Ergebnisse der Testläufe sind in @tab:bruteforce-puzzle-res zusammengefasst. Insgesamt werden 129'024 verschiedene Permutationen gebildet. In der Spalte "Anz. Lösungen" ist jeweils die Anzahl der Lösungen mit Kosten unter 400 zu sehen. Die Spalte „Anz. Lösungen“ gibt jeweils die Anzahl der Lösungen mit Kosten unterhalb der Schranke von 400 an. Die vollständigen Routen für jede der 32 möglichen Wandkonfigurationen sind im @appendix:wandkonfigurationen zu sehen. 
+
+Es zeigt sich, dass größere Wandkonfigurationen signifikant weniger potenzielle Lösungen aufweisen. Dies kann dadurch erklärt werden, dass größere Abweichungen zwischen Ist- und Soll-Positionen der @UE:pl:long durch die distanzbasierte Kostenfunktion stärker bestraft werden und somit vergleichbare Fehler zu höheren Kosten führen.
 
 
 #figure(
