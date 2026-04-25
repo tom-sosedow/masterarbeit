@@ -206,7 +206,7 @@ Wie bereits erwähnt kann aus einer Reihenfolge und Richtung der abzufahrenden T
 
 #maybe[weiterer Fall (letzte/Erste Strebe über der Tür) mit erklären?]
 
-Um eine Permutation korrekt auf eine Route abbilden zu können, benötigt es also eine Nachbearbeitung in Form einer Funktion $p: R -> R$. Sie fügt beispielsweise im Fall von @fig:sonderstelle-left-door-corner das fehlende @UE $x$ zwischen $c$ und $b$ ein, um eine korrekte Umlenkung von $b$ nach $a$ zu ermöglichen. Abhängig von der gewählten Route kann auch eine Addition von $x$ vor $b$ nötig sein, um eine korrekte Umlenkung zu $a$ zu ermöglichen. Dies ist bei einer solchen Wand unter anderem erforderlich, falls auf ein $L H$ ein $L V^R$ folgt. 
+Um eine Permutation korrekt auf eine Route abbilden zu können, benötigt es also eine Nachbearbeitung in Form einer Funktion $p: R -> R$. Sie fügtk beispielsweise im Fall von @fig:sonderstelle-left-door-corner das fehlende @UE $x$ zwischen $c$ und $b$ ein, um eine korrekte Umlenkung von $b$ nach $a$ zu ermöglichen. Abhängig von der gewählten Route kann auch eine Addition von $x$ vor $b$ nötig sein, um eine korrekte Umlenkung zu $a$ zu ermöglichen. Dies ist bei einer solchen Wand unter anderem erforderlich, falls auf ein $L H$ ein $L V^R$ folgt. 
 
 #maybe[ pseudo code einfügen ?]
 

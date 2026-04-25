@@ -517,6 +517,64 @@ Der resultierende Pfad, ergänzt um diese zusätzlichen Wegpunkte, ist exemplari
   caption: [Seitenansicht für vertikale Bewegungen des Roboterarms.]
 )<fig:seitenansicht-vertikaler-pfad>
 
+== Arten von Umlenkungen
+
+Aus den vorangegangenen Betrachtungen ergeben sich vier verschiedene Arten von Umlenkbewegungen, welche in @fig:umlenkungsarten zusammenfassend dargestellt sind.
+
+#figure(
+  cetz.canvas({
+    import cetz.draw: *
+
+    scale(0.5)
+    set-style(mark: (end: ">"))
+
+    let pointsNormalRotation = ((0,4),(0,1),(1,0),(2,1),(2,4))
+    circle((1,1), radius: 0.5)
+    for i in range(pointsNormalRotation.len()-1) {
+      line(pointsNormalRotation.at(i), pointsNormalRotation.at(i+1))
+    }
+    content((1,-2.4), [Normal])
+
+    translate(x: 6)
+
+    let pointsFullRotation = ((0.8,4),(1,2),(0,1),(1,0),(2,1),(1,2),(1.2,4))
+    circle((1,1), radius: 0.5)
+    for i in range(pointsFullRotation.len()-1) {
+      line(pointsFullRotation.at(i), pointsFullRotation.at(i+1))
+    }
+    content((1,-2.5), [Vollständig])
+
+    translate(x: 7)
+
+    let pointsSpecialRotation = ((0.5,4),(0.9,1.9),(0,1),(1,0),(2,1),(3,2),(2,3),(1.1,2.1),(-1,2))
+    circle((1,1), radius: 0.5)
+    circle((2,2), radius: 0.5)
+    for i in range(pointsSpecialRotation.len()-1) {
+      line(pointsSpecialRotation.at(i), pointsSpecialRotation.at(i+1))
+    }
+    content((1,-2.5), [Sonderumlenkung])
+
+    translate(x: 7)
+
+    let pointsCornerRotation = ((4,2),(2,2),(0,2),(0,0),(2,0),(2,2),(2,4))
+    circle((1,1), radius: 0.5)
+    for i in range(pointsCornerRotation.len()-1) {
+      line(pointsCornerRotation.at(i), pointsCornerRotation.at(i+1))
+    }
+    content((1,-2.5), [Ecke])
+  }),
+  caption: [Die vier verschiedenen Umlenkungsarten, welche je nach Position des UE ausgewählt werden.]
+)<fig:umlenkungsarten>
+
+Normale Umlenkungen werden dabei verwendet, um bei gleichbleibender Hauptrichtung einen Wechsel der Nebenrichtung zu vollziehen und somit eine vertikale oder horizontale Strebe zu verlegen. 
+
+Vollständige beziehungsweise volle Umlenkungen kommen an den Enden von Teilrouten zum Einsatz, wenn eine Änderung der Hauptrichtung erfolgt und an der entsprechenden Ecke keine Sonderstelle besteht. So wird beispielsweise in @fig:pfad-garnannaeherung beim Übergang von $R V$ zu $R H^R$ jeweils eine Sonderumlenkung bei @UE 20 als Ende von $R V$ sowie eine am Beginn von $R H ^R$ bei @UE 62 eingesetzt, da zwischen beiden Teilrouten eine Änderung der Hauptrichtung stattfindet. Diese Art der Umlenkung ermöglicht ein kollisionsfreies Anfahren der Kreisbahn mit doppeltem Radius eines Umlenkelements, sodass die Richtungsänderung sicher ausgeführt werden kann.
+
+Sonderumlenkungen werden ähnlich wie vollständige Umlenkungen ebenfalls an den Enden von Teilrouten eingesetzt. Dies geschieht jedoch ausschließlich dann, wenn die angrenzenden @UE eine Sonderstelle bilden und der Roboter somit nicht mit dem Werkzeug zwischen beiden @UE hindurch fahren kann. In @fig:pfad-garnannaeherung ist eine solche Umlenkung beispielsweise bei den @UE 20 und 0 erforderlich. Grundsätzlich werden hierbei zwei vollständige Umlenkungen durchgeführt, wobei der letzte Wegpunkt des ersten sowie der erste Wegpunkt des zweiten anzufahrenden Umlenkelements entfernt werden, um eine Kollision des Werkzeugs zwischen den @UE zu vermeiden.
+
+Eckumlenkungen werden eingesetzt, wenn es sich bei dem @UE um ein optionales @UE in einer der vier Wandecken oder in einer der beiden unteren Türecken handelt. Diese Art der Umlenkung ähnelt prinzipiell der vollständigen Umlenkung. Der Unterschied besteht jedoch darin, dass sich die Punkte für das kollisionsfreie Anfahren in den diagonal gegenüberliegenden Ecken der angrenzenden acht Felder befinden und nicht direkt oberhalb, unterhalb, links oder rechts des Mittelpunkts des @UE.
+
+
 == Ergebnisse
 
 Zur Analyse des gezeigten Vorgehens werden, analog zu @sec:ue-place-result, erneut alle 32 möglichen Wandkonfigurationen überprüft, wobei resultierenden Pfade jeweils in @appendix:wandkonfigurationen abgebildet sind. Die Tests werden ebenfalls auf einem Intel(R) Core(TM) i5-8350U Prozessor mit 24 GB Arbeitsspeicher durchgeführt. Die durchschnittliche Rechenzeit beträgt 1,57 Millisekunden, während die maximal gemessene Rechenzeit bei 10,32 Millisekunden über alle 32 Testläufe liegt. In @fig:beispielpfad ist der berechnete Pfad für die Wandkonfiguration $w_4$ aus @sec:routenplanung exemplarisch dargestellt. Die berechnete Route beginnt hier bei @UE 61 und endet bei @UE 27.
