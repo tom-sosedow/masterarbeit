@@ -380,8 +380,6 @@ Die Reihenfolge, in der der Roboter die einzelnen Punkte anfährt, ergibt sich a
   caption: [Positionen der Wegpunkte an den Umlenkelementen. Sowohl für Umlenkungen in Hauptrichtung (a) sowie an der oberen rechten Türecke (b).]
 )<fig:wegpunkte-mit-türecke>
 
-#todo[Umlenkungstypen darstellen und erklären. Ggf. Zusammenhang mit Moves des Roboters erwähnen]
-
 == Kollisionen
 
 An bestimmten Stellen kann es bei der Bewegung zwischen zwei Umlenkungen zu Kollisionen mit anderen @UE kommen, häufig insbesondere mit solchen im Bereich der Türöffnung. Ursache hierfür ist, dass der Verbindungsweg zwischen zwei Umlenkungen nicht strikt achsenparallel verläuft, sondern eine leichte diagonale Komponente aufweist. Zusätzlich ist die Steigung dabei entgegengesetzt zur jeweiligen Hauptrichtung ausgerichtet, wie in @fig:wegpunkte-mit-türecke (a) dargestellt. Befände sich in diesem Szenario zwischen den beiden untersten @UE ein Türausschnitt, könnte es bei der Ausführung der untersten horizontalen Strebe zu einer Kollision mit den oberen @UE der Tür kommen. Ähnliche Problematiken treten auch an den Rändern der Wand auf, insbesondere wenn für eine Umlenkung lediglich die zuvor beschriebenen drei Wegpunkte verwendet werden, wie bereits in @fig:vektorbasierte-umlaufrichtung-probleme angedeutet wurde.
@@ -449,13 +447,82 @@ Ein Großteil dieser Kollisionen lässt sich durch die Verwendung vollständiger
 )<fig:volle-umlenkungen>
 
 // Weitere Kollisionen erkennen und beheben
-#maybe[
-  
-@morris-hillBuildingStringArt2023 Ansatz für Kollisionsvermeidung mit Kreisbahnen als Inspiration:
+Um sichergestellt alle Kollisionen beheben zu können, kann der Ansatz von @morris-hillBuildingStringArt2023 zur Kollisionsauflösung durch Kreisbahnen mit einem Sicherheitsradius herangezogen werden. Das Vorgehen ist in @fig:morris-kollisionsvermeidung exemplarisch skizziert. Dafür wird ein neuer Wegpunkt in Richtung des auf der kreuzenden Strecke orthogonal stehenden und von dem kollidierten @UE ausgehenden Verbindungsvektors eingefügt. Dieser ist in der Abbildung grün markiert. Anschließend kann der entstandene Pfad, in der Abbildung blau markiert, iterativ auf weitere oder neu entstandene Verletzungen der Sicherheitsabstände zu @UE geprüft werden, bis keine mehr übrig sind oder eine maximale Iterationsgrenze erreicht wurde. Sollte die Berechnung stoppen bevor alle Kollisionen behoben werden konnten, gibt das Programm einen Fehler aus und generiert keinen Pfad für die Ausgabe.
 
-- gefundene kollisionen beheben, indem ein neuer punkt in richtung des verbindungsvektors und passender distanz in den pfad eingereiht
-- iterativ kollisionen erkennen, dann beheben und erneut überprüfen, ob neue kollisionen dazu gekommen sind
-]
+#figure(
+  grid(
+    columns: 2,
+    column-gutter: 10%,
+    row-gutter: 3%,
+    cetz.canvas({
+      import cetz.draw: *
+
+      scale(0.35)
+
+      circle((0,18))
+      circle((4,18))
+      circle((-4,18))
+      set-style(mark: (end: ">>"))
+      line((-2,18),(0,20),(2,18))
+
+      circle((0,4))
+      circle((0,8))
+      circle((0,8), radius: 1.6, stroke:(paint: red))
+      content((-0.2,8),[x])
+      content((-0.2,4),[y])
+
+      circle((-2,12))
+      circle((-6,12), stroke: (dash: "dashed", paint: gray))
+
+      circle((2,0))
+      circle((6,0), stroke: (dash: "dashed", paint: gray))
+
+      line((2,18),(0,0), stroke: (paint: red))
+      line((0,0),(2,-2),(4,0))
+
+      line((0,8),(0.8,7.91), stroke: (paint:green))
+      line((0,8),(2.2,7.8), stroke: (paint:green))
+      line((2,18),(2.2,7.8), stroke: (paint: blue))
+      line((2.2,7.8),(0,0), stroke: (paint: blue))
+    }),
+    cetz.canvas({
+      import cetz.draw: *
+
+      scale(0.35)
+
+      circle((0,18))
+      circle((4,18))
+      circle((-4,18))
+      set-style(mark: (end: ">>"))
+      line((-2,18),(0,20),(2,18))
+
+      circle((0,4))
+      circle((0,4), radius: 1.6, stroke:(paint: red))
+      circle((0,8))
+      content((-0.2,8),[x])
+      content((-0.2,4),[y])
+
+      circle((-2,12))
+      circle((-6,12), stroke: (dash: "dashed", paint: gray))
+
+      circle((2,0))
+      circle((6,0), stroke: (dash: "dashed", paint: gray))
+
+      line((0,0),(2,-2),(4,0))
+
+      line((0,4),(1,3.7), stroke: (paint:green))
+      line((0,4),(2,3.4), stroke: (paint:green))
+
+      line((2,18),(2.2,7.8))
+      line((2.2,7.8),(0,0), stroke: (paint: red))
+      line((2.2,7.8),(2,3.4), stroke: (paint:blue))
+      line((2,3.4),(0,0), stroke: (paint:blue))
+    }),
+    [(a)],
+    [(b)],
+  ),
+  caption: [Iterative Kollisionserkennung nach #citep(<morris-hillBuildingStringArt2023>) mit zwei Iterationen. In Iteration (a) wird die Kollision mit UE x behoben, da der rote Teil des Pfades des Roboters den roten Kreis mit dem Sicherheitsradius von x schneidet. Danach besteht noch die Kollision mit UE y, welche in Iteration (b) auf gleiche Weise behoben wird.]
+)<fig:morris-kollisionsvermeidung>
 
 // Kollisionen mit bereits gelegtem Garn
 Darüber hinaus ist sicherzustellen, dass Kollisionen der Austrittsdüse mit bereits verlegtem Garn vermieden werden. Eine effektive Strategie zur Kollisionsvermeidung besteht darin, das Werkzeug temporär anzuheben, sobald eine bestehende Strebe gekreuzt wird. Dabei ist jedoch zu beachten, dass die Anhebung weder zu groß noch zu steil erfolgen darf, da andernfalls die Gefahr besteht, dass das Garn vom vorherigen @UE abrutscht. Dies würde auch an den Kreuzungspunkten dazu führen, dass keine Verbindung zwischen sich kreuzenden Streben entsteht und somit die Belastbarkeit des Gitters nach dem Temperieren eingeschränkt ist.
@@ -464,7 +531,7 @@ Da zur Erkennung solcher Kreuzungen kein physikalisches Modell des unter Spannun
 Hierzu wird der Pfad, zunächst ohne Erkennung von Garnkollisionen, erstellt und dabei der Abstand der Wegpunkte zur Mitte der @UE von zwei Radien auf einen Radius geändert. Ebenfalls werden von Sonderumlenkungen und vollständigen Umlenkungen der erste und letzte Wegpunkt entfernt, sodass anliegende Streben eher der Realität entsprechen. Der resultierende Pfad wird als $p'$ bezeichnet. Wenngleich diese Berechnung keinen validen Pfad für den Roboterarm erzeugt, da die Abstände nicht eingehalten werden, führt es dazu, dass die Streben zwischen den Außenkanten der @UE:pl:long verlaufen und somit eine Annäherung der resultierenden Garnstruktur entsteht. Das Ergebnis ist in @fig:pfad-garnannaeherung zu sehen. Es ist zu beachten, dass dennoch einige Streben nicht so verlaufen, wie sie es später tun werden. Ein Beispiel hierfür ist die am weitesten rechts liegende vertikale Strebe, die durch die vollständige Umlenkung um das @UE 62 entsteht. Hier kommt es zu einer Abweichung, da durch das Entfernen des ersten und letzten Wegpunktes für die Umlenkung eine gewöhnliche Umlenkung mit drei Punkten entsteht. Da dort die Hauptrichtung wechselt, verläuft diese Strebe im Gegensatz zur Realität in der Annäherung somit nicht achsenparallel, sondern leicht diagonal.
 
 #figure(
-  image("/images/pfadannaeherung.png", width: 110%),
+  image("/images/pfadannaeherung.png"),
   caption: [Annäherung $p'$ an resultierende Garnstruktur am Beispiel von Wandkonfiguration $w_4$],
 )<fig:pfad-garnannaeherung>
 
@@ -590,9 +657,9 @@ Wird hingegen der vektorbasierte Ansatz genutzt, sind die Teilbereiche immer vol
 
 Weiterhin lässt sich feststellen, dass die Wegpunkte für die Umlenkungen um mehrfach angefahrene @UE:pl:long korrekt gesetzt werden. So wird das @UE 34 an der oberen rechten Türecke zunächst auf halber Route für eine vertikale Strebe genutzt. Kurz vor Ende der Route wird das @UE dann erneut für eine horizontale Strebe umfahren, bevor der Pfad beim @UE 27 endet.  
 
-Auch die Kollisionsvermeidung durch den Einsatz vollständiger Umlenkungen funktioniert erwartungsgemäß. In @fig:beispielpfad ist dies unter anderem am @UE 20 und 62 zu erkennen, wo durch eine entsprechende Umlenkung eine Kollision mit @UE 22 vermieden wird, die andernfalls bei der Bewegung Richtung @UE 62 auftreten würde.
+Auch die Kollisionsvermeidung funktioniert erwartungsgemäß zuverlässig. In @fig:beispielpfad ist unter anderem an @UE 20 und 62 zu erkennen, dass eine vollständige Umlenkung eine Kollision mit @UE 22 verhindert, die andernfalls bei der Bewegung Richtung @UE 62 auftreten würde. Im @appendix:wandkonfigurationen Wand 28 ist ebenfalls zu sehen, dass die Kollisionsvermeidung durch Sicherheitsabstände nach #citep(<morris-hillBuildingStringArt2023>) erfolgreich eine Kollision verhindern konnte. So wird bei der Navigation von @UE 68 zu @UE 7 der Sicherheitsabstand von @UE 36 verletzt, wodurch ein neuer Wegpunkt ungefähr bei Koordinate $(7.5, 13.5)$ eingefügt werden musste. 
 
-Die zusätzlich eingefügten Zwischenpunkte zur Vermeidung von Kollisionen mit bereits verlegtem Garn sind in der Abbildung durch rote Kreise und die Annäherung der resultierenden Garnstruktur $p'$ in hellem Rot hervorgehoben. Die Wegpunkte werden korrekt jeweils am ersten und letzten Schnittpunkt eines Pfadsegments aus $p$ mit Streben aus $p'$ platziert, wodurch ein Abriss oder Beschädigung des Garns vermieden wird.
+Die zusätzlich eingefügten Zwischenpunkte zur Vermeidung von Kollisionen mit bereits verlegtem Garn sind in @fig:beispielpfad durch rote Kreise und die Annäherung der resultierenden Garnstruktur $p'$ in hellem Rot hervorgehoben. Die Wegpunkte werden korrekt jeweils am ersten und letzten Schnittpunkt eines Pfadsegments aus $p$ mit Streben aus $p'$ platziert, wodurch ein Abriss oder Beschädigung des Garns vermieden wird.
 
 #todo[Letzten abschnitt Ausbauen]
 

@@ -67,7 +67,7 @@ Zur Bildung einer validen Abfolge kann ein Entscheidungsbaum genutzt werden. Ein
       node[shape=circle];
       root [label=""];
       root -> {LV LVR TH THR "..." RV RVR};
-      LVR -> {TH2[label="TH"] THR2[label="TH2"] DOTS2[label="..."]}
+      LVR -> {TH2[label="TH"] THR2[label="THR"] DOTS2[label="..."]}
 
       RV2[label="RV", color = red, fontcolor = red]
       LVR -> RV2[color=red, fontcolor=red]
@@ -166,9 +166,10 @@ gilt.
 === Heuristische Methoden <sec:route-puzzle-based-heuristics>
 
 Unter den zuvor beschriebenen Rahmenbedingungen kann die Permutation $pi$ als geeignete Kodierung für den genetischen Algorithmus verwendet werden. 
-Der Mutationsoperator führt auch hier eine einfache Vertauschung zweier Elemente der Permutation durch. Zusätzlich kann mit einer gewissen Wahrscheinlichkeit auch die Traversierungsrichtung der jeweiligen Teilroute invertiert werden. #maybe[ vorteile nachteile?]
+Der Mutationsoperator führt auch hier eine einfache Vertauschung zweier Elemente der Permutation durch. Zusätzlich kann mit einer gewissen Wahrscheinlichkeit auch die Traversierungsrichtung der jeweiligen Teilroute invertiert werden.
 Der eingesetzte Rekombinationsoperator entspricht dem in @sec:route-pointbased beschriebenen _Order Crossover_.
-#maybe[ vorteile nachteile?]
+
+#maybe[ vorteile nachteile der operatoren?]
 
 Für die Testläufe werden weitgehend identische Parameter für den genetischen Algorithmus verwendet, wie auch schon in @sec:route-pointbased. Der einzige Unterschied liegt in der Anzahl an Segmenten für den Rekombinationsoperator, da mit sechs Elementen pro Permutation fünf Segmente eine übermäßig feine Untergliederung erzeugen würden.
 
