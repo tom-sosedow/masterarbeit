@@ -47,43 +47,54 @@ $ forall v_i in p_x: v_(i-1, (x)) < v_(i, (x)) $
 und für $p_y in {L H, R H, T H}, p_y = (v_1, ..., v_k)$
 $ forall v_i in p_y: v_(i-1, (y)) < v_(i, (y)) $
 
-Um ein Durchlaufen der Teilrouten in umgekehrter Richtung, also entgegen der Hauptrichtung, darzustellen, werden für jede Teilroute $p in P'_V$ gegensätzliche Teilrouten $p^R$ definiert. Somit ergibt sich die Menge aller möglichen Teilrouten zu $P_V = P'_V union { L V^R, R V^R, T V^R, L H^R, R H^R, T H^R}$ 
+Hinzu kommen die in @sec:ue-place-implementation platzierten optionalen @UE:pl:long in den Ecken der Wand und Tür, welche in @fig:fully-placed-ue-wall in Grün dargestellt sind. Da sie eine Brücke aus einem einzigen @UE zwischen den Teilrouten bilden, können sie ebenfalls als eigene Teilroute $O = {v | "v in Ecke der Wand"}$ mit $|O| = 1$ angesehen werden und zu $P'_V$ hinzugefügt werden. Somit ergibt sich $P''_V$ zu 
+$ P''_V = P'_V union { O } $
+Durch diese Modellierung ist zwar nur jeweils ein @UE dargestellbar, jedoch kann somit die Größe des Lösungsraums erheblich eingeschränkt werden, da sich somit die Anzahl möglicher Permutationen lediglich versechsfacht. 
 
-Der dadurch entstehende Lösungsraum $Omega$ ist mit einer Kardinalität von $|Omega| = product_(i = 1)^(6) 2i = 46'080$ Permutationen um Größenordnungen kleiner als jener bei einer punktbasierten Planung sowie unabhängig von der Größe der Wand und der daraus resultierenden Anzahl an @UE. Zusätzlich können viele Permutationen aus der Menge entfernt werden, weil sie Reihenfolgen von Teilbereichen enthalten, welche ohnehin keine valide Abfolge darstellen. Das ist beispielsweise der Fall, falls auf ein $R V$ direkt ein $L V$ folgt, da sie sich keine Ecke der Wand teilen und somit ohne Umweg über $T V$ keine valide Route entstehen kann. 
+Um ein Durchlaufen der Teilrouten in umgekehrter Richtung, also entgegen der Hauptrichtung, darzustellen, werden für jede Teilroute $p in P'_V$ gegensätzliche Teilrouten $p^R$ definiert. Somit ergibt sich die Menge aller möglichen Teilrouten zu $P_V = P''_V union { L V^R, R V^R, T V^R, L H^R, R H^R, T H^R}$ 
 
-#todo[Optionale Rolle als eigene teilroute in der ecke der wand?]
-//   - durch ausschluss von manchen kanten (zb lv zu rv) auf knapp $18'000$ permutationen reduzierbar
-// - bei manchen wänden kann in den ecken noch eine optionale rolle hinzugefügt werden, um mehr möglichkeiten für schwierige umlenkungen zu bieten
-//   - modellierung als separates puzzleteil mit nur einer rolle
-//   - #todo[ math. Formulierung und bild einfügen]
-//   - dadurch erhöht sich die anzahl der möglichen permutationen in diesen fällen auf ca. das sechsfache, da das extra teil nicht benutzt wird, oder es zwischen einer der 6 puzzleteile verwendet wird
-//   - also schlussendlich $18'000 * 6 = 108'000$ permutationen #todo[ falsch], es werden 129024 permutationen generiert
-// - bewertung der entstandenen route trotzdem kantenbasiert
+Der dadurch entstehende Lösungsraum $Omega$ ist mit einer Kardinalität von $|Omega| = 6 product_(i = 1)^(6) 2i = 276'480$ möglichen Abfolgen von Teilrouten um Größenordnungen kleiner als jener bei einer punktbasierten Planung sowie unabhängig von der Größe der Wand und der daraus resultierenden Anzahl an @UE. Zusätzlich können viele Elemente aus der Menge entfernt werden, weil sie Reihenfolgen von Teilbereichen enthalten, welche ohnehin keine valide Abfolge darstellen. Das ist beispielsweise der Fall, falls auf ein $R V$ direkt ein $L V$ folgt, da sie sich keine Ecke der Wand teilen und somit ohne Umweg über $T V$ keine valide Route entstehen kann. 
 
-Der Graph, in dem schlussendlich nach einer Lösung gesucht wird, ist in @fig:puzzle-graph zu sehen. In dieser Darstellung sind aus Gründen der Übersicht die Rückrichtungen $p^R$ der jeweiligen Teilbereiche nicht dargestellt. Eine zulässige Lösung ist, wie bei der punktbasierten Routenplanung, ein Hamiltonpfad in diesem Graphen.
-
-#question[Der Graph passt nicht. Vereinfacht ist er nicht korrekt und korrekt ist er zu groß, nichtssagend und passt auch nicht mehr zum Problem (kein Hamiltonpfad). Kann der raus? Ich finde diese Darstellung unpassend und unnütz.]
+Zur Bildung einer validen Abfolge kann ein Entscheidungsbaum genutzt werden. Ein Auszug aus diesem ist in @fig:entscheidungsbaum-teilrouten veranschaulicht. Hier ist unter anderem dargestellt, wie die Hinzunahme eines optionalen Umlenkelements eine Navigation zwischen den zwei Bereichen $L V^R$ und $R V^R$ ermöglicht. Außerdem ist zu sehen, dass die Wahl von $L V^R$ alle weiteren $L V$ und $L V^R$ aus unteren Ebenen des Baumes entfernt, da die vertikalen Streben sonst mehrfach verlegt werden würden. Eine valide Abfolge entsteht, wenn ein Blatt erreicht wird oder der einzige Kindknoten das optionale @UE ist und nicht gewählt wird.
 
 #figure(
   raw-render(
     ```dot
-    graph {
-      rankdir=LR
-      LV -- {LH TH TV}
-      LH -- {TH TV}
-      TV -- {RV RH}
-      TH -- {RV RH}
-      RV -- {RH}
-      //EXTRA -- {LH TH RH LV TV RV}
+    digraph {
+      rankdir=TB
+      ranksep=0.3;
+      nodesep=0.1;
+      node[shape=circle];
+      root [label=""];
+      root -> {LV LVR TH THR "..." RV RVR};
+      LVR -> {TH2[label="TH"] THR2[label="TH2"] DOTS2[label="..."]}
+
+      RV2[label="RV", color = red, fontcolor = red]
+      LVR -> RV2[color=red, fontcolor=red]
+      RVR2[label="RVR", color = red, fontcolor = red]
+      LVR -> RVR2[color=red, fontcolor=red]
+
+      O[label="O", color=green, fontcolor=green]
+      LVR -> O[color=green]
+
+      O -> {TH3[label="TH"] THR3[label="THR"] DOTS3[label="..."]}
+      RV3[color=red, fontcolor=red, label="RV"]
+      O -> {RVR3[label="RVR"]}
+      O -> RV3[color=red]
+
+
     }
     ```
   ),
-  caption: [Teilrouten Graph],
-)<fig:puzzle-graph>
+  caption: [Ausschnitt aus dem Entscheidungsbaum zur Bildung einer Abfolge von Teilrouten. Für das Beispiel sei eine optionale Rolle $v in O$, in Grün dargestellt, in der oberen rechten Ecke der Wand platziert. Invalide Schritte, die zwei Teilbereiche verketten würden, welche sich keine Ecke der Wand teilen, sind in Rot dargestellt.],
+)<fig:entscheidungsbaum-teilrouten>
 
-Für die Bewertung gefundener Lösungen muss die bestehende Bewertungsfunktion nicht angepasst werden. Aus einer Permutation $pi: NN -> P_V$ lässt sich eine Route durch Verkettung der einzelnen Permutationen berechnen. Somit ist eine Funktion $T: P_V^6 -> R$ definiert, sodass
-$ T((pi(1),...,pi(6))) = pi(1) circle.small ... circle.small pi(6) $
+
+Für die Bewertung gefundener Lösungen muss die bestehende Bewertungsfunktion nicht angepasst werden. Aus einer Permutation $pi: NN -> P_V$ lässt sich eine Route durch Verkettung der einzelnen Permutationen berechnen. Somit ist eine Funktion $T: P_V^k -> R, k = cases(6 ", falls kein opt. UE gewählt", 7 ", sonst") $ definiert, sodass
+$ T((pi(1),...,pi(k))) = pi(1) circle.small ... circle.small pi(k) $
 gilt.
+
+#question[Lieber die obere @fig:entscheidungsbaum-teilrouten mit dem Entscheidungsbaum oder dieser Graph?]
 
 #figure(
   raw-render(
@@ -130,6 +141,7 @@ gilt.
         RH[style=filled, fillcolor=cyan];
         RHR[style=filled, fillcolor=cyan];
       }
+
       
       LV -> {LHR TV}
       LVR -> {LHR TH}   
@@ -148,7 +160,7 @@ gilt.
     ```,
     width: 340pt,
   ),
-  caption: [Teilrouten Graph],
+  caption: [Graph der Teilrouten ohne $O in P_V$. Eine valide Abfolge beinhaltet aus jedem Rechteck genau einen Knoten, sowie optional an einem beliebigen Punkt zwischen den Knoten das optionale Umlenkelement $v in O$.],
 )<fig:puzzle-graph2>
 
 === Heuristische Methoden <sec:route-puzzle-based-heuristics>
