@@ -237,7 +237,7 @@ Dieser Sachverhalt gilt analog für alle fünf Eingabeparameter der Wand. Daraus
 \ 
 Der zu entwickelnde Algorithmus soll für sämtliche 32 möglichen Wandkonfigurationen die Positionen der @UE dynamisch bestimmen. Als Eingabe dienen dabei ausschließlich die fünf beschriebenen Parameter sowie der Radius der @UE. Die erzeugte Lösung muss in jedem Fall eine valide Konfiguration darstellen, bei der insbesondere sichergestellt ist, dass keine @UE einander überlappen oder außerhalb der zulässigen Bereiche, wie den Wand- oder Türgrenzen, positioniert werden.
 
-Darüber hinaus wird eine Anordnung gefordert, die eine später folgende Routenplanung und damit schlussendlich die Erzeugung eines gleichmäßigen Carbongitters ermöglicht. Obwohl die Rechenzeit des Algorithmus eine untergeordnete Rolle spielt, soll dennoch die Gesamtanzahl der zu platzierenden @UE minimiert werden. Auf diese Weise kann der spätere physische Ablageprozess durch den Roboterarm verkürzt werden, wodurch sowohl Zeit- und Energieaufwand reduziert als auch die mechanische Belastung der Motoren und Gelenke verringert wird.
+Darüber hinaus wird eine Anordnung gefordert, die eine später folgende Routenplanung und damit schlussendlich die Erzeugung eines gleichmäßigen Carbongitters ermöglicht.
 
 == Stand der Forschung <sec:ue-place-forschungsstand>
 Sowohl in der Forschung als auch in industriellen Anwendungen existiert nur wenig veröffentlichte Literatur zur Platzierung von Umlenkelementen.
