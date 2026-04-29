@@ -6,7 +6,7 @@
 
 == Planung durch Teilrouten <sec:route-puzzle-based>
 
-Ein Nachteil bei der punktbasierten Routenplanung ist, dass Freiheiten bei der Wahl der nächsten Kante gelassen werden, wo eigentlich keine wirkliche Entscheidungsfreiehit besteht. So gibt es beispielsweise bei horizontal verlaufenden Streben jeweils immer nur den Knoten eine Ebene höher bzw. niedriger zu Auswahl. Eine Abweichung von diesem Muster würde eine irreparable Lücke in der Gitterstruktur erzeugen. Erst ganz oben bzw. unten in den Ecken der Wand oder auf Türhöhe gibt es mehrere Folgekanten, die in Frage kommen könnten.
+Ein Nachteil bei der punktbasierten Routenplanung ist, dass häufig Freiheiten bei der Wahl der nächsten Kante gelassen werden, wo eigentlich keine wirkliche Entscheidungsfreiehit besteht. So gibt es beispielsweise bei horizontal verlaufenden Streben jeweils immer nur den Knoten eine Ebene höher bzw. niedriger zu Auswahl. Eine Abweichung von diesem Muster würde eine irreparable Lücke in der Gitterstruktur erzeugen. Erst ganz oben bzw. unten in den Ecken der Wand oder auf Türhöhe gibt es mehrere Folgekanten, die in Frage kommen könnten.
 
 Vor diesem Hintergrund erscheint eine stärkere Strukturierung des Lösungsraumes sinnvoll, sodass unnötige Freiheitsgrade von vornherein reduziert werden. Eine geeignete konzeptionelle Grundlage hierfür bietet die aus dem Coverage Path Planning bekannte Boustrophedon Cellular Decomposition nach #citep(<chosetCoveragePathPlanning1998>). Dieses Verfahren adressiert das Problem, eine Fläche mit einem Pfad endlicher Breite vollständig und in einem zusammenhängenden Durchlauf zu überdecken. Im einfachsten Fall, also ohne Hindernisse, ist die Lösung trivial und entspricht einem gleichmäßigen Hin-und-Her-Bewegungsmuster.
 
@@ -26,7 +26,7 @@ Sobald Hindernisse auftreten, wird die Fläche in mehrere Teilbereiche unterglie
   caption: [Alle Puzzleteile mit Benennung und Position],
 )<fig:route-cells>
 
-Die Bereiche $L V, R V, T V in P_V$ sowie $L H, R H "und" T H in P'_V$ sind jeweils als Permutationen von @UE bezüglich der Menge der @UE $V$ dargestellt.
+Die Bereiche $L V, R V, T V in P_V'$ sowie $L H, R H "und" T H in P'_V$ sind jeweils als Permutationen von @UE bezüglich der Menge der @UE $V$ dargestellt.
 Für die @UE in den drei Bereichen $L V, R V  "und" T V$ für vertikale Streben gilt
 $
   forall v in V&: v in L V <=> 1 <= v_((x)) < t_(x,1) \
@@ -214,7 +214,7 @@ Außerdem ist zu sehen, dass die Laufzeiten scheinbar proportional mit der Grö�
 
 Dennoch wird selbst für die großen Wandkonfigurationen innerhalb weniger Sekunden das globale Optimum gefunden. Anders als bei der punktbasierten Planung ist das implementationsbedingt auch der Zeitpunkt, an dem die Suche terminiert und das finale Ergebnis somit feststeht.trotz
 
-=== Nachbearbeitung
+=== Nachbearbeitung <sec:route-postprocessing>
 Wie bereits erwähnt kann aus einer Reihenfolge und Richtung der abzufahrenden Teilrouten die gesamte Route berechnet werden, indem die jeweiligen @UE:pl verkettet werden. Unter bestimmten Bedingungen kann diese bloße Verkettung allerdings dazu führen, dass ungültige bzw. schlecht bewertete Routen entstehen würden, obwohl es eine einfache Lösung für diese Spezialfälle geben könnte. Das passiert unter anderem in dem in @fig:sonderstelle-left-door-corner abgebildeten Fall einer Sonderstelle in der unteren Ecke der Tür. Wird in solch einer Wandkonfiguration eine Route bewertet, bei denen die Teilrouten $L V circle.small T V$ bzw. $T V^R circle.small L V^R$ aufeinander folgen, geht eine negative Bewertung der ignorierten Sonderstelle in die Betrachtung ein. Die Verkettung ergäbe in diesem Fall eine Kante zwischen $a$ und $b$ sowie zwischen $b$ und $c$, ohne einen Zwischenschritt über $x$. 
 
 #maybe[weiterer Fall (letzte/Erste Strebe über der Tür) mit erklären?]

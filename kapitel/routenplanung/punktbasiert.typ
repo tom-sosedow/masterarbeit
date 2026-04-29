@@ -51,7 +51,7 @@ Der Algorithmus ist vollständig nach #citep(<weickerEvolutionaereAlgorithmen201
 
 #todo[Werte für Wahrscheinlichkeiten und Popsize nennen]
 
-Für die Testläufe mit dem genetischen Algorithmus werden die Parameter wie Mutations- und Rekombinationswahrscheinlichkeit, Populationsgröße und Turniergröße fixiert. Um einen zeitlichen Rahmen für die Berechnung und Aufzeichnung der Ergebnisse zu setzen, werden maximal 12000 Generationen durchlaufen.
+Für die Testläufe mit dem genetischen Algorithmus werden die Parameter wie Mutations- und Rekombinationswahrscheinlichkeit, Populationsgröße und Turniergröße fixiert. Um einen zeitlichen Rahmen für die Berechnung und Aufzeichnung der Ergebnisse zu setzen, werden maximal 12'000 Generationen durchlaufen.
 
 Die Ergebnisse der Testläufe für Wandkonfiguration $w_2$ sind in @fig:res-genetic links zu sehen. Es werden bei gleichen Parametern zwei Seeds für den Zufallszahlengenerator für die Tests genutzt. Die Abbildung zeigt, dass der Seed Auswirkungen auf die Qualität der gefundenen Lösungen hat. So wurde bei Seed $s_2$ nur eine Lösung mit Kosten von 26 gefunden, während mit Seed $s_1$ für die beste gefundene Lösung Kosten von 21 berechnet wurden. Es konnte also mit keinem von beiden Seeds das Optimum von 1 erreicht werden, da beide nach ca. 15 Sekunden in einem lokalen Optimum hängen bleiben. In beiden Fällen konnten die an das Optimum nah herankommenden Lösungen bereits nach wenigen Sekunden gefunden werden. Es sind hier demnach keine signifikanten Unterschiede in den Laufzeiten zwischen beiden Seeds zu erkennen. 
 

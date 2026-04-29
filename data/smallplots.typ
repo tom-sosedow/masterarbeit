@@ -44,7 +44,7 @@
     width: 70%,
     ..geneticBGen,
   ),
-  caption: [Ergebnisse GA für Wandkonfiguration $w_2$ (min. Kosten 21 nach 411 Generationen)],
+  caption: [Ergebnisse GA für Wandkonfiguration $w_2$ unter Seed $s_1$ (min. Kosten 21 nach 411 Generationen)],
 )
 
 #let geneticB1234 = (

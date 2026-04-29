@@ -13,13 +13,13 @@ Gesucht ist eine Anordnung von anzufahrenden Umlenkelementen. Genauer ist eine P
 Oft wird eine Modellierung dieser Probleme durch eine Graphstruktur vorgenommen @goyalSurveyTravellingSalesman. Dabei sind die anzufahrenden Punkte bzw. Stationen die Knoten und mögliche Wege dazwischen die Kanten im Graph. Den Knoten bzw. hier den @UE werden Koordinaten zugeordnet, sodass Entfernungen zwischen ihnen berechnet und für die Wahl der kürzesten Route herangezogen werden können. Sei also die Knotenmenge definiert durch
 $ V={(x_i, y_i, i) | i in {1,...,n}, x_i, y_i in NN_0^+} $
 sowie $ v_((x))=x_i "und" v_((y))=y_i "von" v_i in V $
-und die Wandbreite mit $0<= x_i <= w_b$ und Wandhöhe mit $0<= y_i <= w_h$ definiert. Der Graph ist vollständig, es ist also jeder Knoten mit jedem anderen Knoten durch eine Kante aus der Menge 
+definiert. Die Knoten liegen dabei innerhalb der Wand, sodass sich für ihre Positionen  $0<= x_i <= x_"max"-1$ und $0<= y_i <= y_"max"-1$ als Anforderungen ergeben. Der Graph ist vollständig, es ist also jeder Knoten mit jedem anderen Knoten durch eine Kante aus der Menge 
 $ E = { (v,w) | v, w in V} $
-verbunden. Die gesuchte Route $pi$ ist eine Permutation der Menge aller möglichen Routen $R$, definiert durch 
+verbunden. Die gesuchte Route $pi$ ist eine Permutation der Menge aller @UE:pl:long, sowie R die Menge aller möglichen Routen definiert durch 
 $ R={(pi(1), pi(2),.., pi(n)) | & pi(i) in V, forall i, j in {1,...,n}: \ & i != j => pi(i) != pi(j)} $ 
 
 // Route Aussehen/Struktur
-Eine beispielhafte Route für eine kleine Wandkonfiguration ist in @fig:simple-route dargestellt. Zur Erzeugung der geforderten Gitterstruktur werden die @UE:pl:long in einem zickzackförmigen Muster angefahren. Im dargestellten Beispiel beginnt die Route an dem blau markierten @UE an Position (4,9). Anschließend wird das @UE an der Position (0,8) angesteuert, wodurch eine horizontal verlaufende, also achsenparallele Strebe entlang der x-Achse entsteht. Dieses Vorgehen wird fortgesetzt, bis das ebenfalls blau markierte @UE an der Position (1,0) erreicht ist. Bis zu diesem Punkt sind somit die horizontalen Streben für den Bereich oberhalb sowie links der Tür vollständig definiert. An diesem @UE erfolgt eine spezielle Umlenkung, die den Übergang zur Erzeugung vertikaler Streben einleitet, beginnend auf der linken Seite.
+Eine beispielhafte Route für eine kleine Wandkonfiguration ist in @fig:simple-route dargestellt. Zur Erzeugung der geforderten Gitterstruktur werden die @UE:pl:long in einem zickzackförmigen Muster angefahren. Im dargestellten Beispiel beginnt die Route an dem blau markierten @UE an Position (4,9). Anschließend wird das @UE an der Position (0,8) angesteuert, wodurch eine horizontal verlaufende, also achsenparallele Strebe entlang der x-Achse, entsteht. Dieses Vorgehen wird fortgesetzt, bis das ebenfalls blau markierte @UE an der Position (1,0) erreicht ist. Bis zu diesem Punkt sind somit die horizontalen Streben für den Bereich oberhalb sowie links der Tür vollständig definiert. An diesem @UE erfolgt eine spezielle Umlenkung, die den Übergang zur Erzeugung vertikaler Streben einleitet, beginnend auf der linken Seite.
 
 Durch dieses Zickzackmusters verändert sich in jedem Schritt entweder die x- oder die y-Koordinate des aktuellen @UE jeweils um genau eine Einheit. Die Richtung dieser Veränderung wird als _Hauptrichtung_ definiert. Für die in @fig:simple-route initial erzeugten horizontalen Streben bis zum @UE an Position (1,0) verläuft die Hauptrichtung entsprechend vertikal aufsteigend. Umlenkungen an Sonderstellen, wie in der unteren linken Ecke der Abbildung, führen immer zu einer Änderung der Hauptrichtung, weshalb sie auch als _Sonderumlenkungen_ bezeichnet werden können.
 
@@ -36,8 +36,8 @@ Es ist zu erkennen, dass manche @UE mehrmals angefahren werden müssen, wie zum 
 Damit dennoch ein Hamiltonpfad Betrachtungsgegenstand bleibt und somit jedes @UE nur einmalig in der Route vorkommt, werden diese @UE an besonderen Stellen erneut der Menge $V$ hinzugefügt, mit gleichen Koordinaten, aber unterschiedlichem Index $v_i$. Zu diesen besonderen Stellen gehören beide @UE an den beiden oberen Ecken des Türausschnittes, spezifiziert durch
 $ { v mid(|) cases(
   delim: #none, 
-  (t_(x,1) <= v_(x) <= t_(x,1) + 1) and (t_(y,1) <= v_(y) <= t_(y,1) + 1),
-    or (t_(x,2)-1 <= v_(x) <= t_(x,2)) and (t_(y,1) <= v_(y) <= t_(y,1) + 1) 
+  (t_(x,1) <= v_((x)) <= t_(x,1) + 1) and (t_(y,1) <= v_((y)) <= t_(y,1) + 1),
+    or (t_(x,2)-1 <= v_((x)) <= t_(x,2)) and (t_(y,1) <= v_((y)) <= t_(y,1) + 1) 
   ),  v in V
 } $
 sowie das in @fig:simple-route Pink markierte @UE an der linken oder rechten Seite der Wand direkt über dem Türausschnitt spezifiziert durch 
@@ -48,7 +48,7 @@ für ein Ende der Route und die letzte horizontale Strebe.
 Werden Sonderstellen in den oberen Ecken des Türausschnitts vermieden, existieren in der Regel lediglich zwei valide Möglichkeiten zur Anordnung der @UE an der Tür. Diese ergeben sich entweder durch eine Verschiebung aller @UE in eine Richtung oder durch eine Spiegelung einer gültigen Lösung entlang der y-Achse.
 
 // Sonderstelle an Tür
-Ein für die Routenplanung einer gleichmäßigen Gitterstruktur ungünstiger Zusammenhang besteht zwischen der Breite und Höhe des Türausschnitts. Gilt sowohl $floor(t_b^* / r) mod 2 = 0$ als auch $floor(t_h^* / r) mod 2 = 1$ (mit Padding $p=0$), lässt sich eine Sonderstelle an der unteren linken Ecke des Türausschnitts bei der Platzierung der @UE nicht vermeiden. Ein Start der Platzierung auf der rechten statt der linken Seite des Türausschnitts spiegelt in diesem Fall das Problem auf die linke Seite der Tür. Der Sachverhalt ist in @fig:sonderstelle-left-door-corner dargestellt. Andere als die dargestellten Platzierungen der @UE:pl sind nicht den Anforderungen aus @sec:ue-place-problem entsprechend. Würde die Routenplanung üblicherweise die Teilroute $(a,b,c,d)$ enthalten, könnte der Roboterarm nicht zwischen den @UE $b$ und $x$ hindurchfahren. Eine gesonderte Betrachtung dieser Fälle ist demnach unabdingbar.
+Ein für die Routenplanung gleichmäßiger Gitterstrukturen ungünstiger Zusammenhang besteht zwischen der Breite und Höhe des Türausschnitts. Gilt sowohl $floor(t_b^* / r) mod 2 = 0$ als auch $floor(t_h^* / r) mod 2 = 1$ (mit Padding $p=0$), lässt sich eine Sonderstelle an der unteren linken Ecke des Türausschnitts bei der Platzierung der @UE nicht vermeiden. Ein Start der Platzierung auf der rechten statt der linken Seite des Türausschnitts spiegelt in diesem Fall das Problem auf die linke Seite der Tür. Der Sachverhalt ist in @fig:sonderstelle-left-door-corner dargestellt. Andere als die dargestellten Platzierungen der @UE:pl sind nicht den Anforderungen aus @sec:ue-place-problem entsprechend. Würde die Routenplanung üblicherweise die Teilroute $(a,b,c,d)$ enthalten, könnte der Roboterarm nicht zwischen den @UE $b$ und $x$ hindurchfahren. Eine gesonderte Betrachtung dieser Fälle ist demnach unabdingbar.
 
 #figure(
   stack(

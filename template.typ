@@ -11,7 +11,6 @@
   ort: [Ihr Geburtsort],
   betreuer: [Titel Vorname Familienname Ihres Betreuers],
   betreuer2: [name ihres Betreuers],
-  matrikelnummer: [matrikelnummer],
   thema: [Titel ihrer Arbeit],
   datum: [tt. mm. jjjj],
   studiengang: [Studiengang],
@@ -57,8 +56,7 @@
     #set text(weight: "thin", size: 12pt)
     vorgelegt von #v(space)
     #upper[#vorname #name] #v(space)
-    geboren am #gebdatum in #smallcaps[#ort] #v(space)
-    Matrikelnummer: #matrikelnummer #v(space) \ ]
+    geboren am #gebdatum in #smallcaps[#ort] #v(space)\ ]
     v(1fr)
     align(left+bottom)[
     Tag der Einreichung: #datum #v(space)
@@ -68,7 +66,6 @@
 }
 
 #let selbständigkeit(
-  betreuer: [Titel Vorname Familienname Ihres Betreuers],
   thema: [Titel ihrer Arbeit],
   datum: [tt. mm. jjjj],
   thesis: "bsc",
@@ -79,7 +76,7 @@
   heading(outlined: false)[Erklärung]
   let arbeit = if thesis == "bsc" [Bachelorabeit] else [Masterarbeit]
   [
-    Hiermit erkläre ich, dass ich die am #datum eingereichte #arbeit zum Thema _#thema _ unter Betreuung von #betreuer selbstständig erarbeitet, verfasst und Zitate kenntlich gemacht habe. Andere als die angegebenen Hilfsmittel wurden von mir nicht benutzt.
+    Hiermit erkläre ich, dass ich die eingereichte #arbeit zum Thema _#thema _ selbstständig erarbeitet, verfasst und Zitate kenntlich gemacht habe. Andere als die angegebenen Hilfsmittel wurden von mir nicht benutzt.
     #v(2cm)
     Leipzig, #datum #h(1fr) Unterschrift
   ]
@@ -90,7 +87,6 @@
   vorname: [Ihr Vorname],
   gebdatum: [Ihr Geburtsdatum],
   ort: [Ihr Geburtsort],
-  matrikelnummer: [matrikelnummer],
   betreuer: [Vollständiger akad. Titel (z.B. Prof. Dr. rer. nat. habil.) Vorname Familienname Ihres Betreuers / Ihrer Betreuerin],
   betreuer-kurz: [Kurzer akad. Titel (z.B. Prof. Dr.) Vorname Familienname Ihres Betreuers / Ihrer Betreuerin],
   betreuer2: [name ihres Betreuers],
@@ -106,7 +102,7 @@
     margin: 2.5cm,
     paper: "a4",
   )
-  set par(justify: true, leading: 1.5em, spacing: 1.5em)
+  set par(justify: true, leading: 1.2em, spacing: 1.3em)
   set math.equation(numbering: "(1)")
   show math.equation.where(block: true): set text(size: 13pt)
   show math.equation.where(block: false): box
@@ -187,7 +183,6 @@
     ort: ort,
     betreuer: betreuer,
     betreuer2: betreuer2,
-    matrikelnummer: matrikelnummer,
     thema: thema,
     datum: datum,
     studiengang: studiengang,
@@ -201,7 +196,6 @@
 
 
   selbständigkeit(
-    betreuer: betreuer,
     thema: thema,
     datum: datum,
     thesis: abschluss,

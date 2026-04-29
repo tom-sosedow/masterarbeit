@@ -76,7 +76,7 @@ Bei der Beantwortung der Fragen soll es ausschließlich um Wände mit einem einz
 Als Eingabeparameter des Prozesses dienen die fünf geforderten Maße der Wand und Tür sowie der Radius der genutzten @UE. Als Ergebnis werden eine oder mehrere Programmdateien für einen Kawasaki BX130X Roboterarm erzeugt. Diese sollen es ermöglichen, dass der Roboterarm ohne zusätzliche manuelle Eingriffe ein vollständiges Carbongitter inklusive der Platzierung der @UE:pl:long erzeugt.
 
 
-== Methodik
+== Methodik & Aufbau
 
 Um diese Ziele zu erreichen und insbesondere die Forschungsfragen zu beantworten, wird diese Arbeit in drei zentrale Kapitel untergliedert, von denen sich jedes auf die Beantwortung einer Forschungsfrage fokussiert. In jedem dieser Kapitel wird dafür zunächst das betrachtete Problem spezifiziert und mathematisch modelliert. Daraufhin wird relevante Literatur aufgearbeitet, um bestehende Ansätze einzuordnen, theoretische Grundlagen darzustellen und bestehende Forschungslücken zu identifizieren. Basierend darauf werden dann gewonnene Erkenntnisse und Lösungsansätze vorgestellt und eingeordnet. Abschließend werden die Ansätze anhand eines zuvor beschriebenem Testvorgehen evaluiert. Dabei erfolgt eine Bewertung hinsichtlich ihrer Leistungsfähigkeit in Bezug auf die zuvor formulierten Anforderungen, gefolgt von einer Darstellung und Analyse der erzielten Ergebnisse.
 
