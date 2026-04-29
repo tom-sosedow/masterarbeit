@@ -11,10 +11,10 @@ Gesucht ist eine Anordnung von anzufahrenden Umlenkelementen. Genauer ist eine P
 
 // Modellierung
 Oft wird eine Modellierung dieser Probleme durch eine Graphstruktur vorgenommen @goyalSurveyTravellingSalesman. Dabei sind die anzufahrenden Punkte bzw. Stationen die Knoten und mögliche Wege dazwischen die Kanten im Graph. Den Knoten bzw. hier den @UE werden Koordinaten zugeordnet, sodass Entfernungen zwischen ihnen berechnet und für die Wahl der kürzesten Route herangezogen werden können. Sei also die Knotenmenge definiert durch
-$ V={(x_i, y_i, i) | i in {1,...,n}, x_i, y_i in NN_0^+} $
+$ V = {(x_i, y_i, i) | i in {1,...,n}, n= |A|, (x_i, y_i) in A } $
 sowie $ v_((x))=x_i "und" v_((y))=y_i "von" v_i in V $
-definiert. Die Knoten liegen dabei innerhalb der Wand, sodass sich für ihre Positionen  $0<= x_i <= x_"max"$ und $0<= y_i <= y_"max"$ als Anforderungen ergeben. Der Graph ist vollständig, es ist also jeder Knoten mit jedem anderen Knoten durch eine Kante aus der Menge 
-$ E = { (v,w) | v, w in V} $
+definiert. Die Positionen der Knoten basieren dabei auf den in @sec:ue-place platzierten @UE. Der Graph ist vollständig, es ist also jeder Knoten mit jedem anderen Knoten durch eine Kante aus der Menge 
+$ E = { (v,w) | v, w in V, v != w} $
 verbunden. Die gesuchte Route $pi$ ist eine Permutation der Menge aller @UE:pl:long, sowie R die Menge aller möglichen Routen definiert durch 
 $ R={(pi(1), pi(2),.., pi(n)) | & pi(i) in V, forall i, j in {1,...,n}: \ & i != j => pi(i) != pi(j)} $ 
 
@@ -49,7 +49,7 @@ für ein Ende der Route und die letzte horizontale Strebe.
 Werden Sonderstellen in den oberen Ecken des Türausschnitts vermieden, existieren in der Regel lediglich zwei valide Möglichkeiten zur Anordnung der @UE an der Tür. Diese ergeben sich entweder durch eine Verschiebung aller @UE in eine Richtung oder durch eine Spiegelung einer gültigen Lösung entlang der y-Achse.
 
 // Sonderstelle an Tür
-Ein für die Routenplanung gleichmäßiger Gitterstrukturen ungünstiger Zusammenhang besteht zwischen der Breite und Höhe des Türausschnitts. Gilt sowohl $floor(t_b^* / r) mod 2 = 0$ als auch $floor(t_h^* / r) mod 2 = 1$ (mit Padding $p=0$), lässt sich eine Sonderstelle an der unteren linken Ecke des Türausschnitts bei der Platzierung der @UE nicht vermeiden. Ein Start der Platzierung auf der rechten statt der linken Seite des Türausschnitts spiegelt in diesem Fall das Problem auf die linke Seite der Tür. Der Sachverhalt ist in @fig:sonderstelle-left-door-corner dargestellt. Andere als die dargestellten Platzierungen der @UE:pl sind nicht den Anforderungen aus @sec:ue-place-problem entsprechend. Würde die Routenplanung üblicherweise die Teilroute $(a,b,c,d)$ enthalten, könnte der Roboterarm nicht zwischen den @UE $b$ und $x$ hindurchfahren. Eine gesonderte Betrachtung dieser Fälle ist demnach unabdingbar.
+Ein für die Routenplanung gleichmäßiger Gitterstrukturen ungünstiger Zusammenhang besteht zwischen der Breite und Höhe des Türausschnitts. Gilt sowohl $ceil(t_b^* / r) mod 2 = 0$ als auch $ceil(t_h^* / r) mod 2 = 1$ (mit Padding $p=0$), lässt sich eine Sonderstelle an der unteren linken Ecke des Türausschnitts bei der Platzierung der @UE nicht vermeiden. Ein Start der Platzierung auf der rechten statt der linken Seite des Türausschnitts spiegelt in diesem Fall das Problem auf die linke Seite der Tür. Der Sachverhalt ist in @fig:sonderstelle-left-door-corner dargestellt. Andere als die dargestellten Platzierungen der @UE:pl sind nicht den Anforderungen aus @sec:ue-place-problem entsprechend. Würde die Routenplanung üblicherweise die Teilroute $(a,b,c,d)$ enthalten, könnte der Roboterarm nicht zwischen den @UE $b$ und $x$ hindurchfahren. Eine gesonderte Betrachtung dieser Fälle ist demnach unabdingbar.
 
 #figure(
   stack(
@@ -135,6 +135,6 @@ Ein für die Routenplanung gleichmäßiger Gitterstrukturen ungünstiger Zusamme
       
     }),
   ),
-  caption: [Unvermeidbare Sonderstelle am Türausschnitt, jeweils gespiegelt an der y-Achse bei gleichbleibenden Dimensionen]
+  caption: [Unvermeidbare Sonderstelle am Türausschnitt, unabhängig von der Positionierung des Umlenkelements $x$]
 )<fig:sonderstelle-left-door-corner>
 
