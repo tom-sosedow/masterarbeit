@@ -13,7 +13,7 @@ Gesucht ist eine Anordnung von anzufahrenden Umlenkelementen. Genauer ist eine P
 Oft wird eine Modellierung dieser Probleme durch eine Graphstruktur vorgenommen @goyalSurveyTravellingSalesman. Dabei sind die anzufahrenden Punkte bzw. Stationen die Knoten und mögliche Wege dazwischen die Kanten im Graph. Den Knoten bzw. hier den @UE werden Koordinaten zugeordnet, sodass Entfernungen zwischen ihnen berechnet und für die Wahl der kürzesten Route herangezogen werden können. Sei also die Knotenmenge definiert durch
 $ V={(x_i, y_i, i) | i in {1,...,n}, x_i, y_i in NN_0^+} $
 sowie $ v_((x))=x_i "und" v_((y))=y_i "von" v_i in V $
-definiert. Die Knoten liegen dabei innerhalb der Wand, sodass sich für ihre Positionen  $0<= x_i <= x_"max"-1$ und $0<= y_i <= y_"max"-1$ als Anforderungen ergeben. Der Graph ist vollständig, es ist also jeder Knoten mit jedem anderen Knoten durch eine Kante aus der Menge 
+definiert. Die Knoten liegen dabei innerhalb der Wand, sodass sich für ihre Positionen  $0<= x_i <= x_"max"$ und $0<= y_i <= y_"max"$ als Anforderungen ergeben. Der Graph ist vollständig, es ist also jeder Knoten mit jedem anderen Knoten durch eine Kante aus der Menge 
 $ E = { (v,w) | v, w in V} $
 verbunden. Die gesuchte Route $pi$ ist eine Permutation der Menge aller @UE:pl:long, sowie R die Menge aller möglichen Routen definiert durch 
 $ R={(pi(1), pi(2),.., pi(n)) | & pi(i) in V, forall i, j in {1,...,n}: \ & i != j => pi(i) != pi(j)} $ 
@@ -34,14 +34,15 @@ Es ist zu erkennen, dass manche @UE mehrmals angefahren werden müssen, wie zum 
 
 // Doppelte Rollen
 Damit dennoch ein Hamiltonpfad Betrachtungsgegenstand bleibt und somit jedes @UE nur einmalig in der Route vorkommt, werden diese @UE an besonderen Stellen erneut der Menge $V$ hinzugefügt, mit gleichen Koordinaten, aber unterschiedlichem Index $v_i$. Zu diesen besonderen Stellen gehören beide @UE an den beiden oberen Ecken des Türausschnittes, spezifiziert durch
-$ { v mid(|) cases(
-  delim: #none, 
-  (t_(x,1) <= v_((x)) <= t_(x,1) + 1) and (t_(y,1) <= v_((y)) <= t_(y,1) + 1),
-    or (t_(x,2)-1 <= v_((x)) <= t_(x,2)) and (t_(y,1) <= v_((y)) <= t_(y,1) + 1) 
-  ),  v in V
-} $
+$ { v in V mid(|) (t_(y,1) <= v_((y)) <= t_(y,1) + 1) and 
+  (cases(
+    delim: #none, 
+    t_(x,1) <= v_((x)) <= t_(x,1) + 1 or ,
+    t_(x,2)-1 <= v_((x)) <= t_(x,2)
+  ))
+}  $
 sowie das in @fig:simple-route Pink markierte @UE an der linken oder rechten Seite der Wand direkt über dem Türausschnitt spezifiziert durch 
-$ v_((y)) = t_(y,1) -1 and (v_((x)) = 0 or v_((x)) = x_("max")-1), v in V $
+$ v_((y)) = t_(y,1) -1 and (v_((x)) = 0 or v_((x)) = x_("max")), v in V $
 für ein Ende der Route und die letzte horizontale Strebe. 
 
 // Tür 2 Fälle

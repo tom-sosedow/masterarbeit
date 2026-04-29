@@ -139,17 +139,17 @@ Analog dazu kann eine fehlerhafte Festlegung der zugehörigen Wegpunkte sowie ih
 Zur Bestimmung der Wegpunkte $a,b,c$ beziehungsweise $d,e,f$ aus @fig:pfad-zu-muster wird im aktuellen Ansatz des @CBT derzeit die Sonderumlenkung als Referenz für die Art der Umlenkung herangezogen. Da im bestehenden Verfahren zuerst alle vertikalen Streben verlegt werden, ergibt sich eine vergleichsweise einfache Bestimmung der Wegpunkte. Der erste und letzte Wegpunkt liegen jeweils auf der Höhe des entsprechenden Umlenkelements, sind jedoch um jeweils einen Durchmesser nach links beziehungsweise rechts versetzt. Der mittlere Wegpunkt ($b$ bzw. $e$) befindet sich hingegen auf dem gleichen x-Wert wie das Umlenkelement und ist alternierend um einen Durchmesser nach oben oder unten versetzt.
 Für ein @UE $Q=(x,y,i) in V$ an der Ober- bzw. Unterseite der Wand sowie dem Radius $r$ eines Umlenkelements ergeben sich damit die folgenden Wegpunkte
 $ 
-a = (x-2r,y,0) \
-c = (x+2r, y,0) \
-b = (x,y + 2r* rho,0) "mit" rho = cases(1 ", falls" 3r divides x, -1 ", sonst")
+a = (x-1,y,0) \
+c = (x+1, y,0) \
+b = (x,y + rho,0) "mit" rho = cases(-1 ", falls" 2 divides x, 1 ", sonst")
 $
 
 Nach der Durchführung der Sonderumlenkung wird dieses Verfahren analog angewendet, allerdings um 90° rotiert. Die Bestimmung des mittleren Wegpunktes richtet sich dann nach der Position der Sonderumlenkung. 
 
 Zur Vermeidung von Kollisionen mit bereits verlegtem Garn werden zusätzlich jeweils ein Wegpunkt vor und nach den drei Punkten $a,b,c$ eingefügt. Diese liegen entlang der Nebenrichtung zwischen dem Vorgänger- beziehungsweise Nachfolgeelement, sind jedoch um 20 Millimeter in z-Richtung angehoben. In diesem Fall ergibt sich der neue erste Wegpunkt des Umlenkelements $Q=(x,y,i)$ zu
-$ a' = (x-2r,y - 2r* rho, 20) "mit" rho = cases(1 ", falls" 3r divides x, -1 ", sonst") $
+$ a' = (x-1,y - rho, 20) "mit" rho = cases(-1 ", falls" 2 divides x, 1 ", sonst") $
 sowie der neue letzte Wegpunkt zu 
-$ c' = (x+2r,y - 2r* rho, 20) "mit" rho = cases(1 ", falls" 3r divides x, -1 ", sonst") $
+$ c' = (x+1,y - rho, 20) "mit" rho = cases(-1 ", falls" 2 divides x, 1 ", sonst") $
 sodass der Teilpfad um $Q$ herum schließlich die Abfolge $(a',a,b,c,c')$ beschreibt.
 
 Aufgrund der erhöhten Komplexität des vorliegenden Problems, insbesondere durch den Türausschnitt, können einige dieser Annahmen jedoch nicht übertragen werden. So ist beispielsweise nicht a priori festgelegt, ob zunächst horizontale oder vertikale Streben verlegt werden oder wohin die Hauptrichtung verläuft, was die Positionierung des mittleren Wegpunktes zusätzlich erschwert. Die isolierte Betrachtung der @UE:pl:long und Erzeugung des Pfades durch stützende Wegpunkte könnte allerdings für die Generierung eines validen Teilpfades genutzt werden. Zur Erweiterung dieses Ansatzes bietet es sich daher an, zusätzliche Perspektiven und Methoden aus verwandten Anwendungsgebieten heranzuziehen.

@@ -25,7 +25,7 @@ Zu Beginn der Herstellung eines Carbongitters werden fünf Eingabeparameter ben�
 Diese Maße können jedoch nicht unmittelbar als Grenzen für das Carbongitter verwendet werden. Nach der Erstellung des Gitters wird es in eine vorbereitete Schalung platziert. Diese besteht aus stählernen Schalungselementen, die ebenfalls magnetisch auf einer Metallplatte befestigt werden. Die Schalungselemente verhindern beim Betonguss das Austreten des flüssigen Betons und dienen somit als Begrenzung der Wand. Zu diesen Elementen muss ein Abstand $p$, im Folgenden Padding genannt, eingehalten werden, damit das Carbongitter geschützt und von Außen nicht sichtbar im Beton liegt.
 
 // Verschiebung der Grenzen durch Abstand zur Schalung, Padding
-Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Als Ankerpunkt dienen dafür ihre Mittelpunkte. Der Radius der @UE wird mit $r$ bezeichnet, der Durchmesser ergibt sich zu $d = 2r$. Die tatsächlich verfügbare Wandhöhe und -breite ergibt sich somit zu $w_h = w_h^* - 2p - 2r$ und $w_b = w_b^* - 2p - 2r$, da auf beiden Seiten jeweils einmal das Padding von der Länge abgezogen werden muss und sich das Padding auf den Abstand zur Außenkante des @UE bezieht und somit ebenfalls jeweils der Radius abgezogen werden muss. Der Türausschnitt wird aufgrund des notwendigen Abstands zur Schalung links und rechts um das doppelte Padding verbreitert und wieder der zusätzlich nötige Abstand zum Mittelpunkt der @UE einbezogen, sodass $t_b = t_b^* + 2p + 2r$ gilt. Durch die reduzierte Wandbreite sowie das linke Padding an der Tür muss außerdem der Abstand des Türausschnitts zur linken Wandkante angepasst werden. Daher ergibt sich $t_x = t_x^* - 2p - 2r$. Die Höhe des Türausschnitts bleibt unverändert. Die Zusammenhänge sind in @fig:input-dimensions dargestellt. In Rot sind die Eingabeparameter. In Blau ist die tatsächlich zur Verfügung stehende Fläche für die @UE:pl:long nach Einbeziehung des Paddings markiert, über die darin platzierte @UE nicht mit ihren Außenkanten hinausragen dürfen.
+Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Als Ankerpunkt dienen dafür ihre Mittelpunkte. Der Radius der @UE wird mit $r$ bezeichnet, der Durchmesser ergibt sich zu $d = 2r$. Die tatsächlich verfügbare Wandhöhe und -breite ergibt sich somit zu $w_h = w_h^* - 2p - 2r$ und $w_b = w_b^* - 2p - 2r$, da auf beiden Seiten jeweils einmal das Padding von der Länge abgezogen werden muss und sich das Padding auf den Abstand zur Außenkante des @UE bezieht und somit ebenfalls jeweils der Radius abgezogen werden muss. Der Türausschnitt wird aufgrund des notwendigen Abstands zur Schalung links und rechts um das doppelte Padding verbreitert und wieder der zusätzlich nötige Abstand zum Mittelpunkt der @UE einbezogen, sodass $t_b = t_b^* + 2p + 2r$ gilt. Durch die reduzierte Wandbreite sowie das linke Padding an der Tür muss außerdem der Abstand des Türausschnitts zur linken Wandkante angepasst werden. Daher ergibt sich $t_x = t_x^* - 2p - 2r$. Die Höhe des Türausschnitts bleibt unverändert. Die Zusammenhänge sind in @fig:input-dimensions dargestellt. In Schwarz ist die geforderte Betonfläche und in Rot die dazugehörigen Eingabeparameter verbildlicht. In Blau ist die tatsächlich zur Verfügung stehende Fläche für die @UE:pl:long nach Einbeziehung des Paddings markiert, über die darin platzierte @UE nicht mit ihren Außenkanten hinausragen dürfen.
 
 #figure(
   cetz.canvas({
@@ -33,8 +33,13 @@ Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Als Ankerpunk
 
     scale(0.5)
 
-    grid((-0,0),(15,-10), stroke: (paint: gray.transparentize(50%)))
-    rect((4.07,-3.06),(9.95,-12),fill:white, stroke: none)
+    rect((-0.5,0.5),(15.5,-10.5), stroke: none, fill: orange.transparentize(80%))
+    rect((0.5,-0.5),(14.5,-9.5), stroke: none, fill: white)
+    rect((3.5,-2.5),(10.5,-9.5), stroke: none, fill: orange.transparentize(80%))
+    grid((-0.5,0.5),(15.5,-10.5), stroke: (paint: gray.transparentize(50%)))
+    rect((4.5,-3.5),(9.5,-12),fill:white, stroke: none)
+
+
     circle((0,-9), radius: 0.5, stroke: (paint: gray.darken(40%)))
     circle((0,-7), radius: 0.5, stroke: (paint: gray.darken(40%)))
     circle((0,-5), radius: 0.5, stroke: (paint: gray.darken(40%), dash: "dashed"))
@@ -78,8 +83,8 @@ Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Als Ankerpunk
     line((-1,-3),(-0.5,-3), mark: mark, stroke: (paint: green))
     content((0,-3), text(fill:green)[$p$])
 
-    line((-0.5,-1.5),(0,-1.5), mark: mark, stroke: (paint: orange))
-    content((0.5,-1.5), text(fill:orange)[$r$])
+    line((-0.5,-7),(0,-7), mark: mark, stroke: (paint: orange))
+    content((1,-7), text(fill:orange)[$r$])
 
     circle((4,-3), radius: 0.1, stroke: (paint: purple))
     content((4.7,-3), text(fill:purple)[$t_1$])
@@ -116,8 +121,9 @@ $
   (x=t_(x,1) and t_(y,1) <= y <= y_"max") or (x=t_(x,2) and t_(y,1) <= y <= y_"max") or \
   (t_(x,1) <= x <= t_(x,2) and y = t_(y,1))
 $ 
+Die dadurch formulierten zulässigen Positionen der @UE:pl sind in @fig:input-dimensions orange hinterlegt.
 
-Auf gegenüberliegenden Seiten der Struktur sind zwei @UE stets genau um $d$ Millimeter entlang der jeweiligen Seite versetzt angeordnet und alternieren zwischen beiden Seiten. Für zwei vertikale Seiten an den x-Koordinaten ${x_1, x_2} in {{0, t_(x,2)}, {t_(x,1), x_("max")-1}, {0,x_"max"-1}}$ ergibt sich im Modell:
+Auf gegenüberliegenden Seiten der Struktur sind zwei @UE stets genau um $d$ Millimeter entlang der jeweiligen Seite versetzt angeordnet und alternieren zwischen beiden Seiten. Für zwei vertikale Seiten an den x-Koordinaten ${x_1, x_2} in {{0, t_(x,2)}, {t_(x,1), x_("max")-1}, {0,x_"max"}}$ ergibt sich im Modell:
 
 $ 
 forall (x,y) in A: 
@@ -125,7 +131,7 @@ forall (x,y) in A:
   (x=x_2 arrow {(x_1, y), (x_2, y-1), (x_2, y+1)} inter A = emptyset)
 $<eq:rollen-platzierung-vertikale-seiten>
 
-Analog gilt für zwei horizontale Seiten mit den y-Koordinaten ${y_1, y_2} in {{0, y_("max")-1}, {0, t_(y,1)}}$:
+Analog gilt für zwei horizontale Seiten mit den y-Koordinaten ${y_1, y_2} in {{0, y_("max")}, {0, t_(y,1)}}$:
 
 $
 forall (x,y) in A: 
@@ -182,9 +188,9 @@ In @fig:ue-place-model (a) ist der Sachverhalt aus @eq:rollen-platzierung-vertik
         circle((0*r, 0*r), radius: (r,r))
         circle((-4*r, 0*r), radius: (r,r))
 
-        content((-10*r, 0*r), [$y=y_("max")-1$])
+        content((-10*r, 0*r), [$y=y_("max")$])
         line((-6*r, 0*r), (4*r, 0*r), stroke: (dash: "dashed", paint: darkgray))
-        content((2*r, 9*r), [$x=x_("max")-1$])
+        content((2*r, 9*r), [$x=x_("max")$])
         line((2*r, 8*r), (2*r, -2*r), stroke: (dash: "dashed", paint: darkgray))
 
         line((-6*r, -2*r), (4*r, -2*r))

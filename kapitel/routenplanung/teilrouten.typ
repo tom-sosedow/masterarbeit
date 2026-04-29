@@ -31,14 +31,14 @@ Für die @UE in den drei Bereichen $L V, R V  "und" T V$ für vertikale Streben 
 $
   forall v in V&: v in L V <=> 1 <= v_((x)) < t_(x,1) \
   forall v in V&: v in T V <=> t_(x,1) <= v_((x)) <= t_(x,2) \
-  forall v in V&: v in R V <=> t_(x,2) < v_((x)) < x_("max")-1 \
+  forall v in V&: v in R V <=> t_(x,2) < v_((x)) < x_("max") \
 $
 sowie für die Bereiche $L H, R H "und" T H$ für horizontale Streben
 
 $
-  forall v in V&: v in L H <=> (t_(y,1) <= v_((y)) < y_("max")-1) and (0 <= v_((x)) <= t_(x,1)+1) \
+  forall v in V&: v in L H <=> (t_(y,1) <= v_((y)) < y_("max")) and (0 <= v_((x)) <= t_(x,1)+1) \
   forall v in V&: v in T H <=> 0 < v_((y)) < t_(y,1) \
-  forall v in V&: v in R H <=> (t_(y,1) <= v_((y)) < y_("max")-1) and (t_(x,1)-1 <= v_((x)) < x_("max")) \
+  forall v in V&: v in R H <=> (t_(y,1) <= v_((y)) < y_("max")) and (t_(x,1)-1 <= v_((x)) < x_("max")) \
 $
 
 Die Anordnung der @UE bildet sich aus den Bereichen durch Anordnung der @UE entlang der Hauptachse bzw. Scanrichtung. Somit gilt für $p_x in {L V, R V, T V}, p_x = (v_1, ..., v_k)$
@@ -55,46 +55,45 @@ Um ein Durchlaufen der Teilrouten in umgekehrter Richtung, also entgegen der Hau
 
 Der dadurch entstehende Lösungsraum $Omega$ ist mit einer Kardinalität von $|Omega| = 6 product_(i = 1)^(6) 2i = 276'480$ möglichen Abfolgen von Teilrouten um Größenordnungen kleiner als jener bei einer punktbasierten Planung sowie unabhängig von der Größe der Wand und der daraus resultierenden Anzahl an @UE. Zusätzlich können viele Elemente aus der Menge entfernt werden, weil sie Reihenfolgen von Teilbereichen enthalten, welche ohnehin keine valide Abfolge darstellen. Das ist beispielsweise der Fall, falls auf ein $R V$ direkt ein $L V$ folgt, da sie sich keine Ecke der Wand teilen und somit ohne Umweg über $T V$ keine valide Route entstehen kann. 
 
-Zur Bildung einer validen Abfolge kann ein Entscheidungsbaum genutzt werden. Ein Auszug aus diesem ist in @fig:entscheidungsbaum-teilrouten veranschaulicht. Hier ist unter anderem dargestellt, wie die Hinzunahme eines optionalen Umlenkelements eine Navigation zwischen den zwei Bereichen $L V^R$ und $R V^R$ ermöglicht. Außerdem ist zu sehen, dass die Wahl von $L V^R$ alle weiteren $L V$ und $L V^R$ aus unteren Ebenen des Baumes entfernt, da die vertikalen Streben sonst mehrfach verlegt werden würden. Eine valide Abfolge entsteht, wenn ein Blatt erreicht wird oder der einzige Kindknoten das optionale @UE ist und nicht gewählt wird.
+// Zur Bildung einer validen Abfolge kann ein Entscheidungsbaum genutzt werden. Ein Auszug aus diesem ist in @fig:entscheidungsbaum-teilrouten veranschaulicht. Hier ist unter anderem dargestellt, wie die Hinzunahme eines optionalen Umlenkelements eine Navigation zwischen den zwei Bereichen $L V^R$ und $R V^R$ ermöglicht. Außerdem ist zu sehen, dass die Wahl von $L V^R$ alle weiteren $L V$ und $L V^R$ aus unteren Ebenen des Baumes entfernt, da die vertikalen Streben sonst mehrfach verlegt werden würden. Eine valide Abfolge entsteht, wenn ein Blatt erreicht wird oder der einzige Kindknoten das optionale @UE ist und nicht gewählt wird.
 
-#figure(
-  raw-render(
-    ```dot
-    digraph {
-      rankdir=TB
-      ranksep=0.3;
-      nodesep=0.1;
-      node[shape=circle];
-      root [label=""];
-      root -> {LV LVR TH THR "..." RV RVR};
-      LVR -> {TH2[label="TH"] THR2[label="THR"] DOTS2[label="..."]}
+// #figure(
+//   raw-render(
+//     ```dot
+//     digraph {
+//       rankdir=TB
+//       ranksep=0.3;
+//       nodesep=0.1;
+//       node[shape=circle];
+//       root [label=""];
+//       root -> {LV LVR TH THR "..." RV RVR};
+//       LVR -> {TH2[label="TH"] THR2[label="THR"] DOTS2[label="..."]}
 
-      RV2[label="RV", color = red, fontcolor = red]
-      LVR -> RV2[color=red, fontcolor=red]
-      RVR2[label="RVR", color = red, fontcolor = red]
-      LVR -> RVR2[color=red, fontcolor=red]
+//       RV2[label="RV", color = red, fontcolor = red]
+//       LVR -> RV2[color=red, fontcolor=red]
+//       RVR2[label="RVR", color = red, fontcolor = red]
+//       LVR -> RVR2[color=red, fontcolor=red]
 
-      O[label="O", color=green, fontcolor=green]
-      LVR -> O[color=green]
+//       O[label="O", color=green, fontcolor=green]
+//       LVR -> O[color=green]
 
-      O -> {TH3[label="TH"] THR3[label="THR"] DOTS3[label="..."]}
-      RV3[color=red, fontcolor=red, label="RV"]
-      O -> {RVR3[label="RVR"]}
-      O -> RV3[color=red]
+//       O -> {TH3[label="TH"] THR3[label="THR"] DOTS3[label="..."]}
+//       RV3[color=red, fontcolor=red, label="RV"]
+//       O -> {RVR3[label="RVR"]}
+//       O -> RV3[color=red]
 
 
-    }
-    ```
-  ),
-  caption: [Ausschnitt aus dem Entscheidungsbaum zur Bildung einer Abfolge von Teilrouten. Für das Beispiel sei eine optionale Rolle $v in O$, in Grün dargestellt, in der oberen rechten Ecke der Wand platziert. Invalide Schritte, die zwei Teilbereiche verketten würden, welche sich keine Ecke der Wand teilen, sind in Rot dargestellt.],
-)<fig:entscheidungsbaum-teilrouten>
+//     }
+//     ```
+//   ),
+//   caption: [Ausschnitt aus dem Entscheidungsbaum zur Bildung einer Abfolge von Teilrouten. Für das Beispiel sei eine optionale Rolle $v in O$, in Grün dargestellt, in der oberen rechten Ecke der Wand platziert. Invalide Schritte, die zwei Teilbereiche verketten würden, welche sich keine Ecke der Wand teilen, sind in Rot dargestellt.],
+// )<fig:entscheidungsbaum-teilrouten>
 
 
 Für die Bewertung gefundener Lösungen muss die bestehende Bewertungsfunktion nicht angepasst werden. Aus einer Permutation $pi: NN -> P_V$ lässt sich eine Route durch Verkettung der einzelnen Permutationen berechnen. Somit ist eine Funktion $T: P_V^k -> R, k = cases(6 ", falls kein opt. UE gewählt", 7 ", sonst") $ definiert, sodass
 $ T((pi(1),...,pi(k))) = pi(1) circle.small ... circle.small pi(k) $
 gilt.
 
-#question[Lieber die obere @fig:entscheidungsbaum-teilrouten mit dem Entscheidungsbaum oder dieser Graph?]
 
 #figure(
   raw-render(
