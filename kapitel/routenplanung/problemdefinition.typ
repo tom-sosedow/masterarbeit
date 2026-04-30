@@ -34,15 +34,15 @@ Es ist zu erkennen, dass manche @UE mehrmals angefahren werden müssen, wie zum 
 
 // Doppelte Rollen
 Damit dennoch ein Hamiltonpfad Betrachtungsgegenstand bleibt und somit jedes @UE nur einmalig in der Route vorkommt, werden diese @UE an besonderen Stellen erneut der Menge $V$ hinzugefügt, mit gleichen Koordinaten, aber unterschiedlichem Index $v_i$. Zu diesen besonderen Stellen gehören beide @UE an den beiden oberen Ecken des Türausschnittes, spezifiziert durch
-$ { v in V mid(|) (t_(y,1) <= v_((y)) <= t_(y,1) + 1) and 
+$ { v in V mid(|) (ty1 <= v_((y)) <= ty1 + 1) and 
   (cases(
     delim: #none, 
-    t_(x,1) <= v_((x)) <= t_(x,1) + 1 or ,
-    t_(x,2)-1 <= v_((x)) <= t_(x,2)
+    tx1 <= v_((x)) <= tx1 + 1 or ,
+    tx2-1 <= v_((x)) <= tx2
   ))
 }  $
 sowie das in @fig:simple-route Pink markierte @UE an der linken oder rechten Seite der Wand direkt über dem Türausschnitt spezifiziert durch 
-$ v_((y)) = t_(y,1) -1 and (v_((x)) = 0 or v_((x)) = x_("max")), v in V $
+$ v_((y)) = ty1 -1 and (v_((x)) = 0 or v_((x)) = xmax), v in V $
 für ein Ende der Route und die letzte horizontale Strebe. 
 
 // Tür 2 Fälle

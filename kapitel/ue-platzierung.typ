@@ -1,5 +1,7 @@
 #import "/util.typ": *
 #import "@preview/cetz:0.4.2"
+#import "@preview/algorithmic:1.0.7"
+#import algorithmic: style-algorithm, algorithm-figure
 
 = Platzierung der Umlenkelemente <sec:ue-place>
 In diesem Kapitel wird die Forschungsfrage I bezüglich der Platzierung der @UE:pl:long  untersucht. Hierzu wird zunächst das zugrunde liegende Problem definiert, abgegrenzt und mathematisch modelliert. Anschließend wird der aktuelle Stand der Forschung zu diesem Problem dargestellt. Darauf aufbauend wird eine Lösungsmethode entwickelt und erläutert. Abschließend erfolgt eine Darstellung der erzielten Ergebnisse.
@@ -100,30 +102,30 @@ Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Als Ankerpunk
 Da der Abstand zwischen zwei @UE stets ein Vielfaches von $d$ beträgt, ergeben sich diskrete mögliche Positionen auf einem regelmäßigen Raster, welches in @fig:input-dimensions grau dargestellt ist.
 
 Die Positionen der Mittelpunkte der @UE in diesem Raster können durch eine Menge A von zweidimensionalen Koordinaten mit 
-$ A subset {(x,y) in NN_0^2 | 0 <= x <= x_("max"), 0 <= y <= y_("max")} $
-modelliert werden, wobei durch $x_("max") = floor(w_b / d)$ und $y_("max") = floor(w_h / d)$ eine Rasterung der Echtwelt-Koordinaten vollzogen wird. Eine Einheit im Modell beträgt also $d$ Millimeter in der echten Welt. Die Umrechnung von Koordinaten im Modell zu Koordinaten in Millimetern in der Realität erfolgt durch die Abbildung
+$ A subset {(x,y) in NN_0^2 | 0 <= x <= xmax, 0 <= y <= ymax} $
+modelliert werden, wobei durch $xmax = floor(w_b / d)$ und $ymax = floor(w_h / d)$ eine Rasterung der Echtwelt-Koordinaten vollzogen wird. Eine Einheit im Modell beträgt also $d$ Millimeter in der echten Welt. Die Umrechnung von Koordinaten im Modell zu Koordinaten in Millimetern in der Realität erfolgt durch die Abbildung
 $ (x,y) in NN^2_0 |-> (x*d + r + p, y*d + r + p) $
 
 Der Türausschnitt wird durch ein Koordinatentupel der oberen linken Ecke 
-$ t_1 = (t_(x,1), t_(y,1)) = (floor(t_x/d), y_"max" - ceil(t_h/d)) $ 
+$ t_1 = (tx1, ty1) = (floor(t_x/d), ymax - ceil(t_h/d)) $ 
 sowie der unteren rechten Ecke 
-$ t_2 = (t_(x,2), t_(y,2)) = (t_(x,1) + ceil(t_b/d), y_"max") $ 
+$ t_2 = (tx2, ty2) = (tx1 + ceil(t_b/d), ymax) $ 
 beschrieben. Beide Punkte sind in @fig:input-dimensions in Lila dargestellt.
 
-Der Koordinatenursprung befindet sich in dieser Arbeit in der oberen linken Ecke. Die $x$-Achse verläuft nach rechts, die $y$-Achse nach unten in positiver Richtung. Entsprechend liegt die obere Wandkante bei $y=0$, die untere bei $y=y_("max")$, die linke Seite bei $x=0$ und die rechte bei $x=x_("max")$.
+Der Koordinatenursprung befindet sich in dieser Arbeit in der oberen linken Ecke. Die $x$-Achse verläuft nach rechts, die $y$-Achse nach unten in positiver Richtung. Entsprechend liegt die obere Wandkante bei $y=0$, die untere bei $y=ymax$, die linke Seite bei $x=0$ und die rechte bei $x=xmax$.
 
 // Restriktionen und Zickzackmster der Rollen
 Die @UE:pl:long sollten nur an den Rändern der Wand nahe der Schalungselemente platziert werden, damit die resultierenden Streben die volle verfügbare Länge nutzen und somit maximale Zugkraft aufnehmen können. Die Positionen der @UE müssen somit folgende Anforderungen erfüllen:
 $
   forall (x,y) in A: 
-  (x=0 and 0 <= y <= y_"max") or (x=x_"max" and 0 <= y <= y_"max") or \
-  (0<=x<=x_"max" and y=0) or (0<=x<=x_"max" and y=y_"max") or \
-  (x=t_(x,1) and t_(y,1) <= y <= y_"max") or (x=t_(x,2) and t_(y,1) <= y <= y_"max") or \
-  (t_(x,1) <= x <= t_(x,2) and y = t_(y,1))
+  (x=0 and 0 <= y <= ymax) or (x=xmax and 0 <= y <= ymax) or \
+  (0<=x<=xmax and y=0) or (0<=x<=xmax and y=ymax) or \
+  (x=tx1 and ty1 <= y <= ymax) or (x=tx2 and ty1 <= y <= ymax) or \
+  (tx1 <= x <= tx2 and y = ty1)
 $ 
 Die dadurch formulierten zulässigen Positionen der @UE:pl sind in @fig:input-dimensions orange hinterlegt.
 
-Auf gegenüberliegenden Seiten der Struktur sind zwei @UE stets genau um $d$ Millimeter entlang der jeweiligen Seite versetzt angeordnet und alternieren zwischen beiden Seiten. Für zwei vertikale Seiten an den x-Koordinaten ${x_1, x_2} in {{0, t_(x,2)}, {t_(x,1), x_("max")-1}, {0,x_"max"}}$ ergibt sich im Modell:
+Auf gegenüberliegenden Seiten der Struktur sind zwei @UE stets genau um $d$ Millimeter entlang der jeweiligen Seite versetzt angeordnet und alternieren zwischen beiden Seiten. Für zwei vertikale Seiten an den x-Koordinaten ${x_1, x_2} in {{0, tx2}, {tx1, xmax-1}, {0,xmax}}$ ergibt sich im Modell:
 
 $ 
 forall (x,y) in A: 
@@ -131,7 +133,7 @@ forall (x,y) in A:
   (x=x_2 arrow {(x_1, y), (x_2, y-1), (x_2, y+1)} inter A = emptyset)
 $<eq:rollen-platzierung-vertikale-seiten>
 
-Analog gilt für zwei horizontale Seiten mit den y-Koordinaten ${y_1, y_2} in {{0, y_("max")}, {0, t_(y,1)}}$:
+Analog gilt für zwei horizontale Seiten mit den y-Koordinaten ${y_1, y_2} in {{0, ymax}, {0, ty1}}$:
 
 $
 forall (x,y) in A: 
@@ -188,9 +190,9 @@ In @fig:ue-place-model (a) ist der Sachverhalt aus @eq:rollen-platzierung-vertik
         circle((0*r, 0*r), radius: (r,r))
         circle((-4*r, 0*r), radius: (r,r))
 
-        content((-10*r, 0*r), [$y=y_("max")$])
+        content((-10*r, 0*r), [$y=ymax$])
         line((-6*r, 0*r), (4*r, 0*r), stroke: (dash: "dashed", paint: darkgray))
-        content((2*r, 9*r), [$x=x_("max")$])
+        content((2*r, 9*r), [$x=xmax$])
         line((2*r, 8*r), (2*r, -2*r), stroke: (dash: "dashed", paint: darkgray))
 
         line((-6*r, -2*r), (4*r, -2*r))
@@ -216,8 +218,8 @@ $
 $<eq:sonderstelle-eingrenzung>
 
 wobei M durch 
-$ M= {(0,1),(1,0),(0,y_"max"-1),(1,y_"max"),(x_"max",y_"max"-1), 
-  \ (x_"max"-1,y_"max"), (x_"max"-1, 0),(x_"max", 1), (t_(x,1)-1, y_"max"), (t_(x,1), y_"max"-1)}
+$ M= {(0,1),(1,0),(0,ymax-1),(1,ymax),(xmax,ymax-1), 
+  \ (xmax-1,ymax), (xmax-1, 0),(xmax, 1), (tx1-1, ymax), (tx1, ymax-1)}
 $
 definiert ist.
 
@@ -227,7 +229,7 @@ $ |A| -> max! $
 // Anzahl der Fälle
 Wird einer der Eingabeparameter um mindestens $d$ vergrößert, kann entlang der entsprechenden Hauptachse des Parameters ein weiteres @UE auf der gegenüberliegenden Seite platziert werden.
 
-Erhöht sich beispielsweise die Wandbreite auf $x'_"max" = x_("max") + 1$ und befindet sich das aktuell letzte @UE in der oberen rechten Ecke ($a = (x_("max")-1,0)$), kann anschließend ein weiteres @UE in der unteren rechten Ecke ($a' = (x'_"max"-1, y_"max")$) platziert werden.
+Erhöht sich beispielsweise die Wandbreite auf $x'_"max" = xmax + 1$ und befindet sich das aktuell letzte @UE in der oberen rechten Ecke ($a = (xmax-1,0)$), kann anschließend ein weiteres @UE in der unteren rechten Ecke ($a' = (x'_"max"-1, ymax)$) platziert werden.
 
 Dadurch können sich die Orte der Sonderstellen ändern, was wiederum erhebliche Auswirkungen auf die anschließende Routenplanung hat. Wird die Breite anschließend erneut erhöht, befinden sich die Sonderstellen jedoch wieder an denselben Positionen wie vor den beiden Vergrößerungen. In diesem Fall kann dieselbe Route verwendet werden, allerdings mit zwei zusätzlichen @UE. 
 Dieser Sachverhalt gilt analog für alle fünf Eingabeparameter der Wand. Daraus ergeben sich insgesamt höchstens $N <= 2^5 = 32$ verschiedene mögliche Kombinationen von Wanddimensionen bzw. Positionen von Sonderstellen.
@@ -346,15 +348,84 @@ Da keine relevanten Arbeiten zum hier betrachteten Problem identifiziert werden 
 Die im folgenden Abschnitt vorgestellte Lösungsmethode ist stark an die derzeit verwendete Methode des @CBT zur Berechnung der Positionen der @UE:pl:long angelehnt. Es wird wieder iterativ vorgegangen, allerdings wird der Ablauf für die komplexeren Anforderungen erweitert und angepasst.
 
 // Tür zuerst
-Aufgrund der begrenzten Möglichkeiten zur Platzierung der @UE am Türausschnitt, ohne die spätere Routenplanung stark einzuschränken, werden diese Positionen zuerst bestimmt. Standardmäßig wird dabei ein @UE in der unteren linken Ecke der Tür bei Position $(t_(x,1), y_"max"-1)$ platziert, woraus sich die Positionen der übrigen @UE ableiten lassen.
+Aufgrund der begrenzten Möglichkeiten zur Platzierung der @UE am Türausschnitt, ohne die spätere Routenplanung stark einzuschränken, werden diese Positionen zuerst bestimmt. Standardmäßig wird dabei ein @UE in der unteren linken Ecke der Tür bei Position $p_0 = (tx1, ymax-1)$ platziert. Aus diesem lassen sich anschließend alle Positionen der übrigen @UE ableiten.
 
 // vertikale Rollen links und rechts
-Aus den Positionen der @UE entlang der Seiten des Türausschnitts ergeben sich anschließend die Positionen der @UE an der linken und rechten Wandseite. Dabei wird jeweils an denjenigen Stellen ein @UE an der Wand platziert, an denen entlang des Türausschnitts eine Lücke besteht.
+Dafür werden zunächst die @UE an den vertikal verlaufenden Seiten der Tür und Wand bestimmt, da die @UE auf der linken Seite der Tür auf gleicher Höhe wie die auf der rechten Seite der Wand liegen und analog auch für die rechte Seite der Tür und linke Seite der Wand. Dafür werden, ausgehend von $p_0$, von $y=ymax-1$ bis $y=1$ die beiden auf dem jeweiligen $y$ liegenden @UE:pl alternierend platziert. Folgender Pseudocode veranschaulicht das Vorgehen.
+
+#show: style-algorithm
+#figure(
+  stack(
+    spacing: 10pt,
+    algorithm-figure(
+      "Vertikale UE platzieren",
+      supplement: "Algorithmus",
+      vstroke: .5pt + luma(200),
+      {
+        import algorithmic: *
+        Function(
+          "PlaceVertGE",
+          ("A", $xmax$, $ymax$, $t_1$, $t_2$),
+          {
+            Assign[$y$][$ymax-1$]
+            While(
+              $y >= 1$,
+              {
+                Comment[Spaltenindex, in dem das UE an der Tür platziert werden muss]
+                Assign($t x$, IfElseInline($(ymax - 1 - y) mod 2= 0$, $tx1$, $tx2$))
+                LineBreak
+                Comment[Spaltenindex, in dem das UE am Rand der Wand platziert werden muss]
+                Assign($w x$, IfElseInline($(ymax - 1 - y) mod 2= 0$, $xmax$, $0$))
+                LineBreak
+                If($y > ty1$, Assign($A$, $A union {(t x, y)}$))
+                Assign[$A$][$A union {(w x, y)}$]
+                Assign[$y$][$y - 1$]
+              }
+            )
+            Return[$A$]
+          },
+        )
+      }
+    ),
+    box(
+      inset: (top: -110pt, right: -250pt),
+      cetz.canvas(background: white, {
+        import cetz.draw: *
+
+        scale(0.4)
+        
+        let rolls = (
+          (4,9), (15,9),(-1,8),(10,8),(4,7), (15,7),(-1,6),(10,6),(4,5), (15,5),(-1,4),(10,4),(15,3),(-1,2),(15,1),
+        )
+        grid((-1.5,0.5),(15.5,-10.5), stroke: (paint: gray.transparentize(50%)))
+        rect((4.52,-3.52),(9.48,-11), fill: white, stroke: none)
+
+        for (index, point) in rolls.map((p) => (p.at(0), -1*p.at(1))).enumerate() {
+          circle(point, radius: (0.5,0.5), stroke: (paint: green.darken(40%)))
+          content(point, text(fill:green.darken(40%))[#index])
+        }
+
+        line((-2,1),(16,1))
+        line((16,1),(16,-11))
+        line((16,-11),(9,-11))
+        line((9,-11),(9, -4))
+        line((9, -4), (5,-4))
+        line((5,-11),(5, -4))
+        line((5, -11),(-2,-11))
+        line((-2,-11),(-2,1))
+
+      }),
+    ),
+
+  ),
+  caption: [Erster Schritt für die Platzierung der UE]
+  
+)
 
 
 #todo[Erklärungen ausbauen, wie sich die Position von UE aus den Positionen andere UE ergibt]
 
-Durch die Lage des obersten @UE an der linken und rechten Seite des Türausschnitts lassen sich die Positionen der @UE:pl an der Oberseite des Türausschnitts bestimmen. So wird, falls das oberste @UE bei $(t_(x,1), t_(y,1)+1)$ liegt, kein @UE auf den anliegenden Nachbarfeldern ${(x,t_(y,1)) | t_(x,1) <= x <= t_(x,1) +1}$ platziert. In @fig:oberkante-türausschnitt sind diese unzulässigen Positionen rot und das ausschlaggebende Seitenelement blau markiert. Liegt das oberste @UE bei $(t_(x,2), t_(y,1)+1)$ so können keine @UE an den Stellen ${(x,t_(y,1)) | t_(x,2)-1 <= x <= t_(x,2)}$ abgelegt werden. So wird verhindert, dass in den oberen Türecken @UE diagonal nebeneinander liegen und sch somit eine Sonderstelle bildet.
+Durch die Lage des obersten @UE an der linken und rechten Seite des Türausschnitts lassen sich die Positionen der @UE:pl an der Oberseite des Türausschnitts bestimmen. So wird, falls das oberste @UE bei $(tx1, ty1+1)$ liegt, kein @UE auf den anliegenden Nachbarfeldern ${(x,ty1) | tx1 <= x <= tx1 +1}$ platziert. In @fig:oberkante-türausschnitt sind diese unzulässigen Positionen rot und das ausschlaggebende Seitenelement blau markiert. Liegt das oberste @UE bei $(tx2, ty1+1)$ so können keine @UE an den Stellen ${(x,ty1) | tx2-1 <= x <= tx2}$ abgelegt werden. So wird verhindert, dass in den oberen Türecken @UE diagonal nebeneinander liegen und sch somit eine Sonderstelle bildet.
 
 #figure(
   cetz.canvas({
@@ -384,13 +455,13 @@ Durch die Lage des obersten @UE an der linken und rechten Seite des Türausschni
 // horizontale Rollen oben und unten, top offset
 Die grün markierten @UE an der Oberkante des Türausschnitts bestimmen wiederum die Positionen der @UE an der Oberseite der Wand und damit indirekt auch an der Unterseite. Hierzu wird die Position des am weitesten links liegenden @UE an Position $(x,y)$ an der Oberseite des Türausschnitts mit $t_x$ verglichen (in @fig:fully-placed-ue-wall blau dargestellt):
 $ omega = cases(
-  0 ", falls" 2 divides.not t_(x,1) and t_(x,1) <= x <= t_(x,1)+1 and 2 divides.not (t_(x,2)-t_(x,1)),
-  1 ", falls" 2 divides.not t_(x,1),
-  1 ", falls" 2 divides (t_(x,2)-t_(x,1)) and t_(x,1) <= x <= t_(x,1)+1,
+  0 ", falls" 2 divides.not tx1 and tx1 <= x <= tx1+1 and 2 divides.not (tx2-tx1),
+  1 ", falls" 2 divides.not tx1,
+  1 ", falls" 2 divides (tx2-tx1) and tx1 <= x <= tx1+1,
   0 ", sonst"
 ) $
 Dabei beschreibt $omega$ den horizontalen Versatz der @UE an der Oberkante der Wand. Die Positionen der @UE dort ergeben sich damit zu:
-$ { (x + omega, 0) | 0 < x < x_("max"), 2 | (x+1)} subset A $
+$ { (x + omega, 0) | 0 < x < xmax, 2 | (x+1)} subset A $
 
 #todo[Vielleicht simplen Pseudocode einfügen, der den Ansatz ohne Müll zeigt?]
 

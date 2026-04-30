@@ -19,10 +19,10 @@ Die Hilfsfunktion $a u s n a h m e(b,c)$ nimmt den Wert „falsch“ an, sofern 
 Der Türausschnitt wird im Modell als Hindernis interpretiert. Entsprechend müssen alle Kanten, die durch diesen Bereich verlaufen würden, mit zusätzlichen Kosten belegt werden. Dies erfolgt durch die Funktion $t$:
 // $ t(a,b,c) = cases(
 //   50 ", falls" cases(delim: #none,
-//     "("b_((y)) >= t_(y,1) and c_((y)) > t_(y,1) or, // below door down
-//     b_((y)) > t_(y,1) and c_((y)) >= t_(y,1)")" and, // below door up
-//     "("b_((x)) <= t_(x,1) and c_((x)) > t_(x,1)+1 or, // ltr
-//     b_((x)) >= t_(x,2) and c_((x)) < t_(x,2)-1")", // rtl
+//     "("b_((y)) >= ty1 and c_((y)) > ty1 or, // below door down
+//     b_((y)) > ty1 and c_((y)) >= ty1")" and, // below door up
+//     "("b_((x)) <= tx1 and c_((x)) > tx1+1 or, // ltr
+//     b_((x)) >= tx2 and c_((x)) < tx2-1")", // rtl
 //   ),
 //   0 ", sonst"
 // ) $
@@ -30,7 +30,7 @@ $ t(a,b,c) = cases(
   50 ", falls" s c h n e i d e t(overline(b c), T),
   0 ", sonst"
 ) $
-Dabei ist $T = ((t_(x,1)+1, t_(y,1)+1), (t_(x,2)-1, t_(y,2)-1))$ als Rechteck definiert, das den Türausschnitt beschreibt. Die Funktion $s c h n e i d e t: (NN_0^2 times NN_0^2) times N_0^4 -> BB$ liefert den Wahrheitswert „wahr“, falls die Strecke $overline(b c)$ das durch $T$ definierte Rechteck schneidet.
+Dabei ist $T = ((tx1+1, ty1+1), (tx2-1, ty2-1))$ als Rechteck definiert, das den Türausschnitt beschreibt. Die Funktion $s c h n e i d e t: (NN_0^2 times NN_0^2) times N_0^4 -> BB$ liefert den Wahrheitswert „wahr“, falls die Strecke $overline(b c)$ das durch $T$ definierte Rechteck schneidet.
 
 // Sonderstellen Herzumlenkungen
 Zur Berücksichtigung spezieller Strukturanforderungen wird zusätzlich die Funktion $h$ eingeführt. Diese bestraft Routen, bei denen an Sonderstellen keine Verbindung zwischen den beiden @UE hergestellt wird. Konkret wird ein Kostenwert vergeben, falls von den beteiligten @UE nicht mindestens eine Kante zum jeweils anderen @UE existiert:
