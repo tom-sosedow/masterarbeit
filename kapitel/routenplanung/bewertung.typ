@@ -48,15 +48,13 @@ Eine Route mit Gesamtkosten von 0 stellt dabei eine optimale Lösung dar, wobei 
 // gesamtheitlich strukturelle Bewertung hier noch nicht sinnvoll
 Eine rein strukturelle Gesamtbetrachtung ohne Berücksichtigung einzelner Kanten und deren Reihenfolge liefert im Kontext der Routenplanung keinen zusätzlichen Mehrwert. Dies liegt darin begründet, dass die resultierende Struktur maßgeblich vom tatsächlich durchlaufenen Pfad um die @UE abhängt. Aus der Route allein lassen sich nicht alle für eine umfassende Bewertung notwendigen Informationen ableiten, weshalb die Bewertung konsequent kantenbasiert erfolgt.
 
-#maybe[Ausbauen und klarstellen, dass es darum geht, dass ohne info über das resultierende garn keine zuverlässigen infos über die struktur gewonnen werden können]
-
 // Vergleichbarkeit durch Kosten
 Auf Grundlage der berechneten Kosten können verschiedene Routen miteinander verglichen werden. Die Bewertungsfunktion induziert dabei eine totale Quasiordnung $O$ auf der Trägermenge $R$ aller möglichen Routen. Diese ist definiert als
 $ O subset.eq R times R, O = {(a,b) | a,b in R, c(a) <= c(b)} $
 Eine vollständige Totalordnung liegt jedoch nicht vor, da die Eigenschaft der Antisymmetrie verletzt ist, wenn zwei unterschiedliche Routen identische Kosten aufweisen.
 
 #question[
-  Muss ich das beweisen? Wie in Modellierung damals jede Eigenschaft einzeln?
+  Muss ich das beweisen? Wie in Modellierung damals jede Eigenschaft einer totalen Quasiordnung einzeln? 
 ]
 
 
@@ -87,7 +85,7 @@ Um die Ergebnisse vergleichbar zu machen, werden vier verschiedene Wandkonfigura
 Für nicht-deterministische Methoden, welche einen Zufallsgenerator benötigen, werden zwei selbstgewählte Initialisierungswerte $s_1 = 1234$ und $s_2 = 84273915$ festgelegt, um die Ergebnisse in diesen Testläufen vergleichbar zu halten. Auch hier werden wieder je Wert vier Testläufe durchgeführt.
 
 // Hardware
-Alle Tests werden auf einem Intel(R) Core(TM) i5-8350U Prozessor und 24 GB Arbeitsspeicher durchgeführt. Während der Testläufe laufen keine anderen Nutzeranwendungen, die die Leistungsfähigkeit des Computers signifikant beeinträchtigen. Die Algorithmen werden in einer Kotlin 2.2.20 Anwendung implementiert und getestet.
+Alle Tests werden auf einem Intel(R) Core(TM) i5-8350U Prozessor und 24 GB Arbeitsspeicher durchgeführt. Während der Testläufe laufen keine anderen Nutzeranwendungen, die die Leistungsfähigkeit des Computers signifikant beeinträchtigen. Die Algorithmen werden in einer Kotlin 2.2.20 Anwendung implementiert und getestet, da somit die spätere Integration in das bestehende Backend des @CBT vereinfacht wird.
 
 // Berechnungsdauer eher unwichtig
 Die Berechnungsdauer spielt im vorliegenden Anwendungsfall eher eine untergeordnete Rolle, eine möglichst kurze Rechenzeit ist dennoch wünschenswert, da somit die Produktionskapazitäten gesteigert und Ressourcen geschont werden können.

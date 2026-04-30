@@ -232,7 +232,7 @@ Erhöht sich beispielsweise die Wandbreite auf $x'_"max" = x_("max") + 1$ und be
 Dadurch können sich die Orte der Sonderstellen ändern, was wiederum erhebliche Auswirkungen auf die anschließende Routenplanung hat. Wird die Breite anschließend erneut erhöht, befinden sich die Sonderstellen jedoch wieder an denselben Positionen wie vor den beiden Vergrößerungen. In diesem Fall kann dieselbe Route verwendet werden, allerdings mit zwei zusätzlichen @UE. 
 Dieser Sachverhalt gilt analog für alle fünf Eingabeparameter der Wand. Daraus ergeben sich insgesamt höchstens $N <= 2^5 = 32$ verschiedene mögliche Kombinationen von Wanddimensionen bzw. Positionen von Sonderstellen.
 
-#maybe[Induktionsbeweis, dass Fall $w_b approx w_b + 2d$ ?]
+#maybe[Induktionsbeweis, dass Fall $w_b approx w_b + 2d$ ? Also, dass beim vergrößern eines Maßes um $2d$ die Sonderstellen dann an den selben Positionen liegen wie vor der Erhöhung und die Berechnungen daher immer gleich ablaufen. Wäre vlt wichtig für die Validierung der Ergebnisse, weil ich somit nicht die Korrektheit für alle Maßangaben nachweisen muss, sondern nur für 32 Fälle, da 5 Eingabeparameter $p$ mit Länge $floor(p/d) mod 2 = 1 $ oder $floor(p/d) mod 2 = 0$ nur 2 Fälle haben jeweils.]
 
 \ 
 Der zu entwickelnde Algorithmus soll für sämtliche 32 möglichen Wandkonfigurationen die Positionen der @UE dynamisch bestimmen. Als Eingabe dienen dabei ausschließlich die fünf beschriebenen Parameter sowie der Radius der @UE. Die erzeugte Lösung muss in jedem Fall eine valide Konfiguration darstellen, bei der insbesondere sichergestellt ist, dass keine @UE einander überlappen oder außerhalb der zulässigen Bereiche, wie den Wand- oder Türgrenzen, positioniert werden.
@@ -352,7 +352,7 @@ Aufgrund der begrenzten Möglichkeiten zur Platzierung der @UE am Türausschnitt
 Aus den Positionen der @UE entlang der Seiten des Türausschnitts ergeben sich anschließend die Positionen der @UE an der linken und rechten Wandseite. Dabei wird jeweils an denjenigen Stellen ein @UE an der Wand platziert, an denen entlang des Türausschnitts eine Lücke besteht.
 
 
-#maybe[Erklärungen ausbauen, wie sich die Position von UE aus den Positionen andere UE ergibt]
+#todo[Erklärungen ausbauen, wie sich die Position von UE aus den Positionen andere UE ergibt]
 
 Durch die Lage des obersten @UE an der linken und rechten Seite des Türausschnitts lassen sich die Positionen der @UE:pl an der Oberseite des Türausschnitts bestimmen. So wird, falls das oberste @UE bei $(t_(x,1), t_(y,1)+1)$ liegt, kein @UE auf den anliegenden Nachbarfeldern ${(x,t_(y,1)) | t_(x,1) <= x <= t_(x,1) +1}$ platziert. In @fig:oberkante-türausschnitt sind diese unzulässigen Positionen rot und das ausschlaggebende Seitenelement blau markiert. Liegt das oberste @UE bei $(t_(x,2), t_(y,1)+1)$ so können keine @UE an den Stellen ${(x,t_(y,1)) | t_(x,2)-1 <= x <= t_(x,2)}$ abgelegt werden. So wird verhindert, dass in den oberen Türecken @UE diagonal nebeneinander liegen und sch somit eine Sonderstelle bildet.
 
@@ -392,7 +392,7 @@ $ omega = cases(
 Dabei beschreibt $omega$ den horizontalen Versatz der @UE an der Oberkante der Wand. Die Positionen der @UE dort ergeben sich damit zu:
 $ { (x + omega, 0) | 0 < x < x_("max"), 2 | (x+1)} subset A $
 
-#maybe[Vielleicht simplen Pseudocode einfügen, der den Ansatz ohne Müll zeigt?]
+#todo[Vielleicht simplen Pseudocode einfügen, der den Ansatz ohne Müll zeigt?]
 
 // Optionale Rollen in den Ecken
 In den äußersten Ecken der Wand sowie den unteren Ecken des Türausschnitts kann es außerdem vorkommen, dass die beiden nächstgelegenen @UE jeweils eine Manhattan-Distanz von genau $d_M = 2d$ zur Ecke besitzen. In diesem Fall besteht die Möglichkeit, ein zusätzliches @UE zu platzieren, welches optional in der Routenplanung verwendet werden kann, um größere Freiheitsgrade bei der Gestaltung der Umlenkungen zu erhalten. In @fig:fully-placed-ue-wall sind diese zusätzlichen @UE grün dargestellt.

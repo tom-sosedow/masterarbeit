@@ -8,11 +8,89 @@
 
 Ein Nachteil bei der punktbasierten Routenplanung ist, dass häufig Freiheiten bei der Wahl der nächsten Kante gelassen werden, wo eigentlich keine wirkliche Entscheidungsfreiehit besteht. So gibt es beispielsweise bei horizontal verlaufenden Streben jeweils immer nur den Knoten eine Ebene höher bzw. niedriger zu Auswahl. Eine Abweichung von diesem Muster würde eine irreparable Lücke in der Gitterstruktur erzeugen. Erst ganz oben bzw. unten in den Ecken der Wand oder auf Türhöhe gibt es mehrere Folgekanten, die in Frage kommen könnten.
 
-Vor diesem Hintergrund erscheint eine stärkere Strukturierung des Lösungsraumes sinnvoll, sodass unnötige Freiheitsgrade von vornherein reduziert werden. Eine geeignete konzeptionelle Grundlage hierfür bietet die aus dem Coverage Path Planning bekannte Boustrophedon Cellular Decomposition nach #citep(<chosetCoveragePathPlanning1998>). Dieses Verfahren adressiert das Problem, eine Fläche mit einem Pfad endlicher Breite vollständig und in einem zusammenhängenden Durchlauf zu überdecken. Im einfachsten Fall, also ohne Hindernisse, ist die Lösung trivial und entspricht einem gleichmäßigen Hin-und-Her-Bewegungsmuster.
+Vor diesem Hintergrund erscheint eine stärkere Strukturierung des Lösungsraumes sinnvoll, sodass unnötige Freiheitsgrade von vornherein reduziert werden. Eine geeignete konzeptionelle Grundlage hierfür bietet die aus dem Coverage Path Planning bekannte Boustrophedon Cellular Decomposition nach #citep(<chosetCoveragePathPlanning1998>). Dieses Verfahren adressiert das Problem, eine Fläche mit einem Pfad endlicher Breite vollständig und in einem zusammenhängenden Durchlauf zu überdecken. Im einfachsten Fall, also ohne Hindernisse, ist die Lösung trivial und entspricht einem gleichmäßigen Hin-und-Her-Bewegungsmuster. Eine Veranschaulichung davon ist in @fig:boustrophedon links zu sehen.
 
-Sobald Hindernisse auftreten, wird die Fläche in mehrere Teilbereiche untergliedert, in denen keine Hindernisse liegen. Dies geschieht, indem das Gebiet in einer Hauptrichtung, beispielsweise von links nach rechts, abgescannt wird. An jeder Ecke des Hindernisses wird ein Gebiet in zwei Teilgebiete aufgespalten oder zwei Teilgebiete wieder vereint. Somit ist die Pfadplanung in diesen Teilbereichen wieder trivial. Das Hauptproblem besteht dann darin, eine geeignete Reihenfolge der zu befahrenden Teilgebiete zu finden.
+Sobald Hindernisse auftreten, wird die Fläche in mehrere Teilbereiche untergliedert, in denen keine Hindernisse liegen. Dies geschieht, indem das Gebiet in einer Hauptrichtung, beispielsweise von links nach rechts, abgescannt wird. An jeder Ecke des Hindernisses wird ein Gebiet in zwei Teilgebiete aufgespalten oder zwei Teilgebiete wieder vereint. Die Aufteilung in zwei Zellen ist in @fig:boustrophedon in der Mitte dargestellt. Die Pfadplanung ist in diesen Teilbereichen wieder trivial. Das Hauptproblem besteht dann darin, eine geeignete Reihenfolge zum Befahren der entstandenen Teilgebiete zu finden, welche rechts in @fig:boustrophedon zu sehen sind.
 
-#todo[Bild des Boustrophedon CD inkl. Pfaden]
+#figure(
+  cetz.canvas({
+    import cetz.draw: *
+
+    scale(0.35)
+    rect((0,0),(14,9))
+    set-style(mark: (end:">"))
+    for offset in range(12, step: 2) {
+      let points = ((1+offset,1),(1+offset,8),(2+offset,8),(2+offset,1),(3+offset,1))
+      for (i, p) in points.enumerate() {
+        if i == 0 {
+          continue
+        } 
+        line(points.at(i - 1),p)
+      }
+    }
+    line((13,1),(13,8))
+    content((7,-2), [Basisfall, Zelle ohne Hindernisse])
+
+    translate(x: 16)
+    rect((0,0),(14,9))
+    content((2,5), [Alte \ Zelle])
+
+    line((4,-1),(4,10), mark: none)
+    line((4,0),(6,0), stroke: (paint:blue), fill: blue)
+    line((4,9),(6,9), stroke: (paint:blue), fill: blue)
+    content((8,10), text(fill:blue)[Scanrichtung])
+
+    polygon((6,5), 5, radius: 2, angle: 22deg)
+    content((7,8), [Neue Zelle])
+    line((3.8,5.3), (6.7,7.7), stroke: (paint: gray.darken(50%)), mark: (start: "o"))
+    line((3.9,5.7), (5.2,2.7), stroke: (paint: gray.darken(50%)), mark: (start: "o"))
+    content((7,2), [Neue Zelle])
+    content((7,-3), align(center)[Zellteilung bei Erkennung einer\ Ecke eines Hindernisses])
+
+    translate(x: 16)
+    rect((0,0),(14,9))
+    polygon((6,5), 5, radius: 2, angle: 22deg)
+
+    set-style(mark: none)
+    line((4,0),(4,9))
+    line((5.85,7),(5.85,9))
+    line((7.3,3.5),(7.3,0))
+    line((4.9,3.3),(4.9,0))
+    line((7.86,0),(7.86,9))
+
+
+    set-style(stroke: (dash: "dashed"))
+    for offset in range(2, step: 2) {
+      let points = ((1+offset,1),(1+offset,8),(2+offset,8),(2+offset,1),(3+offset,1))
+      for (i, p) in points.enumerate() {
+        if i == 0 {
+          continue
+        } 
+        line(points.at(i - 1),p, stroke: (paint: gray.transparentize(40%)))
+      }
+    }
+    line((3,1),(3,8), stroke: (paint: gray.transparentize(40%)))
+
+    for offset in range(8,12, step: 2) {
+      let points = ((1+offset,1),(1+offset,8),(2+offset,8),(2+offset,1),(3+offset,1))
+      for (i, p) in points.enumerate() {
+        if i == 0 {
+          continue
+        } 
+        line(points.at(i - 1),p, stroke: (paint: gray.transparentize(40%)))
+      }
+    }
+    line((13,1),(13,8), stroke: (paint: gray.transparentize(40%)))
+
+    line((4.35,8.7), (4.35,6.4),(5.35,7.3),(5.35,8.7), stroke: (paint: gray.transparentize(40%)))
+    line((2+4.35,8.7), (2+4.35,7.3),(2+5.35,6.7),(2+5.35,8.7), stroke: (paint: gray.transparentize(40%)))
+    line((5.5,1),(5.5,3),(6.5,3.05),(6.5,1),(7,1), stroke: (paint: gray.transparentize(40%)))
+
+    content((7,-3), align(center)[Ergebnis der Zellteilung \ zu 7 Zellen])
+
+  }),
+  caption: [Boustrophedon Cellular Decomposition nach #citep(<chosetCoveragePathPlanning1998>)]
+)<fig:boustrophedon>
 
 Überträgt man dieses Prinzip auf den vorliegenden Anwendungsfall, ergeben sich einige Analogien und Vereinfachungen. So ist für vertikale und horizontale Streben ein Scannen in beiden Richtungen erforderlich, um eine geeignete Zellteilung zu finden. Ebenfalls ist die Tür immer immer rechteckig mit den Seiten parallel zu den Seiten der Wand. Somit reicht in horizontaler Scanrichtung, also für vertikale Streben, die Aufspaltung in die drei Teilbereiche links und rechts sowie innerhalb der Tür. In vertikaler Richtung sind ebenfalls drei Teilbereiche nötig, um den Bereich oberhalb der Tür sowie die beiden Bereiche links und rechts neben der Tür abzubilden. In @fig:route-cells sind die resultierenden Teilrouten in den Bereichen an einem Beispiel dargestellt. 
 
