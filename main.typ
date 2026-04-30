@@ -16,7 +16,7 @@
 )
 
 #include "kapitel/einleitung.typ"
-#include "kapitel/ue-platzierung.typ"
+#include "kapitel/ue-platzierung/index.typ"
 #include "kapitel/routenplanung/index.typ"
 #include "kapitel/pfadfindung.typ"
 #include "kapitel/auswertung/index.typ"
