@@ -410,18 +410,54 @@ Wie in @sec:ue-place-problem dargestellt, existieren konzeptionell lediglich 32 
 
     scale(0.5)
     
-    let rolls = ((1,0), (3,0), (5,0), (7,0), (9,0), (11,0), (13,0), (15,1), (-1,2), (4,3), (6,3), (8,3), (15,3), (-1,4), (10,4), (4,5), (15,5), (-1,6), (10,6), (4,7), (15,7), (-1,8), (10,8), (4,9), (15,9), (0,10), (2,10), (12,10), (14,10))
+    let rolls = (
+      (4,9), 
+      (15,9),
+      (-1,8), 
+      (10,8), 
+      (4,7), 
+      (15,7), 
+      (-1,6), 
+      (10,6), 
+      (4,5), 
+      (15,5), 
+      (-1,4), 
+      (10,4), 
+      (15,3), 
+      (-1,2),
+      (15,1),
+       
+      (0,10), 
+      (1,0), 
+      (2,10), 
+      (3,0), 
+      (5,0), 
+      (6,3),
+      (7,0), 
+      (8,3), 
+      (9,0), 
+      (11,0), 
+      (12,10), 
+      (13,0),
+      (14,10),
+    )
 
-    for point in rolls.map((p) => (p.at(0), -1*p.at(1))) {
+    for (index, point) in rolls.map((p) => (p.at(0), -1*p.at(1))).enumerate() {
       circle(point, radius: (0.5,0.5))
+      content(point, [#index])
     }
 
     circle((15, -9), radius: (0.5,0.5), fill: red)
+    content((15, -9),[$1$])
     circle((14, -10), radius: (0.5,0.5), fill: red)
+    content((14, -10),[$27$])
     
     circle((4, -3), radius: (0.5,0.5), fill: blue)
+    content((4, -3),[$11$])
     circle((-1,0), radius: (0.5,0.5), fill: green)
+    content((-1, 0),[$28$])
     circle((10,-10), radius: (0.5,0.5), fill: green)
+    content((10, -10),[$29$])
     line((10,-10),(10,-8), mark: (end: "|", start: "|"), stroke: green.darken(50%))
     line((10,-10),(12,-10), mark: (end: "|", start: "|"), stroke: green.darken(50%))
     content((12,-8.8), text(fill:green.darken(50%), size: 9pt)[$d_M = 2d$])
@@ -439,7 +475,7 @@ Wie in @sec:ue-place-problem dargestellt, existieren konzeptionell lediglich 32 
     line((-2,-11),(-2,1))
 
   }),
-  caption: [Kleine Wandkonfiguration mit korrekt platzierten Umlenkelementen. In Rot dargestellt eine Sonderstelle, in Grün optionale UE und in Blau das UE, welches den oberen Versatz $omega$ bestimmt.]
+  caption: [Kleine Wandkonfiguration mit korrekt platzierten Umlenkelementen und Reihenfolge der Berechnung. In Rot dargestellt eine Sonderstelle, in Grün optionale UE und in Blau das UE, welches den oberen Versatz $omega$ bestimmt.]
 )<fig:fully-placed-ue-wall>
 
 Die Anzahl der @UE ist in den meisten Fällen minimal. Durch die in @sec:ue-place-implementation beschriebenen optionalen @UE in den Ecken der Wand werden womöglich @UE platziert, welche für die spätere Routenplanung irrelevant sind. Ihre Anzahl begrenzt sich in diesen Fällen auf maximal drei eventuell überflüssige @UE, welche nach der Routenplanung aus dem Ablageprogramm entfernt werden können.

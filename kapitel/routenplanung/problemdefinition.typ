@@ -27,7 +27,7 @@ Die _Nebenrichtung_ sei definiert als zur Hauptrichtung orthogonal laufende Rich
 
 #figure(
   image("/images/basic-route.png", width: 70%),
-  caption: [Einfache Route in einer kleinen Wandkonfiguration]
+  caption: [Einfache Route in einer kleinen Wandkonfiguration. Die Permutation der UE ist \ $(9,14,17,19,21,23,25,27,32,6,31,5,16,4,13,3,12,2,10,1,29,0,7,8,11,15,18,20,22,24,26)$]
 )<fig:simple-route>
 
 Es ist zu erkennen, dass manche @UE mehrmals angefahren werden müssen, wie zum Beispiel das @UE an Position $(4,3)$. Hier wird jeweils für die vertikalen und horizontalen Hauptrichtungen einmalig das @UE umfahren. Ebenfalls wird das in Pink markierte @UE an Position $(0,2)$ zweimalig angefahren; einmal für die horizontalen Streben und einmal für die letzte horizontale Strebe über dem Türausschnitt, bevor die Route endet.
