@@ -26,7 +26,7 @@ Sobald Hindernisse auftreten, wird die Fläche in mehrere Teilbereiche unterglie
   caption: [Alle Puzzleteile mit Benennung und Position],
 )<fig:route-cells>
 
-Die Bereiche $L V, R V, T V in P_V'$ sowie $L H, R H "und" T H in P'_V$ sind jeweils als Permutationen von @UE bezüglich der Menge der @UE $V$ dargestellt.
+Die Bereiche $L V, R V, T V in P'_V$ sowie $L H, R H "und" T H in P'_V$ sind jeweils als Permutationen von @UE bezüglich der Menge der @UE $V$ dargestellt.
 Für die @UE in den drei Bereichen $L V, R V  "und" T V$ für vertikale Streben gilt
 $
   forall v in V&: v in L V <=> 1 <= v_((x)) < t_(x,1) \
@@ -49,7 +49,7 @@ $ forall v_i in p_y: v_(i-1, (y)) < v_(i, (y)) $
 
 Hinzu kommen die in @sec:ue-place-implementation platzierten optionalen @UE:pl:long in den Ecken der Wand und Tür, welche in @fig:fully-placed-ue-wall in Grün dargestellt sind. Da sie eine Brücke aus einem einzigen @UE zwischen den Teilrouten bilden, können sie ebenfalls als eigene Teilroute $O = {v | "v in Ecke der Wand"}$ mit $|O| = 1$ angesehen werden und zu $P'_V$ hinzugefügt werden. Somit ergibt sich $P''_V$ zu 
 $ P''_V = P'_V union { O } $
-Durch diese Modellierung ist zwar nur jeweils ein @UE dargestellbar, jedoch kann somit die Größe des Lösungsraums erheblich eingeschränkt werden, da sich somit die Anzahl möglicher Permutationen lediglich versechsfacht. 
+Durch diese Modellierung ist zwar nur jeweils ein optionales @UE darstellbar, jedoch kann somit die Größe des Lösungsraums erheblich eingeschränkt werden, da sich somit die Anzahl möglicher Permutationen lediglich versechsfacht. 
 
 Um ein Durchlaufen der Teilrouten in umgekehrter Richtung, also entgegen der Hauptrichtung, darzustellen, werden für jede Teilroute $p in P'_V$ gegensätzliche Teilrouten $p^R$ definiert. Somit ergibt sich die Menge aller möglichen Teilrouten zu $P_V = P''_V union { L V^R, R V^R, T V^R, L H^R, R H^R, T H^R}$ 
 
@@ -89,11 +89,7 @@ Der dadurch entstehende Lösungsraum $Omega$ ist mit einer Kardinalität von $|O
 //   caption: [Ausschnitt aus dem Entscheidungsbaum zur Bildung einer Abfolge von Teilrouten. Für das Beispiel sei eine optionale Rolle $v in O$, in Grün dargestellt, in der oberen rechten Ecke der Wand platziert. Invalide Schritte, die zwei Teilbereiche verketten würden, welche sich keine Ecke der Wand teilen, sind in Rot dargestellt.],
 // )<fig:entscheidungsbaum-teilrouten>
 
-
-Für die Bewertung gefundener Lösungen muss die bestehende Bewertungsfunktion nicht angepasst werden. Aus einer Permutation $pi: NN -> P_V$ lässt sich eine Route durch Verkettung der einzelnen Permutationen berechnen. Somit ist eine Funktion $T: P_V^k -> R, k = cases(6 ", falls kein opt. UE gewählt", 7 ", sonst") $ definiert, sodass
-$ T((pi(1),...,pi(k))) = pi(1) circle.small ... circle.small pi(k) $
-gilt.
-
+In @fig:puzzle-graph ist der Graph veranschaulicht, der als Basis für die Routenplanung und somit Modellierung des @TSP:pl dient. Da ein Hamiltonpfad Gegenstand der Untersuchung bleibt, aber nicht länger alle Knoten dieses Graphen genutzt werden müssen, ergibt sich eine Modifikation des Problems. So muss in dieser Darstellung aus jedem farbigen Rechteck genau ein Knoten gewählt werden, sodass eine valide Abfolge von Teilrouten einen Pfad in diesem Graphen darstellt. Der Startknoten ist weiterhin frei wählbar. Nicht dargestellt ist die Teilroute $O$ mit dem optionalen UE. Diese kann einmalig ab dem Startknoten an einer beliebigen Stelle gewählt werden.
 
 #figure(
   raw-render(
@@ -142,25 +138,34 @@ gilt.
       }
 
       
-      LV -> {LHR TV}
+      LV -> {LHR}
       LVR -> {LHR TH}   
       LH -> {LV LVR}
-      LHR -> {THR TV}   
-      TV -> {RV RH}
+      LHR -> {TV}
+      LHR -> THR[color=red]
+      TV -> {RH}
       TVR -> {LH LVR}
-      RV -> {TH RHR}
+      RV -> {TH}
       RVR -> {TVR RHR}
       RH -> {RVR RV}
       RHR -> {TVR THR}
       TH -> {LH RH}
-      THR -> {LV RVR}
+      THR -> {RVR}
+      THR -> LV[color=red]
+      LV -> TV[color=red]
+      TV -> RV[color=red]
+      RV -> RHR[color=red]
       //EXTRA -- {LH TH RH LV TV RV}
     }
     ```,
     width: 340pt,
   ),
-  caption: [Graph der Teilrouten ohne $O in P_V$. Eine valide Abfolge beinhaltet aus jedem Rechteck genau einen Knoten, sowie optional an einem beliebigen Punkt zwischen den Knoten das optionale Umlenkelement $v in O$.],
-)<fig:puzzle-graph2>
+  caption: [Graph der Teilrouten ohne $O in P_V$. Eine valide Abfolge beinhaltet aus jedem Rechteck genau einen Knoten, sowie optional an einem beliebigen Punkt zwischen den Knoten die Teilroute $O$. In Rot eingezeichnet die optimale Abfolge für $w_4$ aus @fig:res-genetic-y-img: $(L H^R, T H^R, L V, T V, R V, R H^R)$],
+)<fig:puzzle-graph>
+
+Für die Bewertung gefundener Lösungen muss die bestehende Bewertungsfunktion nicht angepasst werden. Aus einer Permutation $pi: NN -> P_V$ lässt sich eine Route durch Verkettung der einzelnen Permutationen berechnen. Somit ist eine Funktion $T: P_V^k -> R, k = cases(6 ", falls kein opt. UE gewählt", 7 ", sonst") $ definiert, sodass
+$ T((pi(1),...,pi(k))) = pi(1) circle.small ... circle.small pi(k) $
+gilt.
 
 === Heuristische Methoden <sec:route-puzzle-based-heuristics>
 
