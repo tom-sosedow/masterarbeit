@@ -4,8 +4,6 @@
 
 == Problemdefinition
 
-#todo[Irgendwo einfügen, dass es einfacher ist eine route zu finden, wenn sonderumlenkung oben auf der seite, wo angefangen wird]
-
 // Allgemein
 Gesucht ist eine Anordnung von anzufahrenden Umlenkelementen. Genauer ist eine Permutation aus der Menge aller Umlenkelemente gesucht, da für eine gleichmäßige Gitterstruktur alle @UE, ausgenommen der optionalen @UE in den Ecken der Wand oder Tür, genutzt werden müssen. Damit handelt es sich um eine Instanz des Problems des Handlungsreisenden (engl. @TSP), welches ein kombinatorisches Optimierungsproblem darstellt @duanApplicationsHybridApproach2023a. Typischerweise wird unter allen Permutationen der anzufahrenden Punkte der kürzeste Hamiltonkreis, also ein Pfad, der alle Punkte genau einmal besucht und wieder beim Startpunkt endet, gesucht @goyalSurveyTravellingSalesman. Die Anforderung an einen Kreis ist hier nicht nötig, da die Enden des Carbongarns an beliebigen @UE festgemacht werden können; es reicht also ein einfacher Hamiltonpfad.
 
@@ -21,14 +19,18 @@ $ R={(pi(1), pi(2),.., pi(n)) | & pi(i) in V, forall i, j in {1,...,n}: \ & i !=
 // Route Aussehen/Struktur
 Eine beispielhafte Route für eine kleine Wandkonfiguration ist in @fig:simple-route dargestellt. Zur Erzeugung der geforderten Gitterstruktur werden die @UE:pl:long in einem zickzackförmigen Muster angefahren. Im dargestellten Beispiel beginnt die Route an dem blau markierten @UE an Position (4,9). Anschließend wird das @UE an der Position (0,8) angesteuert, wodurch eine horizontal verlaufende, also achsenparallele Strebe entlang der x-Achse, entsteht. Dieses Vorgehen wird fortgesetzt, bis das ebenfalls blau markierte @UE an der Position (1,0) erreicht ist. Bis zu diesem Punkt sind somit die horizontalen Streben für den Bereich oberhalb sowie links der Tür vollständig definiert. An diesem @UE erfolgt eine spezielle Umlenkung, die den Übergang zur Erzeugung vertikaler Streben einleitet, beginnend auf der linken Seite.
 
-Durch dieses Zickzackmusters verändert sich in jedem Schritt entweder die x- oder die y-Koordinate des aktuellen @UE jeweils um genau eine Einheit. Die Richtung dieser Veränderung wird als _Hauptrichtung_ definiert. Für die in @fig:simple-route initial erzeugten horizontalen Streben bis zum @UE an Position (1,0) verläuft die Hauptrichtung entsprechend vertikal aufsteigend. Umlenkungen an Sonderstellen, wie in der unteren linken Ecke der Abbildung, führen immer zu einer Änderung der Hauptrichtung, weshalb sie auch als _Sonderumlenkungen_ bezeichnet werden können.
+#figure(
+  image("/images/basic-route.png", width: 60%),
+  caption: [
+    Einfache Route in einer kleinen Wandkonfiguration. Die Permutation der UE ist \ 
+    #let rolls = (9,14,17,19,21,23,25,27,32,6,31,5,16,4,13,3,12,2,10,1,29,0,7,8,11,15,18,20,22,24,26)
+    (#rolls.rev().map(str).join(", "))
+  ]
+)<fig:simple-route>
+
+Durch dieses Zickzackmuster verändert sich in jedem Schritt entweder die x- oder die y-Koordinate des aktuellen @UE jeweils um genau eine Einheit. Die Richtung dieser Veränderung wird als _Hauptrichtung_ definiert. Für die in @fig:simple-route initial erzeugten horizontalen Streben bis zum @UE 0 an Position (1,0) verläuft die Hauptrichtung entsprechend vertikal aufsteigend. Umlenkungen an Sonderstellen, wie in der unteren rechten Ecke der Abbildung, führen immer zu einer Änderung der Hauptrichtung, weshalb sie auch als _Sonderumlenkungen_ bezeichnet werden können.
 
 Die _Nebenrichtung_ sei definiert als zur Hauptrichtung orthogonal laufende Richtung und gibt an, ob eine Strebe in Hin- oder Rückrichtung verlegt ist; im Beispielabschnitt also nach links oder rechts. An nahezu jedem regulären @UE erfolgt ein Wechsel der Nebenrichtung, während die Hauptrichtung konstant bleibt. Lediglich an den blau markierten @UE kann es zu einem Wechsel der Hauptrichtung kommen. So wechselt die Hauptrichtung am @UE an Stelle (1,0)  folglich von senkrecht aufsteigend zu rechtsläufig.
-
-#figure(
-  image("/images/basic-route.png", width: 70%),
-  caption: [Einfache Route in einer kleinen Wandkonfiguration. Die Permutation der UE ist \ $(9,14,17,19,21,23,25,27,32,6,31,5,16,4,13,3,12,2,10,1,29,0,7,8,11,15,18,20,22,24,26)$]
-)<fig:simple-route>
 
 Es ist zu erkennen, dass manche @UE mehrmals angefahren werden müssen, wie zum Beispiel das @UE an Position $(4,3)$. Hier wird jeweils für die vertikalen und horizontalen Hauptrichtungen einmalig das @UE umfahren. Ebenfalls wird das in Pink markierte @UE an Position $(0,2)$ zweimalig angefahren; einmal für die horizontalen Streben und einmal für die letzte horizontale Strebe über dem Türausschnitt, bevor die Route endet.
 

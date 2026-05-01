@@ -82,7 +82,7 @@ Dafür werden zunächst die @UE an den vertikal verlaufenden Seiten der Tür und
 )<fig:ue-place-step-1>
 
 
-Durch die Lage des obersten @UE an der linken und rechten Seite des Türausschnitts, in @fig:ue-place-step-1 in diesem Fall @UE 11, lassen sich die Positionen der @UE:pl an der Oberseite des Türausschnitts bestimmen. So wird, falls das oberste @UE bei $(tx1, ty1+1)$ liegt, kein @UE auf den anliegenden Nachbarfeldern ${(x,ty1) | tx1 <= x <= tx1 +1}$ platziert. In @fig:oberkante-türausschnitt sind diese unzulässigen Positionen rot und das ausschlaggebende Seitenelement blau markiert. Liegt das oberste @UE, wie in @fig:ue-place-step-1, bei $(tx2, ty1+1)$ so können keine @UE an den Stellen ${(x,ty1) | tx2-1 <= x <= tx2}$ abgelegt werden. So wird verhindert, dass in den oberen Türecken @UE diagonal nebeneinander liegen und sch somit eine Sonderstelle bildet.
+Durch die Lage des obersten @UE an der linken und rechten Seite des Türausschnitts, in @fig:ue-place-step-1 in diesem Fall @UE 11, lassen sich die Positionen der @UE:pl an der Oberseite des Türausschnitts bestimmen. So wird, falls das oberste @UE bei $(tx1, ty1+1)$ liegt, kein @UE auf den anliegenden Nachbarfeldern ${(x,ty1) | tx1 <= x <= tx1 +1}$ platziert. In @fig:oberkante-türausschnitt sind diese unzulässigen Positionen rot und das ausschlaggebende Seitenelement blau markiert. Liegt das oberste @UE, wie in @fig:ue-place-step-1, bei $(tx2, ty1+1)$, können keine @UE an den Stellen ${(x,ty1) | tx2-1 <= x <= tx2}$ abgelegt werden. So wird verhindert, dass in den oberen Türecken @UE diagonal nebeneinander liegen und sich somit eine Sonderstelle bildet.
 
 #figure(
   cetz.canvas({

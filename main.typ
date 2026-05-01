@@ -7,7 +7,7 @@
   ort: [Jena],
   betreuer: [Prof. Dr. rer. nat. habil. Martin Grüttmüller],
   betreuer2: [M.Sc. Felix Tröger],
-  thema: [Entwicklung und Evaluation von Algorithmen zur Routenplanung unter strukturellen und umgebungsbedingten Restriktionen im Carbonbetonbau],
+  thema: text(hyphenate: false)[Entwicklung und Evaluation von Algorithmen zur Routenplanung unter strukturellen und umgebungsbedingten Restriktionen im Carbonbetonbau],
   datum: [18.05.2026],
   abschluss: "msc",
   studiengang: [Informatik],

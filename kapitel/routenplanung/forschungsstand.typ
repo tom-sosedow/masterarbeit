@@ -1,6 +1,8 @@
 #import "/util.typ": *
 #import "@preview/diagraph:0.3.6": *
 #import "@preview/cetz:0.4.2"
+#import "@preview/algorithmic:1.0.7"
+#import algorithmic: style-algorithm, algorithm-figure
 
 == Stand der Forschung <sec:routen-forschungsstand>
 
@@ -46,12 +48,52 @@ Der derzeit leistungsfähigste Lösungsansatz für das @TSP ist die Lin-Kernigha
 Eine häufig eingesetzte Metaheuristik zur Lösung des @TSP:pl sind @GA:pl. Diese sind von biologischen Prozessen wie Fortpflanzung und Evolution inspiriert und zeichnen sich durch eine vergleichsweise einfache Verständlichkeit und Implementation aus, insbesondere für Nicht-Informatiker. Aufbauend auf Konzepten der lokalen Suche werden Prinzipien der Evolutionsbiologie genutzt, um eine Population von Lösungskandidaten iterativ zu verändern und so eine Annäherung an ein globales Optimum zu erreichen @tahamiLiteratureReviewCombining2022 @duanApplicationsHybridApproach2023a. Die Laufzeitkomplexität ist dabei nicht eindeutig bestimmbar, da sie maßgeblich von der Wahl der Parameter sowie der konkreten Implementierung abhängt @vyasExploringSolutionApproaches.
 
 #todo[Arbeiten finden, die GA für TSP nutzen, Ergebnisse und Laufzeiten derer angeben]
-#todo[Fact Check: Wann kommt die Turnierselektion? Wichtig für Abschnitt "Punktbasiert > heuristische Methoden"]
 
 // Ablauf GA
-Nach #citep(<weickerEvolutionaereAlgorithmen2015>, supplement: [S. 39]) verlaufen @GA:pl wie folgt: Zunächst erfolgt eine Kodierung der Lösungskandidaten, um diese in eine für die algorithmische Verarbeitung geeignete Darstellungsform zu überführen, beispielsweise in Form von Binärkodierungen oder Permutationen. Die weiteren Schritte basieren auf dieser Repräsentation. Zu Beginn werden $mu$ potenzielle Lösungen erzeugt, etwa durch zufällige Generierung, die die initiale Population bilden. Anschließend erfolgt die Bewertung jedes Individuums. Daraufhin wird iterativ eine Schleife durchlaufen, bis eine definierte Terminierungsbedingung erfüllt ist. Innerhalb dieser Schleife werden verschiedene biologisch inspirierte Operatoren angewendet: Zunächst werden aus der aktuellen Population, in der Regel durch einen Selektionsoperator, geeignete Individuen als Eltern ausgewählt. Diese werden anschließend durch den Rekombinationsoperator paarweise kombiniert, um Nachkommen zu erzeugen. Die resultierenden Individuen werden daraufhin durch den Mutationsoperator modifiziert und erneut bewertet. Abschließend erfolgt eine Selektion aus der aktuellen Population sowie den neu erzeugten Nachkommen, bei der wiederum $mu$ Individuen für die nächste Generation bestimmt werden.
+Nach #citep(<weickerEvolutionaereAlgorithmen2015>, supplement: [S. 39]) verlaufen @GA:pl wie folgt: Zunächst erfolgt eine Kodierung der Lösungskandidaten, um diese in eine für die algorithmische Verarbeitung geeignete Darstellungsform zu überführen, beispielsweise in Form von Binärkodierungen oder Permutationen. Die weiteren Schritte basieren auf dieser Repräsentation. Zu Beginn werden $mu$ potenzielle Lösungen erzeugt, etwa durch zufällige Generierung, die die initiale Population bilden. Anschließend erfolgt die Bewertung jedes Individuums anhand der Zielfunktion $F$, die es zu optimieren gilt. Daraufhin wird iterativ eine Schleife durchlaufen, bis eine definierte Terminierungsbedingung erfüllt ist. Innerhalb dieser Schleife werden verschiedene biologisch inspirierte Operatoren angewendet: Zunächst werden aus der aktuellen Population, in der Regel durch einen Selektionsoperator, geeignete Individuen als Eltern ausgewählt. Diese werden anschließend durch den Rekombinationsoperator paarweise kombiniert, um Nachkommen zu erzeugen. Die resultierenden Individuen werden daraufhin durch den Mutationsoperator modifiziert und erneut bewertet. Abschließend erfolgt eine Selektion aus der aktuellen Population sowie den neu erzeugten Nachkommen, bei der wiederum $mu$ Individuen für die nächste Generation bestimmt werden. Das Vorgehen ist in @alg:ga-weicker veranschaulicht.
 
-Die Hoffnung ist, dass die aktuelle Generation im Mittel immer besser wird und somit auch der beste Lösungskandidat nah ans globale Optimum herankommt. Die Operatoren dienen der Diversifizierung, sodass ein Festhängen in lokalen Optima vermieden wird. 
+#show: style-algorithm.with(placement: auto)
+#algorithm-figure(
+  [Genetischer Algorithmus nach #citep(<weickerEvolutionaereAlgorithmen2015>)],
+  supplement: "Algorithmus",
+  vstroke: .5pt + luma(200),
+  {
+    import algorithmic: *
+    Function(
+      "Genetischer-Algorithmus",
+      ([_Zielfunktion $F$_]),
+      {
+        Assign($t$,$0$)
+        Assign($P(t)$, [erzeuge Population mit $mu$ Individuen])
+        Line[bewerte $P(t)$ durch $F$]
+        While("Terminierungsbedingung nicht erfüllt",{
+          Assign($P'$, [Selektion aus $P(t)$ mittels Selektionsoperator])
+          Line[Es sei: $P'= angle.l A^((1))...A^((mu)) angle.r$]
+          Assign($P''$, $angle.l angle.r$)
+          For($i <- 1,...,mu/2$, {
+            Assign($u$, [Wähle Zufallszahl gemäß $U([0,1)$])
+            IfElseChain(
+              $u y= p_x "(Rekombinationswahrscheinlichkeit)"$, Assign($B,C$, Call.with("Crossover")($A^((2i-1), A^((2i)))$)),
+              {
+                Assign($B$, $A^((2i-1))$)
+                Assign($C$, $A^((2i))$)
+              }
+            )
+            Assign($B$, Call.with("Mutation")($B$))
+            Assign($C$, Call.with("Mutation")($C$))
+            Assign($P''$, $P'' compose angle.l B, C angle.r$)
+          })
+          Line[bewerte $P''$ durch $F$]
+          Assign($t$, $t+1$)
+          Assign($P(t)$, $P''$)
+        })
+        Return[bestes Individuum aus $P(t)$]
+      }
+    )
+  }
+)<alg:ga-weicker>
+
+Die Hoffnung ist, dass die aktuelle Generation im Mittel immer besser wird und somit auch der beste Lösungskandidat möglichst nah ans globale Optimum herankommt. Die Operatoren dienen der Diversifizierung, sodass ein Festhängen in lokalen Optima vermieden wird. 
 
 // Zufallsoperatoren, Nicht-Determinismus
 Durch Zufallskomponenten in den Operatoren, wie beispielsweise Wahrscheinlichkeit der Mutation oder Rekombination, sind @GA:pl in der Regel nicht deterministisch. Wird der Seed des Zufallsgenerators jedoch bei jedem Durchlauf auf denselben Wert festgelegt, werden jedes Mal dieselben Lösungen produziert. Auf die Garantie der Optimalität hat dies keinen Einfluss #cite(<weickerEvolutionaereAlgorithmen2015>, supplement: [S.68]). 

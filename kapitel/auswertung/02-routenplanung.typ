@@ -55,6 +55,8 @@ Eine punktbasierte Routenplanung, bei der die Navigation zwischen einzelnen Umle
 // GA kein Vergleich mit Literatur möglich
 Da der implementierte genetische Algorithmus zur Routenplanung keine Distanzfunktion im klassischen Sinne zur Bewertung der Individuen nutzt, ist ein Vergleich mit etablierten Benchmark-Problemen des @TSP:pl und deren bekannten Optimal-Lösungen nicht möglich. Ebenso lassen sich bewährte Optimierungsstrategien aus der Literatur nur eingeschränkt übertragen, sodass potenzielle Verbesserungen weitgehend auf Vermutungen beruhen.
 
+#todo[GA ist riesiges komplexes Feld. Implementation ist wahrscheinlich fehlerhaft und suboptimal und könnte mit näherer Betrachtung besser auf das Problem abgestimmt werden.]
+
 // GA Optimierung Operatoren
 Dennoch bestehen verschiedene Ansatzpunkte zur Optimierung des genetischen Algorithmus. So könnte eine Feinabstimmung der verwendeten Operatoren die Wahrscheinlichkeit reduzieren, in lokalen Optima zu stagnieren, und gleichzeitig die Lösungsqualität verbessern. Beispielsweise ließe sich der Order Crossover durch einen problemspezifisch optimierten Operator ersetzen, um die Qualität der Ergebnisse eventuell zu verbessern.
 Auch könnte statt der Tournierselektion ein rangbasierter Rekombinationsoperator nach #citep(<razaliGeneticAlgorithmPerformance2011>) genutzt werden, welcher im Allgemeinen bessere Ergebnisse erzielen kann. Eine Verbesserung der Laufzeit ist dadurch allerdings nicht zu erwarten, da durch die Sortierung der Population die Rechenzeit für eine Iteration um etwa das Fünffache ansteigt @razaliGeneticAlgorithmPerformance2011. 
@@ -83,7 +85,7 @@ Auch wenn die Vorteile heuristischer Verfahren hinsichtlich der Laufzeit in dies
 // 4. Verbesserungspotential
 Trotz der insgesamt als positiv zu bewertenden Ergebnisse weisen die vorgestellten Ansätze in bestimmten Aspekten Verbesserungspotential auf. Insbesondere erweist sich die Bewertungsfunktion durch den starken und voreingenommenen Eingriff in den Suchalgorithmus als suboptimal. Hier könnte eine ganzheitlich strukturelle Bewertung zu signifikant besseren Ergebnissen führen. Ebenso können Optimierungen für den Brute-Force Ansatz die Berechnung effizienter gestalten, indem beispielsweise Routen mit invaliden Abfolgen von Teilrouten nicht betrachtet werden. Auch der Übergang zum Backtracking könnte hier zu weiteren Leistungssteigerungen führen, ohne die Komplexität des Algorithmus unnötig zu erhöhen. Sollten zukünftig Heuristiken bzw. Metaheuristiken relevanter werden, weil eventuell die Problemgröße ansteigt, müsste hier eine Feinabstimmung der Operatoren und Prozessparameter erfolgen.
 
-Die gewählte Modellierung der optionalen Umlenkelemente erweist sich als ungeeignet, da sie die problemspezifischen Gegebenheiten nicht ganz abbilden kann. So kann derzeit nur jeweils ein @UE:long dadurch in der Planung betrachtet werden, obwohl in einer Wandkonfiguration mehrere existieren können.
+Die gewählte Modellierung der optionalen Umlenkelemente erweist sich als ungeeignet, da sie die problemspezifischen Gegebenheiten nicht ganz abbilden kann. So kann derzeit nur jeweils ein @UE:long dadurch in der Planung betrachtet werden, obwohl in einer Wandkonfiguration mehrere existieren können und dadurch für die Auswahl zur Verfügung stünden.
 
 
 // 5. Fazit
