@@ -36,8 +36,8 @@
 #let ymax = $y_"max"$
 #let xmax = $x_"max"$
 #let tx1 = $t_(1,x)$
-#let tx2 = $t_(1,y)$
-#let ty1 = $t_(2,x)$
+#let tx2 = $t_(2,x)$
+#let ty1 = $t_(1,y)$
 #let ty2 = $t_(2,y)$
 #let overarrow(content) = {
   return $accent(content, arrow)$
