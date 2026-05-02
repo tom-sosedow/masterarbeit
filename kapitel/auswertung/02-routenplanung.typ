@@ -32,7 +32,7 @@ Aufbau
 // - geschwindigkeit: wie schnell ist es?
 // - weitere betrachtungen: gibt es dinge zu beachten, caviats? alternativen? 
 
-*Routenplanung*
+===== Routenplanung
 
 // 1. Ziele
 Zur Beantwortung der Forschungsfrage (II) "_#forschungsfragen.at(1)_" wurden exakte und heuristische Suchalgorithmen auf einer punktbasierten Darstellung sowie einer auf Teilrouten basierenden Abstraktion betrachtet. Zur systematischen Bewertung der Ansätze wurden geeignete Kriterien definiert, die sowohl das Laufzeitverhalten als auch die Qualität der erzeugten Lösungen quantifizierbar machen. Die Beantwortung dieser Frage ist entscheidend für das Ziel der automatisierten Herstellung von Carbonbewehrung, da hierdurch die grundlegende Struktur sowie die statische Integrität des resultierenden Carbongitters bestimmt werden.
@@ -55,10 +55,11 @@ Eine punktbasierte Routenplanung, bei der die Navigation zwischen einzelnen Umle
 // GA kein Vergleich mit Literatur möglich
 Da der implementierte genetische Algorithmus zur Routenplanung keine Distanzfunktion im klassischen Sinne zur Bewertung der Individuen nutzt, ist ein Vergleich mit etablierten Benchmark-Problemen des @TSP:pl und deren bekannten Optimal-Lösungen nicht möglich. Ebenso lassen sich bewährte Optimierungsstrategien aus der Literatur nur eingeschränkt übertragen, sodass potenzielle Verbesserungen weitgehend auf Vermutungen beruhen.
 
-#todo[GA ist riesiges komplexes Feld. Implementation ist wahrscheinlich fehlerhaft und suboptimal und könnte mit näherer Betrachtung besser auf das Problem abgestimmt werden.]
+Evolutionäre Algorithmen sind ein äußerst umfangreiches und komplexes Forschungsfeld. Sie umfassen eine Vielzahl an anpassbaren Parametern sowie Strategien, mit denen durch problemspezifische Optimierungen sowohl die Effizienz als auch die Qualität der erzielten Ergebnisse verbessert werden können. Im Vergleich zu anderen Arbeiten, die sich mit dem Einsatz von @GA:pl zur Lösung des @TSP:pl befassen, ist der hier implementierte Algorithmus nur geringfügig optimiert.
+So zeigen beispielsweise #citep(<tsaiHighPerformanceGeneticAlgorithm2014>), dass durch die direkte Übernahme gemeinsamer Eigenschaften aus der Population in die resultierende Lösung erhebliche Einsparungen bei der Berechnungszeit erzielt werden können. Für Instanzen des @TSP:pl mit über 1000 Städten konnten innerhalb von 133 Generationen Routen berechnet werden, deren Kosten lediglich um 1,5 % über dem Optimum liegen. Eine vertiefte Untersuchung mit ausschließlichem Fokus auf den Einsatz von @GA:pl hat daher das Potenzial, die erzielten Ergebnisse in hohem Maße zu verbessern.
 
 // GA Optimierung Operatoren
-Dennoch bestehen verschiedene Ansatzpunkte zur Optimierung des genetischen Algorithmus. So könnte eine Feinabstimmung der verwendeten Operatoren die Wahrscheinlichkeit reduzieren, in lokalen Optima zu stagnieren, und gleichzeitig die Lösungsqualität verbessern. Beispielsweise ließe sich der Order Crossover durch einen problemspezifisch optimierten Operator ersetzen, um die Qualität der Ergebnisse eventuell zu verbessern.
+Dennoch bestehen auch für den hier implementierten @GA verschiedene Ansatzpunkte zur Optimierung, welche relativ einfach umsetzbar wären. So könnte eine Feinabstimmung der verwendeten Operatoren die Wahrscheinlichkeit reduzieren, in lokalen Optima zu stagnieren, und gleichzeitig die Lösungsqualität verbessern. Beispielsweise ließe sich der Order Crossover durch einen problemspezifisch optimierten Operator ersetzen, um die Qualität der Ergebnisse eventuell zu verbessern.
 Auch könnte statt der Tournierselektion ein rangbasierter Rekombinationsoperator nach #citep(<razaliGeneticAlgorithmPerformance2011>) genutzt werden, welcher im Allgemeinen bessere Ergebnisse erzielen kann. Eine Verbesserung der Laufzeit ist dadurch allerdings nicht zu erwarten, da durch die Sortierung der Population die Rechenzeit für eine Iteration um etwa das Fünffache ansteigt @razaliGeneticAlgorithmPerformance2011. 
 
 // GA Abfall in lokale Optima

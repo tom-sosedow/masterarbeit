@@ -36,8 +36,6 @@ Dabei ist $T = ((tx1+1, ty1+1), (tx2-1, ty2-1))$ als Rechteck definiert, das den
 Zur Berücksichtigung spezieller Strukturanforderungen wird zusätzlich die Funktion $h$ eingeführt. Diese bestraft Routen, bei denen an Sonderstellen keine Verbindung zwischen den beiden @UE hergestellt wird. Konkret wird ein Kostenwert vergeben, falls von den beteiligten @UE nicht mindestens eine Kante zum jeweils anderen @UE existiert:
 $ h(a,b,c) = cases(100 ", falls" exists v in V: v != c and v != a and cases(delim: #none, b_((x))-1 <= v_((x)) <= b_((x))+1 and, b_((y))-1 <= v_((y)) <= b_((y))+1), 0 ", sonst") $
 
-#todo[Modul: $e: R -> NN$ Lange Kanten (horiz. Streben oberhalb der Tür) erst, wenn bereits kurze vertikale Streben irgendwo gelegt wurden]
-
 // Gesamtbewertung
 Die Gesamtbewertung einer Kante ergibt sich schließlich als gewichtete Summe der zuvor beschriebenen Teilfunktionen. Diese wird durch die gewichtete Bewertungsfunktion $f$ beschrieben:
 $ f(a,b,c) = vec(x_1,x_2,x_3,x_4) dot vec(h(a,b,c), d(a,b,c), t(a,b,c), g(a,b,c)) $
@@ -100,7 +98,7 @@ Alle Tests werden auf einem Intel(R) Core(TM) i5-8350U Prozessor und 24 GB Arbei
 // Berechnungsdauer eher unwichtig
 Die Berechnungsdauer spielt im vorliegenden Anwendungsfall eher eine untergeordnete Rolle, eine möglichst kurze Rechenzeit ist dennoch wünschenswert, da somit die Produktionskapazitäten gesteigert und Ressourcen geschont werden können.
 
-Zum Zeitpunkt der Verfassung dieser Arbeit können maximal 81 Umlenkelemente platziert werden und später weitere @UE hinzukommen, sodass es sich um ein vergleichsweise großes @TSP handelt. 
+Zum Zeitpunkt der Verfassung dieser Arbeit können maximal 81 Umlenkelemente platziert werden und später weitere @UE hinzukommen, sodass es sich im Vergleich zu bekannten Datensätzen um ein eher kleines @TSP handelt @tsaiHighPerformanceGeneticAlgorithm2014. 
 
 // Weitere Anforderungen, Einfachheit, Zuverlässigkeit
 Bei der Konzeption und Implementierung der folgenden Lösungsansätze wird ein besonderer Schwerpunkt auf gute Verständlichkeit und Nachvollziehbarkeit gelegt. Dies erweist sich insbesondere vor dem Hintergrund als relevant, dass im Umfeld des @CBT interdisziplinäre Teams tätig sind, die nicht ganzheitlich über eine informatische Ausbildung verfügen. Vor diesem Hintergrund ist es erforderlich, dass der gewählte Lösungsansatz ein hohes Maß an Transparenz, Wartbarkeit und Zugänglichkeit aufweist. Dadurch soll er langfristig praktikabel bleiben; auch bei zukünftigen Änderungen der Anforderungen.
