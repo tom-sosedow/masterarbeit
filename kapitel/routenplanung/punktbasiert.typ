@@ -45,13 +45,69 @@ Die Ergebnisse der Testläufe sind in @fig:res-backtrack-ab dargestellt. Bereits
 === Heuristische Methoden
 Als Vertreter für heuristische Methoden wird hier ein genetischer Algorithmus untersucht, da die Implementierung recht simpel ist und der Ansatz häufig zur Bearbeitung von @TSP:pl genutzt wird. 
 
-Der Algorithmus ist vollständig nach #citep(<weickerEvolutionaereAlgorithmen2015>) implementiert. Die initiale Population wird durch Zufall generiert. Für den Mutationsoperator wird ein einfacher Tausch von zwei zufällig gewählten @UE vorgenommen. Für die Selektion wird eine Turnierselektion nach #citep(<razaliGeneticAlgorithmPerformance2011>) eingesetzt. Es wird dabei $n$ Mal eine Lösung mit $k$ zufällig gewählten anderen Lösungen verglichen, also ein Turnier "veranstaltet", und die beste als Elternteil zur Bildung der nächsten Generation gewählt. Als Rekombinationsoperator wird der _Order Crossover Operator_ nach #citep(<larranagaGeneticAlgorithmsTravelling1999>) genutzt, welcher speziell für die Arbeit mit Permutationen bestimmt ist. Dieser basiert auf der Annahme, dass die Reihenfolge der Knoten von größerem Interesse als deren Position in der Permutation ist. Die Nachkommen werden dabei erzeugt, indem zunächst eine Teilsequenz eines Elternteils übernommen wird und die verbleibenden Knoten in der Reihenfolge ergänzt werden, in der sie im anderen Elternteil auftreten.
+Der Algorithmus ist vollständig nach #citep(<weickerEvolutionaereAlgorithmen2015>, supplement: [S.87]) implementiert. Die initiale Population wird durch Zufall generiert. Für den Mutationsoperator wird ein einfacher Tausch von zwei zufällig gewählten @UE vorgenommen. Für die Selektion wird eine Turnierselektion nach #citep(<razaliGeneticAlgorithmPerformance2011>) eingesetzt. Es wird dabei $n$ Mal eine Lösung mit $k$ zufällig gewählten anderen Lösungen verglichen, also ein Turnier "veranstaltet", und die beste als Elternteil zur Bildung der nächsten Generation gewählt. Als Rekombinationsoperator wird der _Order Crossover Operator_ nach #citep(<davisApplyingAdaptiveAlgorithms1985>) genutzt, welcher speziell für die Arbeit mit Permutationen bestimmt ist. Dieser basiert auf der Annahme, dass die Reihenfolge der Knoten von größerem Interesse als deren Position in der Permutation ist. Die Nachkommen werden dabei erzeugt, indem zunächst eine Teilsequenz eines Elternteils übernommen wird und die verbleibenden Knoten in der Reihenfolge ergänzt werden, in der sie im anderen Elternteil auftreten. Ein Beispiel, wie aus zwei Elternteilen ein Kindelement kombiniert werden kann, ist in @fig:order-crossover zu sehen.
 
-#todo[Bild zur Erklärung des Operators? Vielleicht einfach nur ein Beispiel?]
+#figure(
+  cetz.canvas({
+    import cetz.draw: *
+    scale(0.7)
+    let field(num, pos, color: black) = {
+      let name = str(num) + str(pos.at(0)) + str(pos.at(1))
+      content(pos, text(fill:color)[#num], name: name)
+      rect-around(name, padding:0.2, stroke: (paint: color))
+    }
 
-#todo[Werte für Wahrscheinlichkeiten und Popsize nennen]
+    content((-2,4), [Elternteil 1])
+    let p1 = (1,2,3,4,5,6,7,8,9)
+    for (i, value) in p1.enumerate() {
+      let color = if value >= 4 and value < 7 {
+        blue
+      } else {
+        gray.darken(30%)
+      }
+      field(value, (i, 4), color: color)
+    }
 
-Für die Testläufe mit dem genetischen Algorithmus werden die Parameter wie Mutations- und Rekombinationswahrscheinlichkeit, Populationsgröße und Turniergröße fixiert. Um einen zeitlichen Rahmen für die Berechnung und Aufzeichnung der Ergebnisse zu setzen, werden maximal 12'000 Generationen durchlaufen.
+    content((-1.4,2), [Kind])
+    let child = (7,2,8,4,5,6,1,3,9)
+    for (i, value) in child.enumerate() {
+      let color = if value >= 4 and value < 7 {
+        blue
+      } else if value < 4 or value >= 7 {
+        green
+      } else {
+        black
+      }
+      field(value, (i, 2), color: color)
+    }
+    line((3,3.5),(3,2.5), mark: (end: ">"), stroke: (paint: blue))
+    line((4,3.5),(4,2.5), mark: (end: ">"), stroke: (paint: blue))
+    line((5,3.5),(5,2.5), mark: (end: ">"), stroke: (paint: blue))
+
+    content((-2,0), [Elternteil 2])
+    let p2 = (7,2,5,4,8,1,3,6,9)
+    for (i, value) in p2.enumerate() {
+      let color = if value < 4 or value >= 7 {
+        green
+      } else {
+        gray.darken(30%)
+      }
+      field(value, (i, 0), color: color)
+    }
+    line((0,0.5), (0,1.5), mark: (end: ">"), stroke: (paint: green))
+    line((1,0.5), (1,1.5), mark: (end: ">"), stroke: (paint: green))
+    line((4,0.5), (2,1.5), mark: (end: ">"), stroke: (paint: green))
+    line((5,0.5), (6,1.5), mark: (end: ">"), stroke: (paint: green))
+    line((6,0.5), (7,1.5), mark: (end: ">"), stroke: (paint: green))
+    line((8,0.5), (8,1.5), mark: (end: ">"), stroke: (paint: green))
+
+    line((2.5,5),(2.5,-1))
+    line((5.5,5),(5.5,-1))
+  }),
+  caption: [Order Crossover nach #citep(<davisApplyingAdaptiveAlgorithms1985>) mit Übernahme einer einzelnen Teilsequenz von Elternteil 1. Elternteil 2 füllt die dem Kind fehlenden Knoten anschließend in der Reihenfolge auf, in der sie in ihm vorkommen.]
+)<fig:order-crossover>
+
+Für die Testläufe mit dem genetischen Algorithmus werden die Prozessparameter für jeden Testlauf fixiert. Die Mutationswahrscheinlichkeit beträgt dabei $45%$ und die Rekombinationswahrscheinlichkeit $73%$. Die Populationsgröße wird auf 3000 und die Turniergröße auf $3$ bei $36$ Turnieren festgelegt. Um einen zeitlichen Rahmen für die Berechnung und Aufzeichnung der Ergebnisse zu setzen, werden maximal 12'000 Generationen durchlaufen.
 
 Die Ergebnisse der Testläufe für Wandkonfiguration $w_2$ sind in @fig:res-genetic links zu sehen. Es werden bei gleichen Parametern zwei Seeds für den Zufallszahlengenerator für die Tests genutzt. Die Abbildung zeigt, dass der Seed Auswirkungen auf die Qualität der gefundenen Lösungen hat. So wurde bei Seed $s_2$ nur eine Lösung mit Kosten von 26 gefunden, während mit Seed $s_1$ für die beste gefundene Lösung Kosten von 21 berechnet wurden. Es konnte also mit keinem von beiden Seeds das Optimum von 1 erreicht werden, da beide nach ca. 15 Sekunden in einem lokalen Optimum hängen bleiben. In beiden Fällen konnten die an das Optimum nah herankommenden Lösungen bereits nach wenigen Sekunden gefunden werden. Es sind hier demnach keine signifikanten Unterschiede in den Laufzeiten zwischen beiden Seeds zu erkennen. 
 

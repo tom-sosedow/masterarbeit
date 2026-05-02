@@ -175,7 +175,7 @@ In @fig:puzzle-graph ist der Graph veranschaulicht, der als Basis für die Route
     digraph {
       ratio="compress";
       rankdir=LR;
-      ranksep=1.7;
+      ranksep=1.8;
       nodesep=0.1;
 
       subgraph cluster_LV {
@@ -251,8 +251,6 @@ Unter den zuvor beschriebenen Rahmenbedingungen kann die Permutation $pi$ als ge
 Der Mutationsoperator führt auch hier eine einfache Vertauschung zweier Elemente der Permutation durch. Zusätzlich kann mit einer gewissen Wahrscheinlichkeit auch die Traversierungsrichtung der jeweiligen Teilroute invertiert werden.
 Der eingesetzte Rekombinationsoperator entspricht dem in @sec:route-pointbased beschriebenen _Order Crossover_.
 
-#maybe[ vorteile nachteile der operatoren?]
-
 Für die Testläufe werden weitgehend identische Parameter für den genetischen Algorithmus verwendet, wie auch schon in @sec:route-pointbased. Der einzige Unterschied liegt in der Anzahl an Segmenten für den Rekombinationsoperator, da mit sechs Elementen pro Permutation fünf Segmente eine übermäßig feine Untergliederung erzeugen würden.
 
 Den Verlauf der Kosten der besten Lösung über die Laufzeit ist in @fig:res-puzzlega-xy für Wandkonfigurationen $w_3$ und $w_4$ zu sehen. Es wird der Seed $s_1$ genutzt. Es zeigt sich, dass der Algorithmus bereits nach wenigen Sekunden ein lokales Optimum findet, selbst für größere Wandkonfigurationen. Während für $w_4$ auch das globale Optimum mit Kosten von 1 gefunden wird, verbleibt die Suche für $w_3$ in einem lokalen Optimum mit Kosten von 15. Bei Verwendung des Seeds $s_2$ wird in vergleichbarer Zeit bei beiden Wandkonfigurationen das globale Optimum erreicht.
@@ -265,10 +263,6 @@ Den Verlauf der Kosten der besten Lösung über die Laufzeit ist in @fig:res-puz
 Da der Lösungsraum durch die Modellierung als Teilrouten deutlich verkleinert werden konnte, wird die Anwendung von exakten Methoden zur Lösung großer Wandkonfigurationen wieder praktikabel. Insbesondere ermöglicht der Brute-Force-Ansatz eine vergleichsweise einfache und flexible Implementierung, die gleichzeitig hinreichend performant ist und eine Garantie auf Optimalität bietet.
 
 Zur effizienten Erzeugung aller validen Permutationen wird eine rekursive Funktion eingesetzt. In jedem Schritt wird die Permutation um eine noch fehlende Teilroute ergänzt. Anschließend wird die bis dahin bestehende Lösung bewertet und die Funktion nur für diejenigen partiellen Lösungen ausgeführt, die unter der Kostengrenze von 400 liegen. Diese Kombination aus exakten Verfahren und heuristischer Beschränkung des Suchraums trägt dazu bei, die Laufzeit zu reduzieren, ohne die Garantie der Optimalität aufzugeben @tahamiLiteratureReviewCombining2022.
-#todo[ist also hybrider Ansatz, nicht rein exakt? Aber irgendwie ja schon?]
-
-#maybe[ pseudocode?]
-
 
 #question[Soll die auswertung der tabelle (deutung, warum manche zahlen so sind) lieber in die auswertung?]
 

@@ -41,7 +41,17 @@ $ h(a,b,c) = cases(100 ", falls" exists v in V: v != c and v != a and cases(deli
 // Gesamtbewertung
 Die Gesamtbewertung einer Kante ergibt sich schließlich als gewichtete Summe der zuvor beschriebenen Teilfunktionen. Diese wird durch die gewichtete Bewertungsfunktion $f$ beschrieben:
 $ f(a,b,c) = vec(x_1,x_2,x_3,x_4) dot vec(h(a,b,c), d(a,b,c), t(a,b,c), g(a,b,c)) $
-Die Bewertung einer gesamten Route wird durch Funktion $c$ berechnet und ergibt sich unter anderem aus der Summe der Kosten aller enthaltenen Kanten
+
+Abschließend sollten Routen schlechter bewertet werden, bei denen zu Beginn der Route die langen horizontalen Streben oberhalb der Tür verlegt werden. Aufgrund des Eigengewichts der Garnstreben hängen diese Streben etwas nach unten, was den Verbund der Kreuzungspunkte horizontaler und vertikaler Streben beim Aushärten des Harzes negativ beeinflusst. Aus diesem Grund berechnet die Funktion $e: R -> NN$ als einziges Modul Kosten basierend auf der gesamten Route anstatt kontextbezogener Kanten. Dazu müssen die ersten $k=ty1$ Streben negativ bewertet werden, falls ihre Länge der einer horizontal verlaufenden Strebe entspricht:
+$ e(r = (pi(1),...,pi(k),..., pi(n))) &= sum^(k-1)_(i=1) phi(pi(i), pi(i+1)) $
+
+mit
+$
+  phi(v,w) &= cases(1 ", falls" |v_((x)) - w_((x))| = xmax, 0 ", sonst") \
+$ 
+unter der Annahme, dass die Wand breiter als hoch ist, also $w_b > w_h$ gilt.
+
+Die Bewertung einer gesamten Route wird dann durch Funktion $c$ berechnet und ergibt sich unter anderem aus der Summe der Kosten aller enthaltenen Kanten
 $ c: R -> NN, c(r) = e(r) + sum_((a,b,c) in R) f(a,b,c) $ 
 Eine Route mit Gesamtkosten von 0 stellt dabei eine optimale Lösung dar, wobei es ggf. mehrere Routen mit Kosten 0 für eine gegebene Wandkonfiguration geben kann.
 
@@ -95,4 +105,4 @@ Zum Zeitpunkt der Verfassung dieser Arbeit können maximal 81 Umlenkelemente pla
 // Weitere Anforderungen, Einfachheit, Zuverlässigkeit
 Bei der Konzeption und Implementierung der folgenden Lösungsansätze wird ein besonderer Schwerpunkt auf gute Verständlichkeit und Nachvollziehbarkeit gelegt. Dies erweist sich insbesondere vor dem Hintergrund als relevant, dass im Umfeld des @CBT interdisziplinäre Teams tätig sind, die nicht ganzheitlich über eine informatische Ausbildung verfügen. Vor diesem Hintergrund ist es erforderlich, dass der gewählte Lösungsansatz ein hohes Maß an Transparenz, Wartbarkeit und Zugänglichkeit aufweist. Dadurch soll er langfristig praktikabel bleiben; auch bei zukünftigen Änderungen der Anforderungen.
 
-#todo[Kriterium "Zuverlässigkeit". Algs müssen immer gute ergebnisse liefern oder wenigstens sagen, wenn es keine guten gibt]
+Ebenfalls müssen die Ansätze hinsichtlich ihrer Zuverlässigkeit geprüft werden. In einer vollautomatisierten industriellen Produktion müssen die vom Ansatz produzierten Gitterstrukturen gesichert allen strukturellen Anforderungen entsprechen. Kann keine zulässige Route bestimmt werden, kann dies im ungünstigsten Fall zu einem Stillstand der Produktion und der Notwendigkeit eines manuellen Eingriffs führen. Dies macht den Einsatz geeigneter Sicherheitsmechanismen zur Qualitätssicherung erforderlich.
