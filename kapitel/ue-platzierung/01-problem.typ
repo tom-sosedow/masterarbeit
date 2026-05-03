@@ -120,7 +120,7 @@ $
 $ 
 Die dadurch formulierten zulässigen Positionen der @UE:pl sind in @fig:input-dimensions orange hinterlegt.
 
-Auf gegenüberliegenden Seiten der Struktur sind zwei @UE stets genau um $d$ Millimeter entlang der jeweiligen Seite versetzt angeordnet und alternieren zwischen beiden Seiten. Für zwei vertikale Seiten an den x-Koordinaten ${x_1, x_2} in {{0, tx2}, {tx1, xmax-1}, {0,xmax}}$ ergibt sich im Modell:
+Auf gegenüberliegenden Seiten der Struktur sind zwei @UE stets genau um $d$ Millimeter entlang der jeweiligen Seite versetzt angeordnet und alternieren zwischen beiden Seiten. Für zwei vertikale Seiten an den x-Koordinaten ${x_1, x_2} in {{0, tx1}, {tx2, xmax-1}, {0,xmax}}$ ergibt sich im Modell:
 
 $ 
 forall (x,y) in A: 

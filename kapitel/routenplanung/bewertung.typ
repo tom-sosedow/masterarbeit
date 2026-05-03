@@ -30,7 +30,7 @@ $ t(a,b,c) = cases(
   50 ", falls" s c h n e i d e t(overline(b c), T),
   0 ", sonst"
 ) $
-Dabei ist $T = ((tx1+1, ty1+1), (tx2-1, ty2-1))$ als Rechteck definiert, das den Türausschnitt beschreibt. Die Funktion $s c h n e i d e t: (NN_0^2 times NN_0^2) times N_0^4 -> BB$ liefert den Wahrheitswert „wahr“, falls die Strecke $overline(b c)$ das durch $T$ definierte Rechteck schneidet.
+Dabei ist $T = ((tx1+1, ty1+1), (tx2-1, ty2-1))$ als Rechteck definiert, das den Türausschnitt beschreibt. Die Funktion $s c h n e i d e t: (NN_0^2 times NN_0^2) times NN_0^4 -> BB$ liefert den Wahrheitswert „wahr“, falls die Strecke $overline(b c)$ das durch $T$ definierte Rechteck schneidet.
 
 // Sonderstellen Herzumlenkungen
 Zur Berücksichtigung spezieller Strukturanforderungen wird zusätzlich die Funktion $h$ eingeführt. Diese bestraft Routen, bei denen an Sonderstellen keine Verbindung zwischen den beiden @UE hergestellt wird. Konkret wird ein Kostenwert vergeben, falls von den beteiligten @UE nicht mindestens eine Kante zum jeweils anderen @UE existiert:
