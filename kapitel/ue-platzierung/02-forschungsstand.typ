@@ -73,6 +73,8 @@ Im @CBT erfolgt die Bestimmung der Positionen der @UE derzeit iterativ und ist a
   caption: [Reihenfolge der Positionierung der UE im aktuellen Ansatz des CBT für einfache Wände ohne Tür- oder Fensterausschnitt. In Rot sind die UE der Sonderstelle markiert.]
 )<fig:rollenplatzierung-cbt>
 
+#question[Andere Arbeiten nennen ohne wirklichen Erkenntnisgewinn daraus?]
+
 // TU Dresden
 Im Unterschied dazu untersuchten #citep(<frieseRobotAssistedManufacturingTechnology2023>) die automatisierte Garnablage für dreidimensionale Skelette, einschließlich der Planung der Bewegungsbahnen eines Roboterarms. Die räumlichen Positionen der Pins werden dabei jedoch als gegeben und strukturell konsistent vorausgesetzt und nicht eigenständig berechnet. Darüber hinaus werden keine Anforderungen an die Gleichmäßigkeit der resultierenden Struktur, beispielsweise in Form eines Gitters, gestellt.
 

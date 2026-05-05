@@ -105,18 +105,18 @@ Sobald Hindernisse auftreten, wird die Fläche in mehrere Teilbereiche unterglie
 )<fig:route-cells>
 
 Die Bereiche $L V, R V, T V in P'_V$ sowie $L H, R H "und" T H in P'_V$ sind jeweils als Permutationen von @UE bezüglich der Menge der @UE $V$ dargestellt.
-Für die @UE in den drei Bereichen $L V, R V  "und" T V$ für vertikale Streben gilt
+Die drei Bereiche $L V, R V  "und" T V$ für vertikale Streben ergeben sich somit zu
 $
-  forall v in V&: v in L V <=> 1 <= v_((x)) < tx1 \
-  forall v in V&: v in T V <=> tx1 <= v_((x)) <= tx2 \
-  forall v in V&: v in R V <=> tx2 < v_((x)) < xmax \
+  L V = {v in V | 1 <= v_((x)) < tx1 } \
+  T V = {v in V | tx1 <= v_((x)) <= tx2} \
+  R V = {v in V | tx2 < v_((x)) < xmax} \
 $
-sowie für die Bereiche $L H, R H "und" T H$ für horizontale Streben
+sowie die Bereiche $L H, R H "und" T H$ für horizontale Streben
 
 $
-  forall v in V&: v in L H <=> (ty1 <= v_((y)) < ymax) and (0 <= v_((x)) <= tx1+1) \
-  forall v in V&: v in T H <=> 0 < v_((y)) < ty1 \
-  forall v in V&: v in R H <=> (ty1 <= v_((y)) < ymax) and (tx2-1 <= v_((x)) < xmax) \
+  L H = {v in V | (ty1 <= v_((y)) < ymax) and (0 <= v_((x)) <= tx1+1)} \
+  T H = {v in V |0 < v_((y)) < ty1 } \
+  R H = {v in V | (ty1 <= v_((y)) < ymax) and (tx2-1 <= v_((x)) < xmax)} \
 $
 
 Die Anordnung der @UE bildet sich aus den Bereichen durch Anordnung der @UE entlang der Hauptachse bzw. Scanrichtung. Somit gilt für $p_x in {L V, R V, T V}, p_x = (v_1, ..., v_k)$
