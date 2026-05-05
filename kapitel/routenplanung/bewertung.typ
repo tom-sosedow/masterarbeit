@@ -3,7 +3,7 @@
 
 == Bewertung von Lösungen
 // Kantenbasierte Bewertung, kontextabhängig
-Um Lösungskandidaten bewerten zu können, müssen geeignete Bewertungskriterien definiert und in Form einer Funktion formalisiert werden. Die Bewertung einer Route erfolgt dabei kantenbasiert. Eine isolierte Betrachtung einzelner Kanten ist jedoch nicht ausreichend, da aufgrund der geforderten gleichmäßigen Gitterstruktur jede Kante im Kontext ihrer vorhergehenden beziehungsweise nachfolgenden Kante analysiert werden muss. Aus diesem Grund wird zur Bewertung einer Kante ein Knotentripel bestehend aus dem vorherigen Knoten sowie dem Start- und Endknoten der betrachteten Kante herangezogen. Als Ausgabe liefert die Bewertungsfunktion einen Kostenwert, analog zur Distanzbewertung zwischen zwei Knoten in klassischen @TSP:pl. Die Gesamtkosten einer Kante werden modular berechnet und setzen sich aus mehreren gewichteten Teilfunktionen zusammen.
+Um Lösungskandidaten bewerten zu können, müssen geeignete Bewertungskriterien definiert und in Form einer Funktion formalisiert werden. Die Bewertung einer Route erfolgt dabei kantenbasiert. Eine isolierte Betrachtung einzelner Kanten ist jedoch nicht ausreichend, da aufgrund der geforderten gleichmäßigen Gitterstruktur jede Kante im Kontext ihrer vorhergehenden beziehungsweise nachfolgenden Kante analysiert werden muss. Aus diesem Grund wird zur Bewertung einer Kante ein Knotentripel bestehend aus dem vorherigen Knoten sowie dem Start- und Endknoten der betrachteten Kante herangezogen. Als Ausgabe liefert die Bewertungsfunktion einen Kostenwert, analog zur Distanzbewertung zwischen zwei Knoten in klassischen @TSP:pl. Die Gesamtkosten einer Kante werden modular berechnet und setzen sich aus mehreren gewichteten Teilfunktionen zusammen, welche eigens für dieses Problem konzipiert und im Folgenden dargestellt sind.
 
 // Kanten nur mit 1er Distanz in eine Richtung
 Zunächst wird die geometrische Struktur der Kanten berücksichtigt. In dem zugrunde liegenden Gitter müssen die beiden Knoten einer Kante stets um genau eine Einheit in mindestens einer Richtung, entweder vertikal oder horizontal, versetzt sein. Diese Eigenschaft wird durch die Funktion
@@ -17,15 +17,7 @@ Die Hilfsfunktion $a u s n a h m e(b,c)$ nimmt den Wert „falsch“ an, sofern 
 
 // Tür als Hindernis
 Der Türausschnitt wird im Modell als Hindernis interpretiert. Entsprechend müssen alle Kanten, die durch diesen Bereich verlaufen würden, mit zusätzlichen Kosten belegt werden. Dies erfolgt durch die Funktion $t$:
-// $ t(a,b,c) = cases(
-//   50 ", falls" cases(delim: #none,
-//     "("b_((y)) >= ty1 and c_((y)) > ty1 or, // below door down
-//     b_((y)) > ty1 and c_((y)) >= ty1")" and, // below door up
-//     "("b_((x)) <= tx1 and c_((x)) > tx1+1 or, // ltr
-//     b_((x)) >= tx2 and c_((x)) < tx2-1")", // rtl
-//   ),
-//   0 ", sonst"
-// ) $
+
 $ t(a,b,c) = cases(
   50 ", falls" s c h n e i d e t(overline(b c), T),
   0 ", sonst"
@@ -72,7 +64,7 @@ Eine vollständige Totalordnung liegt jedoch nicht vor, da die Eigenschaft der A
 Um einen passenden Lösungsansatz bestimmen zu können, müssen Bewertungskriterien festgelegt werden. Anhand derer werden die betrachteten exakten und heuristischen Methoden bewertet und untereinander bezüglich ihrer Anwendbarkeit und Eignung zur Lösung der zuvor definierten Problemstellung systematisch verglichen. 
 
 // Wandkonfigurationen
-Um die Ergebnisse vergleichbar zu machen, werden vier verschiedene Wandkonfigurationen $w_1, ..., w_4$ festgelegt. Dabei sind $w_1$ und $w_2$ kleine Wandkonfigurationen mit einer Breite von 80 cm und einer Höhe von 55 cm, wobei sie sich nur in dem horizontalen Versatz des Türausschnittes unterscheiden. Durch manuelle Analyse konnten als optimal angenommene Routen für diese Wandkonfigurationen mit minimalen Kosten von jeweils 1 bestimmt werden. Wandkonfigurationen $w_3$ und $w_4$ sind größere Wände mit einer Breite von 2,1 m und einer Höhe von 1,05 m, also Größen wie sie auch derzeit im @CBT herstellbar sind. Die händisch bestimmten optimalen Lösungen haben ebenfalls minimal erreichte Kosten von jeweils 1. Die genauen Maße sowie die benötigte Anzahl an @UE:pl:long je Wandkonfiguration sind in @fig:wandkonfigurationen-tabelle aufgeschlüsselt. Es werden pro Konfiguration jeweils vier Durchläufe aufgezeichnet, um die Ergebnisse gegenüber zufälligen Schwankungen robuster zu machen und deren Aussagekraft zu erhöhen.
+Um die Ergebnisse vergleichbar zu machen, werden vier verschiedene Wandkonfigurationen $w_1, ..., w_4$ festgelegt. Dabei sind $w_1$ und $w_2$ kleine Wandkonfigurationen mit einer Breite von 80 cm und einer Höhe von 55 cm, wobei sie sich nur in dem horizontalen Versatz des Türausschnittes unterscheiden. Durch manuelle Analyse konnten für diese Wandkonfigurationen Routen mit minimalen Kosten von jeweils 1 bestimmt werden, welche im Folgenden als optimale Kosten gelten. Die Wandkonfigurationen $w_3$ und $w_4$ sind größere Wände mit einer Breite von 210 cm und einer Höhe von 105 cm, also Größen wie sie auch derzeit im @CBT herstellbar sind. Die händisch bestimmten optimalen Lösungen haben ebenfalls minimal erreichte Kosten von jeweils 1. Die genauen Maße sowie die benötigte Anzahl an @UE:pl:long je Wandkonfiguration sind in @fig:wandkonfigurationen-tabelle aufgeschlüsselt. Es werden pro Konfiguration jeweils vier Durchläufe aufgezeichnet, um die Ergebnisse gegenüber zufälligen Schwankungen robuster zu machen und deren Aussagekraft zu erhöhen.
 
 #figure(
   table(

@@ -79,6 +79,6 @@ Wie in @sec:ue-place-problem dargestellt, existieren konzeptionell lediglich 32 
   caption: [Kleine Wandkonfiguration mit korrekt platzierten Umlenkelementen und Reihenfolge der Berechnung. In Rot dargestellt eine Sonderstelle, in Grün optionale UE und in Blau das UE, welches den oberen Versatz $omega$ bestimmt.]
 )<fig:fully-placed-ue-wall>
 
-Die Positionen der @UE sind in allen Fällen zulässig, da die in @sec:ue-place-problem Rahmenbedingungen eingehalten werden. Durch die in @sec:ue-place-implementation beschriebenen optionalen @UE in den Ecken der Wand werden womöglich @UE platziert, welche für die spätere Routenplanung irrelevant sind. Ihre Anzahl begrenzt sich in diesen Fällen auf maximal drei eventuell überflüssige @UE, welche nach der Routenplanung aus dem Ablageprogramm entfernt werden können.
+Die Positionen der @UE sind in allen Fällen zulässig, da die in @sec:ue-place-problem aufgestellten Rahmenbedingungen eingehalten werden. Durch die in @sec:ue-place-implementation beschriebenen optionalen @UE in den Ecken der Wand werden womöglich @UE platziert, welche für die spätere Routenplanung irrelevant sind. Ihre Anzahl begrenzt sich in diesen Fällen auf maximal drei eventuell überflüssige @UE, welche nach der Routenplanung aus dem Ablageprogramm entfernt werden können.
 
 Die durchschnittliche Rechenzeit beträgt 0,08 Millisekunden, während die maximal gemessene Rechenzeit bei 24 Millisekunden über alle 32 Testläufe lag. Die Tests wurden auf einem Intel(R) Core(TM) i5-8350U Prozessor mit 24 GB Arbeitsspeicher durchgeführt.

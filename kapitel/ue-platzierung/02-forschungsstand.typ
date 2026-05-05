@@ -74,7 +74,7 @@ Im @CBT erfolgt die Bestimmung der Positionen der @UE derzeit iterativ und ist a
 )<fig:rollenplatzierung-cbt>
 
 // TU Dresden
-#citep(<merschAutomation3DRobotic2025>) untersuchten hingegen die automatisierte Garnablage für dreidimensionale Skelette, einschließlich der Planung der Bewegungsbahnen eines Roboterarms. Die räumlichen Positionen der Pins werden dabei jedoch als gegeben und strukturell konsistent vorausgesetzt und nicht eigenständig berechnet. Darüber hinaus werden keine Anforderungen an die Gleichmäßigkeit der resultierenden Struktur, beispielsweise in Form eines Gitters, gestellt.
+Im Unterschied dazu untersuchten #citep(<frieseRobotAssistedManufacturingTechnology2023>) die automatisierte Garnablage für dreidimensionale Skelette, einschließlich der Planung der Bewegungsbahnen eines Roboterarms. Die räumlichen Positionen der Pins werden dabei jedoch als gegeben und strukturell konsistent vorausgesetzt und nicht eigenständig berechnet. Darüber hinaus werden keine Anforderungen an die Gleichmäßigkeit der resultierenden Struktur, beispielsweise in Form eines Gitters, gestellt.
 
 // String Art
 Im kreativen Bereich existieren hingegen Arbeiten, bei denen Künstler mithilfe von Algorithmen Bilder durch das Verlegen von Garn erzeugen (engl. String Art). Häufig dient dabei eine einfache geometrische Form, etwa ein Kreis oder Rechteck, als Rahmen @birsakStringArtComputational2018. Auf diesem Rahmen sind in regelmäßigen Abständen Pins angebracht, um welche das Garn entsprechend der gewünschten Detailtreue geführt wird. Ein solcher Rahmen ist in @fig:string-art-beispiele (a) sowie ein resultierendes Bild mit der entsprechenden Vorlage in (b) zu sehen.

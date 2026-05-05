@@ -6,7 +6,7 @@
 
 == Planung durch Teilrouten <sec:route-puzzle-based>
 
-Ein Nachteil bei der punktbasierten Routenplanung ist, dass häufig Freiheiten bei der Wahl der nächsten Kante gelassen werden, wo eigentlich keine wirkliche Entscheidungsfreiehit besteht. So gibt es beispielsweise bei horizontal verlaufenden Streben jeweils immer nur den Knoten eine Ebene höher bzw. niedriger zu Auswahl. Eine Abweichung von diesem Muster würde eine irreparable Lücke in der Gitterstruktur erzeugen. Erst ganz oben bzw. unten in den Ecken der Wand oder auf Türhöhe gibt es mehrere Folgekanten, die in Frage kommen könnten.
+Ein Nachteil bei der punktbasierten Routenplanung ist, dass häufig Freiheiten bei der Wahl der nächsten Kante gelassen werden, wo eigentlich keine wirkliche Entscheidungsfreiheit besteht. So gibt es beispielsweise bei horizontal verlaufenden Streben jeweils immer nur den Knoten eine Ebene höher bzw. niedriger zu Auswahl. Eine Abweichung von diesem Muster würde eine irreparable Lücke in der Gitterstruktur erzeugen. Erst ganz oben bzw. unten in den Ecken der Wand oder auf Türhöhe gibt es mehrere Folgekanten, die in Frage kommen könnten.
 
 Vor diesem Hintergrund erscheint eine stärkere Strukturierung des Lösungsraumes sinnvoll, sodass unnötige Freiheitsgrade von vornherein reduziert werden. Eine geeignete konzeptionelle Grundlage hierfür bietet die aus dem Coverage Path Planning bekannte Boustrophedon Cellular Decomposition nach #citep(<chosetCoveragePathPlanning1998>). Dieses Verfahren adressiert das Problem, eine Fläche mit einem Pfad endlicher Breite vollständig und in einem zusammenhängenden Durchlauf zu überdecken. Im einfachsten Fall, also ohne Hindernisse, ist die Lösung trivial und entspricht einem gleichmäßigen Hin-und-Her-Bewegungsmuster. Eine Veranschaulichung davon ist in @fig:boustrophedon links zu sehen.
 
@@ -92,7 +92,7 @@ Sobald Hindernisse auftreten, wird die Fläche in mehrere Teilbereiche unterglie
   caption: [Boustrophedon Cellular Decomposition nach #citep(<chosetCoveragePathPlanning1998>)]
 )<fig:boustrophedon>
 
-Überträgt man dieses Prinzip auf den vorliegenden Anwendungsfall, ergeben sich einige Analogien und Vereinfachungen. So ist für vertikale und horizontale Streben ein Scannen in beiden Richtungen erforderlich, um eine geeignete Zellteilung zu finden. Ebenfalls ist die Tür immer immer rechteckig mit den Seiten parallel zu den Seiten der Wand. Somit reicht in horizontaler Scanrichtung, also für vertikale Streben, die Aufspaltung in die drei Teilbereiche links und rechts sowie innerhalb der Tür. In vertikaler Richtung sind ebenfalls drei Teilbereiche nötig, um den Bereich oberhalb der Tür sowie die beiden Bereiche links und rechts neben der Tür abzubilden. In @fig:route-cells sind die resultierenden Teilrouten in den Bereichen an einem Beispiel dargestellt. 
+Überträgt man dieses Prinzip auf den vorliegenden Anwendungsfall, ergeben sich einige Analogien und Vereinfachungen. So ist für vertikale und horizontale Streben ein Scannen in beide Richtungen erforderlich, um eine geeignete Zellteilung zu finden. Ebenfalls wird die Tür immer als rechteckig mit den Seiten parallel zu den Seiten der Wand angenommen. Somit reicht in horizontaler Scanrichtung, also für vertikale Streben, die Aufspaltung in die drei Teilbereiche links und rechts sowie innerhalb der Tür. In vertikaler Richtung sind ebenfalls drei Teilbereiche nötig, um den Bereich oberhalb der Tür sowie die beiden Bereiche links und rechts neben der Tür abzubilden. In @fig:route-cells sind die resultierenden Teilrouten in den Bereichen an einem Beispiel dargestellt. 
 
 #figure(
   stack(
@@ -101,7 +101,7 @@ Sobald Hindernisse auftreten, wird die Fläche in mehrere Teilbereiche unterglie
     spacing: 2%,
     image("/images/puzzle-vertikal.png", width: 57%)
   ),
-  caption: [Alle Puzzleteile mit Benennung und Position],
+  caption: [Positionen und Bezeichnungen aller definierten Teilrouten],
 )<fig:route-cells>
 
 Die Bereiche $L V, R V, T V in P'_V$ sowie $L H, R H "und" T H in P'_V$ sind jeweils als Permutationen von @UE bezüglich der Menge der @UE $V$ dargestellt.
@@ -116,7 +116,7 @@ sowie für die Bereiche $L H, R H "und" T H$ für horizontale Streben
 $
   forall v in V&: v in L H <=> (ty1 <= v_((y)) < ymax) and (0 <= v_((x)) <= tx1+1) \
   forall v in V&: v in T H <=> 0 < v_((y)) < ty1 \
-  forall v in V&: v in R H <=> (ty1 <= v_((y)) < ymax) and (tx1-1 <= v_((x)) < xmax) \
+  forall v in V&: v in R H <=> (ty1 <= v_((y)) < ymax) and (tx2-1 <= v_((x)) < xmax) \
 $
 
 Die Anordnung der @UE bildet sich aus den Bereichen durch Anordnung der @UE entlang der Hauptachse bzw. Scanrichtung. Somit gilt für $p_x in {L V, R V, T V}, p_x = (v_1, ..., v_k)$
@@ -266,7 +266,7 @@ Zur effizienten Erzeugung aller validen Permutationen wird eine rekursive Funkti
 
 #question[Soll die auswertung der tabelle (deutung, warum manche zahlen so sind) lieber in die auswertung?]
 
-Die Ergebnisse der Testläufe sind in @tab:bruteforce-puzzle-res zusammengefasst. Insgesamt werden 129'024 verschiedene Permutationen gebildet. In der Spalte "Anz. Lösungen" ist jeweils die Anzahl der Lösungen mit Kosten unter 400 zu sehen. Die Spalte „Anz. Lösungen“ gibt jeweils die Anzahl der Lösungen mit Kosten unterhalb der Schranke von 400 an. Die vollständigen Routen für jede der 32 möglichen Wandkonfigurationen sind im @appendix:wandkonfigurationen zu sehen. 
+Die Ergebnisse der Testläufe sind in @tab:bruteforce-puzzle-res zusammengefasst. Insgesamt werden 129'024 verschiedene Permutationen gebildet. Die Spalte „Anz. Lösungen“ gibt jeweils die Anzahl der Lösungen mit Kosten unterhalb der Schranke von 400 an. Die vollständigen Routen für jede der 32 möglichen Wandkonfigurationen sind im @appendix:wandkonfigurationen zu sehen. 
 
 Es zeigt sich, dass größere Wandkonfigurationen signifikant weniger potenzielle Lösungen aufweisen. Dies kann dadurch erklärt werden, dass größere Abweichungen zwischen Ist- und Soll-Positionen der @UE:pl:long durch die distanzbasierte Kostenfunktion stärker bestraft werden und somit vergleichbare Fehler zu höheren Kosten führen.
 
@@ -288,14 +288,14 @@ Es zeigt sich, dass größere Wandkonfigurationen signifikant weniger potenziell
 
 Außerdem ist zu sehen, dass die Laufzeiten scheinbar proportional mit der Größe der Wandkonfiguration ansteigen, obwohl der Lösungsraum kleiner ist. Ein Faktor ist hierbei die Bewertungsfunktion, die trotz der Kodierung als Permutation fester Länge auf der resultierenden Route arbeitet. Da durch die größeren Wände auch mehr Kanten bewertet werden müssen, steigt die Laufzeit des Gesamtprozesses folglich.
 
-Dennoch wird selbst für die großen Wandkonfigurationen innerhalb weniger Sekunden das globale Optimum gefunden. Anders als bei der punktbasierten Planung ist das implementationsbedingt auch der Zeitpunkt, an dem die Suche terminiert und das finale Ergebnis somit feststeht.trotz
+Dennoch wird selbst für die großen Wandkonfigurationen innerhalb weniger Sekunden das globale Optimum gefunden. Anders als bei der punktbasierten Planung ist das implementationsbedingt auch der Zeitpunkt, an dem die Suche terminiert und das finale Ergebnis somit feststeht.
 
 === Nachbearbeitung <sec:route-postprocessing>
 Wie bereits erwähnt kann aus einer Reihenfolge und Richtung der abzufahrenden Teilrouten die gesamte Route berechnet werden, indem die jeweiligen @UE:pl verkettet werden. Unter bestimmten Bedingungen kann diese bloße Verkettung allerdings dazu führen, dass ungültige bzw. schlecht bewertete Routen entstehen würden, obwohl es eine einfache Lösung für diese Spezialfälle geben könnte. Das passiert unter anderem in dem in @fig:sonderstelle-left-door-corner abgebildeten Fall einer Sonderstelle in der unteren Ecke der Tür. Wird in solch einer Wandkonfiguration eine Route bewertet, bei denen die Teilrouten $L V circle.small T V$ bzw. $T V^R circle.small L V^R$ aufeinander folgen, geht eine negative Bewertung der ignorierten Sonderstelle in die Betrachtung ein. Die Verkettung ergäbe in diesem Fall eine Kante zwischen $a$ und $b$ sowie zwischen $b$ und $c$, ohne einen Zwischenschritt über $x$. 
 
 #maybe[weiterer Fall (letzte/Erste Strebe über der Tür) mit erklären?]
 
-Um eine Permutation korrekt auf eine Route abbilden zu können, benötigt es also eine Nachbearbeitung in Form einer Funktion $p: R -> R$. Sie fügtk beispielsweise im Fall von @fig:sonderstelle-left-door-corner das fehlende @UE $x$ zwischen $c$ und $b$ ein, um eine korrekte Umlenkung von $b$ nach $a$ zu ermöglichen. Abhängig von der gewählten Route kann auch eine Addition von $x$ vor $b$ nötig sein, um eine korrekte Umlenkung zu $a$ zu ermöglichen. Dies ist bei einer solchen Wand unter anderem erforderlich, falls auf ein $L H$ ein $L V^R$ folgt. 
+Um eine Permutation korrekt auf eine Route abbilden zu können, benötigt es also eine Nachbearbeitung in Form einer Funktion $p: R -> R$. Sie fügt beispielsweise im Fall von @fig:sonderstelle-left-door-corner das fehlende @UE $x$ zwischen $c$ und $b$ ein, um eine korrekte Umlenkung von $b$ nach $a$ zu ermöglichen. Abhängig von der gewählten Route kann auch eine Addition von $x$ vor $b$ nötig sein, um eine korrekte Umlenkung zu $a$ zu ermöglichen. Dies ist bei einer solchen Wand unter anderem erforderlich, falls auf ein $L H$ ein $L V^R$ folgt. 
 
 #maybe[ pseudo code einfügen ?]
 
