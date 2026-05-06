@@ -6,7 +6,7 @@
 Um Lösungskandidaten bewerten zu können, müssen geeignete Bewertungskriterien definiert und in Form einer Funktion formalisiert werden. Die Bewertung einer Route erfolgt dabei kantenbasiert. Eine isolierte Betrachtung einzelner Kanten ist jedoch nicht ausreichend, da aufgrund der geforderten gleichmäßigen Gitterstruktur jede Kante im Kontext ihrer vorhergehenden beziehungsweise nachfolgenden Kante analysiert werden muss. Aus diesem Grund wird zur Bewertung einer Kante ein Knotentripel bestehend aus dem vorherigen Knoten sowie dem Start- und Endknoten der betrachteten Kante herangezogen. Als Ausgabe liefert die Bewertungsfunktion einen Kostenwert, analog zur Distanzbewertung zwischen zwei Knoten in klassischen @TSP:pl. Die Gesamtkosten einer Kante werden modular berechnet und setzen sich aus mehreren gewichteten Teilfunktionen zusammen, welche eigens für dieses Problem konzipiert und im Folgenden dargestellt sind.
 
 // Kanten nur mit 1er Distanz in eine Richtung
-Zunächst wird die geometrische Struktur der Kanten berücksichtigt. In dem zugrunde liegenden Gitter müssen die beiden Knoten einer Kante stets um genau eine Einheit in mindestens einer Richtung, entweder vertikal oder horizontal, versetzt sein. Diese Eigenschaft wird durch die Funktion
+Zunächst wird die geometrische Struktur der Kanten berücksichtigt. In dem zugrunde liegenden Gitter müssen die beiden Knoten einer Kante stets um genau eine Einheit in mindestens einer Richtung, entweder vertikal oder horizontal, versetzt sein. Zumeist verläuft die Änderung in Hauptrichtung. Diese Eigenschaft wird durch die Funktion
 $ d(a,b,c) = cases((Delta x+Delta y)^6 ", falls" Delta x=0 or Delta y=0, 0 ", falls" Delta x = 1 or Delta y=1, 5+(Delta x)^4+(Delta y)^4 ", sonst") \ "mit" Delta x = |b_((x))-c_((x))|, Delta y = |b_((y))-c_((y))| $<eq:max-distanz-1>
 abgebildet. Insbesondere Kanten, die strikt entlang einer Zeile oder Spalte verlaufen, werden dabei negativ bewertet.
 
@@ -55,6 +55,8 @@ Eine vollständige Totalordnung liegt jedoch nicht vor, da die Eigenschaft der A
 
 #question[
   Muss ich das beweisen? Wie in Modellierung damals jede Eigenschaft einer totalen Quasiordnung einzeln? 
+  
+  -> In Vorbereitung auf Kolloquium das vorbereiten. Aber nicht in Arbeit aufnehmen. Erklären, warum es wichtig ist.
 ]
 
 

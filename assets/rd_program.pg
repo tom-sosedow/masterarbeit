@@ -1,0 +1,315 @@
+
+.PROGRAM Rollenablage ()
+  ; ############### program header start ##############
+  QTOOL OFF                   ; turn off block tool
+  BASE NULL                   ; set base coordinates to (0,0,0,0,0,0)
+  ABS.SPEED ON                ; turn on absolute speed
+  CP ON                       ; turn on continuous path
+  TOOL NULL                   ; set tool coordinates to (0,0,0,0,0,0)
+  SPEED 2000 MM/S ALWAYS      ; set robot velocity
+  ACCEL 50 ALWAYS             ; set robot acceleration (%)
+  DECEL 50 ALWAYS             ; set robot deceleration (%)
+  ACCURACY 20 ALWAYS          ; set point accuracy
+  ; ############### program header end ################
+  
+  CALL get_grip   ; subroutine to get gripper tool
+  TOOL g2s_off  ; set tool (TCP) coordinates
+  HOME 1            ; move to home position
+  
+  ; ############# main #############
+  	
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (0.0, 95.0)  ; subroutine to get guiding element from wall
+  ; set roll (150,50,0)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (150, 50, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (95.0, 95.0)  ; subroutine to get guiding element from wall
+  ; set roll (250,50,1)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (250, 50, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (190.0, 95.0)  ; subroutine to get guiding element from wall
+  ; set roll (350,50,2)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (350, 50, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (285.0, 95.0)  ; subroutine to get guiding element from wall
+  ; set roll (450,50,3)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (450, 50, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (380.0, 95.0)  ; subroutine to get guiding element from wall
+  ; set roll (550,50,4)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (550, 50, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (475.0, 95.0)  ; subroutine to get guiding element from wall
+  ; set roll (650,50,5)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (650, 50, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (570.0, 95.0)  ; subroutine to get guiding element from wall
+  ; set roll (750,50,6)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (750, 50, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (665.0, 95.0)  ; subroutine to get guiding element from wall
+  ; set roll (850,50,7)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (850, 50, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (760.0, 95.0)  ; subroutine to get guiding element from wall
+  ; set roll (950,50,8)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (950, 50, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (855.0, 95.0)  ; subroutine to get guiding element from wall
+  ; set roll (1050,50,9)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (1050, 50, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (47.5, 190.0)  ; subroutine to get guiding element from wall
+  ; set roll (1150,50,10)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (1150, 50, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (142.5, 190.0)  ; subroutine to get guiding element from wall
+  ; set roll (1250,50,11)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (1250, 50, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (237.5, 190.0)  ; subroutine to get guiding element from wall
+  ; set roll (1350,50,12)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (1350, 50, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (332.5, 190.0)  ; subroutine to get guiding element from wall
+  ; set roll (50,100,13)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (50, 100, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (427.5, 190.0)  ; subroutine to get guiding element from wall
+  ; set roll (1400,150,14)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (1400, 150, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (522.5, 190.0)  ; subroutine to get guiding element from wall
+  ; set roll (50,200,15)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (50, 200, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (617.5, 190.0)  ; subroutine to get guiding element from wall
+  ; set roll (1400,250,16)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (1400, 250, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (712.5, 190.0)  ; subroutine to get guiding element from wall
+  ; set roll (50,300,18)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (50, 300, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (807.5, 190.0)  ; subroutine to get guiding element from wall
+  ; set roll (500,300,19)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (500, 300, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (0.0, 285.0)  ; subroutine to get guiding element from wall
+  ; set roll (600,300,20)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (600, 300, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (95.0, 285.0)  ; subroutine to get guiding element from wall
+  ; set roll (700,300,21)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (700, 300, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (190.0, 285.0)  ; subroutine to get guiding element from wall
+  ; set roll (800,300,22)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (800, 300, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (285.0, 285.0)  ; subroutine to get guiding element from wall
+  ; set roll (900,300,23)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (900, 300, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (380.0, 285.0)  ; subroutine to get guiding element from wall
+  ; set roll (400,350,25)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (400, 350, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (475.0, 285.0)  ; subroutine to get guiding element from wall
+  ; set roll (1400,350,27)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (1400, 350, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (570.0, 285.0)  ; subroutine to get guiding element from wall
+  ; set roll (50,400,28)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (50, 400, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (665.0, 285.0)  ; subroutine to get guiding element from wall
+  ; set roll (900,400,29)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (900, 400, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (760.0, 285.0)  ; subroutine to get guiding element from wall
+  ; set roll (400,450,30)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (400, 450, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (855.0, 285.0)  ; subroutine to get guiding element from wall
+  ; set roll (1400,450,31)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (1400, 450, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (47.5, 380.0)  ; subroutine to get guiding element from wall
+  ; set roll (50,500,32)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (50, 500, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (142.5, 380.0)  ; subroutine to get guiding element from wall
+  ; set roll (900,500,33)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (900, 500, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (237.5, 380.0)  ; subroutine to get guiding element from wall
+  ; set roll (400,550,34)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (400, 550, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (332.5, 380.0)  ; subroutine to get guiding element from wall
+  ; set roll (1400,550,35)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (1400, 550, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (427.5, 380.0)  ; subroutine to get guiding element from wall
+  ; set roll (50,600,36)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (50, 600, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (522.5, 380.0)  ; subroutine to get guiding element from wall
+  ; set roll (900,600,37)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (900, 600, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (617.5, 380.0)  ; subroutine to get guiding element from wall
+  ; set roll (400,650,38)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (400, 650, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (712.5, 380.0)  ; subroutine to get guiding element from wall
+  ; set roll (1400,650,39)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (1400, 650, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (807.5, 380.0)  ; subroutine to get guiding element from wall
+  ; set roll (50,700,40)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (50, 700, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (0.0, 475.0)  ; subroutine to get guiding element from wall
+  ; set roll (900,700,41)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (900, 700, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (95.0, 475.0)  ; subroutine to get guiding element from wall
+  ; set roll (400,750,42)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (400, 750, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (190.0, 475.0)  ; subroutine to get guiding element from wall
+  ; set roll (1400,750,43)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (1400, 750, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (285.0, 475.0)  ; subroutine to get guiding element from wall
+  ; set roll (100,800,44)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (100, 800, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (380.0, 475.0)  ; subroutine to get guiding element from wall
+  ; set roll (200,800,45)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (200, 800, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (475.0, 475.0)  ; subroutine to get guiding element from wall
+  ; set roll (300,800,46)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (300, 800, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (570.0, 475.0)  ; subroutine to get guiding element from wall
+  ; set roll (1000,800,48)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (1000, 800, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (665.0, 475.0)  ; subroutine to get guiding element from wall
+  ; set roll (1100,800,49)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (1100, 800, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (760.0, 475.0)  ; subroutine to get guiding element from wall
+  ; set roll (1200,800,50)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (1200, 800, 0) ; subroutine to set guiding element on table
+  ; get roll
+  JMOVE wp10                ; move to intermediate point
+  CALL grab_ge_wall (855.0, 475.0)  ; subroutine to get guiding element from wall
+  ; set roll (1300,800,51)
+  JMOVE wp10                        ; move to intermediate point
+  CALL place_ge_tabled (1300, 800, 0) ; subroutine to set guiding element on table
+  
+  ; ############# end #############
+  HOME 1            ; move to home position
+  CALL drop_grip   ; subroutine to get gripper tool
+  HOME 1            ; move to home position
+  
+.END

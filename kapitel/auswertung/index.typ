@@ -7,7 +7,12 @@ Auf dieser Grundlage wird für jedes Teilproblem abschließend geprüft, inwiewe
 
 #question[Kommt die Beantwortung der Forschungsfragen hier in die Diskussion oder eher in die Zusammenfassung/ ins Fazit?]
 
-#question[Inwiefern muss ich die Robustheit meiner Vorgehensweise und Implementierung diskutieren? Bspw, dass mein @GA unterirdisch schlecht ist und die Ergebnisse kaum zum Vergleich taugen. Durch fehlende Literatur musste ich mir ja fast alles aus dem Finger ziehen.]
+#question[Inwiefern muss ich die Robustheit meiner Vorgehensweise und Implementierung diskutieren? Bspw, dass mein @GA unterirdisch schlecht ist und die Ergebnisse kaum zum Vergleich taugen. Durch fehlende Literatur musste ich mir ja fast alles aus dem Finger ziehen.
+
+Ja -> einmal feststellen, dass GA schlech tist und veweisen,d ass optimierungspotential besteht, wenn man ind ie literatur schaut
+
+Entschieden, das nicht weiter zu verflgen, weil di eanderen ansätze besser sind
+]
 
 #include "01-ue-platzierung.typ"
 #include "02-routenplanung.typ"

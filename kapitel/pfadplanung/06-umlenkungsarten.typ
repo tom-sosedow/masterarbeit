@@ -58,4 +58,5 @@ Sonderumlenkungen (3) werden ähnlich wie vollständige Umlenkungen ebenfalls an
 
 Eckumlenkungen (4) werden eingesetzt, wenn es sich bei dem @UE um ein optionales @UE in einer der vier Wandecken oder in einer der beiden unteren Türecken handelt. Diese Art der Umlenkung ähnelt prinzipiell der vollständigen Umlenkung. Der Unterschied besteht jedoch darin, dass sich die Punkte für das kollisionsfreie Anfahren in den diagonal gegenüberliegenden Ecken der angrenzenden acht Felder befinden und nicht direkt oberhalb, unterhalb, links oder rechts des Mittelpunkts des @UE.
 
+Um die Programmdateien für den Roboterarm zu erzeugen, werden je nach Umlenkungsart die einzelnen Wegpunkte als Koordinaten für die Bewegungsmuster des Roboterarms genutzt. So wird beispielsweise der erste Wegpunkt linear angefahren und anschließend die weiteren Punkte mit speziellen Anweisungen für Kreisbewegungen verknüpft, um die Programmzeilen der Gesamtbewegung zu bilden. In @appendix:robotcode ist exemplarisch für eine Wandkonfiguration der erzeugte Code sowie eine Abbildung des resultierenden Pfades des Werkzeugmittelpunkts in der Simulationssoftware dargestellt. 
 

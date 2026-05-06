@@ -264,9 +264,13 @@ Da der Lösungsraum durch die Modellierung als Teilrouten deutlich verkleinert w
 
 Zur effizienten Erzeugung aller validen Permutationen wird eine rekursive Funktion eingesetzt. In jedem Schritt wird die Permutation um eine noch fehlende Teilroute ergänzt. Anschließend wird die bis dahin bestehende Lösung bewertet und die Funktion nur für diejenigen partiellen Lösungen ausgeführt, die unter der Kostengrenze von 400 liegen. Diese Kombination aus exakten Verfahren und heuristischer Beschränkung des Suchraums trägt dazu bei, die Laufzeit zu reduzieren, ohne die Garantie der Optimalität aufzugeben @tahamiLiteratureReviewCombining2022.
 
-#question[Soll die auswertung der tabelle (deutung, warum manche zahlen so sind) lieber in die auswertung?]
+#question[Soll die auswertung der tabelle (deutung, warum manche zahlen so sind) lieber in die auswertung?
 
-Die Ergebnisse der Testläufe sind in @tab:bruteforce-puzzle-res zusammengefasst. Insgesamt werden 129'024 verschiedene Permutationen gebildet. Die Spalte „Anz. Lösungen“ gibt jeweils die Anzahl der Lösungen mit Kosten unterhalb der Schranke von 400 an. Die vollständigen Routen für jede der 32 möglichen Wandkonfigurationen sind im @appendix:wandkonfigurationen zu sehen. 
+-> In die Auswertung schreiben, dass 400 ungünstig ist, und variabel je nach wandgröße besser wäre
+]
+
+Die Ergebnisse der Testläufe sind in @tab:bruteforce-puzzle-res zusammengefasst und werden in #todo[label einfügen] ausführlicher diskutiert. Insgesamt werden 129'024 verschiedene Permutationen gebildet. Die Spalte „Anz. Lösungen“ gibt jeweils die Anzahl der Lösungen mit Kosten unterhalb der Schranke von 400 an. Die vollständigen Routen für jede der 32 möglichen Wandkonfigurationen sind im @appendix:wandkonfigurationen zu sehen. 
+
 
 Es zeigt sich, dass größere Wandkonfigurationen signifikant weniger potenzielle Lösungen aufweisen. Dies kann dadurch erklärt werden, dass größere Abweichungen zwischen Ist- und Soll-Positionen der @UE:pl:long durch die distanzbasierte Kostenfunktion stärker bestraft werden und somit vergleichbare Fehler zu höheren Kosten führen.
 
@@ -285,6 +289,8 @@ Es zeigt sich, dass größere Wandkonfigurationen signifikant weniger potenziell
   ),
   caption: [Ergebnisse optimiertes Brute Force]
 ) <tab:bruteforce-puzzle-res>
+
+#todo[Das lieber in Auswertung]
 
 Außerdem ist zu sehen, dass die Laufzeiten scheinbar proportional mit der Größe der Wandkonfiguration ansteigen, obwohl der Lösungsraum kleiner ist. Ein Faktor ist hierbei die Bewertungsfunktion, die trotz der Kodierung als Permutation fester Länge auf der resultierenden Route arbeitet. Da durch die größeren Wände auch mehr Kanten bewertet werden müssen, steigt die Laufzeit des Gesamtprozesses folglich.
 

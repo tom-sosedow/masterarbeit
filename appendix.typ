@@ -1,10 +1,15 @@
-#let appendix(body) = {
-  set heading(numbering: none, supplement: [Anhang])
-  pagebreak()
-  [= Anhang] 
-  v(-4em)
+#import "/util.typ": *
 
-  set heading(numbering: "A", supplement: [Anhang])
+#let appendix(body) = {
+  heading([Anhang], outlined: false, numbering: none)
+  v(-4em)
+  set heading(
+    numbering: num => {
+      "Anhang " + numbering("A", num)
+    }, 
+    supplement: [Anhang],
+    
+  )
   show figure: it => {
     v(-1.5em)
     it
@@ -17,7 +22,7 @@
 
 #show: appendix
 
-= Ergebnisse für alle Wandkonfigurationen <appendix:wandkonfigurationen>
+#heading([Ergebnisse für alle Wandkonfigurationen ],numbering: "A") <appendix:wandkonfigurationen>
 
 #let dimens = range(0,6, step:5).map(dw => {
                 range(0,6, step:5).map(dh => {
@@ -89,3 +94,19 @@ Zu jedem der Ergebnisse sind unterhalb des Bildes die genauen Maße angegeben, d
     ),
   )
 }
+
+#heading([Programmcode für Roboterarm],numbering: "A") <appendix:robotcode>
+
+#todo[Bild der Simulation einfügen, wie der Robi fährt]
+
+Nachfolgend ist der Programmcode für einen Kawasaki BX130X dargestellt. Dieser wurde für die in @sec:path-results praktisch getestete Wandkonfiguration generiert. Das Programm #text(font: "FreeMono")[Rollenablage] beinhaltet die Platzierung der @UE und das Programm #text(font: "FreeMono")[Garnablage] die Garnablage.
+
+#show raw: set text(font: "FreeMono")
+
+#raw(read("/assets/rd_program.pg"), syntaxes: "/assets/KawasakiPG.sublime-syntax")
+
+\
+
+\
+
+#raw(read("/assets/yd_program.pg"), syntaxes: "/assets/KawasakiPG.sublime-syntax")

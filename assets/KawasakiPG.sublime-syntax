@@ -1,0 +1,43 @@
+%YAML 1.2
+---
+name: Kawasaki PG
+file_extensions:
+  - pg
+scope: source.kawasaki.pg
+
+contexts:
+  main:
+    # Comments (Kawasaki often uses '!' or ';')
+    - match: (!|;).*$
+      scope: comment.line.kawasaki
+
+    # Labels (e.g. NOP, LABEL, PSTART etc.)
+    - match: \b(N\d+|LBL\d+)\b
+      scope: entity.name.label.kawasaki
+
+    # Motion / robot commands
+    - match: \b(MOVE|JMOVE|LMOVE|TMOVE|HOME|APPRO|DEPART|SPEED|DELAY|WAIT|JAPPRO|C1MOVE|C2MOVE)\b
+      scope: keyword.control.kawasaki
+
+    # I/O and logic
+    - match: \b(SET|RESET|IF|THEN|ELSE|ENDIF|WHILE|ENDWHILE|FOR|ENDFOR|CALL|RETURN)\b
+      scope: keyword.control.conditional.kawasaki
+
+    # System / robot state commands
+    - match: \b(POS|BASE|TOOL|FRAME|LOAD|UNLOAD|STOP|HALT|RUN)\b
+      scope: support.function.kawasaki
+
+    # Numbers (positions, speeds, etc.)
+    - match: \b-?\d+(\.\d+)?\b
+      scope: constant.numeric.kawasaki
+
+    # Strings (if used in CALL or messages)
+    - match: '"'
+      push: string
+
+  string:
+    - meta_scope: string.quoted.double.kawasaki
+    - match: '"'
+      pop: true
+    - match: .
+      scope: string.quoted.double.kawasaki

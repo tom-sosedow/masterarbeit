@@ -27,7 +27,7 @@ Die zusätzlich eingefügten Zwischenpunkte zur Vermeidung von Kollisionen mit b
 
 Es kommt ebenfalls innerhalb der Umlenkungen zu Kollisionen mit Garnstreben. Da die Kollisionserkennung lediglich für die Anwendung auf die Wege zwischen zwei Umlenkungen konzipiert wurde, werden Streben, welche nah an den @UE anliegen, ebenfalls gestreift. Bei Wand 5 tritt dieser Fall beispielsweise nach der Navigation von @UE 58 zu @UE 60 auf. Hier wird eine horizontal verlaufende Strebe bündig mit der untersten Reihe von @UE verlegt, was in der vollständigen Umlenkung um @UE 60 dazu führt, dass diese Strebe bei der Bewegung zum letzten Wegpunkt oberhalb des @UE gestreift wird. Ein ähnlicher Fall tritt bei @UE 31 auf, bei dem die vorher verlegte vertikale Strebe von @UE 11 innerhalb der Umlenkung für eine horizontale Strebe gestreift wird.
 
-Abschließend ist festzustellen, dass das Vorgehen mit vertikalem Versatz des Werkzeuges ein zu starkes Abrutschen des Garns von den @UE:pl verursacht. Im Test zu Wand 5 führte es dazu, dass bei manchen Streben keinerlei Kontakt mit anderen Streben hergestellt wurde. Eine dieser Streben ist in @fig:strebe-abrutschen-vert-versatz zu sehen.
+Abschließend ist festzustellen, dass das Vorgehen mit vertikalem Versatz des Werkzeuges trotzdem ein zu starkes Abrutschen des Garns von den @UE:pl verursacht. Im Test zu Wand 5 führte es dazu, dass bei manchen Streben keinerlei Kontakt mit anderen Streben hergestellt wurde. Eine dieser Streben ist in @fig:strebe-abrutschen-vert-versatz zu sehen.
 
 #figure(
   image("/images/strebe-abrutschen-vert-versatz.jpg"),

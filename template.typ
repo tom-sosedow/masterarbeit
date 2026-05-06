@@ -106,6 +106,7 @@
   set math.equation(numbering: "(1)")
   show math.equation.where(block: true): set text(size: 13pt)
   show math.equation.where(block: false): box
+
   show outline.entry: set block(above: 1.3em)
   show table.cell: set text(size: 10pt)
   set text(
@@ -200,7 +201,7 @@
     datum: datum,
     thesis: abschluss,
   )
-  outline()
+  outline(indent: 1.2em)
   outline(
     title: [Abbildungsverzeichnis],
     target: figure.where(kind: image),

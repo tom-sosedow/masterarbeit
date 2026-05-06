@@ -28,7 +28,18 @@ Für die Planung der Route wurde das Problem als @TSP:both modelliert, welches b
 // pfadplanung
 Bei der Planung des Roboterpfades lagen die zentralen Herausforderungen bei der Bestimmung der Position und Abfolge der Wegpunkte sowie in der Vermeidung von Kollisionen zwischen Werkzeug, @UE und bereits verlegten Garnstreben. Für ersteres wurden vier verschiedene Arten von Umlenkungen definiert. Diese werden abhängig von der Position des zu umfahrenden @UE ausgewählt und in Relation zur Position des nachfolgenden @UE entsprechend rotiert und gespiegelt. Zur Kollisionsvermeidung wurden drei Ansätze konzipiert, wobei der gezielte Einsatz einer der Umlenkungsarten bereits den Großteil der Kollisionen mit @UE verhindern kann. Kollisionen mit bereits verlegtem Garn werden durch ein gezieltes Anheben des Werkzeugs an berechneten Schnittpunkten zwischen dem geplanten Pfad und einer Approximation des unter Spannung stehenden Garns versucht zu vermieden. Während der berechnete Pfad zumeist allen Anforderungen entspricht, können nur wenige Garnkollisionen mit diesem Ansatz verhindert werden. Entsprechend sind weiterführende Anpassungen notwendig, um einen reibungslosen Ablauf garantieren zu können. 
 
-Die Kombination der drei implementierten Teillösungen erweist sich als äußerst effizient für die vollautomatisierte Herstellung gleichmäßiger Textilbewehrungen. Dabei wird minimale Materialverschwendung erreicht und es sind keine manuellen Eingriffe zwischen Start- und Endknoten erforderlich. Bei der Pfadplanung mangelt es an Robustheit, da Kollisionen zwischen Garnablagewerkzeug und zuvor verlegten Garnstreben nicht zuverlässig vermeiden werden können.
+Die Kombination der drei implementierten Teillösungen erweist sich als äußerst effizient für die vollautomatisierte Herstellung gleichmäßiger Textilbewehrungen. Dabei wird minimale Materialverschwendung erreicht und es sind keine manuellen Eingriffe zwischen Start- und Endknoten erforderlich. 
+
+#todo[letzter satz hier überarbeiten
+
+"...bei der pfadplanung wurde eine neue Herausforderung aufgedeckt, di ein Wänden ohne Tr nicht vorkommen. Es existieren ideen, zur Lösung...."
+
+Einschätzen, ob Unvermeidbarkeit des Problems an mir leigt oder einfahc im Problemfall unvermeibar ist
+
+Eventuell als Modull in Bewertungsfunktion geben und negativ bewerten, falls so ein Problem auftritt
+-> In Diskussion anstatt in Diskussion oder Ausblick]
+// SO nicht reinnehmen
+// Bei der Pfadplanung mangelt es an Robustheit, da Kollisionen zwischen Garnablagewerkzeug und zuvor verlegten Garnstreben nicht zuverlässig vermeiden werden können.
 
 
 = Ausblick
@@ -37,6 +48,8 @@ Die Kombination der drei implementierten Teillösungen erweist sich als äußers
  */
 
 #question[Nur weiterführende mögliche wiss. Arbeiten oder alle Lücken meines Ansatzes?]
+
+
 
 - Anwendung von @GA tiefergehend erforschen nach @tsaiHighPerformanceGeneticAlgorithm2014 
 - wände ohne türausschnitt und mit fenster und mit mehreren ausschnitten mit puzzleteilen

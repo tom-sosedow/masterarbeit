@@ -222,12 +222,17 @@ Unter diesen Rahmenbedingungen ist es das Ziel, so viele @UE:pl:long wie möglic
 $ |A| -> max! $
 
 // Anzahl der Fälle
+
+#question[Wie definiere ich, dass normalerweise @UE nur zw. $1 <= x <= xmax -1$, aber optionale UE dürfen bei $(xmax,ymax)$ sein?]
+
 Wird einer der Eingabeparameter um mindestens $d$ vergrößert, kann entlang der entsprechenden Hauptachse des Parameters ein weiteres @UE auf der gegenüberliegenden Seite platziert werden.
 
 Erhöht sich beispielsweise die Wandbreite auf $x'_"max" = xmax + 1$ und befindet sich das aktuell am weitesten rechts stehende @UE der horizontal verlaufenden Seiten auf der Oberseite ($a = (xmax-1,0)$), kann anschließend ein weiteres @UE in der unteren Seite ($a' = (x'_"max"-1, ymax)$) platziert werden.
 
 Dadurch können sich die Orte der Sonderstellen ändern, was wiederum erhebliche Auswirkungen auf die anschließende Routenplanung hat. Wird die Breite anschließend erneut erhöht, befinden sich die Sonderstellen jedoch wieder an denselben Positionen wie vor den beiden Vergrößerungen. In diesem Fall kann dieselbe Route verwendet werden, allerdings mit zwei zusätzlichen @UE. 
 Dieser Sachverhalt gilt analog für alle fünf Eingabeparameter der Wand. Daraus ergeben sich insgesamt höchstens $N <= 2^5 = 32$ verschiedene mögliche Kombinationen von Wanddimensionen bzw. Positionen von Sonderstellen.
+
+#todo[Link auf Anhang setzen, wo die 32 Konfigurationen zu sehen sind]
 
 #maybe[Induktionsbeweis, dass Fall $w_b approx w_b + 2d$ ? Also, dass beim vergrößern eines Maßes um $2d$ die Sonderstellen dann an den selben Positionen liegen wie vor der Erhöhung und die Berechnungen daher immer gleich ablaufen. Wäre vlt wichtig für die Validierung der Ergebnisse, weil ich somit nicht die Korrektheit für alle Maßangaben nachweisen muss, sondern nur für 32 Fälle, da 5 Eingabeparameter $p$ mit Länge $floor(p/d) mod 2 = 1 $ oder $floor(p/d) mod 2 = 0$ nur 2 Fälle haben jeweils.]
 

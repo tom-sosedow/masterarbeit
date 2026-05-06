@@ -82,3 +82,5 @@ Wie in @sec:ue-place-problem dargestellt, existieren konzeptionell lediglich 32 
 Die Positionen der @UE sind in allen Fällen zulässig, da die in @sec:ue-place-problem aufgestellten Rahmenbedingungen eingehalten werden. Durch die in @sec:ue-place-implementation beschriebenen optionalen @UE in den Ecken der Wand werden womöglich @UE platziert, welche für die spätere Routenplanung irrelevant sind. Ihre Anzahl begrenzt sich in diesen Fällen auf maximal drei eventuell überflüssige @UE, welche nach der Routenplanung aus dem Ablageprogramm entfernt werden können.
 
 Die durchschnittliche Rechenzeit beträgt 0,08 Millisekunden, während die maximal gemessene Rechenzeit bei 24 Millisekunden über alle 32 Testläufe lag. Die Tests wurden auf einem Intel(R) Core(TM) i5-8350U Prozessor mit 24 GB Arbeitsspeicher durchgeführt.
+
+In @appendix:robotcode ist der für eine beispielhafte Wandkonfiguration erzeugte Code des Roboterarms hinterlegt. Dieser besteht aus einem Header zur Konfiguration, den zwei Anweisungen je @UE für das Greifen vom Magazin und der Platzierung auf dem Ablagetisch, sowie einem Footer. 

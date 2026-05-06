@@ -1,0 +1,296 @@
+
+.PROGRAM Garnablage ()
+  ; ############### program header start ##############
+  QTOOL OFF                   ; turn off block tool
+  BASE NULL                   ; set base coordinates to (0,0,0,0,0,0)
+  ABS.SPEED ON                ; turn on absolute speed
+  CP ON                       ; turn on continuous path
+  TOOL NULL                   ; set tool coordinates to (0,0,0,0,0,0)
+  SPEED 2000 MM/S ALWAYS      ; set robot velocity
+  ACCEL 50 ALWAYS             ; set robot acceleration (%)
+  DECEL 50 ALWAYS             ; set robot deceleration (%)
+  ACCURACY 20 ALWAYS          ; set point accuracy
+  ; ############### program header end ################
+
+  CALL get_yp   ; subroutine to get yarn placer
+  TOOL yp_tool  ; set tool coordinates
+
+  point .frame = frame_table + TRANS (100, 100) ; store frame (with offset) in local variable
+
+  ; ############# main #############
+  JAPPRO .frame + TRANS (1300.0, 250.0, -35.0) + rz(179), 500
+LMOVE .frame + TRANS (1300.0, 250.0, -35.0) + rz(179)
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (50.0, 250.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (0.0, 300.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (50.0, 350.0, -35.0) + rz(179)
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (400.0, 300.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (450.0, 350.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (400.0, 400.0, -35.0) + rz(179)
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (50.0, 350.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (0.0, 400.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (50.0, 450.0, -35.0) + rz(179)
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (400.0, 400.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (450.0, 450.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (400.0, 500.0, -35.0) + rz(179)
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (50.0, 450.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (0.0, 500.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (50.0, 550.0, -35.0) + rz(179)
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (400.0, 500.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (450.0, 550.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (400.0, 600.0, -35.0) + rz(179)
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (50.0, 550.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (0.0, 600.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (50.0, 650.0, -35.0) + rz(179)
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (400.0, 600.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (450.0, 650.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (400.0, 700.0, -35.0) + rz(179)
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (50.0, 650.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (0.0, 700.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (50.0, 750.0, -35.0) + rz(179)
+; FULL ROTATION #####################
+LMOVE .frame + TRANS (350.0, 750.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (400.0, 700.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (450.0, 750.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (400.0, 800.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (350.0, 750.0, -35.0) + rz(179)
+; FULL ROTATION #####################
+LMOVE .frame + TRANS (100.0, 750.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (50.0, 800.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (100.0, 850.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (150.0, 800.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (100.0, 750.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (100.0, 748.00146, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (100.0, 273.11108, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (100.0, 50.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (150.0, 0.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (200.0, 50.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (185.22694, 271.59598, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (153.13597, 752.9605, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (150.0, 800.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (200.0, 850.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (250.0, 800.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (247.45085, 761.7629, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (214.73808, 271.07135, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (200.0, 50.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (250.0, 0.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (300.0, 50.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (285.34558, 269.8161, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (252.51762, 762.2357, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (250.0, 800.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (300.0, 850.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (350.0, 800.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (348.07693, 771.1541, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (314.61972, 269.2956, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (300.0, 50.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (350.0, 0.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (400.0, 50.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (363.59586, 268.42496, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (354.2898, 324.2612, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (350.0, 350.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (400.0, 400.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (450.0, 350.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (436.1891, 267.13443, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (400.0, 50.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (450.0, 0.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (500.0, 50.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (456.64587, 266.77075, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (450.0, 300.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (500.0, 350.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (550.0, 300.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (543.04694, 265.2347, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (500.0, 50.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (550.0, 0.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (600.0, 50.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (557.0027, 264.9866, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (550.0, 300.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (600.0, 350.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (650.0, 300.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (642.6927, 263.46326, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (600.0, 50.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (650.0, 0.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (700.0, 50.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (657.3595, 263.2025, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (650.0, 300.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (700.0, 350.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (750.0, 300.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (742.3384, 261.69177, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (700.0, 50.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (750.0, 0.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (800.0, 50.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (757.7163, 261.41837, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (750.0, 300.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (800.0, 350.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (850.0, 300.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (841.984, 259.9203, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (800.0, 50.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (850.0, 0.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (900.0, 50.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (858.0731, 259.63428, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (850.0, 300.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (900.0, 350.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (950.0, 300.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (941.62976, 258.1488, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (900.0, 50.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (950.0, 0.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (1000.0, 50.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (986.1762, 257.35687, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (950.0, 800.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (1000.0, 850.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (1050.0, 800.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (1013.7911, 256.86588, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (1000.0, 50.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (1050.0, 0.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (1100.0, 50.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (1086.2948, 255.57697, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (1050.0, 800.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (1100.0, 850.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (1150.0, 800.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (1113.6726, 255.09029, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (1100.0, 50.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (1150.0, 0.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (1200.0, 50.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (1186.4136, 253.7971, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (1150.0, 800.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (1200.0, 850.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (1250.0, 800.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (1213.5543, 253.31464, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (1200.0, 50.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (1250.0, 0.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (1300.0, 50.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (1286.5322, 252.01721, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (1250.0, 800.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (1300.0, 850.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (1350.0, 800.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (1350.0, 250.88892, -55.0) + rz(179) ; INTERMEDIATE
+; FULL ROTATION #####################
+LMOVE .frame + TRANS (1350.0, 100.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (1300.0, 50.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (1350.0, 0.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (1400.0, 50.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (1350.0, 100.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (1275.8667, 100.0, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (124.13339, 100.0, -55.0) + rz(179) ; INTERMEDIATE
+; FULL ROTATION #####################
+LMOVE .frame + TRANS (100.0, 100.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (50.0, 50.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (0.0, 100.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (50.0, 150.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (100.0, 100.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (124.13334, 100.0, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (1324.1333, 100.0, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (1400.0, 100.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (1450.0, 150.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (1400.0, 200.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (1324.3925, 197.19972, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (124.27397, 152.75089, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (50.0, 150.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (0.0, 200.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (50.0, 250.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (124.53334, 250.0, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (1324.5333, 250.0, -55.0) + rz(179) ; INTERMEDIATE
+; FULL ROTATION #####################
+LMOVE .frame + TRANS (1350.0, 250.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (1400.0, 200.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (1450.0, 250.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (1400.0, 300.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (1350.0, 250.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (1324.5333, 250.0, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (925.60004, 250.0, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (900.0, 250.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (850.0, 300.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (900.0, 350.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (975.2201, 342.478, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (1324.6868, 307.53134, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (1400.0, 300.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (1450.0, 350.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (1400.0, 400.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (1324.9133, 392.49133, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (975.17993, 357.518, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (900.0, 350.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (850.0, 400.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (900.0, 450.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (974.95337, 442.50467, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (1324.9532, 407.50467, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (1400.0, 400.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (1450.0, 450.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (1400.0, 500.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (1325.18, 492.518, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (974.9134, 457.49136, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (900.0, 450.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (850.0, 500.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (900.0, 550.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (974.68665, 542.5314, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (1325.22, 507.478, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (1400.0, 500.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (1450.0, 550.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (1400.0, 600.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (1325.4468, 592.5447, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (974.6467, 557.4647, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (900.0, 550.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (850.0, 600.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (900.0, 650.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (974.4198, 642.558, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (1325.4866, 607.45135, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (1400.0, 600.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (1450.0, 650.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (1400.0, 700.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (1325.7135, 692.57135, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (974.3801, 657.438, -55.0) + rz(179) ; INTERMEDIATE
+; NORMAL ROTATION ###################
+LMOVE .frame + TRANS (900.0, 650.0, -35.0) + rz(179)
+C1MOVE .frame + TRANS (850.0, 700.0, -35.0) + rz(179)
+C2MOVE .frame + TRANS (900.0, 750.0, -35.0) + rz(179)
+LMOVE .frame + TRANS (974.1333, 750.0, -55.0) + rz(179) ; INTERMEDIATE
+LMOVE .frame + TRANS (1325.8667, 750.0, -55.0) + rz(179) ; INTERMEDIATE
+JAPPRO .frame + TRANS (1300.0, 750.0, -55.0) + rz(179), 500
+LMOVE .frame + TRANS (1300.0, 750.0, -55.0) + rz(179)
+  
+  ; ############# end #############
+  HOME 1 ; move to home position
+  CALL drop_yp   ; subroutine to drop yarn placer
+  HOME 1 ; move to home position
+
+.END
