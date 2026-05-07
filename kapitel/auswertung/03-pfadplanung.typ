@@ -68,6 +68,4 @@ Abschließend ist auch die Laufzeit des Verfahrens hervorzuheben, die mit wenige
 // 5. Fazit
 Zusammenfassend konnte ein innovativer und robuster Ansatz entwickelt werden, der auf Grundlage der zuvor gezeigten Routenplanung in der Lage ist, zuverlässig gleichmäßige Gitterstrukturen zu erzeugen. Einschränkungen zeigen sich jedoch insbesondere in den Kollisionen zwischen den Werkzeug zur Garnablage und den bereits verlegten Garnstreben. Ebenfalls treten in Verbindung mit suboptimalen Routen Limitationen auf, welche die korrekte Bestimmung der Umlaufrichtungen erschweren könnten.
 
-#question[Keine gute Antwort auf FF III gefunden. Was nun? Wie geh ich damit richtig um?]
-
 Vor diesem Hintergrund kann die Forschungsfrage (III) mit dem vorliegenden Ansatz nur eingeschränkt beantwortet werden. Zwar liefert das Verfahren in weiten Teilen valide Ergebnisse, jedoch ist aufgrund der Kollisionen und ungesicherten Bestimmung der Umlaufrichtung keine gleichmäßige und strukturell konsistente Gitterstruktur garantiert. Zur Ausbesserung dieser Limitationen sind daher zukünftig weitere Untersuchungen notwendig.

@@ -47,17 +47,7 @@ Eventuell als Modull in Bewertungsfunktion geben und negativ bewerten, falls so 
  * Was steht noch an? Wo sind die größten/wichtigsten Lücken
  */
 
-#question[Nur weiterführende mögliche wiss. Arbeiten oder alle Lücken meines Ansatzes?]
-
-
-
 - Anwendung von @GA tiefergehend erforschen nach @tsaiHighPerformanceGeneticAlgorithm2014 
 - wände ohne türausschnitt und mit fenster und mit mehreren ausschnitten mit puzzleteilen
 - garnapproximation oder physikalisches modell
 - für neues garnablagewerkzeug passende umlenkpunkte
-
-#question[Formatierung alles ok? Überschriften, Textgröße, Zeilenabstand, Bilder/Tabellenverzeichnis, usw?]
-
-#question[Wie läuft die Abgabe der Arbeit ab? Wann PDF schicken? Gedrucktes Format? Wie lange ung. bis Kolloquium?]
-
-#question[Typst den Studis empfehlen. Typst >> Latex. Ich kann meine Vorlage öffentlich zur Verfügung stellen und ggf. Anpassungen machen.]

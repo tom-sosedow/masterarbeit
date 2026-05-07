@@ -4,7 +4,7 @@
 == Stand der Forschung <sec:ue-place-forschungsstand>
 Sowohl in der Forschung als auch in industriellen Anwendungen existiert nur wenig veröffentlichte Literatur zur Platzierung von Umlenkelementen.
 
-Im @CBT erfolgt die Bestimmung der Positionen der @UE derzeit iterativ und ist auf einfache Wandkonfigurationen ohne Ausschnitte oder Hindernisse beschränkt. Ausgehend von den eingegebenen Abmessungen der Wand werden zunächst die Randabstände (Paddings) berücksichtigt, bevor in einer festen Abfolge eine Liste von Koordinaten der @UE:pl in Millimetern erzeugt wird. Zunächst werden die @UE:pl entlang der Ober- und Unterkante der Wand von links nach rechts alternierend platziert. Anschließend werden die @UE:pl nach der Sonderstelle an der linken sowie rechten Seite der Wand entweder von oben nach unten oder umgekehrt platziert, je nach dem wo das letzte @UE im vorherigen Schritt platziert wurde. Die Reihenfolge der Berechnung ist in @fig:rollenplatzierung-cbt dargestellt. Auf diese Weise ergibt sich genau eine relevante Sonderstelle, die sich entweder in der unteren rechten (a) oder oberen rechten (b) Ecke der Wand befindet. Eine automatisierte Erweiterung dieses Verfahrens für Wandkonfigurationen mit Hindernissen oder Aussparungen ist bislang nicht umgesetzt.
+Im @CBT erfolgt die Bestimmung der Positionen der @UE derzeit iterativ und ist auf einfache Wandkonfigurationen ohne Ausschnitte oder Hindernisse beschränkt. Ausgehend von den eingegebenen Abmessungen der Wand werden zunächst die Randabstände (Paddings) berücksichtigt, bevor in einer festen Abfolge eine Liste von Koordinaten der @UE:pl in Millimetern erzeugt wird. Zunächst werden die @UE:pl entlang der Ober- und Unterkante der Wand von links nach rechts alternierend platziert. Anschließend werden die @UE:pl nach der Sonderstelle an der linken sowie rechten Seite der Wand entweder von oben nach unten oder umgekehrt platziert, je nach dem wo das letzte @UE im vorherigen Schritt platziert wurde. Die Reihenfolge der Berechnung ist in @fig:rollenplatzierung-cbt dargestellt. Auf diese Weise ergibt sich genau eine relevante Sonderstelle, die sich entweder in der unteren rechten (a) oder oberen rechten (b) Ecke der Wand befindet. Eine automatisierte Erweiterung dieses Verfahrens für Wandkonfigurationen mit Hindernissen oder Aussparungen ist bislang nicht umgesetzt. Daher müssen weitere Arbeiten mit ähnlichen Problemstellungen untersucht werden.
 
 #figure(
   grid(
@@ -73,13 +73,8 @@ Im @CBT erfolgt die Bestimmung der Positionen der @UE derzeit iterativ und ist a
   caption: [Reihenfolge der Positionierung der UE im aktuellen Ansatz des CBT für einfache Wände ohne Tür- oder Fensterausschnitt. In Rot sind die UE der Sonderstelle markiert.]
 )<fig:rollenplatzierung-cbt>
 
-#question[Andere Arbeiten nennen ohne wirklichen Erkenntnisgewinn daraus?
-
--> Erwähnen, dass hier ähnlich gelagerte Probleme anegschaut werden, die dann aber nicht relevant sind (später sagen)
-]
-
 // TU Dresden
-Im Unterschied dazu untersuchten #citep(<frieseRobotAssistedManufacturingTechnology2023>) die automatisierte Garnablage für dreidimensionale Skelette, einschließlich der Planung der Bewegungsbahnen eines Roboterarms. Die räumlichen Positionen der Pins werden dabei jedoch als gegeben und strukturell konsistent vorausgesetzt und nicht eigenständig berechnet. Darüber hinaus werden keine Anforderungen an die Gleichmäßigkeit der resultierenden Struktur, beispielsweise in Form eines Gitters, gestellt.
+Im Unterschied zum @CBT untersuchten #citep(<frieseRobotAssistedManufacturingTechnology2023>) die automatisierte Garnablage für dreidimensionale Skelette, einschließlich der Planung der Bewegungsbahnen eines Roboterarms. Die räumlichen Positionen der Pins werden dabei jedoch als gegeben und strukturell konsistent vorausgesetzt und nicht eigenständig berechnet. Darüber hinaus werden keine Anforderungen an die Gleichmäßigkeit der resultierenden Struktur, beispielsweise in Form eines Gitters, gestellt.
 
 // String Art
 Im kreativen Bereich existieren hingegen Arbeiten, bei denen Künstler mithilfe von Algorithmen Bilder durch das Verlegen von Garn erzeugen (engl. String Art). Häufig dient dabei eine einfache geometrische Form, etwa ein Kreis oder Rechteck, als Rahmen @birsakStringArtComputational2018. Auf diesem Rahmen sind in regelmäßigen Abständen Pins angebracht, um welche das Garn entsprechend der gewünschten Detailtreue geführt wird. Ein solcher Rahmen ist in @fig:string-art-beispiele (a) sowie ein resultierendes Bild mit der entsprechenden Vorlage in (b) zu sehen.

@@ -141,7 +141,9 @@ Im zweiten Schritt des Algorithmus kann dann $omega$ genutzt werden, um bei der 
             Assign($t l$, IfElseInline($t_h mod 2 = 0$, $tx1$, $tx2$))
             LineBreak
 
-            Comment[Ist _wahr_, falls der Türausschnitt ein gerades Vielfaches von d breit ist, _falsch_ sonst]
+            Comment[Ist _wahr_, falls in der Breite des Türausschnitts eine gerade Anzahl\
+            #v(-1em)
+            an @UE platziert werden können , _falsch_ sonst]
             Assign($t e$, $(tx2 - tx1) mod 2= 1$)
             LineBreak
 
@@ -216,7 +218,7 @@ Im zweiten Schritt des Algorithmus kann dann $omega$ genutzt werden, um bei der 
   caption: [Algorithmus zur Platzierung der UE an den horizontalen Seiten der Wand und resultierende Positionen und Berechnungsreihenfolge.]
 )<fig:ue-place-step-2>
 
-In den ersten 15 Zeilen werden dabei Hilfsvariablen angelegt, um unter anderem die Seite des in @fig:ue-place-step-2 rot markierten @UE zu bestimmen oder zu prüfen, ob der Türausschnitt eine gerade Anzahl an @UE breit ist. In Zeile 17 wird der Spaltenindex berechnet, an dem das am weitesten links stehende @UE an der Oberseite der Wand liegen muss. Basierend darauf muss die y-Komponente der übrigen @UE:pl an den horizontalen Seiten angepasst werden. Diese wird innerhalb der Schleife in Zeilen den 20 bis 26 berechnet. Danach steht die Koordinate des zu platzierenden @UE fest. Bevor es zur Menge der Knoten hinzugefügt werden kann, muss allerdings sichergestellt sein, dass in der jeweiligen Spalte kein @UE in der Zeile darunter durch #text(font: "JetBrains Mono", weight: "thin", size: 9pt)[PlaceVertGE] platziert wurde. In @fig:ue-place-step-2 ist dieses Element rot markiert und verhindert somit, dass bei $(tx2,ty1)$ ein @UE platziert wird, da sonst eine Art Sonderstelle entstehen würde.
+In den ersten 15 Zeilen werden dabei Hilfsvariablen angelegt, um unter anderem die Seite des in @fig:ue-place-step-2 rot markierten @UE zu bestimmen oder zu prüfen, ob der Türausschnitt eine gerade Anzahl an @UE breit ist. In Zeile 17 wird der Spaltenindex berechnet, an dem das am weitesten links stehende @UE an der Oberseite der Wand liegen muss. Basierend darauf muss die y-Komponente der übrigen @UE:pl an den horizontalen Seiten angepasst werden. Diese wird innerhalb der Schleife in Zeilen den 20 bis 26 berechnet. Danach steht die Koordinate des zu platzierenden @UE fest. Bevor es zur Menge der Knoten hinzugefügt werden kann, muss allerdings sichergestellt sein, dass in der jeweiligen Spalte kein @UE in der Zeile darunter durch #text(font: "FreeMono", weight: "thin", size: 11pt)[PlaceVertGE] platziert wurde. In @fig:ue-place-step-2 ist dieses Element rot markiert und verhindert somit, dass bei $(tx2,ty1)$ ein @UE platziert wird, da sonst eine Art Sonderstelle entstehen würde.
 
 // Optionale Rollen in den Ecken
 In den äußersten Ecken der Wand sowie den unteren Ecken des Türausschnitts kann es außerdem vorkommen, dass die beiden nächstgelegenen @UE jeweils eine Manhattan-Distanz von genau $d_M = 2d$ zur Ecke besitzen. In diesem Fall besteht die Möglichkeit, ein zusätzliches @UE zu platzieren, welches optional in der Routenplanung verwendet werden kann, um größere Freiheitsgrade bei der Gestaltung der Umlenkungen zu erhalten. In @fig:ue-place-step-3 sind diese zusätzlichen @UE grün sowie der Pseudocode des Vorgehens dargestellt.

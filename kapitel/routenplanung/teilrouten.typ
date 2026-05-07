@@ -264,16 +264,7 @@ Da der Lösungsraum durch die Modellierung als Teilrouten deutlich verkleinert w
 
 Zur effizienten Erzeugung aller validen Permutationen wird eine rekursive Funktion eingesetzt. In jedem Schritt wird die Permutation um eine noch fehlende Teilroute ergänzt. Anschließend wird die bis dahin bestehende Lösung bewertet und die Funktion nur für diejenigen partiellen Lösungen ausgeführt, die unter der Kostengrenze von 400 liegen. Diese Kombination aus exakten Verfahren und heuristischer Beschränkung des Suchraums trägt dazu bei, die Laufzeit zu reduzieren, ohne die Garantie der Optimalität aufzugeben @tahamiLiteratureReviewCombining2022.
 
-#question[Soll die auswertung der tabelle (deutung, warum manche zahlen so sind) lieber in die auswertung?
-
--> In die Auswertung schreiben, dass 400 ungünstig ist, und variabel je nach wandgröße besser wäre
-]
-
-Die Ergebnisse der Testläufe sind in @tab:bruteforce-puzzle-res zusammengefasst und werden in #todo[label einfügen] ausführlicher diskutiert. Insgesamt werden 129'024 verschiedene Permutationen gebildet. Die Spalte „Anz. Lösungen“ gibt jeweils die Anzahl der Lösungen mit Kosten unterhalb der Schranke von 400 an. Die vollständigen Routen für jede der 32 möglichen Wandkonfigurationen sind im @appendix:wandkonfigurationen zu sehen. 
-
-
-Es zeigt sich, dass größere Wandkonfigurationen signifikant weniger potenzielle Lösungen aufweisen. Dies kann dadurch erklärt werden, dass größere Abweichungen zwischen Ist- und Soll-Positionen der @UE:pl:long durch die distanzbasierte Kostenfunktion stärker bestraft werden und somit vergleichbare Fehler zu höheren Kosten führen.
-
+Die Ergebnisse der Testläufe sind in @tab:bruteforce-puzzle-res zusammengefasst und werden in @sec:diskussion ausführlicher diskutiert. Insgesamt werden 129'024 verschiedene Permutationen gebildet. Die Spalte „Anz. Lösungen“ gibt jeweils die Anzahl der Lösungen mit Kosten unterhalb der Schranke von 400 an. Die vollständigen Routen für jede der 32 möglichen Wandkonfigurationen sind im @appendix:wandkonfigurationen zu sehen. 
 
 #figure(
   table(
@@ -290,11 +281,7 @@ Es zeigt sich, dass größere Wandkonfigurationen signifikant weniger potenziell
   caption: [Ergebnisse optimiertes Brute Force]
 ) <tab:bruteforce-puzzle-res>
 
-#todo[Das lieber in Auswertung]
-
-Außerdem ist zu sehen, dass die Laufzeiten scheinbar proportional mit der Größe der Wandkonfiguration ansteigen, obwohl der Lösungsraum kleiner ist. Ein Faktor ist hierbei die Bewertungsfunktion, die trotz der Kodierung als Permutation fester Länge auf der resultierenden Route arbeitet. Da durch die größeren Wände auch mehr Kanten bewertet werden müssen, steigt die Laufzeit des Gesamtprozesses folglich.
-
-Dennoch wird selbst für die großen Wandkonfigurationen innerhalb weniger Sekunden das globale Optimum gefunden. Anders als bei der punktbasierten Planung ist das implementationsbedingt auch der Zeitpunkt, an dem die Suche terminiert und das finale Ergebnis somit feststeht.
+Es ist zu sehen, dass in allen Fällen das globale Optimum gefunden wird. Dabei dauert die Berechnung des Ergebnisses der großen Wände mit ca. fünf bis sechs Sekunden in etwa doppelt so lang wie bei den kleinen Wänden mit ca. zwei Sekunden. Außerdem ist zu sehen, dass signifikant weniger Lösungen der großen Wände unterhalb der Kostengrenze liegen, als bei den kleinen Wänden.   
 
 === Nachbearbeitung <sec:route-postprocessing>
 Wie bereits erwähnt kann aus einer Reihenfolge und Richtung der abzufahrenden Teilrouten die gesamte Route berechnet werden, indem die jeweiligen @UE:pl verkettet werden. Unter bestimmten Bedingungen kann diese bloße Verkettung allerdings dazu führen, dass ungültige bzw. schlecht bewertete Routen entstehen würden, obwohl es eine einfache Lösung für diese Spezialfälle geben könnte. Das passiert unter anderem in dem in @fig:sonderstelle-left-door-corner abgebildeten Fall einer Sonderstelle in der unteren Ecke der Tür. Wird in solch einer Wandkonfiguration eine Route bewertet, bei denen die Teilrouten $L V circle.small T V$ bzw. $T V^R circle.small L V^R$ aufeinander folgen, geht eine negative Bewertung der ignorierten Sonderstelle in die Betrachtung ein. Die Verkettung ergäbe in diesem Fall eine Kante zwischen $a$ und $b$ sowie zwischen $b$ und $c$, ohne einen Zwischenschritt über $x$. 

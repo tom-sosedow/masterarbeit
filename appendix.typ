@@ -95,11 +95,19 @@ Zu jedem der Ergebnisse sind unterhalb des Bildes die genauen Maße angegeben, d
   )
 }
 
-#heading([Programmcode für Roboterarm],numbering: "A") <appendix:robotcode>
+#heading([Ergebnisse praktischer Test],numbering: "A") <appendix:robotcode>
+
+
+Nachfolgend sind die Ergebnisse des praktischen Tests hinterlegt. Getestet wurde Wandkonfiguration 5 aus @appendix:wandkonfigurationen mit kleineren Maßen. Es erfolgte ebenfalls keine Harztränkung des Garns, sodass sich die Reibung des Garns an den @UE im Vergleich zum realen Einsatz unterscheidet. In @fig:praktischer-test-garn ist die resultierende Garnstruktur des Tests dargestellt. 
+
+#figure(
+  image("images/praktischer-test-garn.jpg"),
+  caption: [Resultierendes Carbongitter des praktischen Tests von Wandkonfiguration 5 aus @appendix:wandkonfigurationen.]
+)<fig:praktischer-test-garn>
 
 #todo[Bild der Simulation einfügen, wie der Robi fährt]
 
-Nachfolgend ist der Programmcode für einen Kawasaki BX130X dargestellt. Dieser wurde für die in @sec:path-results praktisch getestete Wandkonfiguration generiert. Das Programm #text(font: "FreeMono")[Rollenablage] beinhaltet die Platzierung der @UE und das Programm #text(font: "FreeMono")[Garnablage] die Garnablage.
+Der für diese Wand generierte Programmcode für einen Kawasaki BX130X ist im Folgenden dargestellt. Das Programm #text(font: "FreeMono", hyphenate: false)[Rollenablage] beinhaltet die Platzierung der @UE und das Programm #text(font: "FreeMono", hyphenate: false)[Garnablage] die Garnablage.
 
 #show raw: set text(font: "FreeMono")
 

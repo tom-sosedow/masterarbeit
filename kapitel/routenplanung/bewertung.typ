@@ -51,13 +51,10 @@ Eine rein strukturelle Gesamtbetrachtung ohne Berücksichtigung einzelner Kanten
 // Vergleichbarkeit durch Kosten
 Auf Grundlage der berechneten Kosten können verschiedene Routen miteinander verglichen werden. Die Bewertungsfunktion induziert dabei eine totale Quasiordnung $O$ auf der Trägermenge $R$ aller möglichen Routen. Diese ist definiert als
 $ O subset.eq R times R, O = {(a,b) | a,b in R, c(a) <= c(b)} $
+Diese Eigenschaft ist wichtig, damit später die verschiedenen Lösungen anhand ihrer Kosten geordnet und in Relation zueinander betrachtet werden können. 
+
 Eine vollständige Totalordnung liegt jedoch nicht vor, da die Eigenschaft der Antisymmetrie verletzt ist, wenn zwei unterschiedliche Routen identische Kosten aufweisen.
 
-#question[
-  Muss ich das beweisen? Wie in Modellierung damals jede Eigenschaft einer totalen Quasiordnung einzeln? 
-  
-  -> In Vorbereitung auf Kolloquium das vorbereiten. Aber nicht in Arbeit aufnehmen. Erklären, warum es wichtig ist.
-]
 
 
 //- keine behandlung von türen oder wänden mit formen die nicht rechteckig sind, zb trapeze oder kreisbögen

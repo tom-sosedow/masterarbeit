@@ -3,7 +3,8 @@
 
 == Ergebnisse <sec:path-results>
 
-Zur Analyse des gezeigten Vorgehens werden, analog zu @sec:ue-place-result, erneut alle 32 möglichen Wandkonfigurationen überprüft, wobei resultierenden Pfade jeweils in @appendix:wandkonfigurationen abgebildet sind. Die Tests werden ebenfalls auf einem Intel(R) Core(TM) i5-8350U Prozessor mit 24 GB Arbeitsspeicher durchgeführt. Die durchschnittliche Rechenzeit beträgt 1,57 Millisekunden, während die maximal gemessene Rechenzeit bei 10,32 Millisekunden über alle 32 Testläufe liegt. In @fig:beispielpfad ist der berechnete Pfad für die Wandkonfiguration $w_4$ aus @sec:routenplanung exemplarisch dargestellt. Die berechnete Route beginnt hier bei @UE 61 und endet bei @UE 27. Ebenfalls wurde Wand 5 aus @appendix:wandkonfigurationen im @CBT in kleineren Dimensionen praktisch getestet, allerdings ohne Harztränkung des Garns.
+Zur Analyse des gezeigten Vorgehens werden, analog zu @sec:ue-place-result, erneut alle 32 möglichen Wandkonfigurationen überprüft, wobei resultierenden Pfade jeweils in @appendix:wandkonfigurationen abgebildet sind. Die Tests werden ebenfalls auf einem Intel(R) Core(TM) i5-8350U Prozessor mit 24 GB Arbeitsspeicher durchgeführt. Die durchschnittliche Rechenzeit beträgt 1,57 Millisekunden, während die maximal gemessene Rechenzeit bei 10,32 Millisekunden über alle 32 Testläufe liegt. In @fig:beispielpfad ist der berechnete Pfad für die Wandkonfiguration $w_4$ aus @sec:routenplanung exemplarisch dargestellt. Die berechnete Route beginnt hier bei @UE 61 und endet bei @UE 27. 
+Ebenfalls wurde Wand 5 aus @appendix:wandkonfigurationen im @CBT in kleineren Dimensionen praktisch getestet, allerdings ohne Harztränkung des Garns. Die resultierende Bewehrung und der abgefahrene Pfad ist in @appendix:robotcode zu sehen. 
 
 #figure(
   image("/images/pfadbeispiel.png", width: 110%),
