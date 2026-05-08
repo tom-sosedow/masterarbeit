@@ -3,7 +3,7 @@
 
 == Ergebnisse <sec:ue-place-result>
 
-Wie in @sec:ue-place-problem dargestellt, existieren konzeptionell lediglich 32 zu betrachtende Kombinationen von Wanddimensionen. Der vorgestellte Ansatz wurde für sämtliche dieser Kombinationen empirisch getestet und anschließend evaluiert. Die bewerteten Anordnungen sind in @appendix:wandkonfigurationen zu sehen. In allen Fällen konnten vollständig valide Platzierungen berechnet werden. Die vollständige Beispielkonfiguration einer Wand mit den in @sec:ue-place-implementation berechneten Positionen der @UE ist in @fig:fully-placed-ue-wall dargestellt. Der Versatz $omega$ des obersten linken @UE ist in Blau dargestellt und beträgt in diesem Beispiel $1$. 
+Die resultierenden Wandkonfigurationen dieses iterativen Lösungsansatzes werden nun dargestellt. Wie in @sec:ue-place-problem gezeigt, existieren konzeptionell lediglich 32 zu betrachtende Kombinationen von Wanddimensionen. Für jede dieser Kombinationen wurde eine Wand nach dem oben beschriebenen Ansatz generiert und empirisch evaluiert. Die generierten Anordnungen sind in @appendix:wandkonfigurationen zu sehen. In allen Fällen konnten vollständig valide Platzierungen berechnet werden. Die vollständige Beispielkonfiguration einer Wand mit den in @sec:ue-place-implementation berechneten Positionen der @UE ist in @fig:fully-placed-ue-wall dargestellt. Der Versatz $omega$ des obersten linken @UE ist in Blau dargestellt und beträgt in diesem Beispiel $1$. 
 
 #figure(
   cetz.canvas({
@@ -83,4 +83,4 @@ Die Positionen der @UE sind in allen Fällen zulässig, da die in @sec:ue-place-
 
 Die durchschnittliche Rechenzeit beträgt 0,08 Millisekunden, während die maximal gemessene Rechenzeit bei 24 Millisekunden über alle 32 Testläufe lag. Die Tests wurden auf einem Intel(R) Core(TM) i5-8350U Prozessor mit 24 GB Arbeitsspeicher durchgeführt.
 
-In @appendix:robotcode ist der für eine beispielhafte Wandkonfiguration erzeugte Code des Roboterarms hinterlegt. Dieser besteht aus einem Header zur Konfiguration, den zwei Anweisungen je @UE für das Greifen vom Magazin und der Platzierung auf dem Ablagetisch, sowie einem Footer. 
+In @appendix:robotcode ist der für eine beispielhafte Wandkonfiguration erzeugte Code des Roboterarms hinterlegt. Dieser besteht aus einem Header zur Konfiguration, den zwei Anweisungen je @UE für das Greifen vom Magazin und der Platzierung auf dem Ablagetisch, sowie einem Footer, um unter anderem den Greifer für die @UE abzulegen.

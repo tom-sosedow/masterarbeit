@@ -98,19 +98,19 @@ Da der Abstand zwischen zwei @UE stets ein Vielfaches von $d$ beträgt, ergeben 
 
 Die Positionen der Mittelpunkte der @UE in diesem Raster können durch eine Menge A von zweidimensionalen Koordinaten mit 
 $ A subset {(x,y) in NN_0^2 | 0 <= x <= xmax, 0 <= y <= ymax} $
-modelliert werden, wobei durch $xmax = floor(w_b / d)$ und $ymax = floor(w_h / d)$ eine Rasterung der Echtwelt-Koordinaten vollzogen wird. Eine Einheit im Modell beträgt also $d$ Millimeter in der echten Welt. Die Umrechnung von Koordinaten im Modell zu Koordinaten in Millimetern in der Realität erfolgt durch die Abbildung
+modelliert werden, wobei durch $xmax = floor(w_b / d) - 1$ und $ymax = floor(w_h / d) - 1$ eine Rasterung der Echtwelt-Koordinaten vollzogen wird. Eine Einheit im Modell beträgt also $d$ Millimeter in der echten Welt. Die Umrechnung von Koordinaten im Modell zu Koordinaten in Millimetern in der Realität erfolgt durch die Abbildung
 $ (x,y) in NN^2_0 |-> (x*d + r + p, y*d + r + p) $
 
 Der Türausschnitt wird durch ein Koordinatentupel der oberen linken Ecke 
-$ t_1 = (tx1, ty1) = (floor(t_x/d), ymax - ceil(t_h/d)) $ 
+$ t_1 = (tx1, ty1) = (floor(t_x/d)-1, ymax - ceil(t_h/d)) $ 
 sowie der unteren rechten Ecke 
-$ t_2 = (tx2, ty2) = (tx1 + ceil(t_b/d), ymax) $ 
+$ t_2 = (tx2, ty2) = (tx1 + ceil(t_b/d) + 1, ymax) $ 
 beschrieben. Beide Punkte sind in @fig:input-dimensions in Lila dargestellt.
 
 Der Koordinatenursprung befindet sich in dieser Arbeit in der oberen linken Ecke. Die $x$-Achse verläuft nach rechts, die $y$-Achse nach unten in positiver Richtung. Entsprechend liegt die obere Wandkante bei $y=0$, die untere bei $y=ymax$, die linke Seite bei $x=0$ und die rechte bei $x=xmax$.
 
 // Restriktionen und Zickzackmster der Rollen
-Die @UE:pl:long sollten nur an den Rändern der Wand nahe der Schalungselemente platziert werden, damit die resultierenden Streben die volle verfügbare Länge nutzen und somit maximale Zugkraft aufnehmen können. Die Positionen der @UE müssen somit folgende Anforderungen erfüllen:
+Die @UE:pl:long sollten nur an den Rändern der Wand nahe der Schalungselemente platziert werden, damit die resultierenden Streben die volle verfügbare Länge nutzen und somit maximale Unterstützung bieten können. Die Positionen der @UE müssen somit folgende Anforderungen erfüllen:
 $
   forall (x,y) in A: 
   (x=0 and 0 <= y <= ymax) or (x=xmax and 0 <= y <= ymax) or \
@@ -120,7 +120,7 @@ $
 $ 
 Die dadurch formulierten zulässigen Positionen der @UE:pl sind in @fig:input-dimensions orange hinterlegt.
 
-Auf gegenüberliegenden Seiten der Struktur sind zwei @UE stets genau um $d$ Millimeter entlang der jeweiligen Seite versetzt angeordnet und alternieren zwischen beiden Seiten. Für zwei vertikale Seiten an den x-Koordinaten ${x_1, x_2} in {{0, tx1}, {tx2, xmax}, {0,xmax}}$ ergibt sich im Modell:
+Auf gegenüberliegenden Seiten der Struktur sind zwei @UE stets genau um $d$ Millimeter entlang der jeweiligen Seite versetzt angeordnet und alternieren zwischen beiden Seiten. Für zwei vertikale Seiten (Spalten) an den x-Koordinaten ${x_1, x_2} in {{0, tx1}, {tx2, xmax}, {0,xmax}}$ ergibt sich im Modell:
 
 $ 
 forall (x,y) in A: 
@@ -230,8 +230,4 @@ Erhöht sich beispielsweise die Wandbreite auf $x'_"max" = xmax + 1$ und befinde
 Dadurch können sich die Orte der Sonderstellen ändern, was wiederum erhebliche Auswirkungen auf die anschließende Routenplanung hat. Wird die Breite anschließend erneut erhöht, befinden sich die Sonderstellen jedoch wieder an denselben Positionen wie vor den beiden Vergrößerungen. In diesem Fall kann dieselbe Route verwendet werden, allerdings mit zwei zusätzlichen @UE. 
 Dieser Sachverhalt gilt analog für alle fünf Eingabeparameter der Wand. Daraus ergeben sich insgesamt höchstens $N <= 2^5 = 32$ verschiedene mögliche Kombinationen von Wanddimensionen bzw. Positionen von Sonderstellen.
 
-#maybe[Link auf Anhang setzen, wo die 32 Konfigurationen zu sehen sind]
-
 Der zu entwickelnde Algorithmus soll für alle 32 möglichen Wandkonfigurationen die Positionen der @UE dynamisch bestimmen. Als Eingabe dienen dabei ausschließlich die fünf beschriebenen Parameter sowie der Radius der @UE. Die erzeugte Lösung muss in jedem Fall eine valide Konfiguration darstellen, bei der insbesondere sichergestellt ist, dass keine @UE einander überlappen oder außerhalb der zulässigen Bereiche, wie den Wand- oder Türgrenzen, positioniert werden.
-
-Darüber hinaus wird eine Anordnung gefordert, die eine später folgende Routenplanung und damit schlussendlich die Erzeugung eines gleichmäßigen Carbongitters ermöglicht.
