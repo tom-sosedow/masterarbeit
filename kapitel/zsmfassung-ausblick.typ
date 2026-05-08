@@ -29,25 +29,16 @@ Für die Planung der Route wurde das Problem als @TSP:both modelliert, welches b
 Bei der Planung des Roboterpfades lagen die zentralen Herausforderungen bei der Bestimmung der Position und Abfolge der Wegpunkte sowie in der Vermeidung von Kollisionen zwischen Werkzeug, @UE und bereits verlegten Garnstreben. Für ersteres wurden vier verschiedene Arten von Umlenkungen definiert. Diese werden abhängig von der Position des zu umfahrenden @UE ausgewählt und in Relation zur Position des nachfolgenden @UE entsprechend rotiert und gespiegelt. Zur Kollisionsvermeidung wurden drei Ansätze konzipiert, wobei der gezielte Einsatz einer der Umlenkungsarten bereits den Großteil der Kollisionen mit @UE verhindern kann. Kollisionen mit bereits verlegtem Garn werden durch ein gezieltes Anheben des Werkzeugs an berechneten Schnittpunkten zwischen dem geplanten Pfad und einer Approximation des unter Spannung stehenden Garns versucht zu vermieden. Während der berechnete Pfad zumeist allen Anforderungen entspricht, können nur wenige Garnkollisionen mit diesem Ansatz verhindert werden. Entsprechend sind weiterführende Anpassungen notwendig, um einen reibungslosen Ablauf garantieren zu können. 
 
 Die Kombination der drei implementierten Teillösungen erweist sich als äußerst effizient für die vollautomatisierte Herstellung gleichmäßiger Textilbewehrungen. Dabei wird minimale Materialverschwendung erreicht und es sind keine manuellen Eingriffe zwischen Start- und Endknoten erforderlich. 
+Bei der Pfadplanung wurde zudem eine neue Herausforderung aufgedeckt, welche nicht bei Wänden ohne Aussparungen vorkommt. Ideen zur Lösung wurden aufgezeigt und getestet, allerdings besteht weiterhin Verbesserungspotential.
 
-#todo[letzter satz hier überarbeiten
+= Ausblick <sec:ausblick>
 
-"...bei der pfadplanung wurde eine neue Herausforderung aufgedeckt, di ein Wänden ohne Tr nicht vorkommen. Es existieren ideen, zur Lösung...."
+In dieser Arbeit wurde ein effizienter und zuverlässiger Ansatz zur Berechnung eines Roboterpfades entwickelt, um ein gleichmäßiges Gitter aus Carbonfasern zum Einsatz als Bewehrung für den Betonbau vollautomatisiert herstellen zu können. Dabei haben sich im Verlauf der Untersuchung neben wichtigen Erkenntnissen auch einige offene Fragen und mögliche Themen für weiterführende Forschung aufgetan. 
 
-Einschätzen, ob Unvermeidbarkeit des Problems an mir leigt oder einfahc im Problemfall unvermeibar ist
+Ein möglicher Ansatz für zukünftige Arbeiten besteht in der Untersuchung einer kooperative Platzierung der @UE, welche parallel oder nachgelagert zur Routen- oder Pfadplanung abläuft. Im Rahmen dieser Arbeit wurden die einzelnen Teilprobleme unabhängig voneinander betrachtet. Durch eine gemeinsame Optimierung könnte es jedoch möglich sein, die @UE gezielt so zu positionieren, dass sich günstigere Routen und gegebenenfalls kollisionsärmere Pfade ergeben.
 
-Eventuell als Modull in Bewertungsfunktion geben und negativ bewerten, falls so ein Problem auftritt
--> In Diskussion anstatt in Diskussion oder Ausblick]
-// SO nicht reinnehmen
-// Bei der Pfadplanung mangelt es an Robustheit, da Kollisionen zwischen Garnablagewerkzeug und zuvor verlegten Garnstreben nicht zuverlässig vermeiden werden können.
+Darüber hinaus bietet insbesondere der Einsatz genetischer Algorithmen für die Routenplanung weiteres Forschungspotenzial. Die in dieser Arbeit implementierte Lösung zeigt bereits das Potenzial evolutionärer Verfahren, wurde jedoch nur in begrenztem Umfang optimiert. Durch den Einsatz gezielter Optimierungen und problemspezifischer Operatoren könnten sowohl die Berechnungszeiten als auch die Qualität der erzeugten Lösungen signifikant verbesser werden.
 
+Die betrachtete Problemstellung beschränkt sich zudem auf Wände mit einer einzelnen Türaussparung. Zukünftige Forschungen könnten den entwickelten Ansatz auf weitere Konfigurationen erweitern, beispielsweise auf Wände mit Fenstern oder mit mehreren Aussparungen. Auch hierfür könnte sich der Fokus auf den Einsatz genetischer Algorithmen als vorteilhaft erweisen, da gegebenenfalls die Anzahl an vordefinierten Teilrouten mit hinzukommenden Aussparungen steigen wird.
 
-= Ausblick
-/**
- * Was steht noch an? Wo sind die größten/wichtigsten Lücken
- */
-
-- Anwendung von @GA tiefergehend erforschen nach @tsaiHighPerformanceGeneticAlgorithm2014 
-- wände ohne türausschnitt und mit fenster und mit mehreren ausschnitten mit puzzleteilen
-- garnapproximation oder physikalisches modell
-- für neues garnablagewerkzeug passende umlenkpunkte
+Abschließend ergeben sich durch die geplante Weiterentwicklung des Garnablagewerkzeugs zusätzliche Anforderungen an die Pfadplanung. Eine präziseres Modell des Garns unter Spannung könnte dabei helfen, kritische Stellen entlang des Werkzeugpfades zu identifizieren und besser vermeiden zu können. Nach der ingenieurstechnischen Anpassung des Werkzeuges wird dann ebenfalls eine Modifikation der Pfadgenerierung nötig, sodass hier weitere Untersuchungen zur Kollisionsvermeidung anzusetzen sind.

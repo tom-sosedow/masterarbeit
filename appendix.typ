@@ -95,7 +95,7 @@ Zu jedem der Ergebnisse sind unterhalb des Bildes die genauen Maße angegeben, d
   )
 }
 
-#heading([Ergebnisse praktischer Test],numbering: "A") <appendix:robotcode>
+#heading([Ergebnisse des praktischen Tests],numbering: "A") <appendix:robotcode>
 
 
 Nachfolgend sind die Ergebnisse des praktischen Tests hinterlegt. Getestet wurde Wandkonfiguration 5 aus @appendix:wandkonfigurationen mit kleineren Maßen. Es erfolgte ebenfalls keine Harztränkung des Garns, sodass sich die Reibung des Garns an den @UE im Vergleich zum realen Einsatz unterscheidet. In @fig:praktischer-test-garn ist die resultierende Garnstruktur des Tests dargestellt. 
