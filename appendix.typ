@@ -82,7 +82,7 @@
 
 Im Folgenden sind die Ergebnisse der besten Lösungsansätze der drei Teilprobleme für alle 32 Wandkonfigurationen dargestellt. Die Positionen der @UE:pl:long wurden mithilfe des in @sec:ue-place vorgestellten iterativen Ansatz berechnet. Darauf aufbauend erfolgte die Routenplanung durch einen Brute-Force Algorithmus auf Basis der Modellierung mittels Teilrouten aus @sec:route-puzzle-based-exact. Schließlich wurde die in @sec:path-finding vorgestellte Pfadplanung genutzt, um aus der Route einen validen Pfad in Form einer Liste von Wegpunkten zu generieren. Die Annäherung an das unter Spannung verlegte Garn ist in halbtransparentem Rot dargestellt.
 
-Zu jedem der Ergebnisse sind unterhalb des Bildes die genauen Maße angegeben, die als parametrische Anforderungen an den Algorithmus übergeben wurden, sowie die berechnete Abfolge von Teilrouten aus @sec:route-puzzle-based. 
+Zu jedem der Ergebnisse sind unterhalb des Bildes die genauen Maße angegeben, die als parametrische Anforderungen an den Algorithmus übergeben wurden, sowie die berechnete Abfolge der Teilrouten aus @sec:route-puzzle-based. 
 
 #for i in range(0,31) {
   figure(
@@ -98,16 +98,22 @@ Zu jedem der Ergebnisse sind unterhalb des Bildes die genauen Maße angegeben, d
 #heading([Ergebnisse des praktischen Tests],numbering: "A") <appendix:robotcode>
 
 
-Nachfolgend sind die Ergebnisse des praktischen Tests hinterlegt. Getestet wurde Wandkonfiguration 5 aus @appendix:wandkonfigurationen mit kleineren Maßen. Es erfolgte ebenfalls keine Harztränkung des Garns, sodass sich die Reibung des Garns an den @UE im Vergleich zum realen Einsatz unterscheidet. In @fig:praktischer-test-garn ist die resultierende Garnstruktur des Tests dargestellt. 
+Nachfolgend sind die Ergebnisse des praktischen Tests hinterlegt. Getestet wurde Wandkonfiguration 5 aus @appendix:wandkonfigurationen mit kleineren Maßen. Es erfolgte ebenfalls keine Harztränkung des Garns, sodass sich die Reibung des Garns an den @UE im Vergleich zum realen Einsatz unterscheidet. In @fig:praktischer-test-simulation ist eine Aufnahme der Simulationssoftware des Kawasaki BX130X Roboterarms dargestellt, in welcher der berechnete Pfad des Werkzeuges simuliert wurde. @fig:praktischer-test-garn zeigt die resultierende Gitterstruktur dieses Pfades im Test. 
+
+#figure(
+  image("images/praktischer-test-simulation.png"),
+  caption: [Aufnahme des berechneten Pfades in der Simulationssoftware des Roboters],
+  outlined: false,
+)<fig:praktischer-test-simulation>
+
 
 #figure(
   image("images/praktischer-test-garn.jpg"),
-  caption: [Resultierendes Carbongitter des praktischen Tests von Wandkonfiguration 5 aus @appendix:wandkonfigurationen.]
+  caption: [Resultierendes Carbongitter des praktischen Tests von Wandkonfiguration 5 aus @appendix:wandkonfigurationen.],
+  outlined: false,
 )<fig:praktischer-test-garn>
 
-#todo[Bild der Simulation einfügen, wie der Robi fährt]
-
-Der für diese Wand generierte Programmcode für einen Kawasaki BX130X ist im Folgenden dargestellt. Das Programm #text(font: "FreeMono", hyphenate: false)[Rollenablage] beinhaltet die Platzierung der @UE und das Programm #text(font: "FreeMono", hyphenate: false)[Garnablage] die Garnablage.
+Der für diese Wand generierte Programmcode für den Roboterarm ist im Folgenden dargestellt. Das Programm #text(font: "FreeMono", hyphenate: false)[Rollenablage] beinhaltet die Platzierung der @UE und das Programm #text(font: "FreeMono", hyphenate: false)[Garnablage] die Garnablage.
 
 #show raw: set text(font: "FreeMono")
 

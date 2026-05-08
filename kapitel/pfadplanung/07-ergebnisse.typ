@@ -23,7 +23,7 @@ Die zusätzlich eingefügten Zwischenpunkte zur Vermeidung von Kollisionen mit b
 
 #figure(
   image("/images/garnkollision-test.jpg", width: 80%),
-  caption: [Resultat der Kollision zwischen Austrittsdüse und Garnstrebe bei dem Tets zu Wand 5 aus @appendix:wandkonfigurationen. Die Strebe wurde in Folge dessen gespleißt und einige Stränge zerrissen. ],
+  caption: [Resultat der Kollision zwischen Austrittsdüse und Garnstrebe bei dem Test zu Wand 5 aus @appendix:wandkonfigurationen. Die Strebe wurde infolgedessen gespleißt und einige Stränge zerrissen. ],
 )<fig:garnkollision-resultat>
 
 Es kommt ebenfalls innerhalb der Umlenkungen zu Kollisionen mit Garnstreben. Da die Kollisionserkennung lediglich für die Anwendung auf die Wege zwischen zwei Umlenkungen konzipiert wurde, werden Streben, welche nah an den @UE anliegen, ebenfalls gestreift. Bei Wand 5 tritt dieser Fall beispielsweise nach der Navigation von @UE 58 zu @UE 60 auf. Hier wird eine horizontal verlaufende Strebe bündig mit der untersten Reihe von @UE verlegt, was in der vollständigen Umlenkung um @UE 60 dazu führt, dass diese Strebe bei der Bewegung zum letzten Wegpunkt oberhalb des @UE gestreift wird. Ein ähnlicher Fall tritt bei @UE 31 auf, bei dem die vorher verlegte vertikale Strebe von @UE 11 innerhalb der Umlenkung für eine horizontale Strebe gestreift wird.
