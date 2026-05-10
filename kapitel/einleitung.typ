@@ -29,12 +29,13 @@ Im aktuellen Verfahren erfolgt die Herstellung der Carbonbewehrung durch einen R
 #figure(
   grid(
     columns: (auto,auto),
-    rows: (auto,auto),
     row-gutter: 2%,
-    image("/images/carbongitter.JPG", width: 80%),
-    image("/images/carbongitter-in-wand.jpg", width: 80%),
+    column-gutter: 8%,
+    image("/images/carbongitter.JPG", height: 240pt),
+    image("/images/carbongitter-in-wand.jpg", height: 240pt),
     [(a)],
     [(b)],
+    [],[]
   ),
   caption: [Bewehrungsmatte aus Carbongarn. Nach dem Verlegen durch den Roboter um die Umlenkelemente (a) und eingegossen in einer Betonwand für Demonstrationszwecke (b)]
 )<fig:carbongitter>
@@ -84,11 +85,11 @@ Bei der Beantwortung der Fragen soll es ausschließlich um Wände mit einem einz
 
 Die Laufzeit der implementierten Lösung spielt nur eine untergeordnete Rolle. Während der automatisierten Produktion dauert die Herstellung eines Carbongitters bis zu zwei Stunden. Diese Zeit wird einerseits für die Ausführung der berechneten Produktionsschritte und andererseits für die anschließende langwierige Temperierung im Ofen eines vorherigen Gitters benötigt. Aufgrund limitierter Produktionskapazitäten kommt es also zu einer temporären Unterbrechung, bevor mit der Herstellung eines neuen Gitters begonnen werden kann. In dieser Zeitspanne muss der zu entwickelnde Algorithmus eine Lösung generieren können, sodass nahtlos mit der nachfolgenden Produktion fortgefahren werden kann. Als Ziel wird deshalb angesetzt, die Laufzeit auf 30 Minuten zu begrenzen, um auch bei Effizienzsteigerungen der restlichen Produktion nicht als limitierender Faktor aufzutreten.
 
-Als Eingabeparameter des Prozesses dienen die fünf geforderten Maße der Wand und Tür sowie der Radius der genutzten @UE. Als Ergebnis werden eine oder mehrere Programmdateien für einen Kawasaki BX130X Roboterarm erzeugt. Diese sollen es ermöglichen, dass der Roboterarm ohne zusätzliche manuelle Eingriffe ein vollständiges Carbongitter inklusive der Platzierung der @UE:pl:long erzeugt. 
+Als Eingabeparameter des Prozesses dienen die fünf geforderten Maße der Wand und Tür sowie der Radius der genutzten @UE. Als Ergebnis werden eine oder mehrere Programmdateien für die Steuerungseinheit eines Kawasaki BX130X Roboterarms erzeugt. Diese sollen es ermöglichen, dass der Roboterarm ohne zusätzliche manuelle Eingriffe ein vollständiges Carbongitter inklusive der Platzierung der @UE:pl:long erzeugt. 
 
 
 == Methodik & Aufbau
 
-Um diese Ziele zu erreichen und insbesondere die Forschungsfragen zu beantworten, wird diese Arbeit in drei zentrale Kapitel untergliedert, von denen sich jedes auf die Beantwortung einer Forschungsfrage fokussiert. In jedem dieser Kapitel wird dafür zunächst das betrachtete Problem spezifiziert und mathematisch modelliert. Daraufhin wird relevante Literatur aufgearbeitet, um bestehende Ansätze einzuordnen, theoretische Grundlagen darzustellen und bestehende Forschungslücken zu identifizieren. Basierend darauf werden dann gewonnene Erkenntnisse und Lösungsansätze vorgestellt und eingeordnet. Abschließend werden die Ansätze anhand eines zuvor beschriebenen Testvorgehens evaluiert. Dabei erfolgt eine Bewertung hinsichtlich ihrer Leistungsfähigkeit in Bezug auf die zuvor formulierten Anforderungen, gefolgt von einer Darstellung und Analyse der erzielten Ergebnisse.
+Um diese Ziele zu erreichen und insbesondere die Forschungsfragen zu beantworten, wird diese Arbeit in drei zentrale Kapitel untergliedert, von denen sich jedes auf die Beantwortung einer Forschungsfrage fokussiert. In jedem dieser Kapitel wird dafür zunächst das betrachtete Problem spezifiziert und mathematisch modelliert. Daraufhin wird relevante Literatur aufgearbeitet, um bestehende Ansätze einzuordnen, theoretische Grundlagen darzustellen und bestehende Forschungslücken zu identifizieren. Basierend darauf werden gewonnene Erkenntnisse und Lösungsansätze vorgestellt und eingeordnet. Abschließend werden die Ansätze anhand eines zuvor beschriebenen Testvorgehens evaluiert. Dabei erfolgt eine Bewertung hinsichtlich ihrer Leistungsfähigkeit in Bezug auf die zuvor formulierten Anforderungen, gefolgt von einer Darstellung und Analyse der erzielten Ergebnisse.
 
 Nach der getrennten Betrachtung der drei Teilprobleme und der Identifikation geeigneter Lösungsansätze werden die Resultate in @sec:diskussion zusammengeführt, kritisch diskutiert und im Hinblick auf ihre praktische Anwendbarkeit bewertet. Den Abschluss der Arbeit bilden eine Zusammenfassung der gewonnenen Erkenntnisse sowie ein Ausblick auf mögliche zukünftige Arbeiten und bestehendes Optimierungspotenzial.

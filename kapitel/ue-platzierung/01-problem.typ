@@ -22,7 +22,7 @@ Zu Beginn der Herstellung eines Carbongitters werden fünf Eingabeparameter ben�
 Diese Maße können jedoch nicht unmittelbar als Grenzen für das Carbongitter verwendet werden. Nach der Erstellung des Gitters wird es in eine vorbereitete Schalung platziert. Diese besteht aus stählernen Schalungselementen, die ebenfalls magnetisch auf einer Metallplatte befestigt werden. Die Schalungselemente verhindern beim Betonguss das Austreten des flüssigen Betons und dienen somit als Begrenzung der Wand. Zu diesen Elementen muss ein Abstand $p$, im Folgenden Padding genannt, eingehalten werden, damit das Carbongitter geschützt und von außen nicht sichtbar im Beton liegt.
 
 // Verschiebung der Grenzen durch Abstand zur Schalung, Padding
-Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Als Ankerpunkt dienen dafür ihre Mittelpunkte. Der Radius der @UE wird mit $r$ bezeichnet, der Durchmesser ergibt sich zu $d = 2r$. Die tatsächlich verfügbare Wandhöhe und -breite ergibt sich somit zu $w_h = w_h^* - 2p - 2r$ und $w_b = w_b^* - 2p - 2r$, da auf beiden Seiten jeweils einmal das Padding von der Länge abgezogen werden muss und sich das Padding auf den Abstand zur Außenkante des @UE bezieht und somit ebenfalls jeweils der Radius abgezogen werden muss. Der Türausschnitt wird aufgrund des notwendigen Abstands zur Schalung links und rechts um das doppelte Padding verbreitert und wieder der zusätzlich nötige Abstand zum Mittelpunkt der @UE einbezogen, sodass $t_b = t_b^* + 2p + 2r$ gilt. Durch die reduzierte Wandbreite sowie das linke Padding an der Tür muss außerdem der Abstand des Türausschnitts zur linken Wandkante angepasst werden. Daher ergibt sich $t_x = t_x^* - 2p - 2r$. Die Höhe des Türausschnitts muss nicht weiter angepasst werden. Die Zusammenhänge sind in @fig:input-dimensions dargestellt. In Schwarz ist die geforderte Betonfläche und in Rot die dazugehörigen Eingabeparameter verbildlicht. In Blau ist die tatsächlich zur Verfügung stehende Fläche für die @UE:pl:long nach Einbeziehung des Paddings markiert, über die darin platzierte @UE nicht mit ihren Außenkanten hinausragen dürfen.
+Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Als Ankerpunkt dienen dafür ihre Mittelpunkte. Der Radius der @UE wird mit $r$ bezeichnet, der Durchmesser ergibt sich zu $d = 2r$. Die tatsächlich verfügbare Wandhöhe und -breite ergibt sich somit zu $w_h = w_h^* - 2p - 2r$ und $w_b = w_b^* - 2p - 2r$, da auf beiden Seiten jeweils einmal das Padding von der Länge abgezogen werden muss und sich das Padding auf den Abstand zur Außenkante des @UE bezieht und somit ebenfalls jeweils der Radius abgezogen werden muss. Der Türausschnitt wird aufgrund des notwendigen Abstands zur Schalung links und rechts um das doppelte Padding verbreitert und wieder der zusätzlich nötige Abstand zum Mittelpunkt der @UE einbezogen, sodass $t_b = t_b^* + 2p + 2r$ gilt. Durch die reduzierte Wandbreite sowie das linke Padding an der Tür muss außerdem der Abstand des Türausschnitts zur linken Wandkante angepasst werden. Daher ergibt sich $t_x = t_x^* - 2p - 2r$. Die Höhe des Türausschnitts muss nicht weiter angepasst werden, da sie den Abstand der Oberkante der Tür zur Unterseite der Wand beschriebt und somit durch die Modifikation von $t^*_h$ zu $t_h$ keine weiteren Anpassungen nötig sind. Die Zusammenhänge sind in @fig:input-dimensions dargestellt. In Schwarz ist die geforderte Betonfläche und in Rot die dazugehörigen Eingabeparameter verbildlicht. In Orange ist die tatsächlich zur Verfügung stehende Fläche für die @UE:pl:long nach Einbeziehung des Paddings markiert, über die darin platzierte @UE nicht mit ihren Außenkanten hinausragen dürfen.
 
 #figure(
   cetz.canvas({
@@ -67,7 +67,7 @@ Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Als Ankerpunk
     line((-1,-11),(-1,1)) 
 
     // Verschmalerung
-    let smallercolor = blue
+    let smallercolor = orange
     line((-0.5,0.5),(15.5,0.5), stroke: (paint: smallercolor))
     line((15.5,0.5),(15.5,-10.5), stroke: (paint: smallercolor))
     line((15.5,-10.5),(9.5,-10.5), stroke: (paint: smallercolor))
@@ -77,17 +77,23 @@ Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Als Ankerpunk
     line((4.5, -10.5),(-0.5,-10.5), stroke: (paint: smallercolor))
     line((-0.5,-10.5),(-0.5,0.5), stroke: (paint: smallercolor))
 
-    line((-1,-3),(-0.5,-3), mark: mark, stroke: (paint: green))
-    content((0,-3), text(fill:green)[$p$])
+    line((15.5,-3),(16,-3), mark: mark, stroke: (paint: green.darken(40%)))
+    content((15,-3), text(fill:green.darken(40%))[$p$])
 
-    line((-0.5,-7),(0,-7), mark: mark, stroke: (paint: orange))
-    content((1,-7), text(fill:orange)[$r$])
+    line((-0.5,-7),(0,-7), mark: mark, stroke: (paint: rgb("#7217e1")))
+    content((1,-7), text(fill:rgb("#7217e1"))[$r$])
 
-    circle((4,-3), radius: 0.1, stroke: (paint: purple))
-    content((4.7,-3), text(fill:purple)[$t_1$])
+    circle((4,-3), radius: 0.1, stroke: (paint: fuchsia))
+    content((4.7,-3), text(fill:fuchsia)[$t_1$])
 
-    circle((10,-10), radius: 0.1, stroke: (paint: purple))
-    content((10.7,-10), text(fill:purple)[$t_2$])
+    circle((10,-10), radius: 0.1, stroke: (paint: fuchsia))
+    content((10.7,-10), text(fill:fuchsia)[$t_2$])
+
+    line((0,0),(1,0), mark: (end: ">>"), stroke: (paint: blue))
+    content((1.5,0), text(fill:blue)[$x$])
+
+    line((0,0),(0,-1), mark: (end: ">>"), stroke: (paint: green))
+    content((0,-1.5), text(fill:green)[$y$])
 
   }),
   caption: [Veranschaulichung der Modellierung für die Platzierung von UE an diskreten Positionen.]
@@ -105,7 +111,7 @@ Der Türausschnitt wird durch ein Koordinatentupel der oberen linken Ecke
 $ t_1 = (tx1, ty1) = (floor(t_x/d)-1, ymax - ceil(t_h/d)) $ 
 sowie der unteren rechten Ecke 
 $ t_2 = (tx2, ty2) = (tx1 + ceil(t_b/d) + 1, ymax) $ 
-beschrieben. Beide Punkte sind in @fig:input-dimensions in Lila dargestellt.
+beschrieben. Beide Punkte sind in @fig:input-dimensions in Pink dargestellt.
 
 Der Koordinatenursprung befindet sich in dieser Arbeit in der oberen linken Ecke. Die $x$-Achse verläuft nach rechts, die $y$-Achse nach unten in positiver Richtung. Entsprechend liegt die obere Wandkante bei $y=0$, die untere bei $y=ymax$, die linke Seite bei $x=0$ und die rechte bei $x=xmax$.
 
