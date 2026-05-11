@@ -17,7 +17,7 @@ Anstatt bereits die @UE:pl in der vorgesehenen Reihenfolge zu positionieren und 
 === Exakte Methoden
 
 // Allgemein
-Exakte Methoden bezeichnen im Kontext von Optimierungsproblemen solche Ansätze, die für jede gegebene Problemkonfiguration garantiert eine global optimale Lösung liefern. Zu bekannten Vertretern zählen Integer Programming, dynamische Programmierung, Branch-and-Bound, Backtracking sowie Brute-Force-Verfahren.
+Exakte Methoden bezeichnen im Kontext von Optimierungsproblemen solche Ansätze, die für jede gegebene Problemkonfiguration garantiert eine global optimale Lösung liefern. Zu bekannten Vertretern zählen Integer Programming, dynamische Programmierung, Branch-and-Bound, Backtracking sowie das Brute-Force-Verfahren.
 
 // Brute Force
 Letzteres stellt den einfachsten und zugleich intuitivsten Ansatz dar: Sämtliche möglichen Lösungen werden vollständig aufgezählt und anschließend einzeln überprüft. Für kleinere Problemgrößen kann dieses Vorgehen, insbesondere durch geeignete Optimierungen, durchaus effizient sein @oneilExactMethodsSolving. Mit zunehmender Problemgröße sinkt die Leistungsfähigkeit jedoch erheblich, auch wenn das Auffinden akzeptabler Lösungen weiterhin möglich bleibt @oneilExactMethodsSolving. Die Laufzeitkomplexität beträgt $O(n!)$ und gehört damit zu den ungünstigsten Klassen für größere Problemstellungen.
@@ -55,6 +55,7 @@ Nach #citep(<weickerEvolutionaereAlgorithmen2015>, supplement: [S. 39]) verlaufe
 #algorithm-figure(
   [Genetischer Algorithmus nach #citep(<weickerEvolutionaereAlgorithmen2015>)],
   supplement: "Algorithmus",
+  placement: none,
   vstroke: .5pt + luma(200),
   {
     import algorithmic: *

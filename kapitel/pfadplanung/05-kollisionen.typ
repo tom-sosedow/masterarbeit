@@ -141,6 +141,7 @@ Um sichergestellt alle Kollisionen beheben zu können, kann der Ansatz von @morr
     }),
     [(a)],
     [(b)],
+    [],[]
   ),
   caption: [Iterative Kollisionserkennung nach #citep(<morris-hillBuildingStringArt2023>) mit zwei Iterationen. In Iteration (a) wird die Kollision mit UE x behoben, da der rote Teil des Pfades des Roboters den roten Kreis mit dem Sicherheitsradius von x schneidet. Danach besteht noch die Kollision mit UE y, welche in Iteration (b) auf gleiche Weise behoben wird.]
 )<fig:morris-kollisionsvermeidung>

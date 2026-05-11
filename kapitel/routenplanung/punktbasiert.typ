@@ -6,7 +6,7 @@
 #import "@preview/cetz:0.4.2"
 
 == Punktbasierte Planung <sec:route-pointbased>
-In klassischen @TSP:pl wird eine Permutation aller zu besuchenden Orte gesucht. Durch die Modellierung als Graphenproblem entsteht also die Frage, in welcher Reihenfolge die Knoten des Graphen entlang seiner Kanten besucht werden sollen. Da im vorliegenden Problem die @UE:pl die Knoten des Graphen repräsentieren, müssen Ansätze für eine punktbasierte Routenplanung von @UE zu @UE untersucht und evaluiert werden. 
+Unter Berücksichtigung der oben genannten Bewertungskriterien werden nun Ansätze zur Lösung des @TSP:pl untersucht. In klassischen @TSP:pl wird dabei eine Permutation aller zu besuchenden Orte gesucht. Durch die Modellierung als Graphenproblem entsteht also die Frage, in welcher Reihenfolge die Knoten des Graphen entlang seiner Kanten besucht werden sollen. Da im vorliegenden Problem die @UE:pl die Knoten des Graphen repräsentieren, müssen Ansätze für eine punktbasierte Routenplanung von @UE zu @UE untersucht und evaluiert werden. 
 
 // Lösungsraum ath. Modell
 Der Lösungsraum ist dabei durch 
@@ -15,7 +15,7 @@ definiert. Er beinhaltet $|Omega| = n!$ verschiedene Lösungen.
 
 === Exakte Methoden
 // Brute Force eher unpraktikabel
-Durch den schnell wachsenden Lösungsraum mit zunehmendem $n$ wird eine vollständige Aufzählung schnell unpraktikabel. Schon bei einem kleinen $n=15$ gibt es über $15! = 1,3 * 10^(12)$ Permutationen in $Omega$. Somit kommen bei den vorliegenden Problemgrößen Ansätze wie einfaches Brute-Forcing nicht in Frage.
+Durch den schnell wachsenden Lösungsraum mit zunehmendem $n$ wird eine vollständige Aufzählung schnell unpraktikabel. Schon bei einem kleinen $n=15$ gibt es $15! = 1,3 * 10^(12)$ Permutationen in $Omega$. Somit kommen bei den vorliegenden Problemgrößen Ansätze wie einfaches Brute-Forcing nicht in Frage.
 
 // - branch and bound bewertet unvollständige lösungen um bereits frühzeitig schlechte zweige abzuschneiden
 //   - mit vorliegendem problem nicht optimal, da eine lösung bis fast zum schluss sehr gut aussehen kann, aber dann für die letzten streben sehr schlechte wege in kauf genommen werden müssen
@@ -113,7 +113,7 @@ Die Ergebnisse der Testläufe für Wandkonfiguration $w_2$ sind in @fig:res-gene
 
 #combinedBYFigure<fig:res-genetic>
 
-Für eine große Wandkonfiguration sind die Ergebnisse am Beispiel von $w_3$ rechts in @fig:res-genetic zu sehen. Hier sind die Unterschiede zwischen beiden Seeds noch deutlicher zu erkennen. Während mit Seed $s_1$ die beste Lösung mit Kosten von 390 nach ca. 245 Sekunden gefunden wird, dauert es mit Seed $s_2$ 176 Sekunden, um eine Lösung mit Kosten 266 zu finden. Auch hier ist zu beobachten, dass der Algorithmus Schwierigkeiten damit hat, aus lokalen Optima auszubrechen. 
+Für eine große Wandkonfiguration sind die Ergebnisse am Beispiel von $w_3$ rechts in @fig:res-genetic zu sehen. Hier sind die Unterschiede zwischen beiden Seeds noch deutlicher zu erkennen. Während mit Seed $s_1$ die beste Lösung mit Kosten von 390 nach ca. 245 Sekunden gefunden wird, dauert es mit Seed $s_2$ 176 Sekunden, um eine Lösung mit Kosten 266 zu finden. Auch hier ist zu beobachten, dass der Algorithmus offenbar Schwierigkeiten damit hat, aus lokalen Optima auszubrechen. 
 
 In @fig:res-genetic-b-generation ist erneut für Wandkonfiguration $w_2$ der Verlauf der Kosten abgebildet, aber im Bezug auf die derzeitige Generation. Die Kosten sinken innerhalb weniger Hundert Generationen auf das lokale Optimum von 21 und verbleiben dort für die restlichen 1600 Generationen.
 
