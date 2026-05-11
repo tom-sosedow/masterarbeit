@@ -1,4 +1,5 @@
 #import "template.typ": *
+#import "abstract.typ": abstract
 
 #show: htwk-thesis.with(
   name: [Sosedow],
@@ -13,6 +14,7 @@
   studiengang: [Informatik],
   fakultaet: [Fakultät Informatik und Medien],
   use-default-math-env: true,
+  zusammenfassung: abstract
 )
 
 #include "kapitel/einleitung.typ"

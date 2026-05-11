@@ -82,6 +82,14 @@
   ]
 }
 
+#let abstract(
+  title: "Zusammenfassung",
+  body
+) = {
+  heading(outlined: false, numbering: none)[#title]
+  body
+}
+
 #let htwk-thesis(
   name: [Ihr Familienname],
   vorname: [Ihr Vorname],
@@ -89,13 +97,14 @@
   ort: [Ihr Geburtsort],
   betreuer: [Vollständiger akad. Titel (z.B. Prof. Dr. rer. nat. habil.) Vorname Familienname Ihres Betreuers / Ihrer Betreuerin],
   betreuer-kurz: [Kurzer akad. Titel (z.B. Prof. Dr.) Vorname Familienname Ihres Betreuers / Ihrer Betreuerin],
-  betreuer2: [name ihres Betreuers],
+  betreuer2: [Name ihres Betreuers],
   thema: [Titel ihrer Arbeit],
   datum: [tt. mm. jjjj],
   fakultaet: [Ihre Fakultät],
   abschluss: "bsc",
   studiengang: [Mathematik oder Technomathematik oder Wirtschaftsmathematik],
   use-default-math-env: true,
+  zusammenfassung: [Zusammenfassung Ihrer Arbeit],
   body,
 ) = {
   set page(
@@ -148,8 +157,10 @@
     
     set text(font: font)
     let level = it.level
+    let heading_index = counter(heading).get().first()
+
     if level == 1 {
-      if it.supplement != [Anhang] {
+      if it.supplement != [Anhang] and heading_index > 1{
         pagebreak()
       }
       set text(size: 18pt)
@@ -190,22 +201,30 @@
     thesis: abschluss,
     fakultaet: fakultaet,
   )
+  pagebreak()
+  abstract(zusammenfassung)
+
   set page(
     header: header,
     numbering: "I",
   )
-
+  counter(page).update(1)
 
   selbständigkeit(
     thema: thema,
     datum: datum,
     thesis: abschluss,
   )
+  
   outline(indent: 1.2em)
+
+  pagebreak(weak: true)
   outline(
     title: [Abbildungsverzeichnis],
     target: figure.where(kind: image),
   )
+  
+  pagebreak(weak: true)
   outline(
     target: figure.where(kind: table), 
     title: "Tabellenverzeichnis",
@@ -214,6 +233,7 @@
   
   show: init-glossary.with(my-glossary)
   
+  pagebreak(weak: true)
   glossary(
     title: "Abkürzungsverzeichnis", // Optional: defaults to Glossary  
     theme: htwk-theme, // Optional: defaults to theme-academic
