@@ -48,7 +48,7 @@ lässt sich die Umlaufrichtung ableiten. Ist das Kreuzprodukt positiv, liegt $C$
     content(((5.5,9.5)), text(fill: red)[$R'$])
 
   }),
-  caption: [Vektorbasierte Bestimmung der Umlaufrichtung um einen Knoten $B$ basierend auf seinem Vorgänger und Nachfolger]
+  caption: [Vektorbasierte Bestimmung der Umlaufrichtung um einen Knoten $B$ basierend auf seinem Vorgänger und Nachfolger (eigene Darstellung)]
 )<fig:vektorbasierte-umlaufrichtung>
 
 Dieser Ansatz ermöglicht grundsätzlich eine robuste Bestimmung der Umlaufrichtung um $B$, unabhängig von der konkreten Lage der Knoten sowie der Umlaufrichtung am vorhergehenden Knoten.
@@ -97,7 +97,7 @@ Allerdings zeigen beide vorgestellten Verfahren Schwächen bei Knoten, an denen 
 
 
   }),
-  caption: [Fehlerhafte Bestimmung der Umlaufrichtung bei Änderung der Hauptrichtung]
+  caption: [Fehlerhafte Bestimmung der Umlaufrichtung bei Änderung der Hauptrichtung (eigene Darstellung)]
 )<fig:vektorbasierte-umlaufrichtung-probleme>
 
 In diesem konkreten Fall führt diese Entscheidung jedoch zu einem unerwünschten Ergebnis. Es entsteht eine diagonal verlaufende vertikale Strebe, die in der Abbildung rot hervorgehoben ist. Zudem verläuft ein Abschnitt der folgenden horizontalen Strebe nicht achsenparallel zur x-Achse, da dieser zunächst unterhalb von $B$ geführt wird.

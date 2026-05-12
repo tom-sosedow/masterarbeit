@@ -6,6 +6,7 @@
 = Platzierung der Umlenkelemente <sec:ue-place>
 In diesem Kapitel wird die Forschungsfrage I bezüglich der Platzierung der @UE:pl:long  untersucht. Hierzu wird zunächst das zugrunde liegende Problem definiert, abgegrenzt und mathematisch modelliert. Anschließend wird der aktuelle Stand der Forschung zu diesem Problem dargestellt. Darauf aufbauend wird eine Lösungsmethode entwickelt und erläutert. Abschließend erfolgt eine Darstellung der erzielten Ergebnisse.
 
+#todo[Das ist doch das gleiche wie in der Einleitung nochmal. Vlt spezifischer auf dieses Kapitel beziehen?]
 
 #include "/kapitel/ue-platzierung/01-problem.typ"
 #include "/kapitel/ue-platzierung/02-forschungsstand.typ"

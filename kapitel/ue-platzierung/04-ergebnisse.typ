@@ -76,7 +76,7 @@ Die resultierenden Wandkonfigurationen dieses iterativen Lösungsansatzes werden
     line((-2,-11),(-2,1))
 
   }),
-  caption: [Kleine Wandkonfiguration mit korrekt platzierten Umlenkelementen und Reihenfolge der Berechnung. In Rot dargestellt eine Sonderstelle, in Grün optionale UE und in Blau das UE, welches den oberen Versatz $omega$ bestimmt.]
+  caption: [Kleine Wandkonfiguration mit korrekt platzierten Umlenkelementen und Reihenfolge der Berechnung. In Rot dargestellt eine Sonderstelle, in Grün optionale UE und in Blau das UE, welches den oberen Versatz $omega$ bestimmt. (eigene Darstellung)]
 )<fig:fully-placed-ue-wall>
 
 Die Positionen der @UE sind in allen Fällen zulässig, da die in @sec:ue-place-problem aufgestellten Rahmenbedingungen eingehalten werden. Durch die in @sec:ue-place-implementation beschriebenen optionalen @UE in den Ecken der Wand werden womöglich @UE platziert, welche für die spätere Routenplanung irrelevant sind. Ihre Anzahl begrenzt sich in diesen Fällen auf maximal drei eventuell überflüssige @UE, welche nach der Routenplanung aus dem Ablageprogramm entfernt werden können.

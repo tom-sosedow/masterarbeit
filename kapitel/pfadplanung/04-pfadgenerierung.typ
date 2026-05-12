@@ -111,5 +111,5 @@ Die Reihenfolge, in der der Roboter die einzelnen Punkte anfährt, ergibt sich a
     [],
     [(b)],
   ),
-  caption: [Positionen der Wegpunkte an den Umlenkelementen. Sowohl für Umlenkungen in Hauptrichtung (a) sowie an der oberen rechten Türecke (b).]
+  caption: [Positionen der Wegpunkte an den Umlenkelementen. Sowohl für Umlenkungen in Hauptrichtung (a) sowie an der oberen rechten Türecke (b) (eigene Darstellung)]
 )<fig:wegpunkte-mit-türecke>

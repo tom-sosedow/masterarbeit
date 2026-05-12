@@ -64,7 +64,7 @@ Ein Großteil dieser Kollisionen lässt sich durch die Verwendung vollständiger
       circle(point, radius: 0.2, stroke: (paint: green))
     }
   }),
-  caption: [Vollständige Umlenkung zur Vermeidung einer Kollision mit einem Umlenkelement. In Grün dargestellt der Roboterpfad und in Blau die resultierende Garnstruktur]
+  caption: [Vollständige Umlenkung zur Vermeidung einer Kollision mit einem Umlenkelement. In Grün dargestellt der Roboterpfad und in Blau die resultierende Garnstruktur (eigene Darstellung)]
 )<fig:volle-umlenkungen>
 
 // Weitere Kollisionen erkennen und beheben
@@ -143,18 +143,18 @@ Um sichergestellt alle Kollisionen beheben zu können, kann der Ansatz von @morr
     [(b)],
     [],[]
   ),
-  caption: [Iterative Kollisionserkennung nach #citep(<morris-hillBuildingStringArt2023>) mit zwei Iterationen. In Iteration (a) wird die Kollision mit UE x behoben, da der rote Teil des Pfades des Roboters den roten Kreis mit dem Sicherheitsradius von x schneidet. Danach besteht noch die Kollision mit UE y, welche in Iteration (b) auf gleiche Weise behoben wird.]
+  caption: [Iterative Kollisionserkennung nach #citep(<morris-hillBuildingStringArt2023>) mit zwei Iterationen. In Iteration (a) wird die Kollision mit UE x behoben, da der rote Teil des Pfades des Roboters den roten Kreis mit dem Sicherheitsradius von x schneidet. Danach besteht noch die Kollision mit UE y, welche in Iteration (b) auf gleiche Weise behoben wird.  (eigene Darstellung)]
 )<fig:morris-kollisionsvermeidung>
 
 // Kollisionen mit bereits gelegtem Garn
-Darüber hinaus ist sicherzustellen, dass Kollisionen der Austrittsdüse mit bereits verlegtem Garn vermieden werden. Eine effektive Strategie zur Kollisionsvermeidung besteht darin, das Werkzeug temporär anzuheben, sobald eine bestehende Strebe gekreuzt wird. Dabei ist jedoch zu beachten, dass die Anhebung weder zu groß noch zu steil erfolgen darf, da andernfalls die Gefahr besteht, dass das Garn vom vorherigen @UE abrutscht. Dies würde auch an den Kreuzungspunkten dazu führen, dass keine Verbindung zwischen sich kreuzenden Streben entsteht und somit die Belastbarkeit des Gitters nach dem Temperieren eingeschränkt ist.
-
+Darüber hinaus ist sicherzustellen, dass Kollisionen der Austrittsdüse mit bereits verlegtem Garn vermieden werden. Eine effektive Strategie zur Kollisionsvermeidung besteht darin, das Werkzeug temporär anzuheben, sobald eine bestehende Strebe gekreuzt wird. Dabei ist jedoch zu beachten, dass die Anhebung weder zu groß noch zu steil erfolgen darf, da andernfalls die Gefahr besteht, dass das Garn vom vorherigen @UE abrutscht. Daraus entsteht eine Reihe von Problemen. Zum einen würde dies an den Kreuzungspunkten dazu führen, dass keine Verbindung zwischen sich kreuzenden Streben entsteht und somit die Belastbarkeit des Gitters nach dem Temperieren eingeschränkt ist. Außerdem erschwert die gestiegene Höhe der Bewehrung in z-Richtung die Handhabung, den Transport und die Stapelung mehrerer Gitter in besonders beanspruchten Bauteilen. Auch können bei ungünstig verlaufenden Pfaden durch den vertikalen Versatz weitere Kollisionen begünstigt werden, da diese Erhöhungen schwer einkalkulierbar sind.
+ 
 Da zur Erkennung solcher Kreuzungen kein physikalisches Modell des unter Spannung stehenden Garns verwendet wird, muss der geplante Pfad als Annäherung dienen. 
 Hierzu wird der Pfad, zunächst ohne Erkennung von Garnkollisionen, erstellt und dabei der Abstand der Wegpunkte zur Mitte der @UE von zwei Radien auf einen Radius geändert. Ebenfalls werden von Sonderumlenkungen und vollständigen Umlenkungen der erste und letzte Wegpunkt entfernt, sodass anliegende Streben eher der Realität entsprechen. Der resultierende Pfad wird als $p'$ bezeichnet. Wenngleich diese Berechnung keinen validen Pfad für den Roboterarm erzeugt, da die Abstände nicht eingehalten werden, führt es dazu, dass die Streben zwischen den Außenkanten der @UE:pl:long verlaufen und somit eine Annäherung der resultierenden Garnstruktur entsteht. Das Ergebnis ist in @fig:pfad-garnannaeherung zu sehen. Es ist zu beachten, dass dennoch einige Streben nicht so verlaufen, wie sie es später tun werden. Ein Beispiel hierfür ist die am weitesten rechts liegende vertikale Strebe, die durch die vollständige Umlenkung um das @UE 62 entsteht. Hier kommt es zu einer Abweichung, da durch das Entfernen des ersten und letzten Wegpunktes für die Umlenkung eine gewöhnliche Umlenkung mit drei Punkten entsteht. Da dort die Hauptrichtung wechselt, verläuft diese Strebe im Gegensatz zur Realität in der Annäherung somit nicht achsenparallel, sondern leicht diagonal.
 
 #figure(
   image("/images/pfadannaeherung.png"),
-  caption: [Annäherung $p'$ an resultierende Garnstruktur am Beispiel von Wandkonfiguration $w_4$],
+  caption: [Annäherung $p'$ an resultierende Garnstruktur am Beispiel von Wandkonfiguration $w_4$ (eigene Darstellung)],
 )<fig:pfad-garnannaeherung>
 
 Der Pfad $p$ für den Roboter wird schrittweise analysiert und für jeden Abschnitt überprüft, ob und an welchen Positionen er frühere Segmente in $p'$ schneidet. Die identifizierten Schnittpunkte werden entlang der jeweiligen Strebe von $p$ geordnet.
@@ -203,6 +203,6 @@ Der resultierende Pfad, ergänzt um diese zusätzlichen Wegpunkte, ist exemplari
     line((0,0.5),(1,0.5), stroke:(paint: blue, dash:"dashed"))
 
   }),
-  caption: [Seitenansicht für vertikale Bewegungen des Roboterarms.]
+  caption: [Seitenansicht für vertikale Bewegungen des Roboterarms (eigene Darstellung)]
 )<fig:seitenansicht-vertikaler-pfad>
 

@@ -7,11 +7,7 @@
 == Motivation
 Beton zählt zu den wichtigsten und am weitesten verbreiteten Baustoffen im modernen Wohnungsbau. Schätzungen zufolge werden weltweit jährlich etwa 15 bis 20 Milliarden Kubikmeter Beton verbaut @kaufmannUmweltfreundlicheBetonbauten2021. Dabei dominiert Stahlbeton, bei dem die hohe Zugfestigkeit von Stahl mit der Druckfestigkeit von Beton kombiniert wird @tietzeEcologicalEconomicAdvantages2022. Für die Herstellung von Beton werden jährlich rund 4,2 Milliarden Tonnen Zement als Bindemittel benötigt. Dies führt dazu, dass die Zementproduktion etwa 5 bis 8 % der globalen Treibhausgasemissionen verursacht und damit stärker ins Gewicht fällt als jeder andere Werkstoff @tietzeZurWirtschaftlichenWertschoepfungskette2025.
 
-#todo[Stahlbeton und Bewehrungen einführen]
-
-Hinzu kommt, dass mehr Beton eingesetzt werden muss, als für die reine Tragfähigkeit erforderlich wäre. Dies dient primär dem Schutz der innenliegenden Stahlbewehrung vor Korrosion und Witterungseinflüssen. Neben den dadurch erhöhten $"CO"_2$-Emissionen kommt es auch zu einer begrenzten Lebensdauer von Stahlbetonbauwerken, welche oftmals bereits nach wenigen Jahrzehnten strukturelle Schäden aufweisen.
-
-#todo[quelle]
+Hinzu kommt, dass bei Stahlbeton mehr Beton eingesetzt werden muss, als für die reine Tragfähigkeit erforderlich wäre. Dies dient primär dem Schutz der innenliegenden Stahlbewehrung vor Korrosion und Witterungseinflüssen. Neben den dadurch erhöhten $"CO"_2$-Emissionen kommt es auch zu einer begrenzten Lebensdauer von Stahlbetonbauwerken, welche oftmals bereits nach wenigen Jahrzehnten strukturelle Schäden aufweisen @angstChallengesOpportunitiesCorrosion2018.
 
 Textile Bewehrungen sind Alternativen, welche die Rolle der Stahlstreben aus traditionellem Stahlbeton übernehmen. Ein Beispiel hierfür sind Carbonbewehrungen aus Carbonfasern, welche eine bis zu 8-mal höhere Zugfestigkeit als Stahl aufweisen @biermannNachhaltigkeitDurchBeton2026. Da diese Materialien nicht rosten, ergeben sich mehrere Vorteile. Zum einen ermöglichen sie leichtere und gleichzeitig tragfähigere Bauteile, wodurch der Betonbedarf reduziert und somit auch die $"CO"_2$-Emissionen gesenkt werden können. Zum anderen kann die Carbonatisierung, also die Reaktion von Kohlendioxid aus der Umgebungsluft mit den Bestandteilen des Zements, gezielt als Vorteil genutzt werden. Während dieser Prozess bei Stahlbeton aufgrund der Absenkung des alkalischen Milieus zur Korrosion der Bewehrung führt, kann er bei Carbonbewehrung zur dauerhaften Speicherung von Kohlendioxid im Material eingesetzt werden und somit die Umweltbilanz verbessern @biermannNachhaltigkeitDurchBeton2026 @tietzeEcologicalEconomicAdvantages2022.
 
@@ -32,7 +28,7 @@ Im aktuellen Verfahren erfolgt die Herstellung der Carbonbewehrung durch einen R
     [(b)],
     [],[]
   ),
-  caption: [Bewehrungsmatte aus Carbongarn. Nach dem Verlegen durch den Roboter um die Umlenkelemente (a) und eingegossen in einer Betonwand für Demonstrationszwecke (b)]
+  caption: [Bewehrungsmatte aus Carbongarn. Nach dem Verlegen durch den Roboter um die Umlenkelemente (a) und eingegossen in einer Betonwand für Demonstrationszwecke (b)  (eigene Darstellung)]
 )<fig:carbongitter>
 
 Für einfache Wände ist die Berechnung der erforderlichen Bewegungsabläufe des Roboters vergleichsweise unkompliziert und entsprechende automatisierte Lösungen sind bereits seit mehreren Jahren im Einsatz. Deutlich komplexer gestaltet sich hingegen die Planung für Wände mit Aussparungen, wie beispielsweise Türen oder Fenster. Insbesondere die Anforderung, das Garn in einem Zug ohne Absetzen, Schnitte oder jegliche weiteren manuellen Eingriffe abzulegen, während parallel dazu minimaler Materialaufwand gefordert ist, stellt eine besondere Herausforderung dar. Die Entwicklung robuster automatisierter Verfahren für solche Wände ist eine zentrale Voraussetzung, um den Einsatz von Carbonbeton im Wohnungsbau industriell zu skalieren.
@@ -63,7 +59,7 @@ Zu diesem Zweck wird das Problem in drei aufeinander aufbauende Teilprobleme auf
     content((3.2,-2.5), image("/images/step-3-path.png", width: 130pt))
     line((0.3,-2.5),(0.9,-2.5), mark: (end: ">"))
   }),
-  caption: [Konzeptuelle Schritte, um für ein gegebenes Wandmaß einen Roboterpfad zu berechnen, welcher eine gleichmäßige Carbonbewehrung erzeugt. ]
+  caption: [Konzeptuelle Schritte, um für ein gegebenes Wandmaß einen Roboterpfad zu berechnen, welcher eine gleichmäßige Carbonbewehrung erzeugt (eigene Darstellung)]
 )<fig:overall-steps>
 
 

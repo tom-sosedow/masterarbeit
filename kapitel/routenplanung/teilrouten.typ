@@ -101,7 +101,7 @@ Sobald Hindernisse auftreten, wird die Fläche in mehrere Teilbereiche unterglie
     spacing: 2%,
     image("/images/puzzle-vertikal.png", width: 57%)
   ),
-  caption: [Positionen und Bezeichnungen aller definierten Teilrouten],
+  caption: [Positionen und Bezeichnungen aller definierten Teilrouten (eigene Darstellung)],
 )<fig:route-cells>
 
 Die Bereiche $L V, R V, T V in P'_V$ sowie $L H, R H "und" T H in P'_V$ sind jeweils als Permutationen von @UE bezüglich der Menge der @UE $V$ dargestellt.
@@ -238,7 +238,7 @@ In @fig:puzzle-graph ist der Graph veranschaulicht, der als Basis für die Route
     ```,
     width: 340pt,
   ),
-  caption: [Graph der Teilrouten ohne $O in P_V$. Eine valide Abfolge beinhaltet aus jedem Rechteck genau einen Knoten, sowie optional an einem beliebigen Punkt zwischen den Knoten die Teilroute $O$. In Rot eingezeichnet die optimale Abfolge für $w_4$ aus @fig:res-genetic-y-img: $(L H^R, T H^R, L V, T V, R V, R H^R)$],
+  caption: [Graph der Teilrouten ohne $O in P_V$. Eine valide Abfolge beinhaltet aus jedem Rechteck genau einen Knoten, sowie optional an einem beliebigen Punkt zwischen den Knoten die Teilroute $O$. In Rot eingezeichnet die optimale Abfolge für $w_4$ aus @fig:res-genetic-y-img: $(L H^R, T H^R, L V, T V, R V, R H^R)$ (eigene Darstellung)],
 )<fig:puzzle-graph>
 
 Für die Bewertung gefundener Lösungen muss die bestehende Bewertungsfunktion nicht angepasst werden. Aus einer Permutation $pi: NN -> P_V$ lässt sich eine Route durch Verkettung der einzelnen Permutationen berechnen. Somit ist eine Funktion $T: P_V^k -> R, k = cases(6 ", falls kein opt. UE gewählt", 7 ", sonst") $ definiert, sodass
@@ -260,7 +260,7 @@ Den Verlauf der Kosten der besten Lösung über die Laufzeit ist in @fig:res-puz
 
 === Exakte Methoden <sec:route-puzzle-based-exact>
 
-Da der Lösungsraum durch die Modellierung als Teilrouten deutlich verkleinert werden konnte, heuristische Methoden nicht mehr notwendig, um zumindest ein ausreichend gutes Ergebnis zu bekommen. Die Anwendung von exakten Methoden zur Lösung großer Wandkonfigurationen wird also wieder praktikabel. Insbesondere ermöglicht der Brute-Force-Ansatz eine vergleichsweise einfache und flexible Implementierung, die gleichzeitig hinreichend performant ist und eine Garantie auf Optimalität bietet.
+Da der Lösungsraum durch die Modellierung als Teilrouten deutlich verkleinert werden konnte, sind heuristische Methoden nicht mehr notwendig, um zumindest ein ausreichend gutes Ergebnis zu bekommen. Die Anwendung von exakten Methoden zur Lösung großer Wandkonfigurationen wird also wieder praktikabel. Insbesondere ermöglicht der Brute-Force-Ansatz eine vergleichsweise einfache und flexible Implementierung, die gleichzeitig hinreichend performant ist und eine Garantie auf Optimalität bietet.
 
 Zur effizienten Erzeugung aller validen Permutationen wird eine rekursive Funktion eingesetzt. In jedem Schritt wird die Permutation um eine noch fehlende Teilroute ergänzt. Anschließend wird die bis dahin bestehende Lösung bewertet und die Funktion nur für diejenigen partiellen Lösungen ausgeführt, die unter der Kostengrenze von 400 liegen. Diese Kombination aus exakten Verfahren und heuristischer Beschränkung des Suchraums trägt dazu bei, die Laufzeit zu reduzieren, ohne die Garantie der Optimalität aufzugeben @tahamiLiteratureReviewCombining2022.
 
@@ -278,18 +278,16 @@ Die Ergebnisse der Testläufe sind in @tab:bruteforce-puzzle-res zusammengefasst
     $w_3$, [$183$], [$4905$], [1],
     $w_4$, [$201$], [$5798$], [1],
   ),
-  caption: [Ergebnisse optimiertes Brute Force]
+  caption: [Ergebnisse optimiertes Brute Force (eigene Darstellung)]
 ) <tab:bruteforce-puzzle-res>
 
 Es ist zu sehen, dass in allen Fällen das globale Optimum gefunden wird. Dabei dauert die Berechnung des Ergebnisses der großen Wände mit ca. fünf bis sechs Sekunden in etwa doppelt so lang wie bei den kleinen Wänden mit ca. zwei Sekunden. Außerdem ist zu sehen, dass signifikant weniger Lösungen der großen Wände unterhalb der Kostengrenze liegen, als bei den kleinen Wänden.   
 
 === Nachbearbeitung <sec:route-postprocessing>
-Nachdem durch obige Methoden eine Abfolge von Teilrouten erzeugt wurde, kann diese noch nicht direkt auf eine punktbasierte Route abgebildet werden. Wie bereits erwähnt, kann aus einer Reihenfolge und Richtung der abzufahrenden Teilrouten die gesamte Route berechnet werden, indem die jeweiligen @UE:pl verkettet werden. Unter bestimmten Bedingungen kann diese bloße Verkettung allerdings dazu führen, dass ungültige bzw. schlecht bewertete Routen entstehen würden, obwohl es eine einfache Lösung für diese Spezialfälle geben könnte. Das passiert unter anderem in dem in @fig:sonderstelle-left-door-corner abgebildeten Fall einer Sonderstelle in der unteren Ecke der Tür. Wird in solch einer Wandkonfiguration eine Route bewertet, bei denen die Teilrouten $L V circle.small T V$ bzw. $T V^R circle.small L V^R$ aufeinander folgen, geht eine negative Bewertung der ignorierten Sonderstelle in die Betrachtung ein. Die Verkettung ergäbe in diesem Fall eine Kante zwischen $a$ und $b$ sowie zwischen $b$ und $c$, ohne einen Zwischenschritt über $x$. 
+Nachdem durch obige Methoden eine Abfolge von Teilrouten erzeugt wurde, kann diese noch nicht direkt auf eine punktbasierte Route abgebildet werden. Wie bereits erwähnt, kann aus einer Reihenfolge und Richtung der abzufahrenden Teilrouten die gesamte Route berechnet werden, indem die jeweiligen @UE:pl verkettet werden. Unter bestimmten Bedingungen kann diese bloße Verkettung allerdings dazu führen, dass ungültige bzw. schlecht bewertete Routen entstehen würden, obwohl es eine einfache Lösung für diese Spezialfälle geben könnte. Das passiert unter anderem in dem in @fig:sonderstelle-left-door-corner abgebildeten Fall einer Sonderstelle in der unteren Ecke der Tür. Wird in solch einer Wandkonfiguration eine Route bewertet, bei denen die Teilrouten $L V circle.small T V$ bzw. $T V^R circle.small L V^R$ aufeinander folgen, geht eine negative Bewertung der ignorierten Sonderstelle in die Betrachtung ein. Die Verkettung ergäbe in diesem Fall eine Kante zwischen $a$ und $b$ sowie zwischen $b$ und $c$, ohne einen Zwischenschritt über $x$.
 
-#maybe[weiterer Fall (letzte/Erste Strebe über der Tür) mit erklären?]
+Ebenfalls muss der Knoten auf Höhe $v_((y))= ty1-1$ am Anfang bzw. am Ende der Route eingefügt werden, falls sie an einem @UE auf Höhe $y=tx1$ beginnt bzw. endet. Andernfalls würde in solchen Fällen die strukturell notwendige, horizontale Strebe oberhalb der Tür nicht durch die bloße Verkettung der Teilrouten entstehen.  
 
 Um eine Permutation korrekt auf eine Route abbilden zu können, benötigt es also eine Nachbearbeitung in Form einer Funktion $p: R -> R$. Sie fügt beispielsweise im Fall von @fig:sonderstelle-left-door-corner das fehlende @UE $x$ zwischen $c$ und $b$ ein, um eine korrekte Umlenkung von $b$ nach $a$ zu ermöglichen. Abhängig von der gewählten Route kann auch eine Addition von $x$ vor $b$ nötig sein, um eine korrekte Umlenkung zu $a$ zu ermöglichen. Dies ist bei einer solchen Wand unter anderem erforderlich, falls auf ein $L H$ ein $L V^R$ folgt. 
-
-#maybe[ pseudo code einfügen ?]
 
 Die Bewertung einer Route wird also bei der Planung basierend auf Teilrouten realisiert durch die Funktion $ c': P_V^6 -> NN$ mit $ c'(pi_P_V) = (c circle.small p circle.small T)(pi_P_V) $

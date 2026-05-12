@@ -47,7 +47,7 @@ Aus den vorangegangenen Betrachtungen ergeben sich vier verschiedene Arten von U
     }
     content((1,-2.5), [(4) Ecke])
   }),
-  caption: [Die vier verschiedenen Umlenkungsarten, welche je nach Position des UE ausgewählt werden.]
+  caption: [Die vier verschiedenen Umlenkungsarten, welche je nach Position des UE ausgewählt werden (eigene Darstellung)]
 )<fig:umlenkungsarten>
 
 Normale Umlenkungen (1) werden dabei verwendet, um bei gleichbleibender Hauptrichtung einen Wechsel der Nebenrichtung zu vollziehen und somit eine vertikale oder horizontale Strebe zu verlegen. Diese Art der Umlenkung wird insbesondere dann eingesetzt, wenn sich Vorgänger- und Zielknoten in direkt benachbarten Spalten oder Zeilen befinden, also $Delta x = 1 xor Delta y = 1$ gilt.

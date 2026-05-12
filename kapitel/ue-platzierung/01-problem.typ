@@ -10,7 +10,7 @@ Beim @CBT wurde der zweite Ansatz gewählt, da das in Harz getränkte Garn nach 
 
 #figure(
   image("/images/umlenkrolle.jpg", width: 30%),
-  caption: [Typisches Umlenkelement mit magnetischer Basis und Körper aus PTFE],
+  caption: [Typisches Umlenkelement mit magnetischer Basis und Körper aus PTFE (eigene Darstellung)],
 )<fig:umlenkelement>
 
 Die Positionen der @UE:pl sollen vollständig automatisiert und unter Berücksichtigung der folgenden Anforderungen durch einen in diesem Kapitel zu erforschenden Algorithmus berechnet werden.
@@ -22,7 +22,7 @@ Zu Beginn der Herstellung eines Carbongitters werden fünf Eingabeparameter ben�
 Diese Maße können jedoch nicht unmittelbar als Grenzen für das Carbongitter verwendet werden. Nach der Erstellung des Gitters wird es in eine vorbereitete Schalung platziert. Diese besteht aus stählernen Schalungselementen, die ebenfalls magnetisch auf einer Metallplatte befestigt werden. Die Schalungselemente verhindern beim Betonguss das Austreten des flüssigen Betons und dienen somit als Begrenzung der Wand. Zu diesen Elementen muss ein Abstand $p$, im Folgenden Padding genannt, eingehalten werden, damit das Carbongitter geschützt und von außen nicht sichtbar im Beton liegt.
 
 // Verschiebung der Grenzen durch Abstand zur Schalung, Padding
-Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Als Ankerpunkt dienen dafür ihre Mittelpunkte. Der Radius der @UE wird mit $r$ bezeichnet, der Durchmesser ergibt sich zu $d = 2r$. Die tatsächlich verfügbare Wandhöhe und -breite ergibt sich somit zu $w_h = w_h^* - 2p - 2r$ und $w_b = w_b^* - 2p - 2r$, da auf beiden Seiten jeweils einmal das Padding von der Länge abgezogen werden muss und sich das Padding auf den Abstand zur Außenkante des @UE bezieht und somit ebenfalls jeweils der Radius abgezogen werden muss. Der Türausschnitt wird aufgrund des notwendigen Abstands zur Schalung links und rechts um das doppelte Padding verbreitert und wieder der zusätzlich nötige Abstand zum Mittelpunkt der @UE einbezogen, sodass $t_b = t_b^* + 2p + 2r$ gilt. Durch die reduzierte Wandbreite sowie das linke Padding an der Tür muss außerdem der Abstand des Türausschnitts zur linken Wandkante angepasst werden. Daher ergibt sich $t_x = t_x^* - 2p - 2r$. Die Höhe des Türausschnitts muss nicht weiter angepasst werden, da sie den Abstand der Oberkante der Tür zur Unterseite der Wand beschriebt und somit durch die Modifikation von $t^*_h$ zu $t_h$ keine weiteren Anpassungen nötig sind. Die Zusammenhänge sind in @fig:input-dimensions dargestellt. In Schwarz ist die geforderte Betonfläche und in Rot die dazugehörigen Eingabeparameter verbildlicht. In Orange ist die tatsächlich zur Verfügung stehende Fläche für die @UE:pl:long nach Einbeziehung des Paddings markiert, über die darin platzierte @UE nicht mit ihren Außenkanten hinausragen dürfen.
+Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Als Ankerpunkt dienen dafür ihre Mittelpunkte. Der Radius der @UE wird mit $r$ bezeichnet, der Durchmesser ergibt sich zu $d = 2r$. Die tatsächlich verfügbare Wandhöhe und -breite ergibt sich somit zu $w_h = w_h^* - 2p - 2r$ und $w_b = w_b^* - 2p - 2r$, da auf beiden Seiten jeweils einmal das Padding von der Länge abgezogen werden muss und sich das Padding auf den Abstand zur Außenkante des @UE bezieht und somit ebenfalls jeweils der Radius abgezogen werden muss. Der Türausschnitt wird aufgrund des notwendigen Abstands zur Schalung links und rechts um das doppelte Padding verbreitert und wieder der zusätzlich nötige Abstand zum Mittelpunkt der @UE einbezogen, sodass $t_b = t_b^* + 2p + 2r$ gilt. Durch die reduzierte Wandbreite sowie das linke Padding an der Tür muss außerdem der Abstand des Türausschnitts zur linken Wandkante angepasst werden. Daher ergibt sich $t_x = t_x^* - 2p - 2r$. Die Höhe des Türausschnitts muss nicht weiter angepasst werden, da sie den Abstand der Oberkante der Tür zur Unterseite der Wand beschreibt und somit durch die Modifikation von $t^*_h$ zu $t_h$ keine weiteren Anpassungen nötig sind. Die Zusammenhänge sind in @fig:input-dimensions dargestellt. In Schwarz ist die geforderte Betonfläche und in Rot die dazugehörigen Eingabeparameter verbildlicht. In Orange ist die tatsächlich zur Verfügung stehende Fläche für die @UE:pl:long nach Einbeziehung des Paddings markiert, über die darin platzierte @UE nicht mit ihren Außenkanten hinausragen dürfen.
 
 #figure(
   cetz.canvas({
@@ -96,7 +96,7 @@ Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Als Ankerpunk
     content((0,-1.5), text(fill:green)[$y$])
 
   }),
-  caption: [Veranschaulichung der Modellierung für die Platzierung von UE an diskreten Positionen.]
+  caption: [Veranschaulichung der Modellierung für die Platzierung von UE an diskreten Positionen. (eigene Darstellung)]
 )<fig:input-dimensions>
 
 // Math. Modell
@@ -154,10 +154,12 @@ In @fig:ue-place-model (a) ist der Sachverhalt aus @eq:rollen-platzierung-vertik
         import cetz.draw: *
         let d = 4
         let darkgray = luma(120)
-        circle((0, 0), radius: (r,r))
-        circle((d, 2*r), radius: (r,r))
-        circle((0, 4*r), radius: (r,r))
-        circle((0, 4*r), radius: (r,r))
+        set-style(radius: (r,r))
+
+        circle((0, 0))
+        circle((d, 2*r))
+        circle((0, 4*r))
+
         content((0, 7*r), [$x_1$])
         line((0,-2*r), (0,6*r), stroke: (dash: "dashed", paint: darkgray))
     
@@ -184,12 +186,12 @@ In @fig:ue-place-model (a) ist der Sachverhalt aus @eq:rollen-platzierung-vertik
         
         let d = 4
         let darkgray = luma(120)
+        set-style(radius: (r,r))
         
-        circle((2*r, 2*r), radius: (r,r))
-        circle((2*r, 6*r), radius: (r,r))
-        
-        circle((0*r, 0*r), radius: (r,r))
-        circle((-4*r, 0*r), radius: (r,r))
+        circle((2*r, 2*r))
+        circle((2*r, 6*r))
+        circle((0*r, 0*r))
+        circle((-4*r, 0*r))
 
         content((-10*r, 0*r), [$y=ymax$])
         line((-6*r, 0*r), (4*r, 0*r), stroke: (dash: "dashed", paint: darkgray))
@@ -206,12 +208,12 @@ In @fig:ue-place-model (a) ist der Sachverhalt aus @eq:rollen-platzierung-vertik
       (b) 
     ]
   ),
-  caption: [Veranschaulichung des Modells. Bezeichnungen in Rot stellen Werte in Millimetern dar. (a) Abstand zwischen den UE, (b) Sonderstelle in unterer rechter Ecke der Wand mit Padding $p=r$ ],
+  caption: [Veranschaulichung des Modells. Bezeichnungen in Rot stellen Werte in Millimetern dar. (a) Abstand zwischen den UE, (b) Sonderstelle in unterer rechter Ecke der Wand mit Padding $p=r$ (eigene Darstellung)],
 ) <fig:ue-place-model>
 
 
 // Sonderstellen
-Durch die Anforderungen kann es in den Ecken der Wand dazu kommen, dass zwei @UE diagonal direkt nebeneinander platziert werden müssen, wie in @fig:ue-place-model (b) dargestellt. Diese spezielle Anordnung wird als Sonderstelle bezeichnet. Das Werkzeug des Roboters zum Ablegen des Garns passt nicht in die Lücke dazwischen, was besondere Achtung bei der Pfadplanung erfordert. Bei dem Türausschnitt kann in den oberen beiden Ecken selbiges passieren, wobei es hier dazu führen würde, dass ein unregelmäßiger Abstand im Carbongitter entstehen müsste. Aus diesem Grund ist es bei der Platzierung der @UE wichtig, diesen Fall zu vermeiden. Im Speziellen ist eine Sonderstelle nur an bestimmten Stellen zulässig, was durch @eq:sonderstelle-eingrenzung formuliert wird
+Durch die Anforderungen kann es in den Ecken der Wand dazu kommen, dass zwei @UE diagonal direkt nebeneinander platziert werden müssen, wie in @fig:ue-place-model (b) dargestellt. Diese spezielle Anordnung wird als _Sonderstelle_ bezeichnet. Das Werkzeug des Roboters zum Ablegen des Garns passt nicht in die Lücke dazwischen, was besondere Achtung bei der Pfadplanung erfordert. Bei dem Türausschnitt kann in den oberen beiden Ecken selbiges passieren, wobei es hier dazu führen würde, dass ein unregelmäßiger Abstand im Carbongitter entstehen müsste. Aus diesem Grund ist es bei der Platzierung der @UE wichtig, diesen Fall zu vermeiden. Im Speziellen ist eine Sonderstelle nur an bestimmten Stellen zulässig, was durch @eq:sonderstelle-eingrenzung formuliert wird
 
 $
   forall a=(x_1,y_1) in A : 

@@ -124,5 +124,5 @@ In @fig:res-genetic-y-img ist die Problematik der lokalen Optima am Beispiel der
 
 #figure(
   image("/images/genetic_y_result.png", width: 80%),
-  caption: [Von GA berechnete Route für Wand $w_4$ unter Seed $s_2$],
+  caption: [Von GA berechnete Route für Wand $w_4$ unter Seed $s_2$ (eigene Darstellung)],
 )<fig:res-genetic-y-img>

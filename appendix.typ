@@ -102,14 +102,14 @@ Nachfolgend sind die Ergebnisse des praktischen Tests hinterlegt. Getestet wurde
 
 #figure(
   image("images/praktischer-test-simulation.png"),
-  caption: [Aufnahme des berechneten Pfades in der Simulationssoftware des Roboters],
+  caption: [Aufnahme des berechneten Pfades in der Simulationssoftware des Roboters (eigene Darstellung)],
   outlined: false,
 )<fig:praktischer-test-simulation>
 
 
 #figure(
   image("images/praktischer-test-garn.jpg"),
-  caption: [Resultierendes Carbongitter des praktischen Tests von Wandkonfiguration 5 aus @appendix:wandkonfigurationen.],
+  caption: [Resultierendes Carbongitter des praktischen Tests von Wandkonfiguration 5 aus @appendix:wandkonfigurationen (eigene Darstellung)],
   outlined: false,
 )<fig:praktischer-test-garn>
 

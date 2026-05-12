@@ -11,7 +11,7 @@ Die im folgenden Abschnitt vorgestellte Lösungsmethode ist stark an die derzeit
 Aufgrund der begrenzten Möglichkeiten zur Platzierung der @UE am Türausschnitt werden diese Positionen zuerst bestimmt, um etwaige Einschränkungen für die spätere Routenplanung zu reduzieren. Standardmäßig wird dabei ein @UE in der unteren linken Ecke der Tür bei Position $p_0 = (tx1, ymax-1)$ platziert. Aus diesem lassen sich anschließend alle Positionen der übrigen @UE ableiten.
 
 // vertikale Rollen links und rechts
-Dafür werden zunächst die @UE an den vertikal verlaufenden Seiten der Tür und Wand bestimmt, da die @UE auf der linken Seite der Tür auf gleicher Höhe wie die auf der rechten Seite der Wand liegen. Analog dazu werden auch für die rechte Seite der Tür und linke Seite der Wand die Positionen der @UE bestimmt. Dafür werden, ausgehend von $p_0$, von $y=ymax-1$ bis $y=1$ die beiden auf dem jeweiligen $y$ liegenden @UE:pl alternierend platziert. Folgender Pseudocode veranschaulicht das Vorgehen. In dieser Abbildung liegt das @UE 1 an Position $p_0$. 
+Dafür werden zunächst die @UE an den vertikal verlaufenden Seiten der Tür und Wand bestimmt, da die @UE auf der linken Seite der Tür auf gleicher Höhe wie die auf der rechten Seite der Wand liegen. Analog dazu werden auch für die rechte Seite der Tür und linke Seite der Wand die Positionen der @UE bestimmt. Dafür werden, ausgehend von $p_0$, von $y=ymax-1$ bis $y=1$ die beiden auf dem jeweiligen $y$-Wert liegenden @UE:pl alternierend platziert. Folgender Pseudocode veranschaulicht das Vorgehen. In dieser Abbildung liegt das @UE 1 an Position $p_0$. 
 
 #show: style-algorithm
 #figure(
@@ -78,11 +78,11 @@ Dafür werden zunächst die @UE an den vertikal verlaufenden Seiten der Tür und
     ),
 
   ),
-  caption: [Algorithmus zur Platzierung der UE an den vertikalen Seiten der Wand und resultierende Positionen und Berechnungsreihenfolge.]
+  caption: [Algorithmus zur Platzierung der UE an den vertikalen Seiten der Wand und resultierende Positionen und Berechnungsreihenfolge. (eigene Darstellung)]
 )<fig:ue-place-step-1>
 
 
-Danach sind an allen vertikal verlaufenden Seiten die @UE korrekt platziert. Durch die Lage des obersten @UE an der linken und rechten Seite des Türausschnitts, in @fig:ue-place-step-1 in diesem Fall @UE 12, lassen sich dann die Positionen der @UE:pl an der Oberseite des Türausschnitts bestimmen. So wird, falls das oberste @UE bei $(tx1, ty1+1)$ liegt, kein @UE auf den anliegenden Nachbarfeldern ${(x,ty1) | tx1 <= x <= tx1 +1}$ platziert. In @fig:oberkante-türausschnitt sind diese unzulässigen Positionen rot und das ausschlaggebende Seitenelement blau markiert. Liegt das oberste @UE, wie in @fig:ue-place-step-1, bei $(tx2, ty1+1)$, können keine @UE an den Stellen ${(x,ty1) | tx2-1 <= x <= tx2}$ abgelegt werden. So wird verhindert, dass in den oberen Türecken @UE diagonal nebeneinander liegen und sich somit eine Sonderstelle bildet.
+Danach sind die @UE:pl an allen vertikal verlaufenden Seiten korrekt platziert. Durch die Lage des obersten @UE an der linken bzw. rechten Seite des Türausschnitts, in @fig:ue-place-step-1 in diesem Fall @UE 12, lassen sich dann die Positionen der @UE:pl an der Oberseite des Türausschnitts bestimmen. So wird, falls das @UE bei $(tx1, ty1+1)$ liegt, kein @UE auf den anliegenden Nachbarfeldern ${(x,ty1) | tx1 <= x <= tx1 +1}$ platziert. In @fig:oberkante-türausschnitt sind diese unzulässigen Positionen rot und das ausschlaggebende Seitenelement blau markiert. Liegt das oberste @UE, wie in @fig:ue-place-step-1, bei $(tx2, ty1+1)$, können keine @UE an den Stellen ${(x,ty1) | tx2-1 <= x <= tx2}$ abgelegt werden. So wird verhindert, dass in den oberen Türecken @UE diagonal nebeneinander liegen und sich somit eine Sonderstelle bildet.
 
 #figure(
   cetz.canvas({
@@ -105,12 +105,12 @@ Danach sind an allen vertikal verlaufenden Seiten die @UE korrekt platziert. Dur
     line((0,1), (0,-4))
     line((-6,9),(12,9))
   }),
-  caption: [Valide Positionen (Grün) und unzulässige Positionen (Rot) von UE an der Oberkante der Tür basierend auf dem obersten Seitenelement (Blau)]
+  caption: [Valide Positionen (Grün) und unzulässige Positionen (Rot) von UE an der Oberkante der Tür basierend auf dem obersten Seitenelement (Blau). Die daraus resultierenden UE an der Oberseite der Wand sind grau markiert. (eigene Darstellung)]
 )<fig:oberkante-türausschnitt>
 
 
 // horizontale Rollen oben und unten, top offset
-Aus den @UE an der Oberseite folgen nun die @UE an der Oberseite der Wand. Die grün markierten @UE an der Oberkante des Türausschnitts bestimmen dabei die Positionen der @UE an der Oberseite der Wand und damit indirekt auch an der Unterseite. Hierzu wird die Position des am weitesten links liegenden @UE an Position $(x,y)$ an der Oberseite des Türausschnitts mit $t_x$ verglichen (in @fig:fully-placed-ue-wall blau dargestellt):
+Aus den @UE an der Oberseite der Tür folgen nun die @UE an der Oberseite der Wand. Die grün markierten @UE an der Oberkante des Türausschnitts bestimmen dabei die Positionen der @UE an der Oberseite der Wand, welche in @fig:oberkante-türausschnitt grau markiert sind, und damit indirekt auch an der Unterseite. Hierzu wird die Position des am weitesten links liegenden @UE an Position $(x,y)$ an der Oberseite des Türausschnitts mit $t_x$ verglichen (in @fig:fully-placed-ue-wall blau dargestellt):
 $ omega = cases(
   0 ", falls" 2 divides.not tx1 and tx1 <= x <= tx1+1 and 2 divides.not (tx2-tx1),
   1 ", falls" 2 divides.not tx1,
@@ -215,13 +215,13 @@ Im zweiten Schritt des Algorithmus kann dann $omega$ genutzt werden, um bei der 
     ),
 
   ),
-  caption: [Algorithmus zur Platzierung der UE an den horizontalen Seiten der Wand und resultierende Positionen und Berechnungsreihenfolge.]
+  caption: [Algorithmus zur Platzierung der UE an den horizontalen Seiten der Wand und resultierende Positionen und Berechnungsreihenfolge. (eigene Darstellung)]
 )<fig:ue-place-step-2>
 
 In den ersten 15 Zeilen werden dabei Hilfsvariablen angelegt, um unter anderem die Seite des in @fig:ue-place-step-2 rot markierten @UE zu bestimmen oder zu prüfen, ob der Türausschnitt eine gerade Anzahl an @UE breit ist. In Zeile 17 wird der Spaltenindex berechnet, an dem das am weitesten links stehende @UE an der Oberseite der Wand liegen muss. Basierend darauf muss die y-Komponente der übrigen @UE:pl an den horizontalen Seiten angepasst werden. Diese wird innerhalb der Schleife in Zeilen den 20 bis 26 berechnet. Danach steht die Koordinate des zu platzierenden @UE fest. Bevor es zur Menge der Knoten hinzugefügt werden kann, muss allerdings sichergestellt sein, dass in der jeweiligen Spalte kein @UE in der Zeile darunter durch #text(font: "FreeMono", weight: "thin", size: 11pt)[PlaceVertGE] platziert wurde. In @fig:ue-place-step-2 ist dieses Element rot markiert und verhindert somit, dass bei $(tx2,ty1)$ ein @UE platziert wird, da sonst eine Art Sonderstelle entstehen würde.
 
 // Optionale Rollen in den Ecken
-Danach sind dann alle zwingend notwendigen @UE platziert, wobei dennoch Lücken für @UE bestehen, die dennoch den Anforderungen aus @sec:ue-place-problem entsprechen. In den äußersten Ecken der Wand sowie den unteren Ecken des Türausschnitts kann es vorkommen, dass die beiden nächstgelegenen @UE jeweils eine Manhattan-Distanz von genau $d_M = 2d$ zur Ecke besitzen. In diesem Fall besteht die Möglichkeit, ein zusätzliches @UE zu platzieren, welches optional in der Routenplanung verwendet werden kann, um größere Freiheitsgrade bei der Gestaltung der Umlenkungen zu erhalten. In @fig:ue-place-step-3 sind diese zusätzlichen @UE grün sowie der Pseudocode des Vorgehens dargestellt.
+Danach sind dann alle zwingend notwendigen @UE platziert, wobei noch Lücken für @UE bestehen, die den Anforderungen aus @sec:ue-place-problem entsprechen. In den äußersten Ecken der Wand sowie den unteren Ecken des Türausschnitts kann es vorkommen, dass die beiden nächstgelegenen @UE jeweils eine Manhattan-Distanz von genau $d_M = 2d$ zur Ecke besitzen. In diesem Fall besteht die Möglichkeit, ein zusätzliches @UE zu platzieren, welches optional in der Routenplanung verwendet werden kann, um größere Freiheitsgrade bei der Gestaltung der Umlenkungen zu erhalten. In @fig:ue-place-step-3 sind diese zusätzlichen @UE grün sowie der Pseudocode des Vorgehens dargestellt.
 
 #figure(
   stack(
@@ -285,7 +285,7 @@ Danach sind dann alle zwingend notwendigen @UE platziert, wobei dennoch Lücken 
     ),
 
   ),
-  caption: [Algorithmus zur Platzierung der optionalen UE an den Ecken der Wand und resultierende Positionen]
+  caption: [Algorithmus zur Platzierung der optionalen UE an den Ecken der Wand und resultierende Positionen (eigene Darstellung)]
 )<fig:ue-place-step-3>
 
 Da die Streben, die an diesen @UE enden, aus struktureller Sicht nicht erforderlich sind, müssen diese Elemente nicht zwingend in der Routenplanung berücksichtigt werden. Wird auf ihre Nutzung verzichtet, entfällt auch ihre Platzierung durch den Roboterarm, wodurch Zeit und Energie eingespart werden können.

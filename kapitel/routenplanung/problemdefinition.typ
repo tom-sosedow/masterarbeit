@@ -24,11 +24,12 @@ Eine beispielhafte Route für eine kleine Wandkonfiguration ist in @fig:simple-r
   caption: [
     Einfache Route in einer kleinen Wandkonfiguration. Die Permutation der UE ist \ 
     #let rolls = (9,14,17,19,21,23,25,27,32,6,31,5,16,4,13,3,12,2,10,1,29,0,7,8,11,15,18,20,22,24,26)
-    (#rolls.rev().map(str).join(", "))
+    (#rolls.rev().map(str).join(", ")) 
+    (eigene Darstellung)
   ]
 )<fig:simple-route>
 
-Durch dieses Zickzackmuster verändert sich in jedem Schritt entweder die x- oder die y-Koordinate des aktuellen @UE jeweils um genau eine Einheit. Die Richtung dieser Veränderung wird als _Hauptrichtung_ definiert. Für die in @fig:simple-route initial erzeugten horizontalen Streben bis zum @UE 0 an Position (1,0) verläuft die Hauptrichtung entsprechend vertikal aufsteigend. Umlenkungen an Sonderstellen, wie in der unteren rechten Ecke der Abbildung, führen immer zu einer Änderung der Hauptrichtung, weshalb sie auch als _Sonderumlenkungen_ bezeichnet werden können.
+Durch dieses Zickzackmuster verändert sich in jedem Schritt entweder die x- oder die y-Koordinate des aktuellen @UE jeweils um genau eine Einheit. Die Richtung dieser Veränderung wird als _Hauptrichtung_ definiert. Für die in @fig:simple-route initial erzeugten horizontalen Streben bis zum @UE 0 an Position (1,0) verläuft die Hauptrichtung entsprechend vertikal aufsteigend. Umlenkungen an Sonderstellen, wie in der unteren rechten Ecke der Abbildung, führen fast immer zu einer Änderung der Hauptrichtung, weshalb sie auch als _Sonderumlenkungen_ bezeichnet werden können.
 
 Die _Nebenrichtung_ sei definiert als zur Hauptrichtung orthogonal laufende Richtung und gibt an, ob eine Strebe in Hin- oder Rückrichtung verlegt ist; im Beispielabschnitt also nach links oder rechts. An nahezu jedem regulären @UE erfolgt ein Wechsel der Nebenrichtung, während die Hauptrichtung konstant bleibt. Lediglich an den blau markierten @UE kann es zu einem Wechsel der Hauptrichtung kommen. So wechselt die Hauptrichtung am @UE an Stelle (1,0)  folglich von senkrecht aufsteigend zu rechtsläufig.
 
@@ -51,7 +52,7 @@ für ein Ende der Route und die letzte horizontale Strebe.
 Werden Sonderstellen in den oberen Ecken des Türausschnitts vermieden, existieren in der Regel lediglich zwei valide Möglichkeiten zur Anordnung der @UE an der Tür. Diese ergeben sich entweder durch eine Verschiebung aller @UE in eine Richtung oder durch eine Spiegelung einer gültigen Lösung entlang der y-Achse.
 
 // Sonderstelle an Tür
-Allerdings ist es dennoch in einigen Fällen nicht möglich, eine Sonderstelle am Türausschnitt zu vermeiden. Grund dafür ist ein ungünstiger Zusammenhang zwischen der Breite und Höhe des Türausschnitts. Gilt sowohl $ceil(t_b / d) mod 2 = 0$ als auch $ceil(t_h / d) mod 2 = 1$, lässt sich eine Sonderstelle an der unteren linken Ecke des Türausschnitts bei der Platzierung der @UE nicht vermeiden. Ein Start der Platzierung auf der rechten statt der linken Seite des Türausschnitts spiegelt in diesem Fall das Problem auf die linke Seite der Tür. Der Sachverhalt ist in @fig:sonderstelle-left-door-corner dargestellt. Andere als die dargestellten Platzierungen der @UE:pl sind nicht den Anforderungen aus @sec:ue-place-problem entsprechend. Würde die Routenplanung üblicherweise die Teilroute $(a,b,c,d)$ enthalten, könnte der Roboterarm nicht zwischen den @UE $b$ und $x$ hindurchfahren. Eine gesonderte Betrachtung dieser Fälle ist demnach unabdingbar.
+Allerdings ist es dennoch in einigen Fällen nicht möglich, eine Sonderstelle am Türausschnitt zu vermeiden. Grund dafür ist ein ungünstiger Zusammenhang zwischen der Breite und Höhe des Türausschnitts. Gilt sowohl $ceil(t_b / d) mod 2 = 0$ als auch $ceil(t_h / d) mod 2 = 1$, lässt sich eine Sonderstelle an der unteren linken Ecke des Türausschnitts bei der Platzierung der @UE nicht vermeiden. Ein Start der Platzierung auf der rechten statt der linken Seite des Türausschnitts spiegelt in diesem Fall das Problem auf die rechte Seite der Tür. Der Sachverhalt ist in @fig:sonderstelle-left-door-corner dargestellt. Andere als die dargestellten Platzierungen der @UE:pl sind nicht den Anforderungen aus @sec:ue-place-problem entsprechend. Würde die Routenplanung üblicherweise die Teilroute $(a,b,c,d)$ enthalten, könnte der Roboterarm nicht zwischen den @UE $b$ und $x$ hindurchfahren. Eine gesonderte Betrachtung dieser Fälle ist demnach unabdingbar.
 
 #figure(
   stack(
@@ -137,6 +138,6 @@ Allerdings ist es dennoch in einigen Fällen nicht möglich, eine Sonderstelle a
       
     }),
   ),
-  caption: [Unvermeidbare Sonderstelle am Türausschnitt, unabhängig von der Positionierung des Umlenkelements $x$]
+  caption: [Unvermeidbare Sonderstelle am Türausschnitt, unabhängig von der Positionierung des Umlenkelements $x$ (eigene Darstellung)]
 )<fig:sonderstelle-left-door-corner>
 

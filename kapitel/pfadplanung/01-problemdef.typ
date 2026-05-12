@@ -11,7 +11,7 @@ Durch die Breite und Rotation des Werkzeugs muss beim Umfahren der @UE ein Minde
 
 #figure(
   image("/images/roboter-werkzeug.jpg", width: 60%),
-  caption: [Werkzeug des Roboterarms zum Verlegen des Carbongarns]
+  caption: [Werkzeug des Roboterarms zum Verlegen des Carbongarns (eigene Darstellung)]
 )<fig:werkzeug-garnablage>
 
 Da das Garn in etwa mittig aus der Austrittsdüse herauskommt und somit der untere Teil der Düse niedriger als das austretende Garn ist, kann eine bereits verlegte Strebe beim Überqueren durch die Düse beschädigt werden. Hier kann es zum Spleißen oder Verziehen des Garns kommen. Im schlimmsten Fall kann das Garn auch reißen. Es muss also eine Möglichkeit gefunden werden, Kollisionen mit bereits verlegten Garnstreben sichergestellt zu vermeiden. Auch Kollisionen mit @UE müssen vermieden werden, da u.a. durch den Türausschnitt @UE:pl zwischen der direkten Verbindung zweier Umlenkpunkte liegen können.
@@ -126,7 +126,7 @@ Analog dazu kann eine fehlerhafte Festlegung der zugehörigen Wegpunkte sowie ih
     [],
     [(b)],
   ),
-  caption: [Pfad des Roboters (Blau) aus Route $(..., P, Q, ...)$ und daraus resultierende Garnstruktur (Rot) um zwei Umlenkelemente mit korrekter Umlaufrichtung (a) und vertauschter Umlaufrichtung (b)]
+  caption: [Pfad des Roboters (Blau) aus Route $(..., P, Q, ...)$ und daraus resultierende Garnstruktur (Rot) um zwei Umlenkelemente mit korrekter Umlaufrichtung (a) und vertauschter Umlaufrichtung (b) (eigene Darstellung)]
 )<fig:pfad-zu-muster>
 
 

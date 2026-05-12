@@ -8,7 +8,7 @@ Ebenfalls wurde Wand 5 aus @appendix:wandkonfigurationen im @CBT in kleineren Di
 
 #figure(
   image("/images/pfadbeispiel.png", width: 110%),
-  caption: [Pfad $p$ des Roboters in einer kleinen Wandkonfiguration $w_4$ aus @sec:routenplanung. Route beginnt bei UE 61 und endet bei UE 27. In Rot dargestellt sind die Punkte, die zur Kollisionsvermeidung auf einer höheren Ebene platziert werden sowie in halbtransparentem Rot die Approximation des Gittermusters zur Bestimmung dieser Punkte.]
+  caption: [Pfad $p$ des Roboters in einer kleinen Wandkonfiguration $w_4$ aus @sec:routenplanung. Route beginnt bei UE 61 und endet bei UE 27. In Rot dargestellt sind die Punkte, die zur Kollisionsvermeidung auf einer höheren Ebene platziert werden sowie in halbtransparentem Rot die Approximation des Gittermusters zur Bestimmung dieser Punkte.  (eigene Darstellung)]
 )<fig:beispielpfad>
 
 Die Pfade werden insgesamt überwiegend zuverlässig bestimmt. Bei Nutzung der Invertierungsstrategie, wie in @sec:path-direction dargestellt, kommt es bei manchen Routen zu fehlerhaften Teilabschnitten, wodurch sie ähnlich zu dem in @fig:pfad-zu-muster (b) gezeigten Pfad verlaufen. Grund hierfür ist immer eine falsche Berechnung der anfänglichen Umlaufrichtung bei einem Wechsel der Hauptrichtung.
@@ -23,14 +23,14 @@ Die zusätzlich eingefügten Zwischenpunkte zur Vermeidung von Kollisionen mit b
 
 #figure(
   image("/images/garnkollision-test.jpg", width: 80%),
-  caption: [Resultat der Kollision zwischen Austrittsdüse und Garnstrebe bei dem Test zu Wand 5 aus @appendix:wandkonfigurationen. Die Strebe wurde infolgedessen gespleißt und einige Stränge zerrissen. ],
+  caption: [Resultat der Kollision zwischen Austrittsdüse und Garnstrebe bei dem Test zu Wand 5 aus @appendix:wandkonfigurationen. Die Strebe wurde infolgedessen gespleißt und einige Stränge zerrissen.  (eigene Darstellung)],
 )<fig:garnkollision-resultat>
 
 Es kommt ebenfalls innerhalb der Umlenkungen zu Kollisionen mit Garnstreben. Da die Kollisionserkennung lediglich für die Anwendung auf die Wege zwischen zwei Umlenkungen konzipiert wurde, werden Streben, welche nah an den @UE anliegen, ebenfalls gestreift. Bei Wand 5 tritt dieser Fall beispielsweise nach der Navigation von @UE 58 zu @UE 60 auf. Hier wird eine horizontal verlaufende Strebe bündig mit der untersten Reihe von @UE verlegt, was in der vollständigen Umlenkung um @UE 60 dazu führt, dass diese Strebe bei der Bewegung zum letzten Wegpunkt oberhalb des @UE gestreift wird. Ein ähnlicher Fall tritt bei @UE 31 auf, bei dem die vorher verlegte vertikale Strebe von @UE 11 innerhalb der Umlenkung für eine horizontale Strebe gestreift wird.
 
-Abschließend ist festzustellen, dass das Vorgehen mit vertikalem Versatz des Werkzeuges trotzdem ein zu starkes Abrutschen des Garns von den @UE:pl verursacht. Im Test zu Wand 5 führte es dazu, dass bei manchen Streben keinerlei Kontakt mit anderen Streben hergestellt wurde. Eine dieser Streben ist in @fig:strebe-abrutschen-vert-versatz zu sehen.
+Abschließend ist festzustellen, dass das Vorgehen mit vertikalem Versatz des Werkzeuges trotzdem ein zu starkes Abrutschen des Garns von den @UE:pl verursacht. Im Test zu Wand 5 führte es unter anderem dazu, dass bei manchen Streben keinerlei Kontakt mit anderen Streben hergestellt wurde. Außerdem kann dies bei anderen Routen dazu führen, dass eher eine Kollision mit dem Werkzeug entsteht, da der vertikale Versatz diesen Höhenunterschied nicht mit einbezieht. Eine der versetzten Streben ist in @fig:strebe-abrutschen-vert-versatz zu sehen.
 
 #figure(
   image("/images/strebe-abrutschen-vert-versatz.jpg"),
-  caption: [Garnstrebe, die durch den vertikalen Versatz des Werkzeuges zu weit nach oben abgerutscht ist und daher keinen Kontakt mit anderen Streben hat. ]
+  caption: [Garnstrebe, die durch den vertikalen Versatz des Werkzeuges zu weit nach oben abgerutscht ist und daher keinen Kontakt mit anderen Streben hat.  (eigene Darstellung)]
 )<fig:strebe-abrutschen-vert-versatz>
