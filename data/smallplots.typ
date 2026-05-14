@@ -23,7 +23,7 @@
     ..backtrackA,
     ..backtrackB
   ),
-  caption: [Ergebnisse Backtracking für Wandkonfigurationen $w_1$ und $w_2$ (min. Kosten jeweils 1)],
+  caption: [Ergebnisse Backtracking für Wandkonfigurationen $w_1$ und $w_2$ (min. Kosten jeweils 1; eigene Darstellung)],
 )
 
 #let geneticBGen = (
@@ -44,7 +44,7 @@
     width: 70%,
     ..geneticBGen,
   ),
-  caption: [Ergebnisse GA für Wandkonfiguration $w_2$ unter Seed $s_1$ (min. Kosten 21 nach 411 Generationen)],
+  caption: [Ergebnisse GA für Wandkonfiguration $w_2$ unter Seed $s_1$ (min. Kosten 21 nach 411 Generationen; eigene Darstellung)],
 )
 
 #let geneticB1234 = (
@@ -73,7 +73,7 @@
     ..geneticB1234,
     ..geneticB8427
   ),
-  caption: [Ergebnisse GA für Wandkonfiguration $w_2$ mit Seed $s_1$ und $s_2$ (min. Kosten: 21 bzw. 23)],
+  caption: [Ergebnisse GA für Wandkonfiguration $w_2$ mit Seed $s_1$ und $s_2$ (min. Kosten: 21 bzw. 23; eigene Darstellung)],
 )
 
 #let geneticpuzzleA = (
@@ -101,5 +101,5 @@
     ..geneticpuzzleA,
     ..geneticpuzzleB
   ),
-  caption: [Ergebnisse Puzzle GA für Wandkonfigurationen $w_1$ und $w_2$ mit Seed $s_1$ (min. Kosten: 1 und 0)],
+  caption: [Ergebnisse Puzzle GA für Wandkonfigurationen $w_1$ und $w_2$ mit Seed $s_1$ (min. Kosten: 1 und 0; eigene Darstellung)],
 )

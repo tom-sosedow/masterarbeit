@@ -32,7 +32,7 @@ $ h(a,b,c) = cases(100 ", falls" exists v in V: v != c and v != a and cases(deli
 Die Gesamtbewertung einer Kante ergibt sich schließlich als gewichtete Summe der zuvor beschriebenen Teilfunktionen. Diese wird durch die gewichtete Bewertungsfunktion $f$ beschrieben:
 $ f(a,b,c) = vec(x_1,x_2,x_3,x_4) dot vec(h(a,b,c), d(a,b,c), t(a,b,c), g(a,b,c)) $
 
-Abschließend sollten Routen schlechter bewertet werden, bei denen zu Beginn der Route die langen horizontalen Streben oberhalb der Tür verlegt werden. Aufgrund des Eigengewichts der Garnstreben hängen diese Streben etwas nach unten, was den Verbund der Kreuzungspunkte horizontaler und vertikaler Streben beim Aushärten des Harzes negativ beeinflusst. Aus diesem Grund berechnet die Funktion $e: R -> NN$ als einziges Modul Kosten basierend auf der gesamten Route anstatt kontextbezogener Kanten. Dazu müssen die ersten $k=ty1$ Streben negativ bewertet werden, falls ihre Länge der einer horizontal verlaufenden Strebe entspricht:
+Abschließend sollten Routen schlechter bewertet werden, bei denen zu Beginn der Route die langen horizontalen Streben oberhalb der Tür verlegt werden. Aufgrund des Eigengewichts der Garnstreben hängen diese Streben etwas nach unten, was den Verbund der Kreuzungspunkte horizontaler und vertikaler Streben beim Aushärten des Harzes sowie die Handhabung und den Transport der Bewehrung negativ beeinflusst. Aus diesem Grund berechnet die Funktion $e: R -> NN$ als einziges Modul Kosten basierend auf der gesamten Route anstatt kontextbezogener Kanten. Dazu müssen die ersten $k=ty1$ Streben negativ bewertet werden, falls ihre Länge der einer horizontal verlaufenden Strebe entspricht:
 $ e(r = (pi(1),...,pi(k),..., pi(n))) &= sum^(k-1)_(i=1) phi(pi(i), pi(i+1)) $
 
 mit
@@ -46,7 +46,7 @@ $ c: R -> NN, c(r) = e(r) + sum_((a,b,c) in R) f(a,b,c) $
 Eine Route mit Gesamtkosten von 0 stellt dabei eine optimale Lösung dar, wobei es ggf. mehrere Routen mit Kosten 0 für eine gegebene Wandkonfiguration geben kann.
 
 // gesamtheitlich strukturelle Bewertung hier noch nicht sinnvoll
-Eine rein strukturelle Gesamtbetrachtung ohne Berücksichtigung einzelner Kanten und deren Reihenfolge liefert im Kontext der Routenplanung keinen zusätzlichen Mehrwert. Dies liegt darin begründet, dass die resultierende Struktur maßgeblich vom tatsächlich durchlaufenen Pfad um die @UE abhängt. Aus der Route allein lassen sich nicht alle für eine umfassende Bewertung notwendigen Informationen ableiten, weshalb die Bewertung konsequent kantenbasiert erfolgt.
+Eine rein strukturelle Gesamtbetrachtung ohne Berücksichtigung einzelner Kanten und deren Reihenfolge liefert im Gegensatz zur String Art bei der Routenplanung keinen zusätzlichen Mehrwert. Dies liegt darin begründet, dass die resultierende Struktur maßgeblich vom tatsächlich durchlaufenen Pfad um die @UE abhängt. Aus der Route allein lassen sich nicht alle für eine umfassende Bewertung notwendigen Informationen ableiten, weshalb die Bewertung konsequent kantenbasiert erfolgt.
 
 // Vergleichbarkeit durch Kosten
 Auf Grundlage der berechneten Kosten können verschiedene Routen miteinander verglichen werden. Die Bewertungsfunktion induziert dabei eine totale Quasiordnung $O$ auf der Trägermenge $R$ aller möglichen Routen. Diese ist definiert als
@@ -60,7 +60,7 @@ Eine vollständige Totalordnung liegt jedoch nicht vor, da die Eigenschaft der A
 //- keine behandlung von türen oder wänden mit formen die nicht rechteckig sind, zb trapeze oder kreisbögen
 
 == Bewertung der Ansätze
-Neben der Bewertungen der Lösungskandidaten werden im Folgenden Bewertungskriterien festgelegt, um einen passenden Lösungsansatz bestimmen zu können. Anhand derer werden die betrachteten exakten und heuristischen Methoden später bewertet und untereinander bezüglich ihrer Anwendbarkeit und Eignung zur Lösung der zuvor definierten Problemstellung systematisch verglichen. 
+Neben der Bewertung der Lösungskandidaten werden im Folgenden Bewertungskriterien festgelegt, um einen passenden Lösungsansatz bestimmen zu können. Anhand derer werden die betrachteten exakten und heuristischen Methoden später bewertet und untereinander bezüglich ihrer Anwendbarkeit und Eignung zur Lösung der zuvor definierten Problemstellung systematisch verglichen. 
 
 // Wandkonfigurationen
 Um die Ergebnisse vergleichbar zu machen, werden vier verschiedene Wandkonfigurationen $w_1, ..., w_4$ festgelegt. Dabei sind $w_1$ und $w_2$ kleine Wandkonfigurationen mit einer Breite von 80 cm und einer Höhe von 55 cm, wobei sie sich nur in dem horizontalen Versatz des Türausschnittes unterscheiden. Durch manuelle Analyse konnten für diese Wandkonfigurationen Routen mit minimalen Kosten von jeweils 1 bestimmt werden, welche im Folgenden als optimale Kosten gelten. Die Wandkonfigurationen $w_3$ und $w_4$ sind größere Wände mit einer Breite von 210 cm und einer Höhe von 105 cm, also Größen wie sie auch derzeit im @CBT herstellbar sind. Die händisch bestimmten optimalen Lösungen haben ebenfalls minimal erreichte Kosten von jeweils 1. Die genauen Maße sowie die benötigte Anzahl an @UE:pl:long je Wandkonfiguration sind in @fig:wandkonfigurationen-tabelle aufgeschlüsselt. Es werden pro Konfiguration jeweils vier Durchläufe aufgezeichnet, um die Ergebnisse gegenüber zufälligen Schwankungen robuster zu machen und deren Aussagekraft zu erhöhen.
@@ -87,7 +87,7 @@ Für nicht-deterministische Methoden, welche einen Zufallsgenerator benötigen, 
 Alle Tests werden auf einem Intel(R) Core(TM) i5-8350U Prozessor und 24 GB Arbeitsspeicher durchgeführt. Während der Testläufe laufen keine anderen Nutzeranwendungen, die die Leistungsfähigkeit des Computers signifikant beeinträchtigen. Die Algorithmen werden in einer Kotlin 2.2.20 Anwendung implementiert und getestet, da somit die spätere Integration in das bestehende Backend des @CBT vereinfacht wird.
 
 // Berechnungsdauer eher unwichtig
-Die Berechnungsdauer spielt im vorliegenden Anwendungsfall eher eine untergeordnete Rolle, eine möglichst kurze Rechenzeit ist dennoch wünschenswert, da somit die Produktionskapazitäten gesteigert und Ressourcen geschont werden können.
+Die Berechnungsdauer spielt im vorliegenden Anwendungsfall eher eine untergeordnete Rolle. Eine möglichst kurze Rechenzeit ist dennoch wünschenswert, da somit die Produktionskapazitäten gesteigert und Ressourcen geschont werden können.
 
 Zum Zeitpunkt der Verfassung dieser Arbeit können maximal 81 Umlenkelemente platziert werden und später weitere @UE hinzukommen, sodass es sich im Vergleich zu bekannten Datensätzen um ein eher kleines @TSP handelt @tsaiHighPerformanceGeneticAlgorithm2014. 
 

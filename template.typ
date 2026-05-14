@@ -111,7 +111,7 @@
     margin: 2.5cm,
     paper: "a4",
   )
-  set par(justify: true, leading: 1.3em, spacing: 1.5em)
+  set par(justify: true, leading: 1.2em, spacing: 1.4em)
   set math.equation(numbering: "(1)")
   show math.equation.where(block: true): set text(size: 13pt)
   show math.equation.where(block: false): box

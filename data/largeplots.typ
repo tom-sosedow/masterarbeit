@@ -27,7 +27,7 @@
     ..geneticX1234,
     ..geneticX8427
   ),
-  caption: [Ergebnisse GA für Wandkonfiguration $w_3$ (min. Kosten: 390)],
+  caption: [Ergebnisse GA für Wandkonfiguration $w_3$ (min. Kosten: 390; eigene Darstellung)],
 )
 
 #let geneticpuzzleX = (
@@ -55,7 +55,7 @@
     ..geneticpuzzleX,
     ..geneticpuzzleY
   ),
-  caption: [Ergebnisse teilroutenbasierter GA für Wandkonfigurationen $w_3$ und $w_4$ mit Seed $s_1$],
+  caption: [Ergebnisse teilroutenbasierter GA für Wandkonfigurationen $w_3$ und $w_4$ mit Seed $s_1$ (eigene Darstellung)],
 )
 
 

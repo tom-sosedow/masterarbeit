@@ -31,5 +31,5 @@
       ..geneticX8427
     ),
   ),
-  caption: [Ergebnisse für GA für Wandkonfiguration $w_2$ und $w_3$ mit Seeds $s_1$ und $s_2$]
+  caption: [Ergebnisse für GA für Wandkonfiguration $w_2$ und $w_3$ mit Seeds $s_1$ und $s_2$ (eigene Darstellung)]
 )

@@ -6,7 +6,7 @@
 
 == Planung durch Teilrouten <sec:route-puzzle-based>
 
-Ein Nachteil bei der punktbasierten Routenplanung ist, dass häufig Freiheiten bei der Wahl der nächsten Kante gelassen werden, wo eigentlich keine wirkliche Entscheidungsfreiheit besteht. So gibt es beispielsweise bei horizontal verlaufenden Streben jeweils immer nur den Knoten eine Ebene höher bzw. niedriger zu Auswahl. Eine Abweichung von diesem Muster würde eine irreparable Lücke in der Gitterstruktur erzeugen. Erst ganz oben bzw. unten in den Ecken der Wand oder auf Türhöhe gibt es mehrere Folgekanten, die in Frage kommen könnten.
+Ein Nachteil bei der punktbasierten Routenplanung ist, dass häufig Freiheiten bei der Wahl der nächsten Kante gelassen werden, wo eigentlich keine wirkliche Entscheidungsfreiheit besteht. So gibt es beispielsweise bei horizontal verlaufenden Streben oftmals nur den Knoten eine Ebene höher bzw. niedriger zu Auswahl. Eine Abweichung von diesem Muster würde zumeist eine irreparable Lücke in der Gitterstruktur erzeugen. Erst ganz oben bzw. unten in den Ecken der Wand oder auf Türhöhe gibt es mehrere Folgekanten, die in Frage kommen könnten.
 
 Vor diesem Hintergrund erscheint eine stärkere Strukturierung des Lösungsraumes sinnvoll, sodass unnötige Freiheitsgrade von vornherein reduziert werden. Eine geeignete konzeptionelle Grundlage hierfür bietet die aus dem Coverage Path Planning bekannte Boustrophedon Cellular Decomposition nach #citep(<chosetCoveragePathPlanning1998>). Dieses Verfahren adressiert das Problem, eine Fläche mit einem Pfad endlicher Breite vollständig und in einem zusammenhängenden Durchlauf zu überdecken. Im einfachsten Fall, also ohne Hindernisse, ist die Lösung trivial und entspricht einem gleichmäßigen Hin-und-Her-Bewegungsmuster. Eine Veranschaulichung davon ist in @fig:boustrophedon links zu sehen.
 
@@ -125,7 +125,7 @@ $ forall v_i in p_x: v_(i-1, (x)) < v_(i, (x)) $
 und für $p_y in {L H, R H, T H}, p_y = (v_1, ..., v_k)$
 $ forall v_i in p_y: v_(i-1, (y)) < v_(i, (y)) $
 
-Hinzu kommen die in @sec:ue-place-implementation platzierten optionalen @UE:pl:long in den Ecken der Wand und Tür, welche in @fig:fully-placed-ue-wall in Grün dargestellt sind. Da sie eine Brücke aus einem einzigen @UE zwischen den Teilrouten bilden, können sie ebenfalls als eigene Teilroute $O = {v | "v in Ecke der Wand"}$ mit $|O| = 1$ angesehen werden und zu $P'_V$ hinzugefügt werden. Somit ergibt sich $P''_V$ zu 
+Hinzu kommen die in @sec:ue-place-implementation platzierten optionalen @UE:pl:long in den Ecken der Wand und Tür, welche in @fig:fully-placed-ue-wall in Grün dargestellt sind. Da sie eine Brücke aus einem einzigen @UE zwischen den Teilrouten bilden, können sie ebenfalls als eigene Teilroute $O = {v | v "in Ecke der Wand"}$ mit $|O| = 1$ angesehen werden und zu $P'_V$ hinzugefügt werden. Somit ergibt sich $P''_V$ zu 
 $ P''_V = P'_V union { O } $
 Durch diese Modellierung ist zwar nur jeweils ein optionales @UE darstellbar, jedoch kann somit die Größe des Lösungsraums erheblich eingeschränkt werden, da sich somit die Anzahl möglicher Permutationen lediglich versechsfacht. 
 
@@ -253,7 +253,7 @@ Der eingesetzte Rekombinationsoperator entspricht dem in @sec:route-pointbased b
 
 Für die Testläufe werden weitgehend identische Parameter für den genetischen Algorithmus verwendet, wie auch schon in @sec:route-pointbased. Der einzige Unterschied liegt in der Anzahl an Segmenten für den Rekombinationsoperator, da mit sechs Elementen pro Permutation fünf Segmente eine übermäßig feine Untergliederung erzeugen würden.
 
-Den Verlauf der Kosten der besten Lösung über die Laufzeit ist in @fig:res-puzzlega-xy für Wandkonfigurationen $w_3$ und $w_4$ zu sehen. Es wird der Seed $s_1$ genutzt. Es zeigt sich, dass der Algorithmus bereits nach wenigen Sekunden ein lokales Optimum findet, selbst für größere Wandkonfigurationen. Während für $w_4$ auch das globale Optimum mit Kosten von 1 gefunden wird, verbleibt die Suche für $w_3$ in einem lokalen Optimum mit Kosten von 15. Bei Verwendung des Seeds $s_2$ wird in vergleichbarer Zeit bei beiden Wandkonfigurationen das globale Optimum erreicht.
+Der Verlauf der Kosten der besten Lösung über die Laufzeit ist in @fig:res-puzzlega-xy für Wandkonfigurationen $w_3$ und $w_4$ zu sehen. Es wird der Seed $s_1$ genutzt. Es zeigt sich, dass der Algorithmus bereits nach wenigen Sekunden ein lokales Optimum findet, selbst für größere Wandkonfigurationen. Während für $w_4$ auch das globale Optimum mit Kosten von 1 gefunden wird, verbleibt die Suche für $w_3$ in einem lokalen Optimum mit Kosten von 15. Bei Verwendung des Seeds $s_2$ wird in vergleichbarer Zeit bei beiden Wandkonfigurationen das globale Optimum erreicht.
 
 #geneticPuzzleFigure<fig:res-puzzlega-xy>
 
@@ -262,9 +262,9 @@ Den Verlauf der Kosten der besten Lösung über die Laufzeit ist in @fig:res-puz
 
 Da der Lösungsraum durch die Modellierung als Teilrouten deutlich verkleinert werden konnte, sind heuristische Methoden nicht mehr notwendig, um zumindest ein ausreichend gutes Ergebnis zu bekommen. Die Anwendung von exakten Methoden zur Lösung großer Wandkonfigurationen wird also wieder praktikabel. Insbesondere ermöglicht der Brute-Force-Ansatz eine vergleichsweise einfache und flexible Implementierung, die gleichzeitig hinreichend performant ist und eine Garantie auf Optimalität bietet.
 
-Zur effizienten Erzeugung aller validen Permutationen wird eine rekursive Funktion eingesetzt. In jedem Schritt wird die Permutation um eine noch fehlende Teilroute ergänzt. Anschließend wird die bis dahin bestehende Lösung bewertet und die Funktion nur für diejenigen partiellen Lösungen ausgeführt, die unter der Kostengrenze von 400 liegen. Diese Kombination aus exakten Verfahren und heuristischer Beschränkung des Suchraums trägt dazu bei, die Laufzeit zu reduzieren, ohne die Garantie der Optimalität aufzugeben @tahamiLiteratureReviewCombining2022.
+Zur effizienten Erzeugung aller validen Permutationen wird eine rekursive Funktion eingesetzt. In jedem Schritt wird die Permutation um eine noch fehlende Teilroute ergänzt. Anschließend wird die bis dahin bestehende Lösung bewertet und die Funktion nur für diejenigen partiellen Lösungen ausgeführt, die unter der Kostengrenze von 400 liegen. Diese Kombination aus exaktem Verfahren und der Beschränkung des Suchraums trägt dazu bei, die Laufzeit zu reduzieren, ohne die Garantie der Optimalität aufzugeben @tahamiLiteratureReviewCombining2022.
 
-Die Ergebnisse der Testläufe sind in @tab:bruteforce-puzzle-res zusammengefasst und werden in @sec:diskussion ausführlicher diskutiert. Insgesamt werden 129'024 verschiedene Permutationen gebildet. Die Spalte „Anz. Lösungen“ gibt jeweils die Anzahl der Lösungen mit Kosten unterhalb der Schranke von 400 an. Die vollständigen Routen für jede der 32 möglichen Wandkonfigurationen sind im @appendix:wandkonfigurationen zu sehen. 
+Die Ergebnisse der Testläufe sind in @tab:bruteforce-puzzle-res zusammengefasst und werden in @sec:diskussion ausführlicher diskutiert. Insgesamt werden 129'024 verschiedene Permutationen gebildet. Die Spalte „Anz. Lösungen“ gibt jeweils die Anzahl der Lösungen mit Kosten unterhalb der Schranke von 400 an. Die vollständigen Routen mit den geringsten Kosten sind für jede der 32 möglichen Wandkonfigurationen in @appendix:wandkonfigurationen abgebildet. 
 
 #figure(
   table(
@@ -288,6 +288,8 @@ Nachdem durch obige Methoden eine Abfolge von Teilrouten erzeugt wurde, kann die
 
 Ebenfalls muss der Knoten auf Höhe $v_((y))= ty1-1$ am Anfang bzw. am Ende der Route eingefügt werden, falls sie an einem @UE auf Höhe $y=tx1$ beginnt bzw. endet. Andernfalls würde in solchen Fällen die strukturell notwendige, horizontale Strebe oberhalb der Tür nicht durch die bloße Verkettung der Teilrouten entstehen.  
 
-Um eine Permutation korrekt auf eine Route abbilden zu können, benötigt es also eine Nachbearbeitung in Form einer Funktion $p: R -> R$. Sie fügt beispielsweise im Fall von @fig:sonderstelle-left-door-corner das fehlende @UE $x$ zwischen $c$ und $b$ ein, um eine korrekte Umlenkung von $b$ nach $a$ zu ermöglichen. Abhängig von der gewählten Route kann auch eine Addition von $x$ vor $b$ nötig sein, um eine korrekte Umlenkung zu $a$ zu ermöglichen. Dies ist bei einer solchen Wand unter anderem erforderlich, falls auf ein $L H$ ein $L V^R$ folgt. 
+Um eine Permutation korrekt auf eine Route abbilden zu können, benötigt es also eine Nachbearbeitung in Form einer Funktion $p: R -> R$. Sie fügt beispielsweise im Fall von @fig:sonderstelle-left-door-corner das fehlende @UE $x$ zwischen $c$ und $b$ ein, um eine korrekte Umlenkung von $b$ nach $a$ zu ermöglichen. Abhängig von der gewählten Route kann auch eine Addition von $x$ vor $b$ nötig sein, um eine korrekte Umlenkung zu $a$ zu ermöglichen. 
+Ein weiteres Beispiel ist in @appendix:wandkonfigurationen Wand 27 zu sehen, bei der zwischen $L H$ und dem @UE 62 aus der Teilroute O das @UE 68 eingefügt wird, um eine korrekte Sonderumlenkung zu ermöglichen.
+//Dies ist bei einer solchen Wand unter anderem erforderlich, falls auf ein $L H$ ein $L V^R$ folgt. 
 
-Die Bewertung einer Route wird also bei der Planung basierend auf Teilrouten realisiert durch die Funktion $ c': P_V^6 -> NN$ mit $ c'(pi_P_V) = (c circle.small p circle.small T)(pi_P_V) $
+Die Bewertung einer Route wird also bei der Planung basierend auf Teilrouten realisiert durch die Funktion $ c': P_V^6 -> NN$ mit $ c'(pi_P_V) = (c circle.tiny p circle.tiny T)(pi_P_V) $
