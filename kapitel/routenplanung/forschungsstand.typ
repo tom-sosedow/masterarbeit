@@ -49,7 +49,7 @@ Der derzeit leistungsfähigste Lösungsansatz für das @TSP ist die Lin-Kernigha
 Im Gegensatz dazu sind @GA:pl leicht zugängliche Metaheuristiken, welche häufig zur Lösung des @TSP:pl eingesetzt werden. Sie sind von biologischen Prozessen wie Fortpflanzung und Evolution inspiriert und zeichnen sich durch eine vergleichsweise einfache Verständlichkeit und grundlegende Implementation aus, insbesondere für Nicht-Informatiker. Aufbauend auf Konzepten der lokalen Suche werden Prinzipien der Evolutionsbiologie genutzt, um eine Population von Lösungskandidaten iterativ zu verändern und so eine Annäherung an ein globales Optimum zu erreichen @tahamiLiteratureReviewCombining2022 @duanApplicationsHybridApproach2023a. Die Laufzeitkomplexität ist dabei nicht eindeutig bestimmbar, da sie maßgeblich von der Wahl der Parameter sowie der konkreten Implementierung abhängt @vyasExploringSolutionApproaches.
 
 // Ablauf GA
-Nach #citep(<weickerEvolutionaereAlgorithmen2015>, supplement: [S. 39]) verlaufen @GA:pl wie folgt: Zunächst erfolgt eine Kodierung der Lösungskandidaten, um diese in eine für die algorithmische Verarbeitung geeignete Darstellungsform zu überführen, beispielsweise in Form von Binärkodierungen oder Permutationen. Die weiteren Schritte basieren auf dieser Repräsentation. Zu Beginn werden $mu$ potenzielle Lösungen erzeugt, beispielsweise durch zufällige Generierung, die die initiale Population bilden. Anschließend erfolgt die Bewertung jedes Individuums anhand der Zielfunktion $F$, die es zu optimieren gilt. Daraufhin wird iterativ eine Schleife durchlaufen, bis eine definierte Terminierungsbedingung erfüllt ist. Innerhalb dieser Schleife werden verschiedene biologisch inspirierte Operatoren angewendet: Zunächst werden aus der aktuellen Population, in der Regel durch einen Selektionsoperator, geeignete Individuen als Eltern ausgewählt. Diese werden anschließend durch den Rekombinationsoperator paarweise kombiniert, um Nachkommen zu erzeugen. Die resultierenden Individuen werden daraufhin durch den Mutationsoperator modifiziert und erneut bewertet. Abschließend erfolgt eine Selektion aus der aktuellen Population sowie den neu erzeugten Nachkommen, bei der wiederum $mu$ Individuen für die nächste Generation bestimmt werden. Das Vorgehen ist in @alg:ga-weicker veranschaulicht.
+Nach #citep(<weickerEvolutionaereAlgorithmen2015>, supplement: [S. 39]) verlaufen @GA:pl wie folgt: Zunächst erfolgt eine Kodierung der Lösungskandidaten, um diese in eine für die algorithmische Verarbeitung geeignete Darstellungsform zu überführen, beispielsweise in Form von Binärkodierungen oder Permutationen. Die weiteren Schritte basieren auf dieser Repräsentation. Zu Beginn werden $mu$ potenzielle Lösungen bzw. Individuen erzeugt, beispielsweise durch zufällige Generierung, die die initiale Population bilden. Anschließend erfolgt die Bewertung jedes Individuums anhand der Zielfunktion $F$, die es zu optimieren gilt. Daraufhin wird iterativ eine Schleife durchlaufen, bis eine definierte Terminierungsbedingung erfüllt ist. Innerhalb dieser Schleife werden verschiedene biologisch inspirierte Operatoren angewendet: Zunächst werden aus der aktuellen Population, in der Regel durch einen Selektionsoperator, geeignete Individuen als Eltern ausgewählt. Diese werden anschließend durch den Rekombinationsoperator paarweise kombiniert, um Nachkommen zu erzeugen. Die resultierenden Individuen werden daraufhin durch den Mutationsoperator modifiziert und erneut bewertet. Abschließend erfolgt eine Selektion aus der aktuellen Population sowie den neu erzeugten Nachkommen, bei der wiederum $mu$ Individuen für die nächste Generation bestimmt werden. Das Vorgehen ist in @alg:ga-weicker veranschaulicht.
 
 #show: style-algorithm.with(placement: auto)
 #algorithm-figure(
@@ -68,8 +68,8 @@ Nach #citep(<weickerEvolutionaereAlgorithmen2015>, supplement: [S. 39]) verlaufe
         Line[bewerte $P(t)$ durch $F$]
         While("Terminierungsbedingung nicht erfüllt",{
           Assign($P'$, [Selektion aus $P(t)$ mittels Selektionsoperator])
-          Line[Es sei: $P'= angle.l A^((1))...A^((mu)) angle.r$]
-          Assign($P''$, $angle.l angle.r$)
+          Line[Es sei: $P'= chevron.l A^((1))...A^((mu)) chevron.r$]
+          Assign($P''$, $chevron.l chevron.r$)
           For($i <- 1,...,mu/2$, {
             Assign($u$, [Wähle Zufallszahl gemäß $U[0,1)$])
             IfElseChain(
@@ -81,7 +81,7 @@ Nach #citep(<weickerEvolutionaereAlgorithmen2015>, supplement: [S. 39]) verlaufe
             )
             Assign($B$, Call.with("Mutation")($B$))
             Assign($C$, Call.with("Mutation")($C$))
-            Assign($P''$, $P'' compose angle.l B, C angle.r$)
+            Assign($P''$, $P'' compose chevron.l B, C chevron.r$)
           })
           Line[bewerte $P''$ durch $F$]
           Assign($t$, $t+1$)

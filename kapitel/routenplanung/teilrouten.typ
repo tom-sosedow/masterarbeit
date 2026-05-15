@@ -167,7 +167,7 @@ Der dadurch entstehende Lösungsraum $Omega$ ist mit einer Kardinalität von $|O
 //   caption: [Ausschnitt aus dem Entscheidungsbaum zur Bildung einer Abfolge von Teilrouten. Für das Beispiel sei eine optionale Rolle $v in O$, in Grün dargestellt, in der oberen rechten Ecke der Wand platziert. Invalide Schritte, die zwei Teilbereiche verketten würden, welche sich keine Ecke der Wand teilen, sind in Rot dargestellt.],
 // )<fig:entscheidungsbaum-teilrouten>
 
-In @fig:puzzle-graph ist der Graph veranschaulicht, der als Basis für die Routenplanung und somit Modellierung des @TSP:pl dient. Da ein Hamiltonpfad Gegenstand der Untersuchung bleibt, aber nicht länger alle Knoten dieses Graphen genutzt werden müssen, ergibt sich eine Modifikation des Problems. So muss in dieser Darstellung aus jedem farbigen Rechteck genau ein Knoten gewählt werden, sodass eine valide Abfolge von Teilrouten einen Pfad in diesem Graphen darstellt. Der Startknoten ist weiterhin frei wählbar. Nicht dargestellt ist die Teilroute $O$ mit dem optionalen UE. Diese kann einmalig ab dem Startknoten an einer beliebigen Stelle gewählt werden.
+In @fig:puzzle-graph ist der Graph veranschaulicht, der als Basis für die Routenplanung und somit Modellierung des @TSP:pl dient. Da ein Hamiltonpfad Gegenstand der Untersuchung bleibt, aber nicht länger alle Knoten dieses Graphen genutzt werden müssen, ergibt sich eine Modifikation des Problems. So muss in dieser Darstellung aus jedem farbigen Rechteck genau ein Knoten gewählt werden, sodass eine valide Abfolge von Teilrouten einen Pfad in diesem Graphen darstellt. Die Farben der jeweiligen Rechtecke stimmen dabei mit den zugehörigen Teilrouten aus @fig:route-cells überein. Der Startknoten ist weiterhin frei wählbar. Nicht dargestellt ist die Teilroute $O$ mit dem optionalen UE. Diese kann einmalig ab dem Startknoten an einer beliebigen Stelle gewählt werden.
 
 #figure(
   raw-render(
@@ -204,9 +204,9 @@ In @fig:puzzle-graph ist der Graph veranschaulicht, der als Basis für die Route
       }
       subgraph cluster_RV {
         rankdir=LR
-        color=gold
-        RV[style=filled, fillcolor=gold];
-        RVR[style=filled, fillcolor=gold];
+        color=orange
+        RV[style=filled, fillcolor=orange];
+        RVR[style=filled, fillcolor=orange];
       }
       subgraph cluster_RH {
         rankdir=LR
