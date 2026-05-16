@@ -32,7 +32,7 @@ Aufbau
 // - geschwindigkeit: wie schnell ist es?
 // - weitere betrachtungen: gibt es dinge zu beachten, caviats? alternativen? 
 
-===== Platzierung der Umlenkelemente
+== Platzierung der Umlenkelemente
 
 // 1. Ziele
 Zur Beantwortung der Forschungsfrage (I) "_#forschungsfragen.at(0)_" wurde eine iterative Platzierung der @UE:pl:long entwickelt, welche die Positionen regelbasiert bestimmt. Die Beantwortung dieser Frage ist grundlegend für das Ziel der automatisierten Herstellung von Carbonbewehrung, da alle nachfolgenden Schritte von dem Ergebnis abhängen.

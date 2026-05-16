@@ -104,13 +104,13 @@ Da der Abstand zwischen zwei @UE stets ein Vielfaches von $d$ beträgt, ergeben 
 
 Die Positionen der Mittelpunkte der @UE in diesem Raster können durch eine Menge A von zweidimensionalen Koordinaten mit 
 $ A subset {(x,y) in NN_0^2 | 0 <= x <= xmax, 0 <= y <= ymax} $
-modelliert werden, wobei durch $xmax = floor(w_b / d) - 1$ und $ymax = floor(w_h / d) - 1$ eine Rasterung der Echtwelt-Koordinaten vollzogen wird. Eine Einheit im Modell beträgt also $d$ Millimeter in der echten Welt. Die Umrechnung von Koordinaten im Modell zu Koordinaten in Millimetern in der Realität erfolgt durch die Abbildung
+modelliert werden, wobei mit $xmax = floor(w_b / d)$ und $ymax = floor(w_h / d)$ eine Rasterung der Echtwelt-Koordinaten vollzogen wird. Eine Einheit im Modell beträgt also $d$ Millimeter in der echten Welt. Die Umrechnung von Koordinaten im Modell zu Koordinaten in Millimetern in der Realität erfolgt durch die Abbildung
 $ (x,y) in NN^2_0 |-> (x*d + r + p, y*d + r + p) $
 
 Der Türausschnitt wird durch ein Koordinatentupel der oberen linken Ecke 
-$ t_1 = (tx1, ty1) = (floor(t_x/d)-1, ymax - ceil(t_h/d)) $ 
+$ t_1 = (tx1, ty1) = (floor(t_x/d), ymax - ceil(t_h/d)) $ 
 sowie der unteren rechten Ecke 
-$ t_2 = (tx2, ty2) = (tx1 + ceil(t_b/d) + 1, ymax) $ 
+$ t_2 = (tx2, ty2) = (tx1 + ceil(t_b/d), ymax) $ 
 beschrieben. Beide Punkte sind in @fig:input-dimensions in Pink dargestellt.
 
 Der Koordinatenursprung befindet sich in dieser Arbeit in der oberen linken Ecke. Die $x$-Achse verläuft nach rechts, die $y$-Achse nach unten in positiver Richtung. Entsprechend liegt die obere Wandkante bei $y=0$, die untere bei $y=ymax$, die linke Seite bei $x=0$ und die rechte bei $x=xmax$.
@@ -120,8 +120,8 @@ Die @UE:pl:long sollten nur an den Rändern der Wand nahe der Schalungselemente 
 $
   forall (x,y) in A: 
   (x=0 and 0 <= y <= ymax) or (x=xmax and 0 <= y <= ymax) or \
-  (0<=x<=xmax and y=0) or (0<=x<=xmax and y=ymax) or \
-  (x=tx1 and ty1 <= y <= ymax) or (x=tx2 and ty1 <= y <= ymax) or \
+  (0<=x<=xmax and y=0) or ((0<=x<=tx1 or tx2 >= x >= xmax) and y=ymax) or \
+  ((x=tx1 or x=tx2) and ty1 <= y <= ymax) or \
   (tx1 <= x <= tx2 and y = ty1)
 $ 
 Die dadurch formulierten zulässigen Positionen der @UE:pl sind in @fig:input-dimensions orange hinterlegt.

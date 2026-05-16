@@ -134,11 +134,11 @@ Im zweiten Schritt des Algorithmus kann dann $omega$ genutzt werden, um bei der 
         import algorithmic: *
         Function(
           "PlaceHorizGE",
-          ("A", $xmax$, $ymax$, $t_1$, $t_2$, $t_h$),
+          ("A", $xmax$, $ymax$, $t_1$, $t_2$),
           {
             
             Comment[Ist _wahr_, falls oberstes @UE an der linken Seite der Tür liegt, _falsch_ sonst]
-            Assign($t l$, IfElseInline($t_h mod 2 = 0$, $tx1$, $tx2$))
+            Assign($t l$, $(ymax - tx1) mod 2 = 0$)
             LineBreak
 
             Comment[Ist _wahr_, falls in der Breite des Türausschnitts eine gerade Anzahl\

@@ -32,7 +32,7 @@ Aufbau
 // - geschwindigkeit: wie schnell ist es?
 // - weitere betrachtungen: gibt es dinge zu beachten, caviats? alternativen? 
 
-===== Pfadberechnung
+== Pfadberechnung
 
 // 1. Ziel und Kontext
 Zur Beantwortung der Forschungsfrage (III) "_#forschungsfragen.at(2)_" wurde ein Algorithmus zur Planung eines Pfades entwickelt und implementiert. Dieser generiert Wegpunkte auf Basis der zuvor erstellten Route zwischen den Umlenkelementen. Die Beantwortung der Forschungsfrage ist essentiell für das Hauptproblem, da ohne eine gute Pfadplanung kein Carbongitter vollautomatisiert erstellt werden kann, welches die strukturellen Anforderungen erfüllt.
