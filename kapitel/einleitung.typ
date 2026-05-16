@@ -13,7 +13,7 @@ Textile Bewehrungen sind Alternativen, welche die Rolle der Stahlstreben aus tra
 
 Analog zu klassischen Stahlbewehrungen soll auch das Carbongarn innerhalb des Betons eine Gitterstruktur bilden, um Zugkräfte sowohl in horizontaler als auch in vertikaler Richtung aufzunehmen. Die automatisierte Herstellung solcher Carbonstrukturen ist eine wesentliche Voraussetzung für die industrielle Skalierung und breite Anwendung von Carbonbeton, wobei gleichzeitig hohe Anforderungen an Qualität und Wirtschaftlichkeit bedient werden sollen.
 
-Vor diesem Hintergrund wurde im Jahr 2022 das @CBT als Modellfabrik für Forschung und Entwicklung in Betrieb genommen. Ziel der dortigen Forschungsgruppe ist es, die gesamte Prozesskette, also von der Herstellung der Carbonbewehrung bis zur Aushärtung des Betons, im Hinblick auf eine industrielle, ressourcenschonende und nachhaltige Umsetzung zu untersuchen. Dazu gehört insbesondere das Carbongelege mit minimaler Materialverschwendung vollautomatisiert herzustellen.
+Vor diesem Hintergrund wurde im Jahr 2022 das @CBT als Modellfabrik für Forschung und Entwicklung in Betrieb genommen. Ziel der dortigen Forschungsgruppe ist es, die gesamte Prozesskette, also von der Herstellung der Carbonbewehrung bis zur Aushärtung des Betons, im Hinblick auf eine industrielle, ressourcenschonende und nachhaltige Umsetzung zu untersuchen. Dazu gehört insbesondere, das Carbongelege mit minimaler Materialverschwendung vollautomatisiert herzustellen.
 
 Im aktuellen Verfahren erfolgt die Herstellung der Carbonbewehrung durch einen Roboterarm, welcher das Carbongarn auf einem speziell konzipierten Rahmen verlegt und es unmittelbar vorher in Epoxidharz tränkt. Danach wird es durch einen Roboterarm um an den Rändern positionierte zylindrische @UE:pl geführt. Durch eine speziell gewählte Folge von Bewegungen entsteht somit in einem Zug die gewünschte Bewehrungsmatte. Anschließend wird das gesamte Konstrukt über bewegliche Tische in einen Ofen gefahren, in dem das Harz aushärtet und somit die einzelnen Carbonstränge miteinander verbunden werden. Ein Beispiel für die somit entstehende Bewehrungsmatte ist in @fig:carbongitter dargestellt.
 
@@ -36,7 +36,7 @@ Für einfache Wände ist die Berechnung der erforderlichen Bewegungsabläufe des
 == Ziele
 Um im @CBT und letztendlich in folgenden industriellen Produktionsstätten die automatisierte Produktion von Carbonbetonwänden für den Wohnungsbau zu ermöglichen, müssen Methoden zur Pfadbestimmung für den Roboterarm unter den gegebenen Rahmenbedingungen und prozessspezifischen Anforderungen erforscht werden.
 
-Zu diesem Zweck wird das Problem in drei aufeinander aufbauende Teilprobleme aufgeteilt, die jeweils einen Abschnitt der Prozesskette adressieren. Zunächst müssen die Positionen der @UE:pl:long bestimmt werden. Aufgrund der variablen Position und Abmessungen der Tür können sie frei auf der Ablagefläche platziert werden. Anschließend erfolgt eine Routenplanung zur Bestimmung der Reihenfolge, in der die @UE:pl angefahren und somit mit Garn umwickelt werden sollen. Abschließend wird aus der Route ein Pfad abgeleitet, der die physischen Wegpunkte für die Bewegung des Roboterarms beschreibt. In @fig:overall-steps sind die Schritte zur Gesamtlösung beispielhaft veranschaulicht.
+Zu diesem Zweck wird das Problem in drei aufeinander aufbauende Teilprobleme aufgeteilt, die jeweils einen Abschnitt der Prozesskette adressieren. Zunächst müssen die Positionen der @UE:pl:long bestimmt werden. Aufgrund der variablen Position und Abmessungen der Tür können sie frei auf der Ablagefläche platziert werden. Anschließend erfolgt eine Routenplanung zur Bestimmung der Reihenfolge, in der die @UE:pl angefahren und somit mit Garn umwickelt werden sollen. Abschließend wird aus der Route ein Pfad abgeleitet, der die physischen Wegpunkte für die Bewegung des Roboterarms beschreibt. In @fig:overall-steps werden die Schritte zur Gesamtlösung beispielhaft veranschaulicht.
 
 
 #figure(
@@ -59,7 +59,7 @@ Zu diesem Zweck wird das Problem in drei aufeinander aufbauende Teilprobleme auf
     content((3.2,-2.5), image("/images/step-3-path.png", width: 130pt))
     line((0.3,-2.5),(0.9,-2.5), mark: (end: ">"))
   }),
-  caption: [Konzeptuelle Schritte, um für ein gegebenes Wandmaß einen Roboterpfad zu berechnen, welcher eine gleichmäßige Carbonbewehrung erzeugt (eigene Darstellung)]
+  caption: [Konzeptionelle Schritte, um für ein gegebenes Wandmaß einen Roboterpfad zu berechnen, welcher eine gleichmäßige Carbonbewehrung erzeugt (eigene Darstellung)]
 )<fig:overall-steps>
 
 

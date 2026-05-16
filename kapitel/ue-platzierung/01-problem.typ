@@ -126,7 +126,7 @@ $
 $ 
 Die dadurch formulierten zulässigen Positionen der @UE:pl sind in @fig:input-dimensions orange hinterlegt.
 
-Auf gegenüberliegenden Seiten der Struktur sind zwei @UE stets genau um $d$ Millimeter entlang der jeweiligen Seite versetzt angeordnet und alternieren zwischen beiden Seiten. Für zwei vertikale Seiten (Spalten) an den x-Koordinaten ${x_1, x_2} in {{0, tx1}, {tx2, xmax}, {0,xmax}}$ ergibt sich im Modell:
+Auf gegenüberliegenden Seiten der Struktur sind zwei @UE stets genau um $d$ Millimeter entlang der jeweiligen Seite versetzt angeordnet und alternieren zwischen beiden Seiten. Für zwei vertikale Seiten (Spalten) an den x-Koordinaten ${x_1, x_2} in {{0, tx1}, {tx2, xmax}, {0,xmax}, {tx1,tx2}}$ ergibt sich im Modell:
 
 $ 
 forall (x,y) in A: 
@@ -213,7 +213,7 @@ In @fig:ue-place-model (a) ist der Sachverhalt aus @eq:rollen-platzierung-vertik
 
 
 // Sonderstellen
-Durch die Anforderungen kann es in den Ecken der Wand dazu kommen, dass zwei @UE diagonal direkt nebeneinander platziert werden müssen, wie in @fig:ue-place-model (b) dargestellt. Diese spezielle Anordnung wird als _Sonderstelle_ bezeichnet. Das Werkzeug des Roboters zum Ablegen des Garns passt nicht in die Lücke dazwischen, was besondere Achtung bei der Pfadplanung erfordert. Bei dem Türausschnitt kann in den oberen beiden Ecken selbiges passieren, wobei es hier dazu führen würde, dass ein unregelmäßiger Abstand im Carbongitter entstehen müsste. Aus diesem Grund ist es bei der Platzierung der @UE wichtig, diesen Fall zu vermeiden. Im Speziellen ist eine Sonderstelle nur an bestimmten Stellen zulässig, was durch @eq:sonderstelle-eingrenzung formuliert wird
+Durch die Anforderungen kann es in den Ecken der Wand dazu kommen, dass zwei @UE diagonal direkt nebeneinander platziert werden müssen, wie in @fig:ue-place-model (b) dargestellt. Diese spezielle Anordnung wird als _Sonderstelle_ bezeichnet. Das Werkzeug des Roboters zum Ablegen des Garns passt nicht in die Lücke dazwischen, was besondere Beachtung bei der Pfadplanung erfordert. Bei dem Türausschnitt kann in den oberen beiden Ecken selbiges passieren, wobei es hier dazu führen würde, dass ein unregelmäßiger Abstand im Carbongitter entstehen müsste. Aus diesem Grund ist es bei der Platzierung der @UE wichtig, diesen Fall zu vermeiden. Im Speziellen ist eine Sonderstelle nur an bestimmten Stellen zulässig, was durch @eq:sonderstelle-eingrenzung formuliert wird
 
 $
   forall a=(x_1,y_1) in A : 

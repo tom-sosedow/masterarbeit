@@ -4,11 +4,11 @@
 == Ergebnisse <sec:path-results>
 
 Zur Analyse der gezeigten Vorgehen werden, analog zu @sec:ue-place-result, erneut alle 32 möglichen Wandkonfigurationen überprüft, wobei die resultierenden Pfade jeweils in @appendix:wandkonfigurationen abgebildet sind. Die Tests werden ebenfalls auf einem Intel(R) Core(TM) i5-8350U Prozessor mit 24 GB Arbeitsspeicher durchgeführt. Die durchschnittliche Rechenzeit beträgt 1,57 Millisekunden, während die maximal gemessene Rechenzeit bei 10,32 Millisekunden über alle 32 Testläufe liegt. In @fig:beispielpfad ist der berechnete Pfad für die Wandkonfiguration $w_4$ aus @sec:routenplanung exemplarisch dargestellt. Die berechnete Route beginnt hier bei @UE 61 und endet bei @UE 27. 
-Ebenfalls wurde Wand 5 aus @appendix:wandkonfigurationen im @CBT in kleineren Dimensionen praktisch getestet, allerdings ohne Harztränkung des Garns. Die resultierende Bewehrung und der abgefahrene Pfad ist in @appendix:robotcode zu sehen. 
+Ebenfalls wurde Wand 5 aus @appendix:wandkonfigurationen im @CBT in kleineren Dimensionen praktisch getestet, allerdings ohne Harztränkung des Garns. Die resultierende Bewehrung und der abgefahrene Pfad sind in @appendix:robotcode zu sehen. 
 
 #figure(
   image("/images/pfadbeispiel.png", width: 110%),
-  caption: [Pfad $p$ des Roboters in einer kleinen Wandkonfiguration $w_4$ aus @sec:routenplanung. Route beginnt bei UE 61 und endet bei UE 27. In Rot dargestellt sind die Punkte, die zur Kollisionsvermeidung auf einer höheren Ebene platziert werden sowie in halbtransparentem Rot die Approximation des Gittermusters zur Bestimmung dieser Punkte.  (eigene Darstellung)]
+  caption: [Pfad $p$ des Roboters in einer kleinen Wandkonfiguration $w_4$ aus @sec:routenplanung. Route beginnt bei UE 61 und endet bei UE 27. In Rot dargestellt sind die Punkte, die zur Kollisionsvermeidung auf einer höheren Ebene platziert werden, sowie in halbtransparentem Rot die Approximation des Gittermusters zur Bestimmung dieser Punkte.  (eigene Darstellung)]
 )<fig:beispielpfad>
 
 Die Pfade werden insgesamt überwiegend zuverlässig bestimmt. Bei Nutzung der Invertierungsstrategie, wie in @sec:path-direction dargestellt, kommt es bei manchen Routen zu fehlerhaften Teilabschnitten, wodurch sie ähnlich zu dem in @fig:pfad-zu-muster (b) gezeigten Pfad verlaufen. Grund hierfür ist immer eine falsche Berechnung der anfänglichen Umlaufrichtung bei einem Wechsel der Hauptrichtung.

@@ -6,17 +6,17 @@
 Um Lösungskandidaten bewerten zu können, werden in diesem Abschnitt geeignete Bewertungskriterien definiert und in Form einer Funktion formalisiert. Die Bewertung einer Route erfolgt dabei kantenbasiert. Eine isolierte Betrachtung einzelner Kanten ist jedoch nicht ausreichend, da aufgrund der geforderten gleichmäßigen Gitterstruktur jede Kante im Kontext ihrer vorhergehenden beziehungsweise nachfolgenden Kante analysiert werden muss. Aus diesem Grund wird zur Bewertung einer Kante ein Knotentripel bestehend aus dem vorherigen Knoten sowie dem Start- und Endknoten der betrachteten Kante herangezogen. Als Ausgabe liefert die Bewertungsfunktion einen Kostenwert, analog zur Distanzbewertung zwischen zwei Knoten in klassischen @TSP:pl. Die Gesamtkosten einer Kante werden modular berechnet und setzen sich aus mehreren gewichteten Teilfunktionen zusammen, welche eigens für dieses Problem konzipiert und im Folgenden dargestellt sind.
 
 // Kanten nur mit 1er Distanz in eine Richtung
-Zunächst wird die geometrische Struktur der Kanten berücksichtigt. In dem zugrunde liegenden Gitter müssen die beiden Knoten einer Kante stets um genau eine Einheit in mindestens einer Richtung, entweder vertikal oder horizontal, versetzt sein. Zumeist verläuft die Änderung in Hauptrichtung. Diese Eigenschaft wird durch die Funktion
+Zunächst wird die geometrische Struktur der Kanten berücksichtigt. In dem zugrunde liegenden Gitter müssen die beiden Knoten einer Kante stets um genau eine Einheit in mindestens einer Richtung, entweder vertikal oder horizontal, versetzt sein. Zumeist verläuft die Änderung entlang der Hauptrichtung. Diese Eigenschaft wird durch die Funktion
 $ d(a,b,c) = cases((Delta x+Delta y)^6 ", falls" Delta x=0 or Delta y=0, 0 ", falls" Delta x = 1 or Delta y=1, 5+(Delta x)^4+(Delta y)^4 ", sonst") \ "mit" Delta x = |b_((x))-c_((x))|, Delta y = |b_((y))-c_((y))| $<eq:max-distanz-1>
 abgebildet. Insbesondere Kanten, die strikt entlang einer Zeile oder Spalte verlaufen, werden dabei negativ bewertet.
 
 // gleichmäßiges Muster, Zickzack
 Um zusätzlich plötzliche Umlenkungen in der Mitte einer Wandseite zu einer orthogonalen Seite zu bestrafen, wird die Gleichmäßigkeit der Bewegung bewertet. Diese Anforderung lässt sich so formulieren, dass der vorherige Knoten sowie der Endknoten einer Kante entweder in ihrer x- oder y-Koordinate übereinstimmen müssen. Die Funktion $g$ bildet diese Bedingung ab:
 $ g(a,b,c) = cases(15 ", falls" not(a_((x))=c_((x)) or a_((y)) = c_((y))) and not a u s n a h m e(b,c), 0 ", sonst") $
-Die Hilfsfunktion $a u s n a h m e(b,c)$ nimmt den Wert „falsch“ an, sofern kein Sonderfall vorliegt. Solche Sonderfälle treten unter anderem dann auf, wenn Kanten von einer Wandseite zu Knoten des Türausschnitts verlaufen, während ihre Vorgänger nur von Wandseite zu Wandseite verliefen.
+Die Hilfsfunktion $a u s n a h m e(b,c)$ nimmt den Wert „falsch“ an, sofern kein Sonderfall vorliegt. Solche Sonderfälle treten unter anderem dann auf, wenn Kanten von einer Wandseite zu einem Knoten des Türausschnitts verlaufen, während ihre Vorgänger nur von Wandseite zu Wandseite verliefen.
 
 // Tür als Hindernis
-Der Türausschnitt wird im Modell als Hindernis interpretiert. Entsprechend müssen alle Kanten, die durch diesen Bereich verlaufen würden, mit zusätzlichen Kosten belegt werden. Dies erfolgt durch die Funktion $t$:
+Der Türausschnitt wird im Modell als Hindernis interpretiert. Entsprechend müssen alle Kanten, die durch diesen Bereich verlaufen, mit zusätzlichen Kosten belegt werden. Dies erfolgt durch die Funktion $t$:
 
 $ t(a,b,c) = cases(
   50 ", falls" s c h n e i d e t(overline(b c), T),
