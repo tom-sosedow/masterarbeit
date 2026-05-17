@@ -91,7 +91,7 @@ Der Algorithmus ist vollständig nach #citep(<weickerEvolutionaereAlgorithmen201
     line((2.5,5),(2.5,-1))
     line((5.5,5),(5.5,-1))
   }),
-  caption: [Order Crossover nach #citep(<davisApplyingAdaptiveAlgorithms1985>) mit Übernahme einer einzelnen Teilsequenz von Elternteil 1. Elternteil 2 füllt die dem Kind fehlenden Knoten anschließend in der Reihenfolge auf, in der sie in ihm vorkommen]
+  caption: [Order Crossover mit Übernahme einer einzelnen Teilsequenz von Elternteil 1. Elternteil 2 füllt die dem Kind fehlenden Knoten anschließend in der Reihenfolge auf, in der sie in ihm vorkommen. Adaptiert aus _Applying Adaptive Algorithms to Epistatic Domains_ von #citep(<davisApplyingAdaptiveAlgorithms1985>)]
 )<fig:order-crossover>
 
 Für die Testläufe mit dem genetischen Algorithmus werden die Prozessparameter für jeden Testlauf fixiert. Die Mutationswahrscheinlichkeit beträgt dabei $45%$ und die Rekombinationswahrscheinlichkeit $73%$. Die Populationsgröße wird auf 3000 und die Turniergröße auf $3$ bei $36$ Turnieren festgelegt. Um einen zeitlichen Rahmen für die Berechnung und Aufzeichnung der Ergebnisse zu setzen, werden maximal 12'000 Generationen durchlaufen.

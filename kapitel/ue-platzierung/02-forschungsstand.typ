@@ -70,7 +70,7 @@ Im @CBT erfolgt die Bestimmung der Positionen der @UE derzeit iterativ und ist a
     [(b)]
   ),
   
-  caption: [Reihenfolge der Positionierung der UE im aktuellen Ansatz des CBT für einfache Wände ohne Tür- oder Fensterausschnitt. In Rot sind die UE der Sonderstelle markiert. (eigene Darstellung)]
+  caption: [Reihenfolge der Positionierung der UE im aktuellen Ansatz des CBT für einfache Wände ohne Tür- oder Fensterausschnitt. In Rot sind die UE der Sonderstelle markiert (eigene Darstellung)]
 )<fig:rollenplatzierung-cbt>
 
 // TU Dresden

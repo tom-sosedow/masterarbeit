@@ -89,7 +89,7 @@ Sobald Hindernisse auftreten, wird die Fläche in mehrere Teilbereiche unterglie
     content((7,-3), align(center)[Ergebnis der Zellteilung \ zu 7 Zellen])
 
   }),
-  caption: [Boustrophedon Cellular Decomposition nach #citep(<chosetCoveragePathPlanning1998>)]
+  caption: [Boustrophedon Cellular Decomposition. Adaptiert von _Coverage Path Planning: The Boustrophedon Cellular Decomposition_ von #citep(<chosetCoveragePathPlanning1998>)]
 )<fig:boustrophedon>
 
 Überträgt man dieses Prinzip auf den vorliegenden Anwendungsfall, ergeben sich einige Analogien und Vereinfachungen. So ist für vertikale und horizontale Streben ein Scannen in beide Richtungen erforderlich, um eine geeignete Zellteilung zu finden. Ebenfalls wird die Tür immer als rechteckig mit den Seiten parallel zu den Seiten der Wand angenommen. Somit reicht in horizontaler Scanrichtung, also für vertikale Streben, die Aufspaltung in die drei Teilbereiche links und rechts sowie innerhalb der Tür. In vertikaler Richtung sind ebenfalls drei Teilbereiche nötig, um den Bereich oberhalb der Tür sowie die beiden Bereiche links und rechts neben der Tür abzubilden. In @fig:route-cells sind die resultierenden Teilrouten in den Bereichen an einem Beispiel dargestellt. 
@@ -125,7 +125,7 @@ $ forall v_i in p_x: v_(i-1, (x)) < v_(i, (x)) $
 und für $p_y in {L H, R H, T H}, p_y = (v_1, ..., v_k)$
 $ forall v_i in p_y: v_(i-1, (y)) < v_(i, (y)) $
 
-Hinzu kommen die in @sec:ue-place-implementation platzierten optionalen @UE:pl:long in den Ecken der Wand und Tür, welche in @fig:fully-placed-ue-wall in Grün dargestellt sind. Da sie eine Brücke aus einem einzigen @UE zwischen den Teilrouten bilden, können sie ebenfalls als eigene Teilroute $O = {v | v "in Ecke der Wand"}$ mit $|O| = 1$ angesehen werden und zu $P'_V$ hinzugefügt werden. Somit ergibt sich $P''_V$ zu 
+Hinzu kommen die in @sec:ue-place-implementation platzierten optionalen @UE:pl:long in den Ecken der Wand und Tür, welche in @fig:fully-placed-ue-wall in Grün dargestellt sind. Da sie eine Brücke aus einem einzigen @UE zwischen den Teilrouten bilden, können sie ebenfalls als eigene Teilroute $O = {v | v "in Ecke der Wand"}$ mit $|O| = 1$ angesehen werden und zu $P'_V$ hinzugefügt werden. In @fig:route-cells ist im rechten Bild das zu dieser Teilroute gehörige @UE 46 markiert. Somit ergibt sich $P''_V$ zu 
 $ P''_V = P'_V union { O } $
 Durch diese Modellierung ist zwar nur jeweils ein optionales @UE darstellbar, jedoch kann somit die Größe des Lösungsraums erheblich eingeschränkt werden, da sich somit die Anzahl möglicher Permutationen lediglich versechsfacht. 
 
@@ -278,13 +278,13 @@ Die Ergebnisse der Testläufe sind in @tab:bruteforce-puzzle-res zusammengefasst
     $w_3$, [$183$], [$4905$], [1],
     $w_4$, [$201$], [$5798$], [1],
   ),
-  caption: [Ergebnisse optimiertes Brute Force (eigene Darstellung)]
+  caption: [Ergebnisse optimiertes Brute-Force (eigene Darstellung)]
 ) <tab:bruteforce-puzzle-res>
 
 Es ist zu sehen, dass in allen Fällen das globale Optimum gefunden wird. Dabei dauert die Berechnung des Ergebnisses der großen Wände mit ca. fünf bis sechs Sekunden in etwa doppelt so lang wie bei den kleinen Wänden mit ca. zwei Sekunden. Außerdem ist zu sehen, dass signifikant weniger Lösungen der großen Wände unterhalb der Kostengrenze liegen, als bei den kleinen Wänden.   
 
 === Nachbearbeitung <sec:route-postprocessing>
-Nachdem durch obige Methoden eine Abfolge von Teilrouten erzeugt wurde, kann diese noch nicht direkt auf eine punktbasierte Route abgebildet werden. Wie bereits erwähnt, kann aus einer Reihenfolge und Richtung der abzufahrenden Teilrouten die gesamte Route berechnet werden, indem die jeweiligen @UE:pl verkettet werden. Unter bestimmten Bedingungen kann diese bloße Verkettung allerdings dazu führen, dass ungültige bzw. schlecht bewertete Routen entstehen, obwohl es eine einfache Lösung für diese Spezialfälle geben könnte. Das passiert unter anderem in dem in @fig:sonderstelle-left-door-corner abgebildeten Fall einer Sonderstelle in der unteren Ecke der Tür. Wird in solch einer Wandkonfiguration eine Route bewertet, bei denen die Teilrouten $L V circle.small T V$ bzw. $T V^R circle.small L V^R$ aufeinander folgen, geht eine negative Bewertung der ignorierten Sonderstelle in die Betrachtung ein. Die Verkettung ergäbe in diesem Fall eine Kante zwischen $a$ und $b$ sowie zwischen $b$ und $c$, ohne einen Zwischenschritt über $x$.
+Nachdem durch obige Methoden eine Abfolge von Teilrouten erzeugt wurde, kann diese noch nicht direkt auf eine punktbasierte Route abgebildet werden. Wie bereits erwähnt, kann aus einer Reihenfolge und Richtung der abzufahrenden Teilrouten die gesamte Route berechnet werden, indem die jeweiligen @UE:pl verkettet werden. Unter bestimmten Bedingungen kann diese bloße Verkettung allerdings dazu führen, dass ungültige bzw. schlecht bewertete Routen entstehen, obwohl es eine einfache Lösung für diese Spezialfälle geben könnte. Das passiert unter anderem in dem in @fig:sonderstelle-left-door-corner abgebildeten Fall einer Sonderstelle in der unteren Ecke der Tür. Wird in solch einer Wandkonfiguration eine Route bewertet, bei der die Teilrouten $L V circle.small T V$ bzw. $T V^R circle.small L V^R$ aufeinander folgen, geht eine negative Bewertung der ignorierten Sonderstelle in die Betrachtung ein. Die Verkettung ergäbe in diesem Fall eine Kante zwischen $a$ und $b$ sowie zwischen $b$ und $c$, ohne einen Zwischenschritt über $x$.
 
 Ebenfalls muss der Knoten auf Höhe $v_((y))= ty1-1$ am Anfang bzw. am Ende der Route eingefügt werden, falls sie an einem @UE auf Höhe $y=tx1$ beginnt bzw. endet. Andernfalls würde in solchen Fällen die strukturell notwendige, horizontale Strebe oberhalb der Tür nicht durch die bloße Verkettung der Teilrouten entstehen.  
 

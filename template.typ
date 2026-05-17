@@ -68,6 +68,7 @@
   thema: [Titel ihrer Arbeit],
   datum: [tt. mm. jjjj],
   thesis: "bsc",
+  signature: [],
 ) = {
   set page(margin: 3cm)
   set heading(numbering: none)
@@ -76,8 +77,15 @@
   let arbeit = if thesis == "bsc" [Bachelorabeit] else [Masterarbeit]
   [
     Hiermit erkläre ich, dass ich die eingereichte #arbeit zum Thema _#thema _ selbstständig erarbeitet, verfasst und Zitate kenntlich gemacht habe. Andere als die angegebenen Hilfsmittel wurden von mir nicht benutzt.
-    #v(2cm)
-    Leipzig, #datum #h(1fr) Unterschrift
+    #grid(
+      columns: (auto,1fr,auto),
+      row-gutter: 10pt,
+      [],[],
+      signature,
+      [Leipzig, #datum],
+      [],
+      [Unterschrift]
+    )
   ]
 }
 
@@ -104,6 +112,7 @@
   studiengang: [Mathematik oder Technomathematik oder Wirtschaftsmathematik],
   use-default-math-env: true,
   zusammenfassung: [Zusammenfassung Ihrer Arbeit],
+  signature: [],
   body,
 ) = {
   set page(
@@ -222,6 +231,7 @@
     thema: thema,
     datum: datum,
     thesis: abschluss,
+    signature: signature
   )
 
   outline(indent: 1.2em)

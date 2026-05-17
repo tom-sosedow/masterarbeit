@@ -14,6 +14,7 @@
   studiengang: [Informatik],
   fakultaet: [Fakultät Informatik und Medien],
   use-default-math-env: true,
+  signature: image("assets/unterschrift.jpg", width: 80pt),
   zusammenfassung: abstract
 )
 
