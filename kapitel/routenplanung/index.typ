@@ -4,10 +4,6 @@
 #import "/data/largeplots.typ": *
 #import "@preview/cetz:0.4.2"
 
-// #import "@preview/algorithmic:1.0.7"
-// #import algorithmic: style-algorithm, algorithm-figure
-// #show: style-algorithm
-
 = Routenplanung <sec:routenplanung>
 Zur Erzeugung einer gleichmäßigen Gitterstruktur mit dem Carbongarn werden die in @sec:ue-place positionierten @UE durch einen Roboterarm sequenziell umfahren, um das Garn unter Spannung abzulegen. Bevor der hierfür erforderliche Bewegungsablauf berechnet werden kann, ist zunächst zu klären, in welcher Reihenfolge die einzelnen @UE angefahren werden sollen.
 

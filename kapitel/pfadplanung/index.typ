@@ -1,7 +1,7 @@
 #import "/util.typ": *
 #import "@preview/cetz:0.4.2"
 
-= Pfadplanung für Roboterarm <sec:path-finding>
+= Pfadplanung für den Roboterarm <sec:path-finding>
 
 Nachdem die Reihenfolge der anzufahrenden @UE:pl:long festgelegt wurde, ist im nächsten Schritt der konkrete Bewegungspfad des Roboterarms zu bestimmen. Ziel ist es dabei, das aus dem am Roboter montierten Werkzeug austretende Carbongarn so zu führen, dass es zuverlässig an den @UE:pl haftet und zugleich die gewünschte gleichmäßige Gitterstruktur entsteht.
 

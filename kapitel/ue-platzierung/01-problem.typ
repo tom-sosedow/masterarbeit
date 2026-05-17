@@ -96,7 +96,7 @@ Dadurch verschieben sich die Grenzen für die Platzierung der @UE. Als Ankerpunk
     content((0,-1.5), text(fill:green)[$y$])
 
   }),
-  caption: [Veranschaulichung der Modellierung für die Platzierung von UE an diskreten Positionen. (eigene Darstellung)]
+  caption: [Veranschaulichung der Modellierung für die Platzierung von UE an diskreten Positionen (eigene Darstellung)]
 )<fig:input-dimensions>
 
 // Math. Modell
@@ -148,65 +148,62 @@ In @fig:ue-place-model (a) ist der Sachverhalt aus @eq:rollen-platzierung-vertik
 #figure(
   grid(
     columns: 2,
-    gutter: 10%,
-    [
-      #cetz.canvas({
-        import cetz.draw: *
-        let d = 4
-        let darkgray = luma(120)
-        set-style(radius: (r,r))
+    column-gutter: 10%,
+    row-gutter: 2%,
+    cetz.canvas({
+      import cetz.draw: *
+      let d = 4
+      let darkgray = luma(120)
+      set-style(radius: (r,r))
 
-        circle((0, 0))
-        circle((d, 2*r))
-        circle((0, 4*r))
+      circle((0, 0))
+      circle((d, 2*r))
+      circle((0, 4*r))
 
-        content((0, 7*r), [$x_1$])
-        line((0,-2*r), (0,6*r), stroke: (dash: "dashed", paint: darkgray))
-    
-        content((-2, 4*r), [$y-1$])
-        line((-1,4*r), (d+1,4*r), stroke: (dash: "dashed", paint: darkgray))
-        
-        content((-2, 0), [$y+1$])
-        line((-1,0), (d+1,0), stroke: (dash: "dashed", paint: darkgray))
-    
-        content((-2, 2*r), [$y$])
-        line((-1,2*r), (d+1,2*r), stroke: (dash: "dashed", paint: darkgray))
-        
-        content((d, 7*r), [$x_2$])
-        line((d,-2*r), (d,6*r), stroke: (dash: "dashed", paint: darkgray))
-    
-        content((-0.4, 2.5*r), text(fill: red, size: 14pt)[$d$])
-        line((0,1*r), (0,3*r), stroke: (paint: red), mark: (end: "|", start: "|"))
-      })
-      (a) 
-    ],
-    [
-      #cetz.canvas({
-        import cetz.draw: *
-        
-        let d = 4
-        let darkgray = luma(120)
-        set-style(radius: (r,r))
-        
-        circle((2*r, 2*r))
-        circle((2*r, 6*r))
-        circle((0*r, 0*r))
-        circle((-4*r, 0*r))
+      content((0, 7*r), [$x_1$])
+      line((0,-2*r), (0,6*r), stroke: (dash: "dashed", paint: darkgray))
+  
+      content((-2, 4*r), [$y-1$])
+      line((-1,4*r), (d+1,4*r), stroke: (dash: "dashed", paint: darkgray))
+      
+      content((-2, 0), [$y+1$])
+      line((-1,0), (d+1,0), stroke: (dash: "dashed", paint: darkgray))
+  
+      content((-2, 2*r), [$y$])
+      line((-1,2*r), (d+1,2*r), stroke: (dash: "dashed", paint: darkgray))
+      
+      content((d, 7*r), [$x_2$])
+      line((d,-2*r), (d,6*r), stroke: (dash: "dashed", paint: darkgray))
+  
+      content((-0.4, 2.5*r), text(fill: red, size: 14pt)[$d$])
+      line((0,1*r), (0,3*r), stroke: (paint: red), mark: (end: "|", start: "|"))
+    }),
+    cetz.canvas({
+      import cetz.draw: *
+      
+      let d = 4
+      let darkgray = luma(120)
+      set-style(radius: (r,r))
+      
+      circle((2*r, 2*r))
+      circle((2*r, 6*r))
+      circle((0*r, 0*r))
+      circle((-4*r, 0*r))
 
-        content((-10*r, 0*r), [$y=ymax$])
-        line((-6*r, 0*r), (4*r, 0*r), stroke: (dash: "dashed", paint: darkgray))
-        content((2*r, 9*r), [$x=xmax$])
-        line((2*r, 8*r), (2*r, -2*r), stroke: (dash: "dashed", paint: darkgray))
+      content((-8*r, 0*r), [$y=ymax$])
+      line((-6*r, 0*r), (4*r, 0*r), stroke: (dash: "dashed", paint: darkgray))
+      content((2*r, 9*r), [$x=xmax$])
+      line((2*r, 8*r), (2*r, -2*r), stroke: (dash: "dashed", paint: darkgray))
 
-        line((-6*r, -2*r), (4*r, -2*r))
-        line((4*r, 8*r), (4*r, -2*r))
+      line((-6*r, -2*r), (4*r, -2*r))
+      line((4*r, 8*r), (4*r, -2*r))
 
-        // padding
-        line((3*r, 6*r),(4*r, 6*r), stroke: (paint: red), mark: (end: "|", start: "|"))
-        content((5*r, 6*r), text(fill: red, size: 14pt)[$p$])
-      })
-      (b) 
-    ]
+      // padding
+      line((3*r, 6*r),(4*r, 6*r), stroke: (paint: red), mark: (end: "|", start: "|"))
+      content((5*r, 6*r), text(fill: red, size: 14pt)[$p$])
+    }),
+    [(a)],
+    [(b)] 
   ),
   caption: [Veranschaulichung des Modells. Bezeichnungen in Rot stellen Werte in Millimetern dar. (a) Abstand zwischen den UE, (b) Sonderstelle in unterer rechter Ecke der Wand mit Padding $p=r$ (eigene Darstellung)],
 ) <fig:ue-place-model>

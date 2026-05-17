@@ -5,16 +5,22 @@
 = Einleitung
 
 == Motivation
+// Beton u. CO2
 Beton zählt zu den wichtigsten und am weitesten verbreiteten Baustoffen im modernen Wohnungsbau. Schätzungen zufolge werden weltweit jährlich etwa 15 bis 20 Milliarden Kubikmeter Beton verbaut @kaufmannUmweltfreundlicheBetonbauten2021. Dabei dominiert Stahlbeton, bei dem die hohe Zugfestigkeit von Stahl mit der Druckfestigkeit von Beton kombiniert wird @tietzeEcologicalEconomicAdvantages2022. Für die Herstellung von Beton werden jährlich rund 4,2 Milliarden Tonnen Zement als Bindemittel benötigt. Dies führt dazu, dass die Zementproduktion etwa 5 bis 8 % der globalen Treibhausgasemissionen verursacht und damit stärker ins Gewicht fällt als jeder andere Werkstoff @tietzeZurWirtschaftlichenWertschoepfungskette2025.
 
+// Stahlbeton noch mehr CO2
 Hinzu kommt, dass bei Stahlbeton mehr Beton eingesetzt werden muss, als für die reine Tragfähigkeit erforderlich wäre. Dies dient primär dem Schutz der innenliegenden Stahlbewehrung vor Korrosion und Witterungseinflüssen. Neben den dadurch erhöhten $"CO"_2$-Emissionen kommt es auch zu einer begrenzten Lebensdauer von Stahlbetonbauwerken, welche oftmals bereits nach wenigen Jahrzehnten strukturelle Schäden aufweisen @angstChallengesOpportunitiesCorrosion2018.
 
+// Vorteile Carbonbeton
 Textile Bewehrungen sind Alternativen, welche die Rolle der Stahlstreben aus traditionellem Stahlbeton übernehmen. Ein Beispiel hierfür sind Carbonbewehrungen aus Carbonfasern, welche eine bis zu 8-mal höhere Zugfestigkeit als Stahl aufweisen @biermannNachhaltigkeitDurchBeton2026. Da diese Materialien nicht rosten, ergeben sich mehrere Vorteile. Zum einen ermöglichen sie leichtere und gleichzeitig tragfähigere Bauteile, wodurch der Betonbedarf reduziert und somit auch die $"CO"_2$-Emissionen gesenkt werden können. Zum anderen kann die Carbonatisierung, also die Reaktion von Kohlendioxid aus der Umgebungsluft mit den Bestandteilen des Zements, gezielt als Vorteil genutzt werden. Während dieser Prozess bei Stahlbeton aufgrund der Absenkung des alkalischen Milieus zur Korrosion der Bewehrung führt, kann er bei Carbonbewehrung zur dauerhaften Speicherung von Kohlendioxid im Material eingesetzt werden und somit die Umweltbilanz verbessern @biermannNachhaltigkeitDurchBeton2026 @tietzeEcologicalEconomicAdvantages2022.
 
-Analog zu klassischen Stahlbewehrungen soll auch das Carbongarn innerhalb des Betons eine Gitterstruktur bilden, um Zugkräfte sowohl in horizontaler als auch in vertikaler Richtung aufzunehmen. Die automatisierte Herstellung solcher Carbonstrukturen ist eine wesentliche Voraussetzung für die industrielle Skalierung und breite Anwendung von Carbonbeton, wobei gleichzeitig hohe Anforderungen an Qualität und Wirtschaftlichkeit bedient werden sollen.
+// Gitterstruktur, industrielle Produktion
+Analog zur klassischen Stahlbewehrung soll auch das Carbongarn innerhalb des Betons eine Gitterstruktur bilden, um Zugkräfte sowohl in horizontaler als auch in vertikaler Richtung aufzunehmen. Die automatisierte Herstellung solcher Carbonstrukturen ist eine wesentliche Voraussetzung für die industrielle Skalierung und breite Anwendung von Carbonbeton, wobei gleichzeitig hohe Anforderungen an Qualität und Wirtschaftlichkeit bedient werden sollen.
 
+// CBT und dessen Ziele
 Vor diesem Hintergrund wurde im Jahr 2022 das @CBT als Modellfabrik für Forschung und Entwicklung in Betrieb genommen. Ziel der dortigen Forschungsgruppe ist es, die gesamte Prozesskette, also von der Herstellung der Carbonbewehrung bis zur Aushärtung des Betons, im Hinblick auf eine industrielle, ressourcenschonende und nachhaltige Umsetzung zu untersuchen. Dazu gehört insbesondere, das Carbongelege mit minimaler Materialverschwendung vollautomatisiert herzustellen.
 
+// CBT aktuelles Verfahren: Robi + Garnablage in einem Zug
 Im aktuellen Verfahren erfolgt die Herstellung der Carbonbewehrung durch einen Roboterarm, welcher das Carbongarn auf einem speziell konzipierten Rahmen verlegt und es unmittelbar vorher in Epoxidharz tränkt. Danach wird es durch einen Roboterarm um an den Rändern positionierte zylindrische @UE:pl geführt. Durch eine speziell gewählte Folge von Bewegungen entsteht somit in einem Zug die gewünschte Bewehrungsmatte. Anschließend wird das gesamte Konstrukt über bewegliche Tische in einen Ofen gefahren, in dem das Harz aushärtet und somit die einzelnen Carbonstränge miteinander verbunden werden. Ein Beispiel für die somit entstehende Bewehrungsmatte ist in @fig:carbongitter dargestellt.
 
 #figure(
@@ -28,9 +34,10 @@ Im aktuellen Verfahren erfolgt die Herstellung der Carbonbewehrung durch einen R
     [(b)],
     [],[]
   ),
-  caption: [Bewehrungsmatte aus Carbongarn. Nach dem Verlegen durch den Roboter um die Umlenkelemente (a) und eingegossen in einer Betonwand für Demonstrationszwecke (b)  (eigene Darstellung)]
+  caption: [Bewehrungsmatte aus Carbongarn nach dem Verlegen durch den Roboter um die Umlenkelemente (a) und eingegossen in einer Betonwand zu Demonstrationszwecken (b)  (eigene Darstellung)]
 )<fig:carbongitter>
 
+// Problem: Einfache Wände gut, mit Tür nicht so gut
 Für einfache Wände ist die Berechnung der erforderlichen Bewegungsabläufe des Roboters vergleichsweise unkompliziert und entsprechende automatisierte Lösungen sind bereits seit mehreren Jahren im Einsatz. Deutlich komplexer gestaltet sich hingegen die Planung für Wände mit Aussparungen, wie beispielsweise Türen oder Fenster. Insbesondere die Anforderung, das Garn in einem Zug ohne Absetzen, Schnitte oder jegliche weiteren manuellen Eingriffe abzulegen, während parallel dazu minimaler Materialaufwand gefordert ist, stellt eine besondere Herausforderung dar. Die Entwicklung robuster automatisierter Verfahren für solche Wände ist eine zentrale Voraussetzung, um den Einsatz von Carbonbeton im Wohnungsbau industriell zu skalieren.
 
 == Ziele

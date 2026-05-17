@@ -77,7 +77,7 @@ Um die Ergebnisse vergleichbar zu machen, werden vier verschiedene Wandkonfigura
     $w_3$, [210], [105], [70], [50], [75], [0], [75],
     $w_4$, [215], [110], [75], [50], [80], [0], [77]
   ),
-  caption: [Maße der Wandkonfigurationen für die Testläufe (Maßangaben in Zentimetern).  (eigene Darstellung)]
+  caption: [Maße der Wandkonfigurationen für die Testläufe (Maßangaben in Zentimetern; eigene Darstellung)]
 )<fig:wandkonfigurationen-tabelle>
 
 // Seeds

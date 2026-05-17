@@ -8,7 +8,7 @@ Ebenfalls wurde Wand 5 aus @appendix:wandkonfigurationen im @CBT in kleineren Di
 
 #figure(
   image("/images/pfadbeispiel.png", width: 110%),
-  caption: [Pfad $p$ des Roboters in einer kleinen Wandkonfiguration $w_4$ aus @sec:routenplanung. Route beginnt bei UE 61 und endet bei UE 27. In Rot dargestellt sind die Punkte, die zur Kollisionsvermeidung auf einer höheren Ebene platziert werden, sowie in halbtransparentem Rot die Approximation des Gittermusters zur Bestimmung dieser Punkte.  (eigene Darstellung)]
+  caption: [Pfad $p$ des Roboters in einer kleinen Wandkonfiguration $w_4$ aus @sec:routenplanung. Route beginnt bei UE 61 und endet bei UE 27. In Rot dargestellt sind die Punkte, die zur Kollisionsvermeidung auf einer höheren Ebene platziert werden, sowie in halbtransparentem Rot die Approximation des Gittermusters zur Bestimmung dieser Punkte (eigene Darstellung)]
 )<fig:beispielpfad>
 
 Die Pfade werden insgesamt überwiegend zuverlässig bestimmt. Bei Nutzung der Invertierungsstrategie, wie in @sec:path-direction dargestellt, kommt es bei manchen Routen zu fehlerhaften Teilabschnitten, wodurch sie ähnlich zu dem in @fig:pfad-zu-muster (b) gezeigten Pfad verlaufen. Grund hierfür ist immer eine falsche Berechnung der anfänglichen Umlaufrichtung bei einem Wechsel der Hauptrichtung.
@@ -32,5 +32,5 @@ Abschließend ist festzustellen, dass das Vorgehen mit vertikalem Versatz des We
 
 #figure(
   image("/images/strebe-abrutschen-vert-versatz.jpg"),
-  caption: [Garnstrebe, die durch den vertikalen Versatz des Werkzeuges zu weit nach oben abgerutscht ist und daher keinen Kontakt mit anderen Streben hat.  (eigene Darstellung)]
+  caption: [Garnstrebe, die durch den vertikalen Versatz des Werkzeuges zu weit nach oben abgerutscht ist und daher keinen Kontakt mit anderen Streben hat (eigene Darstellung)]
 )<fig:strebe-abrutschen-vert-versatz>

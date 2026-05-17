@@ -64,7 +64,7 @@ Ein Großteil dieser Kollisionen lässt sich durch die Verwendung vollständiger
       circle(point, radius: 0.2, stroke: (paint: green))
     }
   }),
-  caption: [Vollständige Umlenkung zur Vermeidung einer Kollision mit einem Umlenkelement. In Grün dargestellt der Roboterpfad und in Blau die resultierende Garnstruktur (eigene Darstellung)]
+  caption: [Vollständige Umlenkung zur Vermeidung einer Kollision mit einem Umlenkelement. In Grün dargestellt ist der Roboterpfad und in Blau die resultierende Garnstruktur (eigene Darstellung)]
 )<fig:volle-umlenkungen>
 
 // Weitere Kollisionen erkennen und beheben
@@ -143,7 +143,7 @@ Um sichergestellt alle Kollisionen beheben zu können, kann zusätzlich der Ansa
     [(b)],
     [],[]
   ),
-  caption: [Iterative Kollisionserkennung nach #citep(<morris-hillBuildingStringArt2023>) mit zwei Iterationen. In Iteration (a) wird die Kollision mit UE x behoben, da der rote Teil des Pfades des Roboters den roten Kreis mit dem Sicherheitsradius von x schneidet. Danach besteht noch die Kollision mit UE y, welche in Iteration (b) auf gleiche Weise behoben wird.  (eigene Darstellung)]
+  caption: [Iterative Kollisionserkennung nach #citep(<morris-hillBuildingStringArt2023>) mit zwei Iterationen. In Iteration (a) wird die Kollision mit UE x behoben, da der rote Teil des Pfades des Roboters den roten Kreis mit dem Sicherheitsradius von x schneidet. Danach wird die Kollision mit UE y auf die gleiche Weise in Iteration (b) behoben (eigene Darstellung)]
 )<fig:morris-kollisionsvermeidung>
 
 // Kollisionen mit bereits gelegtem Garn

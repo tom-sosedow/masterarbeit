@@ -78,7 +78,7 @@ Dafür werden zunächst die @UE an den vertikal verlaufenden Seiten der Tür und
     ),
 
   ),
-  caption: [Algorithmus zur Platzierung der UE an den vertikalen Seiten der Wand und resultierende Positionen und Berechnungsreihenfolge. (eigene Darstellung)]
+  caption: [Algorithmus zur Platzierung der UE an den vertikalen Seiten der Wand und resultierende Positionen und Berechnungsreihenfolge (eigene Darstellung)]
 )<fig:ue-place-step-1>
 
 
@@ -105,7 +105,7 @@ Danach sind die @UE:pl an allen vertikal verlaufenden Seiten korrekt platziert. 
     line((0,1), (0,-4))
     line((-6,9),(12,9))
   }),
-  caption: [Valide Positionen (Grün) und unzulässige Positionen (Rot) von UE an der Oberkante der Tür, basierend auf dem obersten Seitenelement (Blau). Die daraus resultierenden UE an der Oberseite der Wand sind grau markiert. (eigene Darstellung)]
+  caption: [Valide Positionen (Grün) und unzulässige Positionen (Rot) von UE an der Oberkante der Tür, basierend auf dem obersten Seitenelement (Blau). Die daraus resultierenden UE an der Oberseite der Wand sind grau markiert (eigene Darstellung)]
 )<fig:oberkante-türausschnitt>
 
 
@@ -215,7 +215,7 @@ Im zweiten Schritt des Algorithmus kann dann $omega$ genutzt werden, um bei der 
     ),
 
   ),
-  caption: [Algorithmus zur Platzierung der UE an den horizontalen Seiten der Wand und resultierende Positionen und Berechnungsreihenfolge. (eigene Darstellung)]
+  caption: [Algorithmus zur Platzierung der UE an den horizontalen Seiten der Wand und resultierende Positionen und Berechnungsreihenfolge (eigene Darstellung)]
 )<fig:ue-place-step-2>
 
 In den ersten 15 Zeilen werden dabei Hilfsvariablen angelegt, um unter anderem die Seite des in @fig:ue-place-step-2 rot markierten @UE zu bestimmen oder zu prüfen, ob der Türausschnitt eine gerade Anzahl an @UE breit ist. In Zeile 17 wird der Spaltenindex berechnet, an dem das am weitesten links stehende @UE an der Oberseite der Wand liegen muss. Basierend darauf muss die y-Komponente der übrigen @UE:pl an den horizontalen Seiten angepasst werden. Diese wird innerhalb der Schleife in den Zeilen 20 bis 26 berechnet. Danach steht die Koordinate des zu platzierenden @UE fest. Bevor es zur Menge der Knoten hinzugefügt werden kann, muss allerdings sichergestellt sein, dass in der jeweiligen Spalte kein @UE in der Zeile darunter durch #text(font: "FreeMono", weight: "thin", size: 11pt)[PlaceVertGE] platziert wurde. In @fig:ue-place-step-2 ist dieses Element rot markiert und verhindert somit, dass bei $(tx2,ty1)$ ein @UE platziert wird, da sonst eine Art Sonderstelle entstehen würde.
