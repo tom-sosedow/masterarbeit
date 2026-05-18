@@ -21,14 +21,14 @@ Analog zur klassischen Stahlbewehrung soll auch das Carbongarn innerhalb des Bet
 Vor diesem Hintergrund wurde im Jahr 2022 das @CBT als Modellfabrik für Forschung und Entwicklung in Betrieb genommen. Ziel der dortigen Forschungsgruppe ist es, die gesamte Prozesskette, also von der Herstellung der Carbonbewehrung bis zur Aushärtung des Betons, im Hinblick auf eine industrielle, ressourcenschonende und nachhaltige Umsetzung zu untersuchen. Dazu gehört insbesondere, das Carbongelege mit minimaler Materialverschwendung vollautomatisiert herzustellen.
 
 // CBT aktuelles Verfahren: Robi + Garnablage in einem Zug
-Im aktuellen Verfahren erfolgt die Herstellung der Carbonbewehrung durch einen Roboterarm, welcher das Carbongarn auf einem speziell konzipierten Rahmen verlegt und es unmittelbar vorher in Epoxidharz tränkt. Danach wird es durch einen Roboterarm um an den Rändern positionierte zylindrische @UE:pl geführt. Durch eine speziell gewählte Folge von Bewegungen entsteht somit in einem Zug die gewünschte Bewehrungsmatte. Anschließend wird das gesamte Konstrukt über bewegliche Tische in einen Ofen gefahren, in dem das Harz aushärtet und somit die einzelnen Carbonstränge miteinander verbunden werden. Ein Beispiel für die somit entstehende Bewehrungsmatte ist in @fig:carbongitter dargestellt.
+Im aktuellen Verfahren erfolgt die Herstellung der Carbonbewehrung durch einen programmierbaren Roboterarm. Dieser tränkt das Carbongarn unmittelbar vor dem Verlegen in Epoxidharz und führt es dann um an den Rändern der Wand positionierte zylindrische @UE:pl herum. Durch eine speziell gewählte Folge von Bewegungen entsteht somit in einem Zug die gewünschte Bewehrungsmatte. Anschließend wird das gesamte Konstrukt bestehend aus dem Garn und den @UE:pl über bewegliche Tische in einen Ofen gefahren, in dem das Harz aushärtet und somit die einzelnen Carbonstränge miteinander verbunden werden. Ein Beispiel für die somit entstehende Bewehrungsmatte ist in @fig:carbongitter dargestellt.
 
 #figure(
   grid(
     columns: (auto,auto),
     row-gutter: 2%,
     column-gutter: 8%,
-    image("/images/carbongitter.JPG", height: 240pt),
+    image("/images/carbongitter2.jpg", height: 240pt),
     image("/images/carbongitter-in-wand.jpg", height: 240pt),
     [(a)],
     [(b)],
@@ -38,7 +38,7 @@ Im aktuellen Verfahren erfolgt die Herstellung der Carbonbewehrung durch einen R
 )<fig:carbongitter>
 
 // Problem: Einfache Wände gut, mit Tür nicht so gut
-Für einfache Wände ist die Berechnung der erforderlichen Bewegungsabläufe des Roboters vergleichsweise unkompliziert und entsprechende automatisierte Lösungen sind bereits seit mehreren Jahren im Einsatz. Deutlich komplexer gestaltet sich hingegen die Planung für Wände mit Aussparungen, wie beispielsweise Türen oder Fenster. Insbesondere die Anforderung, das Garn in einem Zug ohne Absetzen, Schnitte oder jegliche weiteren manuellen Eingriffe abzulegen, während parallel dazu minimaler Materialaufwand gefordert ist, stellt eine besondere Herausforderung dar. Die Entwicklung robuster automatisierter Verfahren für solche Wände ist eine zentrale Voraussetzung, um den Einsatz von Carbonbeton im Wohnungsbau industriell zu skalieren.
+Für einfache Wände ist die Berechnung der erforderlichen Bewegungsabläufe des Roboters für gegebene Wandmaße vergleichsweise unkompliziert und entsprechende automatisierte Lösungen sind bereits seit mehreren Jahren im Einsatz. Deutlich komplexer gestaltet sich hingegen die Planung für Wände mit Aussparungen, wie beispielsweise Türen oder Fenster. Insbesondere die Anforderung, das Garn in einem Zug ohne Absetzen, Schnitte oder jegliche weiteren manuellen Eingriffe abzulegen, während parallel dazu minimaler Materialaufwand gefordert ist, stellt eine besondere Herausforderung dar. Die Entwicklung robuster automatisierter Verfahren für solche Wände ist eine zentrale Voraussetzung, um den Einsatz von Carbonbeton im Wohnungsbau industriell zu skalieren.
 
 == Ziele
 Um im @CBT und letztendlich in folgenden industriellen Produktionsstätten die automatisierte Produktion von Carbonbetonwänden mit Aussparungen für den Wohnungsbau zu ermöglichen, müssen Methoden zur Pfadbestimmung für den Roboterarm unter den gegebenen Rahmenbedingungen und prozessspezifischen Anforderungen erforscht werden. Zu den Anforderungen zählt insbesondere, dass das Carbongarn in einem Zug ohne Absetzen oder Schnitte verlegt werden soll, wobei ebenfalls die Menge des nötigen Carbongarns zu minimieren ist. Streben, die von dem Gittermuster abweichen oder für die strukturelle Integrität der Wand nicht benötigt werden, sind deshalb zu vermeiden. 
@@ -52,19 +52,19 @@ Zu diesem Zweck wird das Problem in drei aufeinander aufbauende Teilprobleme auf
     let color = aqua.transparentize(20%)
     line((0,0), (0,2), (3,2),(5,1),(3,0), close: true, fill: color)
     content((2,1), text(font: "Liberation Sans")[Platzierung der\ Umlenkelemente])
-    content((1.5,-2.5), image("/images/step-1-rolls.png", width: 130pt))
+    content((2,-2.5), image("/images/step-1-rolls.png", width: 130pt))
 
     translate((4,0))
-    line((-0.1,-2.5),(0.5,-2.5), mark: (end: ">"))
+    line((0.4,-2.5),(1,-2.5), mark: (end: ">"))
     line((0,0), (2,1), (0,2), (4,2),(6,1),(4,0), close: true, fill: color)
     content((3.3,1), text(font: "Liberation Sans")[Planung der\ Route])
-    content((2.9,-2.5), image("/images/step-2-route.png", width: 130pt))
+    content((3.4,-2.5), image("/images/step-2-route.png", width: 130pt))
 
     translate((5,0))
     line((0,0), (2,1), (0,2), (6,2),(6,0), close: true, fill: color)
     content((3.9,1), text(font: "Liberation Sans")[Planung des Pfades\ durch Wegpunkte])
-    content((3.2,-2.5), image("/images/step-3-path.png", width: 130pt))
-    line((0.3,-2.5),(0.9,-2.5), mark: (end: ">"))
+    content((3.7,-2.5), image("/images/step-3-path.png", width: 130pt))
+    line((0.8,-2.5),(1.4,-2.5), mark: (end: ">"))
   }),
   caption: [Konzeptionelle Schritte, um für ein gegebenes Wandmaß einen Roboterpfad zu berechnen, welcher eine gleichmäßige Carbonbewehrung erzeugt (eigene Darstellung)]
 )<fig:overall-steps>

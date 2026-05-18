@@ -107,6 +107,7 @@ $ A subset {(x,y) in NN_0^2 | 0 <= x <= xmax, 0 <= y <= ymax} $
 modelliert werden, wobei mit $xmax = floor(w_b / d)$ und $ymax = floor(w_h / d)$ eine Rasterung der Echtwelt-Koordinaten vollzogen wird. Eine Einheit im Modell beträgt also $d$ Millimeter in der echten Welt. Die Umrechnung von Koordinaten im Modell zu Koordinaten in Millimetern in der Realität erfolgt durch die Abbildung
 $ (x,y) in NN^2_0 |-> (x*d + r + p, y*d + r + p) $
 
+\
 Der Türausschnitt wird durch ein Koordinatentupel der oberen linken Ecke 
 $ t_1 = (tx1, ty1) = (floor(t_x/d), ymax - ceil(t_h/d)) $ 
 sowie der unteren rechten Ecke 

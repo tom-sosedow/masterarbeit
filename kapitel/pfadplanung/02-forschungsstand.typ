@@ -4,7 +4,7 @@
 == Stand der Forschung
 
 Zur Bestimmung der Wegpunkte $a,b,c$ beziehungsweise $d,e,f$ aus @fig:pfad-zu-muster wird im aktuellen Ansatz des @CBT derzeit die Sonderstelle als Referenz für die Art der Umlenkung herangezogen. Da im bestehenden Verfahren zuerst alle vertikalen Streben verlegt werden, ergibt sich eine vergleichsweise einfache Bestimmung der Wegpunkte. Der erste und letzte Wegpunkt liegen jeweils auf der Höhe des entsprechenden Umlenkelements, sind jedoch um jeweils einen Durchmesser nach links beziehungsweise rechts versetzt. Der mittlere Wegpunkt ($b$ bzw. $e$) befindet sich hingegen auf dem gleichen x-Wert wie das Umlenkelement und ist alternierend um einen Durchmesser nach oben oder unten versetzt.
-Für ein @UE $Q=(x,y,i) in V$ an der Ober- bzw. Unterseite der Wand ergeben sich damit die folgenden Wegpunkte
+Für ein @UE $Q=(x,y,i) in V$ an der Ober- bzw. Unterseite der Wand ergeben sich damit die folgenden Wegpunkte:
 $ 
 a = (x-1,y,0) \
 c = (x+1, y,0) \
